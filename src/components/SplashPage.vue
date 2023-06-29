@@ -6,7 +6,7 @@
             <span class="h-100">{{ letter }}</span>
           </div>
           <div class="box-image pt-2">
-            <img src="/img/hearts-no-track.png" class="heart locator" alt="" />
+            <img src="/img/logo/hearts-no-track.png" class="heart locator" alt="" />
             <div class="circle-animation circle" ref="circle" :class="['animate', { scaleAnimation: this.count < 2, bigAnimation: this.count >= 2 }]"></div>
           </div>
           <div class="title title-right d-flex align-items-center" v-for="letter in lettersRight">
