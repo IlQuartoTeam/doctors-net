@@ -1,0 +1,57 @@
+@use './variables' as *;
+$font-path: "../fonts/" !default;
+
+@font-face{
+    src: url('#{$font-path}/NTSomic-Bold.woff2');
+    font-family: 'NT Somic';
+    font-weight: bold;
+}
+@font-face{
+    src: url('#{$font-path}/NTSomic-Medium.woff2');
+    font-family: 'NT Somic';
+    font-weight: medium;
+}
+@font-face{
+    src: url('#{$font-path}/NTSomic-Regular.woff2');
+    font-family: 'NT Somic';
+    font-weight: 400;
+}
+
+
+/* BOOTSTRAP IMPORT */
+@import "bootstrap/scss/functions";
+
+// variables override
+$primary: $doc-primary;
+
+$theme-colors: (
+  "primary": $primary,
+);
+
+// custom colors
+$custom-colors: (
+"doc-primary": $doc-primary,
+"doc-accent": $doc-accent,
+"doc-blue": $doc-blue,
+"doc-red": $doc-red,
+"doc-white": $doc-white,
+"doc-dark": $doc-dark,
+"doc-light-dark": $doc-light-dark
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/bootstrap";
+
+*{
+    font-family: 'NT Somic';
+}
