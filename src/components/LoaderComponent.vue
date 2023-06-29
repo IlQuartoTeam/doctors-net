@@ -1,7 +1,7 @@
 <template>
     <div class="vh-100 d-flex flex-column justify-content-center align-items-center">
         <div class="box-image pt-2">
-            <img src="/img/hearts-no-track.png" class="heart locator" alt="" />
+            <img src="/img/logo/hearts-no-track.png" class="heart locator" alt="" />
             <div class="circle-animation circle" ref="circle" :class="['animate', { scaleAnimation: this.count < 2, bigAnimation: this.count >= 2 }]"></div>
         </div>
     </div>
