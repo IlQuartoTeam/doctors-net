@@ -2,12 +2,12 @@
   <button
     v-if="button === true"
     :type="type"
-    class="btn text-white"
+    class="btn"
     :class="className"
   >
     {{ title }}
   </button>
-  <a v-else :href="link" class="btn text-white" :class="className">{{
+  <a v-else :href="link" class="btn" :class="className">{{
     title
   }}</a>
 </template>
