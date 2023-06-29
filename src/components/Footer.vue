@@ -1,6 +1,6 @@
 <template>
     <footer class="bg-doc-primary">
-        <div class="iconAndCall d-flex justify-content-between w-100">
+        <div class="iconAndCall d-flex justify-content-between w-100 flex-wrap">
             <div class="icon d-flex align-items-center gap-2">
                 <div class="logo">
                     <img class="img-fluid" src="/img/logo/hearts.svg" alt="doctorsnet logo">
@@ -13,7 +13,7 @@
                 <ButtonComponent title="Sei un medico? Iscriviti gratis" className="outline"  />
             </div>
         </div>
-        <div class="linksAndPayment mt-5">
+        <div class="linksAndPayment mt-5 d-flex justify-content-between align-items-center flex-wrap">
             <div class="links">
                 <div class="linksrow d-flex gap-4 my-1">
                     <a class="text-white" href="#">I nostri specialisti</a>
@@ -26,6 +26,16 @@
                 <div class="linksrow d-flex gap-4 my-1">
                     <a class="text-white" href="#">Privacy Policy</a>
                 </div>
+            </div>
+            <div class="paymentButton">
+                <a href="#" class="w-100">
+                    <img src="/img/logo/braintree.png" alt="Braintree button">
+                </a>
+            </div>
+        </div>
+        <div class="socials d-flex justify-content-end">
+            <div class="icons d-flex">
+
             </div>
         </div>
     </footer>
@@ -57,6 +67,9 @@ footer{
     padding: 20px 50px;
     .logo{
         width: 50px;
+    }
+    .linksrow{
+       font-size: 18px;
     }
 }
 
