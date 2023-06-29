@@ -1,6 +1,6 @@
 <template>
     <footer class="bg-doc-primary">
-        <div class="iconAndCall d-flex justify-content-between w-100 flex-wrap">
+        <div class="iconAndCall d-flex justify-content-center gap-4 align-items-center flex-md-row flex-column w-100 flex-wrap justify-content-md-between">
             <div class="icon d-flex align-items-center gap-2">
                 <div class="logo">
                     <img class="img-fluid" src="/img/logo/hearts.svg" alt="doctorsnet logo">
@@ -13,7 +13,7 @@
                 <ButtonComponent title="Sei un medico? Iscriviti gratis" className="outline"  />
             </div>
         </div>
-        <div class="linksAndPayment mt-5 d-flex justify-content-between align-items-center flex-wrap">
+        <div class="linksAndPayment mt-4 gap-4 d-flex justify-content-center align-items-center flex-md-row flex-column w-100 flex-wrap justify-content-md-between">
             <div class="links">
                 <div class="linksrow d-flex gap-4 my-1">
                     <a class="text-white" href="#">I nostri specialisti</a>
@@ -33,8 +33,8 @@
                 </a>
             </div>
         </div>
-        <div class="socials d-flex justify-content-end">
-            <div class="icons d-flex">
+        <div class="socials d-flex justify-content-center justify-content-md-end">
+            <div class="icons d-flex align-items-center">
 
             </div>
         </div>
