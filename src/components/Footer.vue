@@ -64,7 +64,7 @@ export default {
   
 <style lang="scss" scoped>
 footer{
-    padding: 20px 50px;
+    padding: 30px 50px;
     .logo{
         width: 50px;
     }
