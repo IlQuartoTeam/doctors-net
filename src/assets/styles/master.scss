@@ -59,3 +59,27 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 a{
     text-decoration: none;
 }
+
+/* UTILITY */
+
+/* title section */
+.text-h1{
+    font-size: 24px;
+  }
+  .text-h1-md{
+    font-size: 40px;
+  }                                           
+  .text-h1-lg {
+    font-size: 40px;             
+  }
+
+/* card doctor reviews name */
+  .text-h2{
+    font-size: 30px;
+  }
+  .text-h2-md{
+    font-size: 30px;
+  }
+  .text-h2-lg{
+    font-size: 24px;
+  }
