@@ -1,5 +1,6 @@
 <template>
     <div>
+        <MapComponent cap="94017"/>
         HOME
         <ButtonComponent title="ciao" className="primary" />
     </div>
@@ -7,8 +8,9 @@
 
 <script>
 import ButtonComponent from '../components/ButtonComponent.vue';
+import MapComponent from '../components/MapComponent.vue';
     export default {
-    components: { ButtonComponent }
+    components: { ButtonComponent, MapComponent }
 }
 </script>
 
