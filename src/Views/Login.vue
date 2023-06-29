@@ -74,7 +74,7 @@ export default {
             {
                 if(this.email.trim() && this.password.trim())
                 {
-                    axios.post('http://127.0.0.1:8000/api/login',
+                    axios.post('api/login',
                 {
                     email: this.email,
                     password: this.password
