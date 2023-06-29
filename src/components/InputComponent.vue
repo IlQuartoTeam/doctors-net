@@ -1,11 +1,14 @@
 <template>
     <label :for="id" class="text-doc-blue mb-2 fs-6 fw-medium">{{ label }}</label>
-    <input :id="id" class="w-100 mb-3" :type="type" :placeholder="placeholder">
+    <input 
+    :value="modelValue" 
+    @input="$emit('update:modelValue', $event.target.value)" :id="id" class="w-100 mb-3" :type="type" :placeholder="placeholder">
 </template>
 
 <script>
 export default {
-props: ['id', 'label', 'type', 'placeholder']
+props: ['id', 'label', 'type', 'placeholder', 'modelValue'],
+emits: ['update:modelValue']
 }
 </script>
 
