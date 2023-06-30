@@ -7,29 +7,29 @@
             <h2 class="text-center text-doc-blue fw-bold">Login</h2>
           
                 <InputComponent
-                :invalid="invalidEmail"
+                :invalid="error"
                 :required="true" 
                 v-model="email" 
                 id="email_login" 
                 label="E-mail" 
                 type="email"
                 placeholder="gastanifrinzi@gmail.com" />
-                <p class="text-doc-red" v-if="invalidEmail && !email">Inserisci un indirizzo email</p>
+                <p class="text-doc-red" v-if="message.email">{{ message.email }}</p>
                 
                 <InputComponent 
-                    :invalid="invalidPassword"
+                    :invalid="error"
                     :required="true" 
                     v-model="password" 
                     id="password_login" 
                     label="Password" 
                     type="password"
                     placeholder="Password" />
-                <p class="text-doc-red" v-if="invalidPassword && !password">Inserisci una password</p>
+                <p class="text-doc-red" v-if="message.password">{{ message.password }}</p>
               
                 <div class="text-center">
                     <ButtonComponent @click.prevent="login()" type="submit" title="Login" className="primary" />
                 </div>
-                <p v-if="email && password && invalidEmail && invalidPassword" class="text-doc-red text-center mt-2">Email o Password errata. Riprova.</p>
+                <p v-if="message.text" class="text-doc-red text-center mt-2">{{ message.text }}</p>
                
                 <div class="loader text-center mt-4">
                   <div v-if="loading" class="spinner-border text-primary">
@@ -57,44 +57,44 @@ export default {
             isAuthenticated: false,
             password: null,
             email: null,
-            invalidEmail: false,
-            invalidPassword: false,
+            message: {email: null, password: null},
+            error: false,
             loading: false
         }
     },
     methods: {
-        setInvalid(){
-            this.invalidEmail = true
-            this.invalidPassword = true
-            this.loading = false
-        },
+       
         login() {
-            this.loading = true;
-            if(this.email && this.password)
-            {
-                if(this.email.trim() && this.password.trim())
-                {
-                    axios.post('api/login',
+            axios.post('/api/login',
                 {
                     email: this.email,
                     password: this.password
                 }).then((res) => {
+                    console.log(res);
                     if (res.data.access_token) {
                         this.isAuthenticated = true
                         this.$cookies.set("session-token",res.data.access_token)
-                        router.push('/users/user')
+                        console.log('logged');
+                        //router.push('/users/user')
                     }
                     this.loading = false
                 }).catch(error => {
-                   this.setInvalid()
+                    this.error = true
+                    const messages = error.response.data.errors
+                    const invalid = error.response.data.message
+    
+                    if (messages){
+                        this.message.email = messages.email[0]
+                    }
+                    if (messages){
+                        this.message.password = messages.password[0]
+                    }
+                    if (invalid){
+                        this.message.email = null
+                        this.message.password = null
+                        this.message.text = invalid
+                    }
                 })
-                } else {
-                    this.setInvalid()
-                }
-            } else {
-                this.setInvalid()
-            }
-            
         },
     },
     mounted(){
