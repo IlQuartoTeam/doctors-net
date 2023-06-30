@@ -7,24 +7,24 @@
             <h2 class="text-center text-doc-blue fw-bold">Login</h2>
           
                 <InputComponent
-                :invalid="error"
+                :invalid="message.email || error"
                 :required="true" 
                 v-model="email" 
                 id="email_login" 
                 label="E-mail" 
                 type="email"
                 placeholder="gastanifrinzi@gmail.com" />
-                <p class="text-doc-red" v-if="message.email">{{ message.email }}</p>
+                <p class="text-doc-red" v-if="message.email || error">{{ message.email }}</p>
                 
                 <InputComponent 
-                    :invalid="error"
+                    :invalid="message.password || error "
                     :required="true" 
                     v-model="password" 
                     id="password_login" 
                     label="Password" 
                     type="password"
                     placeholder="Password" />
-                <p class="text-doc-red" v-if="message.password">{{ message.password }}</p>
+                <p class="text-doc-red" v-if="message.password || error">{{ message.password }}</p>
               
                 <div class="text-center d-flex flex-column gap-2">
                     <ButtonComponent @click.prevent="login()" type="submit" className="primary">Login</ButtonComponent>
@@ -59,14 +59,17 @@ export default {
             password: null,
             email: null,
             message: {email: null, password: null},
-            error: false,
             loading: false,
-            store
+            store,
+            error: false,
         }
     },
     methods: {
        
         login() {
+            this.error = false
+            this.message.email = '';
+            this.message.password = '';
             this.loading = true
             axios.post(store.API_URL + 'login',
                 {
@@ -80,15 +83,14 @@ export default {
                     }
 
                 }).catch(error => {
-                    this.error = true
                     const messages = error.response.data.errors
                     const invalid = error.response.data.message
     
-                    if (messages){
+                    if (messages.email){
                         this.message.email = messages.email[0]
                         this.loading = false
                     }
-                    if (messages){
+                    if (messages.password){
                         this.message.password = messages.password[0]
                         this.loading = false
                     }
@@ -97,6 +99,8 @@ export default {
                         this.message.password = null
                         this.message.text = invalid
                         this.loading = false
+                        this.error = true
+
                     }
                 })
         },
