@@ -1,9 +1,6 @@
 <template>
     <div>
-        <NavbarComponent />
-        <!-- <MapComponent cap="94017"/>
-        HOME
-        <ButtonComponent title="ciao" className="primary" /> -->
+       
     </div>
 </template>
 
