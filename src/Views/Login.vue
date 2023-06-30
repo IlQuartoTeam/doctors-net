@@ -27,7 +27,7 @@
                 <p class="text-doc-red" v-if="message.password">{{ message.password }}</p>
               
                 <div class="text-center">
-                    <ButtonComponent @click.prevent="login()" type="submit" title="Login" className="primary" />
+                    <ButtonComponent @click.prevent="login()" type="submit" className="primary">Login</ButtonComponent>
                 </div>
                 <p v-if="message.text" class="text-doc-red text-center mt-2">{{ message.text }}</p>
                
