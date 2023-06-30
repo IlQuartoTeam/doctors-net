@@ -1,5 +1,11 @@
 <template>
-    <div>
+    <div class="container">
+        <div class="row">
+            ciao
+            
+            
+        </div>
+
         
     </div>
 </template>
@@ -8,7 +14,10 @@
 
 
     export default {
-   
+       
+        data() {
+      
+    },
 }
 </script>
 
