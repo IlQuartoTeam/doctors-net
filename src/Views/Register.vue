@@ -5,43 +5,55 @@
         <small class="text-doc-primary mb-3 d-block">I dati obbligatori sono contrassegnati da *</small>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
-                <InputComponent label="Nome*" id="register_name" type="text" placeholder="Osvaldo" v-model="name" />
+                <InputComponent :invalid="message.name" label="Nome*" id="register_name" type="text" placeholder="Osvaldo" v-model="name" />
+                <p class="text-doc-red" v-if="message.name">{{ message.name }}</p>
+
             </div>
             <div class="col">
-                <InputComponent label="Cognome*" id="register_surname" type="text" placeholder="Bevilacqua"
+                <InputComponent :invalid="message.surname" label="Cognome*" id="register_surname" type="text" placeholder="Bevilacqua"
                     v-model="surname" />
+                    <p class="text-doc-red" v-if="message.surname">{{ message.surname }}</p>
+
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
-                <InputComponent label="Telefono" id="register_phone" type="text" placeholder="368 88 99 555"
+                <InputComponent :invalid="message.phone" label="Telefono" id="register_phone" type="text" placeholder="368 88 99 555"
                     v-model="phone" />
+                    <p class="text-doc-red" v-if="message.phone">{{ message.phone }}</p>
             </div>
             <div class="col">
-                <InputComponent label="Email*" id="register_email" type="text" placeholder="osvaldo@mail.com"
+                <InputComponent :invalid="message.email" label="Email*" id="register_email" type="text" placeholder="osvaldo@mail.com"
                     v-model="email" />
+                    <p class="text-doc-red" v-if="message.email">{{ message.email }}</p>
+
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
-                <InputComponent label="Indirizzo*" id="register_address" type="text" placeholder="Corso Inghilterra"
+                <InputComponent :invalid="message.address" label="Indirizzo*" id="register_address" type="text" placeholder="Corso Inghilterra"
                     v-model="address" />
+                    <p class="text-doc-red" v-if="message.address">{{ message.address }}</p>
+
             </div>
             <div class="col">
-                <InputComponent label="Numero Civico*" id="register_address_number" type="number" placeholder="47"
+                <InputComponent :invalid="message.address" label="Numero Civico*" id="register_address_number" type="number" placeholder="47"
                     v-model="address_number" />
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
-                <InputComponent label="City*" id="register_city" type="text" placeholder="Torino" v-model="city" />
+                <InputComponent :invalid="message.city" label="City*" id="register_city" type="text" placeholder="Torino" v-model="city" />
+                <p class="text-doc-red" v-if="message.city">{{ message.city }}</p>
             </div>
         </div>
         <h2 class="text-doc-blue">Dati Account</h2>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
-                <InputComponent label="Password*" id="register_password" type="password" placeholder="Password"
+                <InputComponent :invalid="message.password" label="Password*" id="register_password" type="password" placeholder="Password"
                     v-model="password" />
+                    <p class="text-doc-red" v-if="message.password">{{ message.password }}</p>
+
             </div>
             <div class="col">
                 <InputComponent label="Comferma Password*" id="register_confirm_password" type="password"
@@ -74,12 +86,14 @@ export default {
             city: null,
             password: null,
             confirm_password: null,
-            store
+            store,
+            message: {}
 
         }
     },
     methods: {
         register() {
+            this.message = {};
             axios.post(store.API_URL + 'register', {
                 name: this.name,
                 surname: this.surname,
@@ -97,7 +111,40 @@ export default {
                     router.push('/users/profile')
                 }
                 
-            })
+            }).catch(error => {
+                    const messages = error.response.data.errors
+    
+                    if (messages.name){
+                        this.message.email = messages.email[0]
+                        this.loading = false
+                    }
+                    if (messages.surname){
+                        this.message.password = messages.password[0]
+                        this.loading = false
+                    }
+                    if (messages.phone){
+                        this.message.email = messages.email[0]
+                        this.loading = false
+                    }
+                    if (messages.email){
+                        this.message.password = messages.password[0]
+                        this.loading = false
+                    }
+                    if (messages.address){
+                        this.message.address = messages.address[0]
+                        this.loading = false
+                    }
+                    if (messages.city){
+                        this.message.city = messages.city[0]
+                        this.loading = false
+
+                    }
+                    if (messages.password){
+                        this.message.password = messages.password[0]
+                        this.loading = false
+
+                    }
+                })
 
         }
     }
