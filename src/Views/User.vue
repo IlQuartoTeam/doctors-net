@@ -2,6 +2,7 @@
    <!-- {{ $route.params.id }}
    {{ store.user }}
    {{ store.doctor }} -->
+   <HeroUserComponent />
    
    
 </template>
