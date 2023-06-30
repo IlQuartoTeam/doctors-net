@@ -15,7 +15,7 @@ import {store} from '../store/store.js'
                 console.log(res.data.results.data);
                 const results = res.data.results.data
                 results.forEach(element => {
-                    this.addresses.push(element.address + ',' + element.city)
+                    this.addresses.push([element.address_lat, element.address_long])
                 });
             })
         }

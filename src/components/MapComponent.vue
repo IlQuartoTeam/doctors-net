@@ -35,35 +35,15 @@
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             }).addTo(this.map);
 
-            this.addressess.forEach((address, index) => {
-              this.loading = true;
-              if(index === this.addressess.length - 1){
-                this.loading = false
-              }
-              this.getLatLongCoordinates(address)
+            this.addressess.forEach(element => {
+              const marker = L.marker(element).addTo(this.map);
             });
             
 
           });
       },
-      getLatLongCoordinates(address) {
-        axios.get(this.openStreetApi + address, {withCredentials: false}).then(res => {
-          this.coordinates.push({ lat: res.data[0].lat, lon: res.data[0].lon})
-        })
-        if(this.loading = false){
-          this.addMarkerToMap(this.coordinates)
-        }
-      }
     },
-    addMarkerToMap(arrayOfCoords){
-      console.log(arrayOfCoords);
-      arrayOfCoords.forEach(element => {
-        const marker = L.marker([
-             element.lat, element.lon
-             ]).addTo(this.map);
-      });
-     
-    },
+   
     mounted() {
       this.initializeMap();
     },
