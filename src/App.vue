@@ -4,7 +4,7 @@
       <NavbarComponent />
     </template>
     <router-view></router-view>
-    <Footer></Footer>
+    <Footer v-if="$route.name != 'login'"></Footer>
 </template>
 
 <script>
