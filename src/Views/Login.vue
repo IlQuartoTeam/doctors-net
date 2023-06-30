@@ -49,35 +49,35 @@ import SmallLoaderComponent from '../components/SmallLoaderComponent.vue';
 import axios from 'axios'
 import {IconRefresh} from '@tabler/icons-vue';
 import router from '../router/router'
+import {store} from '../store/store'
 
 export default {
     components: { InputComponent, ButtonComponent, IconRefresh, SmallLoaderComponent },
     data() {
         return {
-            isAuthenticated: false,
             password: null,
             email: null,
             message: {email: null, password: null},
             error: false,
-            loading: false
+            loading: false,
+            store
         }
     },
     methods: {
        
         login() {
+            this.loading = true
             axios.post('/api/login',
                 {
                     email: this.email,
                     password: this.password
                 }).then((res) => {
-                    console.log(res);
                     if (res.data.access_token) {
-                        this.isAuthenticated = true
-                        this.$cookies.set("session-token",res.data.access_token)
-                        console.log('logged');
-                        //router.push('/users/user')
+                        this.store.isAuthenticated = true
+                        this.$cookies.set("session-token", res.data.access_token)
+                        this.getUser()
                     }
-                    this.loading = false
+
                 }).catch(error => {
                     this.error = true
                     const messages = error.response.data.errors
@@ -85,21 +85,43 @@ export default {
     
                     if (messages){
                         this.message.email = messages.email[0]
+                        this.loading = false
                     }
                     if (messages){
                         this.message.password = messages.password[0]
+                        this.loading = false
                     }
                     if (invalid){
                         this.message.email = null
                         this.message.password = null
                         this.message.text = invalid
+                        this.loading = false
                     }
                 })
         },
+        getUser(){
+            if ( this.$cookies.get("session-token")){
+                const token = this.$cookies.get("session-token")
+               
+                const config = { headers: { Authorization: `Bearer ${token}` }}
+                    axios.post('/api/me', {key: 'value'}, config).then(res => {
+                            store.doctor = res.data.doctor
+                            store.user = res.data.user
+                            const id = store.user.id
+                            const name = store.user.name.toLowerCase()
+                            const surname = store.user.surname.toLowerCase()
+                            router.push('/users/'+id+'-'+name+'-'+surname)
+
+                        }).catch(err => {
+                            this.message.text = 'Ooops! Si è verificato un errore.'
+                            this.loading = false
+                        })
+            }
+        }
     },
     mounted(){
-        if ( this.$cookies.get("session-token")){
-            router.push('/users/user')
+        if (this.$cookies.get("session-token")){
+            this.getUser()
         }
         
        
