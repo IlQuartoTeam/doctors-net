@@ -11,10 +11,12 @@ import Help from '../Views/Help.vue'
 
 
 const routes = [
-    { path: '/', component: Home },
-    { path: '/login',name: 'login', component: Login },
-    { path: '/register', component: Register },
-    { path: '/users/profile', component: User}
+  { path: '/', component: Home },
+  { path: '/login',name: 'login', component: Login },
+  { path: '/register', component: Register },
+  { path: '/users/profile', component: User},
+  {path: '/logout', component: Logout},
+  { path: '/help', component: Help}
   ]
   
 
