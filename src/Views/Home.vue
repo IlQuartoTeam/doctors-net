@@ -15,9 +15,9 @@
         </div>
         <div class="searchBar">
             <div class="d-flex flex-column flex-md-row gap-3 align-items-center px-3" >
-                <InputComponent class="formInput" :invalid="error" :required="true" v-model="email" id="search"
+                <InputComponent class="formInput" :invalid="error" :required="true" v-model="email" id="searchHero"
                     type="text" placeholder="Cardiologo, Dermatologo, Ginecologo..." />
-                <ButtonComponent className="primary heroButton py-3 mb-3">cerca</ButtonComponent>
+                <ButtonComponent className="primary heroButton mb-3">cerca</ButtonComponent>
             </div>
         </div>
     </div>
@@ -60,6 +60,7 @@ export default {
             line-height: 25px;
         }
     }
+    
 }
 
 @media screen and (min-width: 990px) {
