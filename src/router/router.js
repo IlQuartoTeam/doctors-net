@@ -6,8 +6,6 @@ import User from '../Views/User.vue'
 import Logout from '../Views/Logout.vue'
 import Help from '../Views/Help.vue'
 
-import Logout from '../Views/Logout.vue'
-import Help from '../Views/Help.vue'
 
 
 const routes = [
