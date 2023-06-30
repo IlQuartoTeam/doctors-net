@@ -7,29 +7,29 @@
             <h2 class="text-center text-doc-blue fw-bold">Login</h2>
           
                 <InputComponent
-                :invalid="invalidEmail"
+                :invalid="error"
                 :required="true" 
                 v-model="email" 
                 id="email_login" 
                 label="E-mail" 
                 type="email"
                 placeholder="gastanifrinzi@gmail.com" />
-                <p class="text-doc-red" v-if="invalidEmail && !email">Inserisci un indirizzo email</p>
+                <p class="text-doc-red" v-if="message.email">{{ message.email }}</p>
                 
                 <InputComponent 
-                    :invalid="invalidPassword"
+                    :invalid="error"
                     :required="true" 
                     v-model="password" 
                     id="password_login" 
                     label="Password" 
                     type="password"
                     placeholder="Password" />
-                <p class="text-doc-red" v-if="invalidPassword && !password">Inserisci una password</p>
+                <p class="text-doc-red" v-if="message.password">{{ message.password }}</p>
               
                 <div class="text-center">
                     <ButtonComponent @click.prevent="login()" type="submit" title="Login" className="primary" />
                 </div>
-                <p v-if="email && password && invalidEmail && invalidPassword" class="text-doc-red text-center mt-2">Email o Password errata. Riprova.</p>
+                <p v-if="message.text" class="text-doc-red text-center mt-2">{{ message.text }}</p>
                
                 <div class="loader text-center mt-4">
                   <div v-if="loading" class="spinner-border text-primary">
@@ -49,57 +49,79 @@ import SmallLoaderComponent from '../components/SmallLoaderComponent.vue';
 import axios from 'axios'
 import {IconRefresh} from '@tabler/icons-vue';
 import router from '../router/router'
+import {store} from '../store/store'
 
 export default {
     components: { InputComponent, ButtonComponent, IconRefresh, SmallLoaderComponent },
     data() {
         return {
-            isAuthenticated: false,
             password: null,
             email: null,
-            invalidEmail: false,
-            invalidPassword: false,
-            loading: false
+            message: {email: null, password: null},
+            error: false,
+            loading: false,
+            store
         }
     },
     methods: {
-        setInvalid(){
-            this.invalidEmail = true
-            this.invalidPassword = true
-            this.loading = false
-        },
+       
         login() {
-            this.loading = true;
-            if(this.email && this.password)
-            {
-                if(this.email.trim() && this.password.trim())
-                {
-                    axios.post('api/login',
+            this.loading = true
+            axios.post('/api/login',
                 {
                     email: this.email,
                     password: this.password
                 }).then((res) => {
                     if (res.data.access_token) {
-                        this.isAuthenticated = true
-                        this.$cookies.set("session-token",res.data.access_token)
-                        router.push('/users/user')
+                        this.store.isAuthenticated = true
+                        this.$cookies.set("session-token", res.data.access_token)
+                        this.getUser()
                     }
-                    this.loading = false
+
                 }).catch(error => {
-                   this.setInvalid()
+                    this.error = true
+                    const messages = error.response.data.errors
+                    const invalid = error.response.data.message
+    
+                    if (messages){
+                        this.message.email = messages.email[0]
+                        this.loading = false
+                    }
+                    if (messages){
+                        this.message.password = messages.password[0]
+                        this.loading = false
+                    }
+                    if (invalid){
+                        this.message.email = null
+                        this.message.password = null
+                        this.message.text = invalid
+                        this.loading = false
+                    }
                 })
-                } else {
-                    this.setInvalid()
-                }
-            } else {
-                this.setInvalid()
-            }
-            
         },
+        getUser(){
+            if ( this.$cookies.get("session-token")){
+                const token = this.$cookies.get("session-token")
+               
+                const config = { headers: { Authorization: `Bearer ${token}` }}
+                    axios.post('/api/me', {key: 'value'}, config).then(res => {
+                            store.doctor = res.data.doctor
+                            store.user = res.data.user
+                            const id = store.user.id
+                            const name = store.user.name.toLowerCase()
+                            const surname = store.user.surname.toLowerCase()
+                            router.push('/users/'+id+'-'+name+'-'+surname)
+
+                        }).catch(err => {
+                            this.message.text = 'Ooops! Si è verificato un errore.'
+                            this.loading = false
+                        })
+            }
+        }
     },
     mounted(){
-        if ( this.$cookies.get("session-token")){
-            router.push('/users/user')
+        if (this.$cookies.get("session-token")){
+            this.getUser()
         }
         
        

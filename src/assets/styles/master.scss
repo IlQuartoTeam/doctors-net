@@ -56,6 +56,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     font-family: 'NT Somic';
 }
 
+a{
+    text-decoration: none;
+}
+
 /* UTILITY */
 
 /* title section */
