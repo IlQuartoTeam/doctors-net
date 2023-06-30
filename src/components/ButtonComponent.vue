@@ -5,16 +5,17 @@
     class="btn"
     :class="className"
   >
-    {{ title }}
+    <slot></slot>
   </button>
-  <a v-else :href="link" class="btn" :class="className">{{
-    title
-  }}</a>
+  <a v-else :href="link" class="btn" :class="className">
+    <slot></slot>
+  </a>
 </template>
 
 <script>
 export default {
-  props: ['type', 'title', 'button', 'className', 'link'],
+  props: ['type', 'button', 'className', 'link'],
+
 };
 </script>
 
