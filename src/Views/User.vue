@@ -2,15 +2,18 @@
    {{ $route.params.id }}
    {{ store.user }}
    {{ store.doctor }}
-
+   
+   
 </template>
 
 <script>
+import DoctorCard from '../components/DoctorCard.vue';
 import axios from 'axios';
 import router from '../router/router';
 import { store } from '../store/store';
 
     export default {
+        components: { DoctorCard },
         data(){
             return{
                 store
@@ -25,9 +28,8 @@ import { store } from '../store/store';
                     axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
                             store.doctor = res.data.doctor
                             store.user = res.data.user
-                            const id = store.user.id
-                            const name = store.user.name.toLowerCase()
-                            const surname = store.user.surname.toLowerCase()
+                            store.userDoctor = {...res.data.doctor, ...res.data.user}
+                            console.log(store.userDoctor)
                             router.push('/users/profile')
 
                         }).catch(err => {
