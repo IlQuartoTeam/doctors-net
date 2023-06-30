@@ -98,7 +98,14 @@ export default {
     },
     methods: {
         register() {
+            let fulladdress = '';
             this.message = {};
+            if (!this.address || !this.address_number) {
+                 fulladdress = '';
+                }
+                else {
+                 fulladdress = this.address + ', ' + this.address_number
+                }
             axios.post(store.API_URL + 'register', {
                 name: this.name,
                 surname: this.surname,
@@ -106,11 +113,11 @@ export default {
                 password: this.password,
                 phone: this.phone,
                 city: this.city,
+
                 address: this.address + ', ' + this.address_number,
                 specialization: 1,
                 lat: this.lat,
                 long: this.lon
-
             }).then((res) => {
                 if(res.data.access_token)
                 {
@@ -123,19 +130,19 @@ export default {
                     const messages = error.response.data.errors
     
                     if (messages.name){
-                        this.message.email = messages.email[0]
+                        this.message.name = messages.name[0]
                         this.loading = false
                     }
                     if (messages.surname){
-                        this.message.password = messages.password[0]
+                        this.message.surname = messages.surname[0]
                         this.loading = false
                     }
                     if (messages.phone){
-                        this.message.email = messages.email[0]
+                        this.message.phone = messages.phone[0]
                         this.loading = false
                     }
                     if (messages.email){
-                        this.message.password = messages.password[0]
+                        this.message.email = messages.email[0]
                         this.loading = false
                     }
                     if (messages.address){
