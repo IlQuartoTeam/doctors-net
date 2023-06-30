@@ -14,9 +14,11 @@
             </div>
         </div>
         <div class="searchBar">
-            <form class="d-flex" action="">
-                <InputComponent :invalid="error" :required="true" v-model="email" id="email_login" label="E-mail"
-                    type="email" placeholder="Cardiologo, Dermatologo, Ginecologo..." />
+            <form class="d-flex gap-3 align-items-center" action="">
+                <div class="inputContainer">
+                    <InputComponent :invalid="error" :required="true" v-model="email" id="email_login"
+                        type="text" placeholder="Cardiologo, Dermatologo, Ginecologo..." />
+                </div>
                 <ButtonComponent className="primary formButton">cerca</ButtonComponent>
             </form>
         </div>
@@ -24,6 +26,7 @@
 </template>
 
 <script>
+import InputComponent from '../components/InputComponent.vue'
 import ThreeObject from '../components/ThreeObject.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 export default {
@@ -35,7 +38,7 @@ export default {
     components: {
         ThreeObject,
         ButtonComponent,
-        //InputComponent
+        InputComponent
     }
 }
 </script>
