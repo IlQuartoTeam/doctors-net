@@ -5,6 +5,7 @@
 <script>
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 export default {
     /**
@@ -38,26 +39,44 @@ export default {
             this.camera = new THREE.PerspectiveCamera(75, this.w / this.h, 0.1, 1000);
             if (this.far) this.camera.position.z = this.far
             else this.camera.position.z = 7;
-            //this.camera.lookAt();
+            this.camera.position.y = 1
+            this.camera.lookAt(0,0,0)
+
+            // Controls
+            // const controls = new OrbitControls(this.camera, this.$refs.container)
+            // controls.target.set(0, 0.75, 0)
+            // controls.enableDamping = true
+            
+            
             this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             this.renderer.setSize(this.w, this.h);
             this.$refs.container.appendChild(this.renderer.domElement);
 
-            const ambientLight = new THREE.AmbientLight(0x404040);
+            const ambientLight = new THREE.AmbientLight(0xffffff, 5);
             this.scene.add(ambientLight);
 
-            const directionalLight = new THREE.DirectionalLight(0xfafafa, 3);
-            directionalLight.position.set(0, 1, 10);
-            directionalLight.rotateX(-(Math.PI * .5))
-            //const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.2, '#000000')
+            const directionalLight = new THREE.DirectionalLight(0xfafafa, 3.2);
+            directionalLight.position.set(0, 5, 5);
+            directionalLight.rotateX(-(Math.PI))
+            directionalLight.castShadow = true
+            
+            // const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.2, '#000000')
             this.scene.add(directionalLight);
-            //this.scene.add(lightHelper);
+            // this.scene.add(lightHelper);
         },
         loadModel() {
             const loader = new GLTFLoader();
             loader.load(this.path, (gltf) => {
                 if (this.yRot) gltf.scene.rotation.y = -(Math.PI * this.yRot);
                 if (this.xRot) gltf.scene.rotation.x = -(Math.PI * this.xRot);
+
+            // adding shadow
+            gltf.scene.traverse((child) => {
+                if (child.isMesh) {
+                child.castShadow = true;
+                }
+            });
+                
                 this.scene.add(gltf.scene);
             });
         },
@@ -74,11 +93,18 @@ export default {
             this.scene.rotation.x = mouseY * rotationSpeed;
         },
         createBackDrop() {
-            const planeGeometry = new THREE.PlaneGeometry(20, 20); 
-            const planeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); 
-            const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
-            planeMesh.position.z = -3; 
-            this.scene.add(planeMesh);
+            const floor = new THREE.Mesh(
+                new THREE.PlaneGeometry(50, 50),
+                new THREE.MeshStandardMaterial({
+                    color: '#ffffff',
+                    metalness: 0,
+                    roughness: 0
+                    }))
+            floor.position.set(0,-2.5,0)
+            floor.receiveShadow = true
+            floor.rotation.x = - Math.PI * 0.5
+
+            this.scene.add(floor);
         },
     },
     beforeDestroy() {
@@ -89,7 +115,7 @@ export default {
         this.loadModel();
         this.animate();
         window.addEventListener('mousemove', this.handleMouseMove);
-        //this.createBackDrop()
+        this.createBackDrop()
     }
 };
 </script>
