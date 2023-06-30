@@ -1,14 +1,8 @@
 <template>
    <!-- {{ $route.params.id }}
    {{ store.user }}
-   {{ store.doctor }}
-   <div class="container">
-    <div class="row row-cols-1 row-cols-lg-2">
-        <DoctorCard  :doctor="store.userDoctor" />
-        <DoctorCard  :doctor="store.userDoctor" />
-    </div>
-   </div> -->
-   <HeroUserComponent />
+   {{ store.doctor }} -->
+   
    
 </template>
 

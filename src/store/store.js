@@ -6,5 +6,4 @@ export const store = reactive({
    doctor: null,
    user: null,
    userDoctor: null
- 
 });

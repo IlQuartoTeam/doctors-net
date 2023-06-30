@@ -26,8 +26,9 @@
                     placeholder="Password" />
                 <p class="text-doc-red" v-if="message.password">{{ message.password }}</p>
               
-                <div class="text-center">
+                <div class="text-center d-flex flex-column gap-2">
                     <ButtonComponent @click.prevent="login()" type="submit" className="primary">Login</ButtonComponent>
+                    <ButtonComponent link="/register" className="outline">Registrati</ButtonComponent>
                 </div>
                 <p v-if="message.text" class="text-doc-red text-center mt-2">{{ message.text }}</p>
                
@@ -122,7 +123,7 @@ export default {
         if (this.$cookies.get("session-token")){
             this.getUser()
         }
-        
+      
        
     }
 }
