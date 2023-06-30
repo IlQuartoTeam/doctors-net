@@ -8,6 +8,11 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 export default {
+    data() {
+        return {
+            rotationAngle: 0.0,
+        }
+    },
     /**
      *l'oggeto prenderà le dimensione che "gli diamo"
      *
@@ -32,7 +37,7 @@ export default {
      * 
      * 
      */
-    props: ['w', 'h', 'path', 'yRot', 'xRot', 'far'],
+    props: ['w', 'h', 'path', 'yRot', 'xRot', 'far', 'isRotOnMouse', 'rotOnMouse', 'kebab', 'ambLight'],
     methods: {
         initScene() {
             this.scene = new THREE.Scene();
@@ -52,11 +57,11 @@ export default {
             this.renderer.setSize(this.w, this.h);
             this.$refs.container.appendChild(this.renderer.domElement);
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 5);
+            const ambientLight = new THREE.AmbientLight(0xffffff, this.ambLight ? this.ambLight : 3);
             this.scene.add(ambientLight);
 
-            const directionalLight = new THREE.DirectionalLight(0xfafafa, 3.2);
-            directionalLight.position.set(0, 5, 5);
+            const directionalLight = new THREE.DirectionalLight(0xfafafa, 3);
+            directionalLight.position.set(0, -3, 20);
             directionalLight.rotateX(-(Math.PI))
             directionalLight.castShadow = true
             
@@ -88,7 +93,7 @@ export default {
             const mouseX = event.clientX;
             const mouseY = event.clientY;
 
-            const rotationSpeed = 0.0003;
+            const rotationSpeed = this.rotOnMouse;
             this.scene.rotation.y = mouseX * rotationSpeed;
             this.scene.rotation.x = mouseY * rotationSpeed;
         },
@@ -108,14 +113,14 @@ export default {
         },
     },
     beforeDestroy() {
-        window.removeEventListener('mousemove', this.handleMouseMove);
+        if (this.isRotOnMouse) window.removeEventListener('mousemove', this.handleMouseMove);
     },
     mounted() {
         this.initScene();
         this.loadModel();
         this.animate();
-        window.addEventListener('mousemove', this.handleMouseMove);
-        this.createBackDrop()
+        if (this.isRotOnMouse) window.addEventListener('mousemove', this.handleMouseMove);
+        //this.createBackDrop()
     }
 };
 </script>
