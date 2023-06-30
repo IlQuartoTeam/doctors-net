@@ -22,13 +22,13 @@ import { store } from '../store/store';
                 const token = this.$cookies.get("session-token")
                
                 const config = { headers: { Authorization: `Bearer ${token}` }}
-                    axios.post('/api/me', {key: 'value'}, config).then(res => {
+                    axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
                             store.doctor = res.data.doctor
                             store.user = res.data.user
                             const id = store.user.id
                             const name = store.user.name.toLowerCase()
                             const surname = store.user.surname.toLowerCase()
-                            router.push('/users/'+id+'-'+name+'-'+surname)
+                            router.push('/users/profile')
 
                         }).catch(err => {
                             this.message.text = 'Ooops! Si è verificato un errore.'
