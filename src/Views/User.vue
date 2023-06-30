@@ -1,9 +1,7 @@
 <template>
-   <!-- {{ $route.params.id }}
+   {{ $route.params.id }}
    {{ store.user }}
-   {{ store.doctor }} -->
-   <HeroUserComponent />
-   
+   {{ store.doctor }}
    
 </template>
 
