@@ -1,6 +1,7 @@
 <template>
     <section class="bg-doc-white p-4">
-        <div class="w-100">
+        <div class="image-container"></div>
+        <div class="login-container">
             <img class="d-block mx-auto img-fluid" src="/img/logo/hearts-no-track.svg" alt="logo">
             <h1 class="text-uppercase text-doc-accent text-center mt-2">doctors<span class="text-doc-primary">net</span>
             </h1>
@@ -40,6 +41,7 @@
                
 
         </div>
+        
     </section>
 </template>
 
@@ -143,6 +145,43 @@ section {
     height: 100dvh;
     display: grid;
     place-items: center;
+    .login-container{
+        width: 100%;
+    }
+
+    @media screen and (min-width: 550px) {
+        background: url('/img/other/login-image.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: grid;
+        place-items: center;
+        .login-container{
+            width: 400px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: 20px;
+            background-color: white;
+        }
+       
+    }
+    @media screen and (min-width: 992px) {
+        background: #FAFAFA;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .image-container{
+        background: url('/img/other/login-image.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 50%;
+        height: 100dvh;
+        }
+        .login-container{
+            background-color: #fafafa;
+        }
+    }
 }
 
 h1 {
@@ -151,6 +190,6 @@ h1 {
 }
 
 img {
-    max-width: 200px;
+    max-width: 100px;
 }
 </style>
