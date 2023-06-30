@@ -73,6 +73,7 @@ export default {
 .heroButton{
   width: 100%;
   padding: 15px 32px;
+  font-size: inherit;
 }
 
 @media screen and (min-width: 768px) {

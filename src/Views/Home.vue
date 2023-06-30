@@ -1,9 +1,9 @@
 <template>
-    <div class="hero py-3">
+    <div class="hero">
 
         <div
             class="top d-flex ps-md-5 flex-column overflow-hidden align-items-center flex-md-row-reverse w-100 justify-content-center justify-content-lg-between">
-            <ThreeObject class="medikit py-4" w="500" h="250" yRot="0.7" xRot="0.004" far="6"
+            <ThreeObject class="medikit py-4" w="500" h="250" yRot="0.7" xRot="0.004" isRotOnMouse="true" rotOnMouse="0.0003" far="6"
                 path="/threeObjects/firstAid.gltf" />
             <div class="title text-center text-md-start position-relative">
                 <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img
@@ -14,9 +14,9 @@
                 </p>
                 <div class="pills position-absolute d-none d-xxl-block">
                     <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" far="9" path="/threeObjects/pills.gltf"/>
-                </div>
+                </div> 
                 <div class="register z-1 position-absolute d-none d-xxl-block">
-                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" path="/threeObjects/medicalRecord.gltf"/>
+                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" isRotOnMouse="true" rotOnMouse="0.0001" path="/threeObjects/medicalRecord.gltf"/>
                 </div>
             </div>
         </div>
@@ -50,6 +50,7 @@ export default {
 
 <style lang="scss" scoped>
 .hero {
+    padding: 100px 0;
     .title {
 
         h1 {
