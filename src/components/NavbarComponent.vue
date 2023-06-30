@@ -10,8 +10,8 @@
                 <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
             </div>
             <div class="box-button d-flex align-items-center">
-                <button v-if="!store.isAuthenticated || store.user == null" class="button-doctor button-none" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
-                <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated && store.user" className="button-doctor outline" id="btn-logged"><IconUser/><span v-if="store.user">{{ store.user.name }} {{ store.user.surname }}</span></ButtonComponent></router-link>
+                <button v-if="!store.isAuthenticated || store.userDoctor == null" class="button-doctor button-none" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
+                <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated && store.userDoctor" className="button-doctor outline" id="btn-logged"><IconUser/><span v-if="store.userDoctor">{{ store.userDoctor.name }} {{ store.userDoctor.surname }}</span></ButtonComponent></router-link>
                 <div v-if="store.isAuthenticated" class="logout-desk m-auto">
                     <router-link to="/logout">Logout</router-link>
                 </div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="menu-button p-3 m-auto">
                         <button v-if="!store.isAuthenticated" class="button-doctor" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
-                        <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated" className="outline d-flex align-items-center gap-2" id="btn-logged"><IconUser/><span v-if="store.user">{{ store.user.name }} {{ store.user.surname }}</span></ButtonComponent></router-link>
+                        <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated" className="outline d-flex align-items-center gap-2" id="btn-logged"><IconUser/><span v-if="store.userDoctor">{{ store.userDoctor.name }} {{ store.userDoctor.surname }}</span></ButtonComponent></router-link>
                     </div>
                     <div v-if="store.isAuthenticated" class="logout m-auto pb-3">
                         <router-link to="/logout">Logout</router-link>
