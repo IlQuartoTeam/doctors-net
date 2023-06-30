@@ -10,7 +10,8 @@
                 <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
             </div>
             <div class="box-button">
-                <button class="button-doctor button-none" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
+                <button v-if="!store.isAuthenticated" class="button-doctor button-none" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
+                <ButtonComponent v-if="store.isAuthenticated" className="button-doctor outline" id="btn-logged"><IconUser/>{{ store.user.name }} {{ store.user.surname }}</ButtonComponent>
                 <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
                 <IconX :size="60" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
             </div>
@@ -24,7 +25,8 @@
                         <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
                     </div>
                     <div class="menu-button p-3 m-auto">
-                        <button class="button-doctor" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
+                        <button v-if="!store.isAuthenticated" class="button-doctor" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
+                        <ButtonComponent v-if="store.isAuthenticated" className="outline d-flex align-items-center gap-2" id="btn-logged"><IconUser/>{{ store.user.name }} {{ store.user.surname }}</ButtonComponent>
                     </div>
                 </div>
             </div>   
@@ -34,19 +36,24 @@
 </template>
 
 <script>
+import { store } from '../store/store';
 import { IconUser } from '@tabler/icons-vue';
 import { IconBrandGoogleHome } from '@tabler/icons-vue';
 import { IconMenu2 } from '@tabler/icons-vue';
 import { IconX } from '@tabler/icons-vue';
+import ButtonComponent from './ButtonComponent.vue';
     export default {
         name: 'NavbarComponent',
         components: {
-    IconUser,
-    IconMenu2,
-    IconX
-},
+            IconUser,
+            IconMenu2,
+            IconX,
+            ButtonComponent
+        },
+        props: ['doctor'],
         data(){
             return{
+                store,
                 menuOpen: false
             }
         },
@@ -63,6 +70,9 @@ import { IconX } from '@tabler/icons-vue';
             goLogin() {
                 this.$router.push({ name: 'login' })
             }
+        },
+        mounted() {
+            console.log(store.doctor)
         }
     }
 </script>
@@ -107,7 +117,7 @@ import { IconX } from '@tabler/icons-vue';
     button{
         border: 1px solid transparent;
     }
-    .button-none{
+    .button-none, #btn-logged{
         display: none;
     }
     .button-doctor {
@@ -122,6 +132,15 @@ import { IconX } from '@tabler/icons-vue';
         background-color:#0071A2;
         color: white;
     }
+    .outline{
+        background-color: #0071A2;
+        color: white;
+        &:hover{
+            background-color: transparent;
+            color: #0071A2;
+            border: 1px solid #29A7B5;
+        }
+    }
 
     @media screen and (min-width:576px){
         .menu{
@@ -130,7 +149,7 @@ import { IconX } from '@tabler/icons-vue';
         .menu-button{
             display: none;
         }
-        .button-doctor{
+        .button-doctor, #btn-logged{
             display: inline-block;
             margin-right: 40px;
         }
