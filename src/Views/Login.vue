@@ -67,7 +67,7 @@ export default {
        
         login() {
             this.loading = true
-            axios.post('/api/login',
+            axios.post(store.API_URL + 'login',
                 {
                     email: this.email,
                     password: this.password
@@ -104,7 +104,7 @@ export default {
                 const token = this.$cookies.get("session-token")
                
                 const config = { headers: { Authorization: `Bearer ${token}` }}
-                    axios.post('/api/me', {key: 'value'}, config).then(res => {
+                    axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
                             store.doctor = res.data.doctor
                             store.user = res.data.user
                             router.push('/users/profile')
