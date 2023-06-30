@@ -28,7 +28,7 @@ import { store } from '../store/store';
                             const id = store.user.id
                             const name = store.user.name.toLowerCase()
                             const surname = store.user.surname.toLowerCase()
-                            router.push('/users/'+id+'-'+name+'-'+surname)
+                            router.push('/users/profile')
 
                         }).catch(err => {
                             this.message.text = 'Ooops! Si è verificato un errore.'
