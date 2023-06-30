@@ -16,16 +16,20 @@
                 <IconX :size="60" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
             </div>
         </div>
-        <div class="menu-open d-flex flex-column" v-if="menuOpen">
-            <div class="menu-link d-flex flex-column" :class="menuOpen ? 'opacity-1' : 'opacity-0'">
-                <span class="py-3 px-3 paragraph-hero-p fw-bold">I nostri specialisti</span>
-                <span class="py-3 px-3 paragraph-hero-p fw-bold">Chi siamo</span>
-                <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
-            </div>
-            <div class="menu-button p-3 m-auto">
-                <button class="button-doctor">Sei un medico?<IconUser class="mb-1" :size="24" /></button>
-            </div>
-        </div>
+        <Transition name="fade-in">
+            <div v-if="menuOpen" class="fade-in">
+                <div class="menu-open d-flex flex-column">
+                    <div class="menu-link d-flex flex-column">
+                        <span class="py-3 px-3 paragraph-hero-p fw-bold">I nostri specialisti</span>
+                        <span class="py-3 px-3 paragraph-hero-p fw-bold">Chi siamo</span>
+                        <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
+                    </div>
+                    <div class="menu-button p-3 m-auto">
+                        <button class="button-doctor">Sei un medico?<IconUser class="mb-1" :size="24" /></button>
+                    </div>
+                </div>
+            </div>   
+        </Transition>
     </nav>
     
 </template>
@@ -77,16 +81,21 @@ import { IconX } from '@tabler/icons-vue';
     }
     .menu-open{
         box-shadow: 0px 14px 12px 0px rgba(0, 0, 0, 0.15);
-        .menu-link{
-            transition: opacity 3s;
-        }
         span{
+            transition: background-color 0.5s;
             &:hover{
                 color: white;
                 background: linear-gradient(48deg, rgba(243, 143, 35, 0.00) 0%, rgba(41, 167, 181, 0.00) 100%), #2FB0BD;
                 cursor: pointer;
             }
         }
+    }
+    .fade-in {
+        opacity: 1;
+        transition: opacity 0.5s;
+    }
+    .fade-in-enter-active {
+        opacity: 0;
     }
     button{
         border: 1px solid transparent;
@@ -100,6 +109,7 @@ import { IconX } from '@tabler/icons-vue';
         background-color: white;
         border: 1px solid #2FB0BD;
         color:  #0071A2;
+        transition: background-color 0.5s, color 0.5s;
     }
     .button-doctor:hover {
         background-color:#0071A2;
@@ -129,6 +139,7 @@ import { IconX } from '@tabler/icons-vue';
             color:  #0071A2;
             display: inline-block !important;
             span{
+                transition: color 0.5s;
                 &:hover{
                     color: #29A7B5;
                     cursor: pointer;
@@ -136,5 +147,4 @@ import { IconX } from '@tabler/icons-vue';
             }
         }
     }
-
 </style>
