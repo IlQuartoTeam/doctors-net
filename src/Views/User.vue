@@ -3,7 +3,6 @@
    {{ store.user }}
    {{ store.doctor }}
    
-   
 </template>
 
 <script>
@@ -11,9 +10,10 @@ import DoctorCard from '../components/DoctorCard.vue';
 import axios from 'axios';
 import router from '../router/router';
 import { store } from '../store/store';
+import HeroUserComponent from '../components/HeroUserComponent.vue';
 
     export default {
-        components: { DoctorCard },
+        components: { DoctorCard, HeroUserComponent },
         data(){
             return{
                 store
