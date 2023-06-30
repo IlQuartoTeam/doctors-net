@@ -1,7 +1,9 @@
 <template>
-   {{ $route.params.id }}
+   <!-- {{ $route.params.id }}
    {{ store.user }}
-   {{ store.doctor }}
+   {{ store.doctor }} -->
+   <HeroUserComponent />
+   <!-- <SidebarComponent /> -->
    
 </template>
 
@@ -11,9 +13,10 @@ import axios from 'axios';
 import router from '../router/router';
 import { store } from '../store/store';
 import HeroUserComponent from '../components/HeroUserComponent.vue';
+import SidebarComponent from '../components/SidebarComponent.vue';
 
     export default {
-        components: { DoctorCard, HeroUserComponent },
+        components: { DoctorCard, HeroUserComponent, SidebarComponent },
         data(){
             return{
                 store
