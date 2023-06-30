@@ -65,7 +65,7 @@ export default {
     },
     methods: {
         goLogin() {
-            
+            this.$router.push({ name: 'login' })
         }
 
     },
