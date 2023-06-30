@@ -38,5 +38,9 @@ input {
     }
     }
 
+    #searchHero{
+        max-width: 800px;
+    }
+
 }
 </style>
