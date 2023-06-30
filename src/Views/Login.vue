@@ -86,14 +86,6 @@ export default {
                     const messages = error.response.data.errors
                     const invalid = error.response.data.message
     
-                    if (messages.email){
-                        this.message.email = messages.email[0]
-                        this.loading = false
-                    }
-                    if (messages.password){
-                        this.message.password = messages.password[0]
-                        this.loading = false
-                    }
                     if (invalid){
                         this.message.email = null
                         this.message.password = null
@@ -102,6 +94,16 @@ export default {
                         this.error = true
 
                     }
+                    
+                    if (messages.email){
+                        this.message.email = messages.email[0]
+                        this.loading = false
+                    }
+                    if (messages.password){
+                        this.message.password = messages.password[0]
+                        this.loading = false
+                    }
+                    
                 })
         },
         getUser(){
