@@ -1,7 +1,7 @@
 <template>
     <label :for="id" class="text-doc-blue mb-2 fs-6 fw-medium">{{ label }}</label>
     <input 
-    :class="invalid && 'invalid'"
+    :class="[invalid ? 'invalid' : '', className]"
     :required="required"
     :value="modelValue" 
     @input="$emit('update:modelValue', $event.target.value)" :id="id" class="w-100 mb-3" :type="type" :placeholder="placeholder">
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-props: ['id', 'label', 'type', 'placeholder', 'modelValue', 'required', 'invalid'],
+props: ['id', 'label', 'type', 'placeholder', 'modelValue', 'required', 'invalid', 'className'],
 emits: ['update:modelValue']
 }
 </script>
@@ -38,9 +38,9 @@ input {
     }
     }
 
-    #searchHero{
-        max-width: 800px;
-    }
-
+    
+}
+.searchHero{
+    max-width: 800px;
 }
 </style>
