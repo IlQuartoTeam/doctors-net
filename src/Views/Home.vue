@@ -5,18 +5,25 @@
             class="top d-flex ps-md-5 flex-column overflow-hidden align-items-center flex-md-row-reverse w-100 justify-content-center justify-content-lg-between">
             <ThreeObject class="medikit py-4" w="500" h="250" yRot="0.7" xRot="0.004" far="6"
                 path="/threeObjects/firstAid.gltf" />
-            <div class="title text-center text-md-start">
-                <h1 class="text-uppercase fw-bold"><span class="text-doc-accent">Doct</span><span><img
+            <div class="title text-center text-md-start position-relative">
+                <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img
                             src="/img/logo/hearts-no-track.svg" alt=""></span><span class="text-doc-primary">rs Net</span>
                 </h1>
                 <p class="text-doc-light-dark fw-normal">Migliaia di dottori a portata di click. Cerca lo specialista adatto
-                    a te e richiedi subito la tua visita!</p>
+                    a te e richiedi subito la tua visita!
+                </p>
+                <div class="pills position-absolute d-none d-xxl-block">
+                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" far="9" path="/threeObjects/pills.gltf"/>
+                </div>
+                <div class="register z-1 position-absolute d-none d-xxl-block">
+                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" path="/threeObjects/medicalRecord.gltf"/>
+                </div>
             </div>
         </div>
         <div class="searchBar">
-            <div class="d-flex flex-column flex-md-row gap-3 align-items-center px-3" >
-                <InputComponent class="formInput" :invalid="error" :required="true" v-model="email" id="searchHero"
-                    type="text" placeholder="Cardiologo, Dermatologo, Ginecologo..." />
+            <div class="d-flex flex-column flex-md-row gap-3 align-items-center px-3">
+                <InputComponent class="formInput" :invalid="error" :required="true" v-model="email" className="searchHero"
+                    id="searchHero" type="text" placeholder="Cardiologo, Dermatologo, Ginecologo..." />
                 <ButtonComponent className="primary heroButton mb-3">cerca</ButtonComponent>
             </div>
         </div>
@@ -59,8 +66,16 @@ export default {
             font-size: 15px;
             line-height: 25px;
         }
+        .pills{
+            bottom: -50px;
+            right: -50px;
+        }
+        .register{
+            top: -70px;
+            left: -50px;
+        }
     }
-    
+
 }
 
 @media screen and (min-width: 990px) {
@@ -94,10 +109,12 @@ export default {
                 line-height: 35px;
             }
         }
-        .searchBar{
-            .formInput{
+
+        .searchBar {
+            .formInput {
                 width: 50%;
             }
         }
     }
-}</style>
+}
+</style>

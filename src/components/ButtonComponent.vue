@@ -78,6 +78,8 @@ export default {
 @media screen and (min-width: 768px) {
   .heroButton{
   width: fit-content;
+  padding: 15px 100px;
+
 }
 }
 

@@ -69,7 +69,7 @@ export default {
             const mouseX = event.clientX;
             const mouseY = event.clientY;
 
-            const rotationSpeed = 0.0001;
+            const rotationSpeed = 0.0003;
             this.scene.rotation.y = mouseX * rotationSpeed;
             this.scene.rotation.x = mouseY * rotationSpeed;
         },
