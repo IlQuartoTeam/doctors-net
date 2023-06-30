@@ -5,5 +5,6 @@ export const store = reactive({
    isAuthenticated: false,
    doctor: null,
    user: null,
+   userDoctor: null
  
 });

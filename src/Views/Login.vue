@@ -107,6 +107,8 @@ export default {
                     axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
                             store.doctor = res.data.doctor
                             store.user = res.data.user
+                            store.userDoctor = {...res.data.doctor, ...res.data.user}
+                            console.log(store.userDoctor)
                             router.push('/users/profile')
 
                         }).catch(err => {
