@@ -14,13 +14,11 @@
             </div>
         </div>
         <div class="searchBar">
-            <form class="d-flex gap-3 align-items-center" action="">
-                <div class="inputContainer">
-                    <InputComponent :invalid="error" :required="true" v-model="email" id="email_login"
-                        type="text" placeholder="Cardiologo, Dermatologo, Ginecologo..." />
-                </div>
-                <ButtonComponent className="primary formButton">cerca</ButtonComponent>
-            </form>
+            <div class="d-flex flex-column flex-md-row gap-3 align-items-center px-3" >
+                <InputComponent class="formInput" :invalid="error" :required="true" v-model="email" id="search"
+                    type="text" placeholder="Cardiologo, Dermatologo, Ginecologo..." />
+                <ButtonComponent className="primary heroButton py-3 mb-3">cerca</ButtonComponent>
+            </div>
         </div>
     </div>
 </template>
@@ -93,6 +91,11 @@ export default {
 
             p {
                 line-height: 35px;
+            }
+        }
+        .searchBar{
+            .formInput{
+                width: 50%;
             }
         }
     }

@@ -69,5 +69,18 @@ export default {
   background-color: $doc-red;
   color: $doc-white;
 }
+
+.heroButton{
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .heroButton{
+  width: fit-content;
+}
+}
+
+
+
 </style>
 
