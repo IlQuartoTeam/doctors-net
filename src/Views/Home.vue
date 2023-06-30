@@ -13,10 +13,10 @@
                     a te e richiedi subito la tua visita!
                 </p>
                 <div class="pills position-absolute d-none d-xxl-block">
-                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" far="9" path="/threeObjects/pills.gltf"/>
+                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" far="9" ambLight="0.01" path="/threeObjects/pills.gltf"/>
                 </div> 
                 <div class="register z-1 position-absolute d-none d-xxl-block">
-                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" isRotOnMouse="true" rotOnMouse="0.0001" path="/threeObjects/medicalRecord.gltf"/>
+                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" isRotOnMouse="true" rotOnMouse="0.00008" path="/threeObjects/medicalRecord.gltf"/>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@ export default {
             right: -50px;
         }
         .register{
-            top: -70px;
+            top: -65px;
             left: -50px;
         }
     }

@@ -37,7 +37,7 @@ export default {
      * 
      * 
      */
-    props: ['w', 'h', 'path', 'yRot', 'xRot', 'far', 'isRotOnMouse', 'rotOnMouse', 'kebab'],
+    props: ['w', 'h', 'path', 'yRot', 'xRot', 'far', 'isRotOnMouse', 'rotOnMouse', 'kebab', 'ambLight'],
     methods: {
         initScene() {
             this.scene = new THREE.Scene();
@@ -57,7 +57,7 @@ export default {
             this.renderer.setSize(this.w, this.h);
             this.$refs.container.appendChild(this.renderer.domElement);
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, .1);
+            const ambientLight = new THREE.AmbientLight(0xffffff, this.ambLight ? this.ambLight : 3);
             this.scene.add(ambientLight);
 
             const directionalLight = new THREE.DirectionalLight(0xfafafa, 3);
