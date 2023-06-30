@@ -25,6 +25,7 @@
                     </div>
                     <div class="menu-button p-3 m-auto">
                         <button class="button-doctor" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
+                        <router-link to="/logout">Logout</router-link>
                     </div>
                 </div>
             </div>   
