@@ -12,8 +12,8 @@
             <div class="box-button">
                 <button class="button-doctor button-none">Sei un medico?<IconUser class="mb-1" :size="24" /></button>
                
-                <IconMenu2 :size="40" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
-                <IconX :size="40" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
+                <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
+                <IconX :size="60" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
             </div>
         </div>
         <div class="menu-open d-flex flex-column" v-if="menuOpen">
