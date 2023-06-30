@@ -2,15 +2,18 @@
    {{ $route.params.id }}
    {{ store.user }}
    {{ store.doctor }}
-
+   
+   
 </template>
 
 <script>
+import DoctorCard from '../components/DoctorCard.vue';
 import axios from 'axios';
 import router from '../router/router';
 import { store } from '../store/store';
 
     export default {
+        components: { DoctorCard },
         data(){
             return{
                 store

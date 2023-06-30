@@ -2,7 +2,7 @@
     <nav>
         <div class="menu d-flex justify-content-between align-items-center">
             <div class="box-logo">
-                <img src="/img/logo/hearts-no-track.svg" class="logo" alt="logo">
+                <router-link to="/"><img src="/img/logo/hearts-no-track.svg" class="logo" alt="logo"></router-link>
             </div>
             <div class="box-voices d-flex align-items-center m-auto gap-3">
                 <span class="py-3 px-3 paragraph-hero-p fw-bold">I nostri specialisti</span>
@@ -10,8 +10,7 @@
                 <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
             </div>
             <div class="box-button">
-                <button class="button-doctor button-none">Sei un medico?<IconUser class="mb-1" :size="24" /></button>
-               
+                <button class="button-doctor button-none" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
                 <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
                 <IconX :size="60" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
             </div>
@@ -25,7 +24,7 @@
                         <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
                     </div>
                     <div class="menu-button p-3 m-auto">
-                        <button class="button-doctor">Sei un medico?<IconUser class="mb-1" :size="24" /></button>
+                        <button class="button-doctor" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
                     </div>
                 </div>
             </div>   
@@ -36,6 +35,7 @@
 
 <script>
 import { IconUser } from '@tabler/icons-vue';
+import { IconBrandGoogleHome } from '@tabler/icons-vue';
 import { IconMenu2 } from '@tabler/icons-vue';
 import { IconX } from '@tabler/icons-vue';
     export default {
@@ -59,6 +59,9 @@ import { IconX } from '@tabler/icons-vue';
                 else{
                     this.menuOpen = false;
                 }
+            },
+            goLogin() {
+                this.$router.push({ name: 'login' })
             }
         }
     }
@@ -79,9 +82,13 @@ import { IconX } from '@tabler/icons-vue';
     .box-voices{
         display: none !important;
     }
+    .hamb-icon{
+        cursor: pointer;
+    }
     .menu-open{
         box-shadow: 0px 14px 12px 0px rgba(0, 0, 0, 0.15);
         span{
+            color: #0071A2;
             transition: background-color 0.5s;
             &:hover{
                 color: white;
@@ -92,7 +99,7 @@ import { IconX } from '@tabler/icons-vue';
     }
     .fade-in {
         opacity: 1;
-        transition: opacity 0.5s;
+        transition: opacity 0.1s;
     }
     .fade-in-enter-active {
         opacity: 0;
