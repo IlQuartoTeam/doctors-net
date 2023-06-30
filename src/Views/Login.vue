@@ -1,30 +1,31 @@
 <template>
     <section class="bg-doc-white p-4">
-        <div class="w-100">
+        <div class="image-container"></div>
+        <div class="login-container">
             <img class="d-block mx-auto img-fluid" src="/img/logo/hearts-no-track.svg" alt="logo">
             <h1 class="text-uppercase text-doc-accent text-center mt-2">doctors<span class="text-doc-primary">net</span>
             </h1>
             <h2 class="text-center text-doc-blue fw-bold">Login</h2>
           
                 <InputComponent
-                :invalid="error"
+                :invalid="message.email || error"
                 :required="true" 
                 v-model="email" 
                 id="email_login" 
                 label="E-mail" 
                 type="email"
                 placeholder="gastanifrinzi@gmail.com" />
-                <p class="text-doc-red" v-if="message.email">{{ message.email }}</p>
+                <p class="text-doc-red" v-if="message.email || error">{{ message.email }}</p>
                 
                 <InputComponent 
-                    :invalid="error"
+                    :invalid="message.password || error "
                     :required="true" 
                     v-model="password" 
                     id="password_login" 
                     label="Password" 
                     type="password"
                     placeholder="Password" />
-                <p class="text-doc-red" v-if="message.password">{{ message.password }}</p>
+                <p class="text-doc-red" v-if="message.password || error">{{ message.password }}</p>
               
                 <div class="text-center d-flex flex-column gap-2">
                     <ButtonComponent @click.prevent="login()" type="submit" className="primary">Login</ButtonComponent>
@@ -40,6 +41,7 @@
                
 
         </div>
+        
     </section>
 </template>
 
@@ -59,14 +61,17 @@ export default {
             password: null,
             email: null,
             message: {email: null, password: null},
-            error: false,
             loading: false,
-            store
+            store,
+            error: false,
         }
     },
     methods: {
        
         login() {
+            this.error = false
+            this.message.email = '';
+            this.message.password = '';
             this.loading = true
             axios.post(store.API_URL + 'login',
                 {
@@ -80,24 +85,27 @@ export default {
                     }
 
                 }).catch(error => {
-                    this.error = true
                     const messages = error.response.data.errors
                     const invalid = error.response.data.message
     
-                    if (messages){
-                        this.message.email = messages.email[0]
-                        this.loading = false
-                    }
-                    if (messages){
-                        this.message.password = messages.password[0]
-                        this.loading = false
-                    }
                     if (invalid){
                         this.message.email = null
                         this.message.password = null
                         this.message.text = invalid
                         this.loading = false
+                        this.error = true
+
                     }
+                    
+                    if (messages.email){
+                        this.message.email = messages.email[0]
+                        this.loading = false
+                    }
+                    if (messages.password){
+                        this.message.password = messages.password[0]
+                        this.loading = false
+                    }
+                    
                 })
         },
         getUser(){
@@ -137,6 +145,43 @@ section {
     height: 100dvh;
     display: grid;
     place-items: center;
+    .login-container{
+        width: 100%;
+    }
+
+    @media screen and (min-width: 550px) {
+        background: url('/img/other/login-image.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: grid;
+        place-items: center;
+        .login-container{
+            width: 400px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: 20px;
+            background-color: white;
+        }
+       
+    }
+    @media screen and (min-width: 992px) {
+        background: #FAFAFA;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .image-container{
+        background: url('/img/other/login-image.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 50%;
+        height: 100dvh;
+        }
+        .login-container{
+            background-color: #fafafa;
+        }
+    }
 }
 
 h1 {
@@ -145,6 +190,6 @@ h1 {
 }
 
 img {
-    max-width: 200px;
+    max-width: 100px;
 }
 </style>
