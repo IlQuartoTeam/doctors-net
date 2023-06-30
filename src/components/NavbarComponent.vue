@@ -9,9 +9,12 @@
                 <span class="py-3 px-3 paragraph-hero-p fw-bold">Chi siamo</span>
                 <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
             </div>
-            <div class="box-button">
+            <div class="box-button d-flex align-items-center">
                 <button v-if="!store.isAuthenticated || store.user == null" class="button-doctor button-none" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
                 <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated && store.user" className="button-doctor outline" id="btn-logged"><IconUser/><span v-if="store.user">{{ store.user.name }} {{ store.user.surname }}</span></ButtonComponent></router-link>
+                <div v-if="store.isAuthenticated" class="logout-desk m-auto">
+                    <router-link to="/logout">Logout</router-link>
+                </div>
                 <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
                 <IconX :size="60" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
             </div>
@@ -27,6 +30,9 @@
                     <div class="menu-button p-3 m-auto">
                         <button v-if="!store.isAuthenticated" class="button-doctor" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
                         <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated" className="outline d-flex align-items-center gap-2" id="btn-logged"><IconUser/><span v-if="store.user">{{ store.user.name }} {{ store.user.surname }}</span></ButtonComponent></router-link>
+                    </div>
+                    <div v-if="store.isAuthenticated" class="logout m-auto pb-3">
+                        <router-link to="/logout">Logout</router-link>
                     </div>
                 </div>
             </div>   
@@ -141,6 +147,9 @@ import ButtonComponent from './ButtonComponent.vue';
             border: 1px solid #29A7B5;
         }
     }
+    .logout-desk{
+        display: none;
+    }
 
     @media screen and (min-width:576px){
         .menu{
@@ -171,6 +180,9 @@ import ButtonComponent from './ButtonComponent.vue';
                     cursor: pointer;
                 }
             }
+        }
+        .logout-desk{
+            display: inline-block;
         }
     }
 </style>
