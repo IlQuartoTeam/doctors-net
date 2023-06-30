@@ -10,8 +10,8 @@
                 <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
             </div>
             <div class="box-button">
-                <button v-if="!store.isAuthenticated" class="button-doctor button-none" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
-                <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated" className="button-doctor outline" id="btn-logged"><IconUser/>{{ store.user.name }} {{ store.user.surname }}</ButtonComponent></router-link>
+                <button v-if="!store.isAuthenticated || store.user == null" class="button-doctor button-none" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
+                <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated && store.user" className="button-doctor outline" id="btn-logged"><IconUser/><span v-if="store.user">{{ store.user.name }} {{ store.user.surname }}</span></ButtonComponent></router-link>
                 <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
                 <IconX :size="60" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
             </div>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="menu-button p-3 m-auto">
                         <button v-if="!store.isAuthenticated" class="button-doctor" @click="goLogin()"><IconUser class="mb-1" :size="24" /> Sei un medico?</button>
-                        <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated" className="outline d-flex align-items-center gap-2" id="btn-logged"><IconUser/>{{ store.user.name }} {{ store.user.surname }}</ButtonComponent></router-link>
+                        <router-link to="/users/profile"><ButtonComponent v-if="store.isAuthenticated" className="outline d-flex align-items-center gap-2" id="btn-logged"><IconUser/><span v-if="store.user">{{ store.user.name }} {{ store.user.surname }}</span></ButtonComponent></router-link>
                     </div>
                 </div>
             </div>   
