@@ -4,17 +4,18 @@
   
   <script>
   import axios from 'axios';
+  import ButtonComponent from './ButtonComponent.vue'
+  import router from '../router/router';
+
   export default {
-    name: 'MapComponent',
-    props: ['addressess', 'cap', 'city'],
+    props: ['doctors', 'cap', 'city'],
+    components: {ButtonComponent},
   
     data() {
       return {
         cityData: { long: null, lat: null },
         openStreetApi: `https://nominatim.openstreetmap.org/search?format=json&q=`,
         map: null,
-        coordinates: [],
-        loading: null
       };
     },
     methods: {
@@ -35,8 +36,27 @@
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             }).addTo(this.map);
 
-            this.addressess.forEach(element => {
-              const marker = L.marker(element).addTo(this.map);
+            const icon = L.icon(
+              {
+                iconUrl: '/img/other/pin-leaflet-border.png',
+                shadowUrl: '/img/other/pin-leaflet-shadow.png',
+              
+                iconSize: [30, 50],
+                shadowSize: [30, 50],
+                iconAnchor: [15, 0],
+                shadowAnchor: [15, 0],
+                popupAnchor: [0, 2]
+              }
+            )
+
+            this.doctors.forEach(element => {
+              const marker = L.marker([element.address_lat, element.address_long], {icon: icon}).addTo(this.map);
+              const popup = `
+              <h6 class="markerPopup-name text-center">${element.name} ${element.surname}</h6>
+              <p class="text-center m-0 p-0 mb-2">${element.specializations[0] ?? 'Medicina Generale'}</p>
+              <a class="d-block text-center text-doc-primary text-underline popup-link" href="/doctors/${element.slug}">Dettagli</a>
+              `
+              marker.bindPopup(popup)
             });
             
 
@@ -50,8 +70,27 @@
   };
   </script>
   
-  <style>
+  <style lang="scss">
+  @use '../assets/styles/variables' as *;
+
   #map {
-    height: 180px;
+    height: 350px;
   }
+ 
+  .leaflet-popup-content-wrapper{
+    border-radius: 5px;
+    background-color: $doc-white;
+    color: $doc-blue;
+    font-weight: bold;
+    width: auto;
+  }
+  .popup-link{
+    &:hover{
+      cursor: pointer;
+    }
+    
+  }
+  
+  
+  
   </style>

@@ -5,7 +5,8 @@
                 <router-link to="/"><img src="/img/logo/hearts-no-track.svg" class="logo" alt="logo"></router-link>
             </div>
             <div class="box-voices d-flex align-items-center m-auto gap-3">
-                <span class="py-3 px-3 paragraph-hero-p fw-bold">I nostri specialisti</span>
+                <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/">Home</router-link>
+                <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/doctors">I nostri specialisti</router-link>
                 <span class="py-3 px-3 paragraph-hero-p fw-bold">Chi siamo</span>
                 <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
             </div>
