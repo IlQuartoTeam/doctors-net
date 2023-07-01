@@ -1,8 +1,6 @@
 <template>
     <div class="py-5">
         <MultiselectComponent :array="myArray" @sendResult="selectionz"/>
-        <h2>{{ myArray }}</h2>
-        <h3 v-if="selection">{{ selection }}</h3>
     </div>
 </template>
 
@@ -11,7 +9,7 @@ import MultiselectComponent from '../components/MultiselectComponent.vue';
 export default {
     data() {
         return {
-            myArray: ['io', 'tu'],
+            myArray: ['brignozzi', 'noiliak', 'lip'],
             selection: null,
         }
     },

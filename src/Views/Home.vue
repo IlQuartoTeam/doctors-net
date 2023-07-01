@@ -114,7 +114,7 @@ export default {
             }
 
             p {
-                line-height: 35px;
+                line-height: 30px;
             }
         }
 
