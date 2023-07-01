@@ -11,7 +11,7 @@ import Tests from '../Views/Tests.vue'
 
 
 const routes = [
-  { path: '/', component: Home },
+  { path: '/',name:'home', component: Home },
   { path: '/login',name: 'login', component: Login },
   { path: '/register',name: 'register', component: Register },
   { path: '/users/profile', component: User },
