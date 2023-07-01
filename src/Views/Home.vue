@@ -3,8 +3,8 @@
 
         <div
             class="top d-flex ps-md-5 flex-column overflow-hidden align-items-center flex-md-row-reverse w-100 justify-content-center justify-content-lg-between">
-            <ThreeObject class="medikit py-4" w="500" h="250" yRot="0.7" xRot="0.004" ambLight="15" isRotOnMouse="true" directLight="2.8" rotOnMouse="0.0003" far="6"
-                path="/threeObjects/firstAid.gltf" />
+            <ThreeObject class="medikit py-4" w="500" h="250" yRot="0.7" xRot="0.004" ambLight="5" isRotOnMouse="true" directLight="10" rotOnMouse="0.0003" far="6"
+                path="/threeObjects/firstAid-mod.gltf" />
             <div class="title text-center text-md-start position-relative">
                 <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img
                             src="/img/logo/hearts-no-track.svg" alt=""></span><span class="text-doc-primary">rs Net</span>
@@ -13,10 +13,10 @@
                     a te e richiedi subito la tua visita!
                 </p>
                 <div class="pills position-absolute d-none d-xxl-block">
-                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" far="10" ambLight="0" kebab="true" kebabSpeed="0.001" directLight="1.8" path="/threeObjects/pills.gltf"/>
+                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" far="10" ambLight="0" kebab="true" kebabSpeed="0.001" directLight="3" path="/threeObjects/pills-blue.gltf"/>
                 </div> 
                 <div class="register z-1 position-absolute d-none d-xxl-block">
-                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" isRotOnMouse="true" ambLight="7" rotOnMouse="0.00008" directLight="3" path="/threeObjects/medicalRecord.gltf"/>
+                    <ThreeObject w="300" h="150" yRot="0.5" xRot="-0.01" isRotOnMouse="true" ambLight="4" rotOnMouse="0.00008" directLight="1" path="/threeObjects/medicalRecord-mod.gltf"/>
                 </div>
             </div>
         </div>
@@ -26,6 +26,9 @@
                     id="searchHero" type="text" placeholder="Cardiologo, Dermatologo, Ginecologo..." />
                 <ButtonComponent className="primary heroButton mb-3">cerca</ButtonComponent>
             </div>
+        </div>
+        <div class="separator w-100">
+            
         </div>
     </div>
 </template>
