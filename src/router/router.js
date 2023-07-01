@@ -6,6 +6,7 @@ import User from '../Views/User.vue'
 import Logout from '../Views/Logout.vue'
 import Help from '../Views/Help.vue'
 import Doctors from '../Views/Doctors.vue'
+import Tests from '../Views/Tests.vue'
 
 
 
@@ -16,7 +17,8 @@ const routes = [
   { path: '/users/profile', component: User },
   { path: '/logout', component: Logout },
   { path: '/help', component: Help },
-  { path: '/doctors', component: Doctors }
+  { path: '/doctors', component: Doctors },
+  { path: '/tests', component: Tests },
   ]
   
 
