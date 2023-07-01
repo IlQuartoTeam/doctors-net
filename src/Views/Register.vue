@@ -56,7 +56,7 @@
 
             </div>
             <div class="col">
-                <InputComponent label="Comferma Password*" id="register_confirm_password" type="password"
+                <InputComponent label="Conferma Password*" id="register_confirm_password" type="password"
                     placeholder="Conferma password" v-model="confirm_password" />
             </div>
         </div>
