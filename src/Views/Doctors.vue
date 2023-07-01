@@ -7,7 +7,8 @@ import {store} from '../store/store.js'
         data(){
             return{
                 store,
-                addresses: []
+                addresses: [],
+                doctors: []
             }
         },
         mounted(){
@@ -15,7 +16,7 @@ import {store} from '../store/store.js'
                 console.log(res.data.results.data);
                 const results = res.data.results.data
                 results.forEach(element => {
-                    this.addresses.push([element.address_lat, element.address_long])
+                    this.doctors.push(element)
                 });
             })
         }
@@ -23,8 +24,8 @@ import {store} from '../store/store.js'
 </script>
 
 <template>
-    <div v-if="addresses.length > 0">
-        <MapComponent  :addressess="addresses" :cap="'00184'" :city="'Roma'" />
+    <div>
+        <MapComponent :doctors="doctors" :cap="'00184'" :city="'Roma'" />
     </div>
 </template>
 
