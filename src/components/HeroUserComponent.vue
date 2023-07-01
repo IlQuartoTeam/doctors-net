@@ -26,4 +26,10 @@ import { store } from '../store/store';
         background-color: #0071A2;
         min-height: 400px;
     }
+    @media screen and (min-width:1200px){
+    .hero{
+        width: calc(100% - 400px);
+        max-height: 400px;
+    }
+}
 </style>

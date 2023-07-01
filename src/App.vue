@@ -23,7 +23,6 @@ export default {
     {
       store.isAuthenticated = true;
     }
-    console.log(store.isAuthenticated);
   }
 }
 </script>
