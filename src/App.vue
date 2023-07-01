@@ -26,6 +26,8 @@ export default {
       isLoading: false,
       loaded: true,
       store,
+      lastVisitTime: localStorage.getItem('lastVisitTime'),
+      currentTime: Date.now(),
     }
   },
   components: {
@@ -35,6 +37,7 @@ export default {
   },
   methods: {
     getReady() {
+      localStorage.setItem('lastVisitTime', this.currentTime)
       store.newUser = false
       this.isLoading = !this.isLoading;
       this.loaded = !this.loaded
@@ -51,9 +54,7 @@ export default {
     {
       store.isAuthenticated = true;
     }
-    if (store.newUser) this.getReady();
-
-
+    if (store.newUser && !this.lastVisitTime && (this.currentTime - this.lastVisitTime) > 3600000) this.getReady();
   }
 }
 </script>
