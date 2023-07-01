@@ -12,7 +12,7 @@ import Doctors from '../Views/Doctors.vue'
 const routes = [
   { path: '/', component: Home },
   { path: '/login',name: 'login', component: Login },
-  { path: '/register', component: Register },
+  { path: '/register',name: 'register', component: Register },
   { path: '/users/profile', component: User },
   { path: '/logout', component: Logout },
   { path: '/help', component: Help },
