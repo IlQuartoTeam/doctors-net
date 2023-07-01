@@ -75,8 +75,7 @@
       },
       'store.doctorsQueried'(newValue){
         this.doctors = newValue
-        this.map.remove();
-        this.initializeMap()
+      
       }
     },
     
