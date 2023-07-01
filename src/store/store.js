@@ -144,6 +144,7 @@ export const store = reactive({
           
           
         ],
+  citySearched: 'Roma'
       
     
     

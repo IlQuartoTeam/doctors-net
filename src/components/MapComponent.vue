@@ -5,23 +5,27 @@
   <script>
   import axios from 'axios';
   import ButtonComponent from './ButtonComponent.vue'
-  import router from '../router/router';
+  import { store } from '../store/store';
+  import { ref } from 'vue';
 
   export default {
-    props: ['doctors', 'cap', 'city'],
+    props: ['doctors', 'cap'],
     components: {ButtonComponent},
   
     data() {
       return {
+        store,
         cityData: { long: null, lat: null },
         openStreetApi: `https://nominatim.openstreetmap.org/search?format=json&q=`,
         map: null,
+        city: store.citySearched
       };
     },
+    
     methods: {
       initializeMap() {
         axios
-          .get(this.openStreetApi + this.cap + ',Italy', {withCredentials: false})
+          .get(this.openStreetApi + (this.city) + ',Italy', {withCredentials: false})
           .then((response) => {
             this.cityData.lat = response.data[0].lat;
             this.cityData.long = response.data[0].lon;
@@ -63,18 +67,27 @@
           });
       },
     },
-   
+    watch: {
+      'store.citySearched'(newValue){
+        this.city = newValue
+        this.initializeMap()
+      }
+    },
+    
     mounted() {
       this.initializeMap();
-    },
-  };
+    }
+  }
   </script>
   
   <style lang="scss">
   @use '../assets/styles/variables' as *;
 
   #map {
-    height: 350px;
+    height: 250px;
+    @media screen and (min-width: 560px) {
+        height: 350px;
+    }
   }
  
   .leaflet-popup-content-wrapper{
