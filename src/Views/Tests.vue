@@ -30,6 +30,6 @@ export default {
 
 <style lang="scss" scoped>
 div{
-    padding-right: 20px;
+    padding-right: 6px;
 }
 </style>

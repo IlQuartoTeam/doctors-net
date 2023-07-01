@@ -43,9 +43,11 @@
  * 
  *  Per concludere un piccolo suggerimento, se avete intenzione di utilizzare
  *  il componente a tutto schermo, vi consiglio di dare al genitore un 
- *  padding-x di 20px che corrisponderebbe al px-4 di bootstrap/tailwind,
+ *  padding-x di 6px oppure px-2 di bootstrap/tailwind,
  *  così da evitare la comparsa di mezzo secondo della barra orizzontale
- *  creata dall'animazione in ingresso
+ *  creata dall'animazione in ingresso,
+ *  tuttavia se proprio la volete a tutto schermo, potete customizzare
+ *  l'animazione e non farla sbordare
  * 
  * 
  * Figlio:
@@ -54,11 +56,22 @@
  *  nello style riassegnate alle varie variabili utilizzate
  *  i colori di vostro gradimento
  * 
+ *  $primary: colore del testo delle option;
+ *  $accent: colore dell'hover sulle option selezionate;
+ *  $white: bg delle singole option selezionate;
+ *  $blue: colore della crocetta e del placeholder;
+ *  $red: boh alla fine non l'ho usata, unlucky;
+ *  $dark: n'altra variabile inutile, molte bene;
+ *  $size: Indica lo grandezza delle option da selezionare in ingresso,
+ *         consigliato impostare un numero da 1 a 1.5;
+ *  $resize: Indica lo grandezza delle option da selezionare in uscita,
+ *           consigliato impostare un numero da 0 a -0.5;
+ * 
  */
 export default {
     data() {
         return {
-            placeholder: 'Select an option',
+            placeholder: "Seleziona un'opzione",
             options: ['Giampapa', 'Lip', 'Zibra', 'Capaldo', 'Taaaano'],
             selectedOptions: [],
             isOpen: false
@@ -106,6 +119,8 @@ $white: $doc-white;
 $blue: $doc-blue;
 $red: $doc-red;
 $dark: $doc-dark;
+$size: 1.2;
+$resize: -0.21;
 
 .selectMultiple {
     width: 240px;
@@ -255,7 +270,7 @@ $dark: $doc-dark;
 
                 &:before {
                     width: 28px;
-                    transition: width .45s cubic-bezier(.87, -.41, .19, 1.44) .2s;
+                    transition: width .45s cubic-bezier(.87, $resize, .19, $size) .2s;
                 }
 
                 i {
@@ -290,7 +305,7 @@ $dark: $doc-dark;
             &.remove {
                 &:before {
                     width: 28px;
-                    transition: width .4s cubic-bezier(.87, -.41, .19, 1.44) 0s;
+                    transition: width .4s cubic-bezier(.87, $resize, .19, $size) 0s;
                 }
 
                 i {
@@ -328,7 +343,7 @@ $dark: $doc-dark;
         transform: translate(0, 20px) scale(.8);
         transform-origin: 0 0;
         filter: drop-shadow(0 12px 20px rgba(#162A5A, .08));
-        transition: all .4s ease, transform .4s cubic-bezier(.87, -.41, .19, 1.44), filter .3s ease .2s;
+        transition: all .4s ease, transform .4s cubic-bezier(.87, $resize, .19, $size), filter .3s ease .2s;
         max-height: 300px;
         overflow-y: auto;
 
@@ -453,20 +468,6 @@ $dark: $doc-dark;
     100% {
         opacity: 0;
         transform: scale(50, 50);
-    }
-}
-
-html {
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-}
-
-* {
-    box-sizing: inherit;
-
-    &:before,
-    &:after {
-        box-sizing: inherit;
     }
 }
 </style>
