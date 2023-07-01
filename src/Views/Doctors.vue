@@ -1,19 +1,21 @@
 <script>
-import axios from 'axios';
+import axios from 'axios'
 import MapComponent from '../components/MapComponent.vue'
 import InputComponent from '../components/InputComponent.vue'
 import ButtonComponent from '../components/ButtonComponent.vue'
+import DoctorCard from '../components/DoctorCard.vue'
+import SmallLoaderComponent from '../components/SmallLoaderComponent.vue'
 import {store} from '../store/store.js'
 
 
     export default {
-        components: {MapComponent, InputComponent, ButtonComponent},
+        components: {MapComponent, InputComponent, ButtonComponent, DoctorCard, SmallLoaderComponent},
         data(){
             return{
                 store,
                 addresses: [],
                 doctors: [],
-                specialization: null,
+                specialization: 'Dermatologa',
                 city: 'Roma'
             }
         },
@@ -44,7 +46,7 @@ import {store} from '../store/store.js'
     <div class="px-3 px-md-5">
         <MapComponent />
         <div class="py-2">
-            <InputComponent id="spec_search_doctors" type="text" placeholder="Dermatologa" v-model="specialization" class="mb-3"  />
+            <InputComponent id="spec_search_doctors" type="text" placeholder="Dermatologa" v-model="specialization" className="mb-3"  />
             <p class="d-none md-block">a</p>
             <input @keyup.enter="handleClick()" id="city_search_doctors" type="text" placeholder="Roma" v-model="city" class="text-doc-blue mb-3"  />
             <label for="rating_select" class="mb-2 d-block text-doc-blue">Rating</label>
@@ -61,6 +63,15 @@ import {store} from '../store/store.js'
             
         </div>
     </div>
+    <section v-if="!store.doctorsQueried">
+        <SmallLoaderComponent />
+    </section>
+    <section v-else class="doctors-list bg-doc-primary bg-opacity-25 py-3">
+        <h6 class="text-doc-blue fw-bold text-center py-4">{{ store.doctorsQueried.length }} risultati per {{ specialization }} a {{ city }}</h6>
+       <div>
+        <DoctorCard v-for="doctor in store.doctorsQueried" :doctor="doctor" />
+       </div>
+    </section>
 </template>
 
 

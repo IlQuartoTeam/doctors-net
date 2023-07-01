@@ -1,14 +1,22 @@
 <template>
     <div class="col px-2">
-      <div class="doc-card d-md-flex align-items-center gap-5 py-5 px-4 h-100 w-100">
+      <div class="doc-card d-md-flex align-items-center gap-5 py-3 px-4 h-100 w-100">
         <div>
-            <p  class="cons d-md-none pt-3 pb-2">Consigliato</p>
+            <p v-if="doctor.specializations" class="cons d-md-none pt-3 pb-2">Consigliato</p>
             <div  class="card-img mx-auto">
               <img src="https://picsum.photos/500/500" alt="">
             </div>
             <div class="card-title d-sm-flex flex-column">
                 <h3 class="mt-3">{{ doctor.name}} {{ doctor.surname }}</h3>
-                <p class="mt-2 mb-2 mb-md-2 mt-md-0 spec">{{doctor.specializations }}</p>
+                <p class="mt-2 mb-2 mb-md-2 mt-md-0 spec">
+                 <span v-for="spec in doctor.specializations">{{ spec.name }} <br></span>
+                </p>
+                <div class="mb-2">
+                  <span v-for="star in createStars">
+                    <IconStarFilled class="text-doc-accent" v-if="star" />
+                    <IconStar v-else />
+                  </span>
+                </div>
                 <p v-for="rating in doctor.reviews" class="p-0 mb-2">{{ rating.rating }}</p>
                 <p class="address">{{ removeCommaAndCAP }} {{ doctor.city }}</p>
              </div>
@@ -20,7 +28,7 @@
             </div>
             <div class=" d-md-flex justify-content-between  cont-btn mt-md-3">
               <p  class="cons d-none d-md-block mt-3">Consigliato</p>
-               <ButtonComponent class="btn-card"  className="primary">Vedi Dettagli</ButtonComponent>
+               <ButtonComponent class="btn-card w-100" :link="doctor.slug"  className="primary">Vedi Dettagli</ButtonComponent>
             </div>
 
         </div>  
@@ -35,9 +43,15 @@
   
   <script>
   import ButtonComponent from './ButtonComponent.vue';
+  import { IconStar, IconStarFilled } from '@tabler/icons-vue';
   export default {
-    components: { ButtonComponent },
+    components: { ButtonComponent, IconStar, IconStarFilled },
     props: ['doctor'],
+    data(){
+      return {
+        stars: []
+      }
+    },
      
    computed: {
     splittedText() {
@@ -46,8 +60,21 @@
     removeCommaAndCAP() {
       return this.doctor.address.replace(/, ([0-9]{5})$/, '');
     },
-    
-   }
+    createStars(){
+      const totals = [1,2,3,4,5]
+      const rating = Math.round(this.doctor.average_rating)
+      const stars = []
+      totals.forEach(number => {
+        if (number <= rating){
+          stars.push(true)
+        } else {
+          stars.push(false)
+        }
+      });
+      return stars
+    }
+   },
+  
   }
   
   
@@ -60,9 +87,9 @@
 
 
 .doc-card {
-    border-radius: 20px;
-    border: 1px solid black;
-    
+    border-radius: 20px;    
+    background-color: #fff;
+    margin: 0 0 1rem 0;
 }
   
   .card-img {
@@ -71,19 +98,11 @@
     max-height: 150px;
     border-radius: 600px;
     overflow: hidden;
-    
 
-   
     img {
-        
         width: 100%;
         object-fit: cover;
-        
-
     }
-
-  
-
   }
 
   h3 {
