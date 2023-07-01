@@ -3,7 +3,7 @@
 
         <div
             class="top d-flex ps-md-5 flex-column overflow-hidden align-items-center flex-md-row-reverse w-100 justify-content-center justify-content-lg-between">
-            <ThreeObject class="medikit py-4" w="500" h="250" yRot="0.7" xRot="0.004" ambLight="15" isRotOnMouse="true" directLight="2.4" rotOnMouse="0.0003" far="6"
+            <ThreeObject class="medikit py-4" w="500" h="250" yRot="0.7" xRot="0.004" ambLight="15" isRotOnMouse="true" directLight="3" rotOnMouse="0.0003" far="6"
                 path="/threeObjects/firstAid.gltf" />
             <div class="title text-center text-md-start position-relative">
                 <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img
@@ -27,9 +27,9 @@
                 <ButtonComponent className="primary heroButton mb-3">cerca</ButtonComponent>
             </div>
         </div>
-        <div class="separator w-100">
-            
-        </div>
+    </div>
+    <div class="separator w-100">
+        <img class="w-100 waves" src="/img/other/waves.svg" alt="waves">
     </div>
 </template>
 
@@ -79,7 +79,11 @@ export default {
             left: -50px;
         }
     }
-
+    
+}
+.waves{
+    filter: invert(64%) sepia(85%) saturate(353%) hue-rotate(137deg) brightness(79%) contrast(93%);
+    rotate: 180deg;
 }
 
 @media screen and (min-width: 990px) {
