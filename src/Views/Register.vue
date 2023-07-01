@@ -56,12 +56,12 @@
 
             </div>
             <div class="col">
-                <InputComponent label="Comferma Password*" id="register_confirm_password" type="password"
+                <InputComponent label="Conferma Password*" id="register_confirm_password" type="password"
                     placeholder="Conferma password" v-model="confirm_password" />
             </div>
         </div>
         <div class="text-end mt-2 mb-5">
-            <ButtonComponent @click.prevent="register()" type="submit" className="primary">registrati</ButtonComponent>
+            <ButtonComponent @click.prevent="getLatLongCoordinates()" type="submit" className="primary">registrati</ButtonComponent>
         </div>
     </section>
 </template>
@@ -77,6 +77,8 @@ export default {
     components: { InputComponent, ButtonComponent },
     data() {
         return {
+            openStreetApi: `https://nominatim.openstreetmap.org/search?format=json&q=`,
+            store,
             name: null,
             surname: null,
             phone: null,
@@ -86,8 +88,11 @@ export default {
             city: null,
             password: null,
             confirm_password: null,
-            store,
-            message: {}
+            lat: null, 
+            lon: null,
+            message: {},
+            
+          
 
         }
     },
@@ -108,8 +113,11 @@ export default {
                 password: this.password,
                 phone: this.phone,
                 city: this.city,
-                address: fulladdress,
-                specialization: 1
+
+                address: this.address + ', ' + this.address_number,
+                specialization: 1,
+                lat: this.lat,
+                long: this.lon
             }).then((res) => {
                 if(res.data.access_token)
                 {
@@ -153,7 +161,16 @@ export default {
                     }
                 })
 
-        }
+        },
+        getLatLongCoordinates() {
+        axios.get(this.openStreetApi + this.address + ', ' + this.address_number + ',' + this.city, {withCredentials: false}).then(res => {
+            this.lat = res.data[0].lat
+            this.lon = res.data[0].lon
+        }).catch(() => {
+            this.lat = ''
+            this.lon = ''
+        }).finally(() => {this.register()})
+      }
     }
 
 }

@@ -37,7 +37,7 @@ export default {
      * 
      * 
      */
-    props: ['w', 'h', 'path', 'yRot', 'xRot', 'far', 'isRotOnMouse', 'rotOnMouse', 'kebab', 'ambLight'],
+    props: ['w', 'h', 'path', 'yRot', 'xRot', 'far', 'isRotOnMouse', 'rotOnMouse', 'kebab', 'ambLight', 'kebabSpeed', 'directLight'],
     methods: {
         initScene() {
             this.scene = new THREE.Scene();
@@ -45,28 +45,40 @@ export default {
             if (this.far) this.camera.position.z = this.far
             else this.camera.position.z = 7;
             this.camera.position.y = 1
-            this.camera.lookAt(0,0,0)
+            this.camera.lookAt(0, 0, 0)
 
             // Controls
             // const controls = new OrbitControls(this.camera, this.$refs.container)
             // controls.target.set(0, 0.75, 0)
             // controls.enableDamping = true
-            
-            
+
+
             this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             this.renderer.setSize(this.w, this.h);
+            this.renderer.shadowMap.enabled = false;
+            this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
             this.$refs.container.appendChild(this.renderer.domElement);
 
             const ambientLight = new THREE.AmbientLight(0xffffff, this.ambLight ? this.ambLight : 3);
             this.scene.add(ambientLight);
 
-            const directionalLight = new THREE.DirectionalLight(0xfafafa, 3);
-            directionalLight.position.set(0, -3, 20);
-            directionalLight.rotateX(-(Math.PI))
+            /* const directionalLight = new THREE.DirectionalLight(0xfafafa, this.directLight ? this.directLight : 2);
+            directionalLight.position.set(-1, -1, 10);
             directionalLight.castShadow = true
-            
+            const directionalLight2 = new THREE.DirectionalLight(0xfafafa, this.directLight ? this.directLight : 2);
+            directionalLight2.position.set(1, 1, 10);
+            directionalLight2.castShadow = true */
+
+            const pointLight = new THREE.PointLight(0xffffff, this.directLight)
+            pointLight.castShadow = true
+            pointLight.position.set(-5, 5, 5)
+            pointLight.shadow.mapSize.set(1024, 1024)
+            pointLight.shadow.camera.near = 0.1
+            pointLight.shadow.camera.far = 10
+            pointLight.position.set(0,2,8)
+
             // const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.2, '#000000')
-            this.scene.add(directionalLight);
+            this.scene.add(pointLight);
             // this.scene.add(lightHelper);
         },
         loadModel() {
@@ -75,13 +87,15 @@ export default {
                 if (this.yRot) gltf.scene.rotation.y = -(Math.PI * this.yRot);
                 if (this.xRot) gltf.scene.rotation.x = -(Math.PI * this.xRot);
 
-            // adding shadow
-            gltf.scene.traverse((child) => {
-                if (child.isMesh) {
-                child.castShadow = true;
-                }
-            });
-                
+                this.animateObjectRotation(gltf.scene);
+
+                // adding shadow
+                gltf.scene.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                    }
+                });
+
                 this.scene.add(gltf.scene);
             });
         },
@@ -101,16 +115,32 @@ export default {
             const floor = new THREE.Mesh(
                 new THREE.PlaneGeometry(50, 50),
                 new THREE.MeshStandardMaterial({
-                    color: '#ffffff',
+                    color: 'transparent',
                     metalness: 0,
                     roughness: 0
-                    }))
-            floor.position.set(0,-2.5,0)
+                }))
+            floor.position.set(0, -2.5, 0)
             floor.receiveShadow = true
             floor.rotation.x = - Math.PI * 0.5
 
             this.scene.add(floor);
         },
+        animateObjectRotation(object) {
+        if (this.kebab) {
+            const rotationAxis = new THREE.Vector3(1, 0.2, 0); 
+            const rotationSpeed = this.kebabSpeed; 
+
+            this.$nextTick(() => {
+                const animate = () => {
+                    object.rotateOnAxis(rotationAxis, rotationSpeed);
+                    this.renderer.render(this.scene, this.camera);
+                    requestAnimationFrame(animate);
+                };
+
+                animate();
+            });
+        }
+    },
     },
     beforeDestroy() {
         if (this.isRotOnMouse) window.removeEventListener('mousemove', this.handleMouseMove);
@@ -125,8 +155,5 @@ export default {
 };
 </script>
   
-<style>
-#container {
-}
-</style>
+<style></style>
   
