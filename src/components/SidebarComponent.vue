@@ -2,8 +2,8 @@
     <div class="open-side d-flex align-items-center">
         <IconChevronRight v-if="!this.isOpen" @click="OpenSidebar" class="ms-3 ps-1" />
     </div>
-    <div class="sidebar d-flex flex-column mt-3" :class="{'d-inline-block': this.isOpen, 'side-visible': !this.isOpen}">
-        <div class="user-details d-flex flex-column align-items-center">
+    <div class="sidebar d-flex flex-column mt-4" :class="{'d-inline-block': this.isOpen, 'side-visible': !this.isOpen}">
+        <div class="user-details d-flex flex-column align-items-center mt-4">
             <div class="box-image mb-3">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
             </div>
@@ -77,6 +77,7 @@ import { IconChevronLeft } from '@tabler/icons-vue';
         height: 100vh;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        overflow: hidden;
     }
     .box-image{
         width: 150px;
@@ -124,7 +125,7 @@ import { IconChevronLeft } from '@tabler/icons-vue';
     }
     @media screen and (min-width:1200px){
         .sidebar{
-            max-width: 400px !important;
+            max-width: 350px !important;
             overflow: hidden;
         }
         .side-visible{
