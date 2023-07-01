@@ -9,7 +9,6 @@
   import { ref } from 'vue';
 
   export default {
-    props: ['doctors', 'cap'],
     components: {ButtonComponent},
   
     data() {
@@ -18,7 +17,8 @@
         cityData: { long: null, lat: null },
         openStreetApi: `https://nominatim.openstreetmap.org/search?format=json&q=`,
         map: null,
-        city: store.citySearched
+        city: store.citySearched,
+        doctors: store.doctorsQueried
       };
     },
     
@@ -57,7 +57,7 @@
               const marker = L.marker([element.address_lat, element.address_long], {icon: icon}).addTo(this.map);
               const popup = `
               <h6 class="markerPopup-name text-center">${element.name} ${element.surname}</h6>
-              <p class="text-center m-0 p-0 mb-2">${element.specializations[0] ?? 'Medicina Generale'}</p>
+              <p class="text-center m-0 p-0 mb-2">${element.specializations[0].name ?? 'Medicina Generale'}</p>
               <a class="d-block text-center text-doc-primary text-underline popup-link" href="/doctors/${element.slug}">Dettagli</a>
               `
               marker.bindPopup(popup)
@@ -68,8 +68,14 @@
       },
     },
     watch: {
-      'store.citySearched'(newValue){
+        'store.citySearched'(newValue){
         this.city = newValue
+        this.map.remove();
+        this.initializeMap()
+      },
+      'store.doctorsQueried'(newValue){
+        this.doctors = newValue
+        this.map.remove();
         this.initializeMap()
       }
     },
