@@ -23,6 +23,7 @@ export default {
 @use "../assets/styles/_variables.scss" as *;
 
 .btn {
+  
   padding: 1rem 2rem;
   border-radius: 5px;
   font-size: 13px;

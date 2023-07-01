@@ -1,4 +1,6 @@
 import { reactive } from "vue";
+import axios from "axios";
+
 
 export const store = reactive({
    API_URL: '/api/',
@@ -144,8 +146,7 @@ export const store = reactive({
           
           
         ],
-      
-    
-    
-
+  citySearched: 'Roma',
+  doctorsQueried: null,
 });
+
