@@ -68,7 +68,7 @@ import {store} from '../store/store.js'
     </section>
     <section v-else class="doctors-list bg-doc-primary bg-opacity-25 py-3">
         <h6 class="text-doc-blue fw-bold text-center py-4">{{ store.doctorsQueried.length }} risultati per {{ specialization }} a {{ city }}</h6>
-       <div>
+       <div class="row row-cols-1 row-cols-lg-2 gx-0 px-1 px-md-5">
         <DoctorCard v-for="doctor in store.doctorsQueried" :doctor="doctor" />
        </div>
     </section>
