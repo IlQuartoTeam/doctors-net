@@ -55,20 +55,30 @@ export default {
 
             this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             this.renderer.setSize(this.w, this.h);
+            this.renderer.shadowMap.enabled = false;
+            this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
             this.$refs.container.appendChild(this.renderer.domElement);
 
             const ambientLight = new THREE.AmbientLight(0xffffff, this.ambLight ? this.ambLight : 3);
             this.scene.add(ambientLight);
 
-            const directionalLight = new THREE.DirectionalLight(0xfafafa, this.directLight ? this.directLight : 2);
+            /* const directionalLight = new THREE.DirectionalLight(0xfafafa, this.directLight ? this.directLight : 2);
             directionalLight.position.set(-1, -1, 10);
             directionalLight.castShadow = true
             const directionalLight2 = new THREE.DirectionalLight(0xfafafa, this.directLight ? this.directLight : 2);
             directionalLight2.position.set(1, 1, 10);
-            directionalLight2.castShadow = true
+            directionalLight2.castShadow = true */
+
+            const pointLight = new THREE.PointLight(0xffffff, this.directLight)
+            pointLight.castShadow = true
+            pointLight.position.set(-5, 5, 5)
+            pointLight.shadow.mapSize.set(1024, 1024)
+            pointLight.shadow.camera.near = 0.1
+            pointLight.shadow.camera.far = 10
+            pointLight.position.set(0,2,8)
 
             // const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.2, '#000000')
-            this.scene.add(directionalLight);
+            this.scene.add(pointLight);
             // this.scene.add(lightHelper);
         },
         loadModel() {
@@ -105,7 +115,7 @@ export default {
             const floor = new THREE.Mesh(
                 new THREE.PlaneGeometry(50, 50),
                 new THREE.MeshStandardMaterial({
-                    color: '#ffffff',
+                    color: 'transparent',
                     metalness: 0,
                     roughness: 0
                 }))
