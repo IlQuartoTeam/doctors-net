@@ -2,8 +2,12 @@
    <!-- {{ $route.params.id }}
    {{ store.user }}
    {{ store.doctor }} -->
-   <HeroUserComponent />
-   <!-- <SidebarComponent /> -->
+    <div class="box-component">
+        <SidebarComponent />
+        <HeroUserComponent />
+    </div>
+   
+   
    
 </template>
 
@@ -54,5 +58,9 @@ import SidebarComponent from '../components/SidebarComponent.vue';
 </script>
 
 <style lang="scss" scoped>
-
+    @media screen and (min-width:1200px){
+        .box-component{
+            display: flex;
+        }
+    }
 </style>
