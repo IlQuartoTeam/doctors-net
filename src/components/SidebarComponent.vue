@@ -2,7 +2,7 @@
     <div class="open-side d-flex align-items-center">
         <IconChevronRight v-if="!this.isOpen" @click="OpenSidebar" class="ms-3 ps-1" />
     </div>
-    <div class="sidebar d-flex flex-column" :class="{'d-inline-block': this.isOpen, 'side-visible': !this.isOpen}">
+    <div class="sidebar d-flex flex-column mt-3" :class="{'d-inline-block': this.isOpen, 'side-visible': !this.isOpen}">
         <div class="user-details d-flex flex-column align-items-center">
             <div class="box-image mb-3">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
@@ -76,6 +76,7 @@ import { IconChevronLeft } from '@tabler/icons-vue';
         width: calc(100vw - 20px);
         height: 100vh;
         background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     }
     .box-image{
         width: 150px;
@@ -93,14 +94,14 @@ import { IconChevronLeft } from '@tabler/icons-vue';
         top: 50%;
         left: 0%;
         transform: translate(-50%);
-        background-color: rgba(0, 0, 0, 0.158);
+        background-color: rgba(255, 255, 255, 0.349);
         height: 50px;
         border-radius: 5px;
         transition: padding-left 0.3s;
         &:hover{
             cursor: pointer;
             padding-left: 10px;
-            background-color: rgba(66, 66, 66, 0.158);;
+            background-color: rgba(255, 255, 255, 0.548);
         }
     }
     .close-side{
@@ -115,6 +116,7 @@ import { IconChevronLeft } from '@tabler/icons-vue';
         &:hover{
             cursor: pointer;
             padding-right: 5px;
+            background-color: rgba(0, 0, 0, 0.281);
         }
     }
     .side-visible{
@@ -123,7 +125,6 @@ import { IconChevronLeft } from '@tabler/icons-vue';
     @media screen and (min-width:1200px){
         .sidebar{
             max-width: 400px !important;
-            border: 1px solid red;
             overflow: hidden;
         }
         .side-visible{
@@ -131,6 +132,9 @@ import { IconChevronLeft } from '@tabler/icons-vue';
         }
         .open-side, .close-side{
             display: none !important;
+        }
+        .management, .settings{
+            padding-left: 50px !important;
         }
 
     }
