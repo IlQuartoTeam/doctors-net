@@ -5,6 +5,7 @@
             <img class="d-block mx-auto img-fluid" src="/img/logo/hearts-no-track.svg" alt="logo">
             <h1 class="text-uppercase text-doc-accent text-center mt-2">doctors<span class="text-doc-primary">net</span>
             </h1>
+            <form @submit.prevent="login()" action="#">
             <h2 class="text-center text-doc-blue fw-bold">Login</h2>
 
             <InputComponent :invalid="message.email || error" :required="true" v-model="email" id="email_login"
@@ -16,10 +17,11 @@
             <p class="text-doc-red" v-if="message.password || error">{{ message.password }}</p>
 
             <div class="text-center d-flex flex-column gap-2">
-                <ButtonComponent @click.prevent="login()" type="submit" className="primary">Login</ButtonComponent>
+                <ButtonComponent :button="true" :type="submit" className="primary">Login</ButtonComponent>
                 <ButtonComponent link="/register" className="outline">Registrati</ButtonComponent>
             </div>
             <p v-if="message.text" class="text-doc-red text-center mt-2">{{ message.text }}</p>
+        </form>
 
             <div class="loader text-center mt-4">
                 <div v-if="loading" class="spinner-border text-primary">
