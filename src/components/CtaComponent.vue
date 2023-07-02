@@ -84,7 +84,7 @@ export default {
 }
 
 .change {
-  min-width: 300px
+  min-width: 301px
 }
 
 .container {
