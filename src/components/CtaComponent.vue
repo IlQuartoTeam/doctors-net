@@ -1,7 +1,7 @@
 <template>
-  <div class="container py-5">
+  <div class="container">
     <div class="row">
-      <div class="col pb-5 text-center">
+      <div class="col text-center">
         <div class="d-flex justify-content-center gap-0">
            <h1 class="call">Trova adesso<br class="d-lg-none"><div class="d-inline-block change"><span ref="scritta" 
              class="special">{{ currentText
@@ -45,25 +45,22 @@ export default {
   },
   methods: {
     cambiaSpecializzazione() {
-      setInterval(() => {
-       
-        setTimeout(() => {
-          this.textIndex++;
-          this.$refs.scritta.style.animation = 'fade-in-from-top 1s ease-in-out';
-          console.log (this.$refs.scritta);
-          if (this.textIndex >= this.specializzazioniMediche.length) {
-            this.textIndex = 0;
-          }
-  
-        }, 900);
-        this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
-      }, 1700);
+      setTimeout(() => {
+        this.textIndex++;
+        if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-in-from-top 1s ease-in-out';
+        if (this.textIndex >= this.specializzazioniMediche.length) {
+          this.textIndex = 0;
+        }
+      }, 900);
+      if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
     
     }
   },
   mounted() {
-    this.cambiaSpecializzazione()
-    console.log(this.cambiaSpecializzazione)
+    this.textAnimation = setInterval(this.cambiaSpecializzazione, 1700) 
+  },
+  beforeUnmount() {
+    clearInterval(this.textAnimation)
   }
 };
 
@@ -79,17 +76,14 @@ export default {
   font-weight: bold;
   letter-spacing: 1px;
   transition: all 1.5s;
+}
 
-
+.container{
+  padding: 100px 0px;
 }
 
 .change {
   min-width: 300px
-}
-
-.container {
-  margin-top: 200px;
-  margin-bottom: 200px;
 }
 
 .cerca {
@@ -129,10 +123,10 @@ export default {
     letter-spacing: 1px;
   }
 
-  .container {
-    margin-top: 300px;
-    margin-bottom: 200px;
-  }
+  /*  .container {
+    margin-top: 150px;
+    margin-bottom: 150px;
+  }  */
 
 
   .cerca {
@@ -156,8 +150,8 @@ export default {
   }
 
   .container {
-    margin-top: 200px;
-    margin-bottom: 200px;
+    margin-top: 150px;
+    margin-bottom: 150px;
   }
 
   .cerca {
@@ -179,10 +173,10 @@ export default {
  
   }
 
-  .container {
+  /* .container {
     margin-top: 350px;
     margin-bottom: 200px;
-  }
+  } */
 
   .cerca {
     margin-top: 70px;
