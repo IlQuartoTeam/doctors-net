@@ -8,9 +8,9 @@
             <div class="imgPart mx-auto d-flex justify-content-center col-12 col-lg-6">
                 <!-- <img class="img-fluid" :src="imgPath + imgLg + imgExt" :alt="imgName"> -->
                 <picture>
-                    <source media="(max-width: 768px)" :srcset="imgPath + imgSm + imgExt">
-                    <source media="(max-width: 992px)" :srcset="imgPath + imgMd + imgExt">
-                    <img class="img-fluid" :src="imgPath + imgLg + imgExt" :alt="imgName">
+                    <source media="(max-width: 768px)" :srcset="imgPath + imgs.imgSm + imgExt">
+                    <source media="(max-width: 992px)" :srcset="imgPath + imgs.imgMd + imgExt">
+                    <img class="img-fluid" :src="imgPath + imgs.imgLg + imgExt" :alt="imgName">
                 </picture>
             </div>
         </div>
@@ -23,14 +23,11 @@ export default {
         return {
             title: 'Cerca tra centinaia di medici vicini a te o nella città che preferisci',
             subTitle: 'Scegli la città e usa tutte le potenzialità di Doctors NET. Filtra tutti i risultati visualizzati in base alle tue preferenze.',
-            imgLg: 'indexLg',
             imgPath: '/img/other/',
             imgExt: '.png',
-            imgMd: 'indexTablet',
-            imgSm: 'indexMobile',
         }
     },
-    props: ['className', 'reverse'],
+    props: ['className', 'reverse', 'imgs'],
 
 }
 </script>
