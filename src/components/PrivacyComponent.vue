@@ -45,7 +45,7 @@
   <style lang="scss">
   @use "../assets/styles/_variables.scss" as *;
   
- .title {
+  .privacy>.title {
     font-size: 24px;
     text-transform: uppercase;
     color: $doc-blue;
