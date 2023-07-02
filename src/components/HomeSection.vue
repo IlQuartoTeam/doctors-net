@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper d-flex justify-content-center mb-5 mb-lg-0 py-5 py-md-4">
+    <div class="wrapper d-flex justify-content-center mb-5 py-5 py-md-4">
         <div class="singleSectionWrap text-doc-white row g-5" :class="className, { 'flex-row-reverse': reverse }">
             <div class="textPart text-center text-lg-start d-flex flex-column justify-content-center col-12 col-lg-6">
                 <h3 class="text-doc-white pb-3">{{ title }}</h3>
