@@ -1,13 +1,14 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col text-center">
+      <div class="col mx-0 text-center">
         <div class="d-flex justify-content-center gap-0">
-           <h1 class="call">Trova adesso<br class="d-lg-none"><div class="d-inline-block change"><span ref="scritta" 
-             class="special">{{ currentText
-            }}</span></div><br>di cui hai bisogno</h1>
+          <h1 class="call">Trova adesso<br class="d-lg-none">
+            <div class="d-inline-block change"><span ref="scritta" class="special">{{ currentText
+            }}</span></div><br>di cui hai bisogno
+          </h1>
         </div>
-       
+
         <ButtonComponent class="cerca fw-bold" className="accent">INIZIA ORA</ButtonComponent>
       </div>
     </div>
@@ -53,11 +54,11 @@ export default {
         }
       }, 900);
       if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
-    
+
     }
   },
   mounted() {
-    this.textAnimation = setInterval(this.cambiaSpecializzazione, 1700) 
+    this.textAnimation = setInterval(this.cambiaSpecializzazione, 1700)
   },
   beforeUnmount() {
     clearInterval(this.textAnimation)
@@ -78,7 +79,7 @@ export default {
   transition: all 1.5s;
 }
 
-.container{
+.container {
   padding: 100px 0px;
 }
 
@@ -95,16 +96,16 @@ export default {
 
 .special {
   color: $doc-accent;
-   position: relative;
-   display: inline-block;
- 
+  position: relative;
+  display: inline-block;
 
-  
+
+
 }
 
 
 
-.fade-in-from-top-element  {
+.fade-in-from-top-element {
   animation: fade-in-from-top 1s ease-in-out;
 }
 
@@ -123,11 +124,10 @@ export default {
     letter-spacing: 1px;
   }
 
-  /*  .container {
-    margin-top: 150px;
-    margin-bottom: 150px;
-  }  */
+  .container {
+    padding: 150px 0px;
 
+  }
 
   .cerca {
     margin-top: 30px;
@@ -150,8 +150,8 @@ export default {
   }
 
   .container {
-    margin-top: 150px;
-    margin-bottom: 150px;
+    padding: 200px 0px;
+
   }
 
   .cerca {
@@ -170,13 +170,8 @@ export default {
     color: $doc-blue;
     font-weight: bold;
     letter-spacing: 1px;
- 
-  }
 
-  /* .container {
-    margin-top: 350px;
-    margin-bottom: 200px;
-  } */
+  }
 
   .cerca {
     margin-top: 70px;
@@ -203,12 +198,12 @@ export default {
     opacity: 1;
     transform: translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: translateY(25%);
   }
 }
-
 </style>
       
       
