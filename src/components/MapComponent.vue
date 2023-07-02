@@ -31,7 +31,7 @@
             this.cityData.long = response.data[0].lon;
             this.map = L.map('map').setView(
               [this.cityData.lat, this.cityData.long],
-              12
+              14
             );
   
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -75,7 +75,8 @@
       },
       'store.doctorsQueried'(newValue){
         this.doctors = newValue
-      
+        this.map.remove();
+        this.initializeMap()
       }
     },
     
