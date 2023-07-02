@@ -29,9 +29,9 @@
                 <ButtonComponent className="primary heroButton mb-3">cerca</ButtonComponent>
             </div>
         </div>
-        <div class="separator w-100">
-            
-        </div>
+    </div>
+    <div class="separator w-100">
+        <img class="w-100 waves" src="/img/other/waves.svg" alt="waves">
     </div>
 </template>
 
@@ -83,7 +83,11 @@ export default {
             left: -50px;
         }
     }
-
+    
+}
+.waves{
+    filter: invert(64%) sepia(85%) saturate(353%) hue-rotate(137deg) brightness(79%) contrast(93%);
+    rotate: 180deg;
 }
 
 @media screen and (min-width: 990px) {
@@ -114,7 +118,7 @@ export default {
             }
 
             p {
-                line-height: 35px;
+                line-height: 30px;
             }
         }
 

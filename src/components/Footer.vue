@@ -12,7 +12,7 @@
             </div>
             <div class="doctorButton d-flex">
                 
-                <ButtonComponent @click="goLogin()" className="outline d-flex align-items-center gap-2"><IconUser/> Sei un medico? Iscriviti gratis</ButtonComponent>
+                <ButtonComponent @click="goRegister()" className="outline d-flex align-items-center gap-2"><IconUser/> Sei un medico? Iscriviti gratis</ButtonComponent>
             </div>
         </div>
         <div
@@ -64,8 +64,8 @@ export default {
         }
     },
     methods: {
-        goLogin() {
-            this.$router.push({ name: 'login' })
+        goRegister() {
+            this.$router.push({ name: 'register' })
         }
 
     },

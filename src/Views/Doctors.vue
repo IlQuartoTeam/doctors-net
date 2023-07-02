@@ -17,7 +17,8 @@ export default {
             doctors: null,
             specialization: '',
             city: '',
-            message: null
+            message: null,
+            specializationInput: '',
         }
     },
     methods: {
@@ -29,6 +30,7 @@ export default {
             
         },
         searchDoctors(city) {
+            this.specialization = this.specializationInput
             axios.get(store.API_URL + 'doctors?city=' + this.city).then((res) => {
                 const results = res.data.results.data
                 if(this.specialization === ''){
@@ -82,7 +84,7 @@ export default {
         <MapComponent />
         <div class="py-3 mt-3 d-md-flex flex-md-column gap-3 flex-lg-row">
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
-                <input id="spec_search_doctors" type="text" placeholder="Dermatologa" v-model="specialization"
+                <input id="spec_search_doctors" type="text" placeholder="Dermatologa" v-model="specializationInput"
                     className="mb-3 mb-md-0 text-doc-blue" />
                 <p class="d-none d-md-block m-0 p-0">a</p>
                 <input @keyup.enter="handleClick()" id="city_search_doctors" type="text" placeholder="Roma" v-model="city"
