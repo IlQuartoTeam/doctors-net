@@ -4,7 +4,7 @@
     <div class="doc-card d-md-flex align-items-start gap-5 py-4 px-4 w-100 h-100">
       <div class="left-container col-md-5 d-flex flex-column justify-content-between">
         <div class="col-12 d-md-none">
-            <p class="cons d-none d-md-block fw-bold pb-2">Consigliato</p>
+            <p class="cons fw-bold pb-2">Consigliato</p>
           </div>
         <div class="card-img mx-auto m-md-0">
           <img :src="doctor.profile_image_url" :alt="'immagine profilo di ' + doctor.name">
@@ -12,7 +12,7 @@
 
         <div class="card-title d-md-flex flex-column align-items-center justify-content-between">
           <div class="col-12 d-none d-md-block">
-            <span class="cons d-none d-md-block fw-bold pb-2">Consigliato</span>
+            <p class="cons fw-bold pb-2 text-center">Consigliato</p>
           </div>
 
           <div class="d-flex align-items-center justify-content-center pt-3 pt-md-0">
