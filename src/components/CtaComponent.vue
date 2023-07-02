@@ -45,25 +45,22 @@ export default {
   },
   methods: {
     cambiaSpecializzazione() {
-      setInterval(() => {
-       
-        setTimeout(() => {
-          this.textIndex++;
-          this.$refs.scritta.style.animation = 'fade-in-from-top 1s ease-in-out';
-          console.log (this.$refs.scritta);
-          if (this.textIndex >= this.specializzazioniMediche.length) {
-            this.textIndex = 0;
-          }
-  
-        }, 900);
-        this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
-      }, 1700);
+      setTimeout(() => {
+        this.textIndex++;
+        this.$refs.scritta.style.animation = 'fade-in-from-top 1s ease-in-out';
+        if (this.textIndex >= this.specializzazioniMediche.length) {
+          this.textIndex = 0;
+        }
+      }, 900);
+      this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
     
     }
   },
   mounted() {
-    this.cambiaSpecializzazione()
-    console.log(this.cambiaSpecializzazione)
+    this.textAnimation = setInterval(this.cambiaSpecializzazione, 1700) 
+  },
+  beforeUnmount() {
+    clearInterval(this.textAnimation)
   }
 };
 
