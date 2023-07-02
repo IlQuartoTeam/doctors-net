@@ -46,7 +46,7 @@ export default {
       }, 6500);
       setTimeout(() => {
         this.loaded = !this.loaded
-      }, 8000);
+      }, 7500);
     }
   },
   mounted(){
@@ -54,7 +54,7 @@ export default {
     {
       store.isAuthenticated = true;
     }
-    if (store.newUser && !this.lastVisitTime && (this.currentTime - this.lastVisitTime) > 3600000) this.getReady();
+    if (store.newUser && (this.currentTime - this.lastVisitTime) > 3600000 || !this.lastVisitTime) this.getReady();
   }
 }
 </script>
@@ -64,7 +64,7 @@ export default {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: white;
+  background-color: #fafafa;
   position: absolute;
   z-index: 999999999;
   top: 50%;
@@ -77,7 +77,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 99vw;
+  width: 98vw;
   height: 100vh;
   overflow: hidden;
   background: transparent;

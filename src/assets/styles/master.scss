@@ -85,3 +85,8 @@ a{
   }
 
   body{background-color: $doc-white;}
+
+  button:disabled{
+    background-color: #979797 !important;
+    color: white !important;
+  }
