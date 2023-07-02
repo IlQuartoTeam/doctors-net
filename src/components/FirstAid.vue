@@ -113,8 +113,8 @@ export default {
 
         window.addEventListener('resize', () => {
             // Update sizes
-            sizes.width = this.$refs.webgl.offsetWidth
-            sizes.height = this.$refs.webgl.offsetHeight
+            sizes.width = this.$refs.webgl.offsetWidth ?? 400
+            sizes.height = this.$refs.webgl.offsetHeight ?? 400
 
             // Update camera
             camera.aspect = sizes.width / sizes.height
