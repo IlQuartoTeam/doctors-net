@@ -47,12 +47,12 @@ export default {
     cambiaSpecializzazione() {
       setTimeout(() => {
         this.textIndex++;
-        this.$refs.scritta.style.animation = 'fade-in-from-top 1s ease-in-out';
+        if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-in-from-top 1s ease-in-out';
         if (this.textIndex >= this.specializzazioniMediche.length) {
           this.textIndex = 0;
         }
       }, 900);
-      this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
+      if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
     
     }
   },
