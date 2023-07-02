@@ -122,7 +122,7 @@
     position: absolute;
     top: 17px;
     right: 9px;
-    background-color: white;
+    background-color: #fafafa;
     height: 28px;
     width: 28px;
     border-radius: 50%;
