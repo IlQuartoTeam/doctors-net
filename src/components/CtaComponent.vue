@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-center gap-0">
            <h1 class="call">Trova adesso<br class="d-lg-none"><div class="d-inline-block change"><span ref="scritta" 
              class="special">{{ currentText
-            }}</span></div><br class="d-lg-none">di cui hai bisogno</h1>
+            }}</span></div><br>di cui hai bisogno</h1>
         </div>
        
         <ButtonComponent class="cerca fw-bold" className="accent">INIZIA ORA</ButtonComponent>
@@ -57,7 +57,7 @@ export default {
   
         }, 900);
         this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
-      }, 3000);
+      }, 1700);
     
     }
   },
@@ -176,7 +176,7 @@ export default {
     color: $doc-blue;
     font-weight: bold;
     letter-spacing: 1px;
-    padding-left: 70px;
+ 
   }
 
   .container {

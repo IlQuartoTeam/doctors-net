@@ -167,10 +167,10 @@ export default {
 };
 </script>
   
-<style lang="scss">
+<style lang="scss" scoped>
 @use "../assets/styles/_variables.scss" as *;
 
-.privacy>.title {
+.title {
    font-size: 24px;
    text-transform: uppercase;
    color: $doc-blue;
