@@ -34,6 +34,7 @@ import SidebarComponent from '../components/SidebarComponent.vue';
                 const config = { headers: { Authorization: `Bearer ${token}` }}
                     axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
                             store.doctor = res.data.doctor
+                            store.doctor.specialization = res.data.doctor.specializations[0].name
                             store.user = res.data.user
                             store.userDoctor = {...res.data.doctor, ...res.data.user}
                             console.log(store.userDoctor)

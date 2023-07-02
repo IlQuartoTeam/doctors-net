@@ -7,11 +7,11 @@
       <div class="intro">
       </div>
     </div>
-    <template v-if="this.$route.path != '/login'">
+    <template v-if="this.$route.path != '/login' && this.$route.path != '/users/profile'">
       <NavbarComponent />
     </template>
     <router-view></router-view>
-    <Footer v-if="$route.name != 'login'"></Footer>
+    <Footer v-if="this.$route.name != 'login'"></Footer>
   </template>
 </template>
 

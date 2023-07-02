@@ -1,18 +1,23 @@
 <template>
     <div ref="privacySection">
-        <PrivacyComponent />
+       <PrivacyComponent />
+       <CtaComponent />
     </div>
 </template>
 
 <script>
 import PrivacyComponent from '../components/PrivacyComponent.vue';
+import CtaComponent from '../components/CtaComponent.vue';
 export default {
     data() {
         return {
 
         }
     },
-    components: { PrivacyComponent },
+    components: {
+        PrivacyComponent,
+        CtaComponent
+    },
     methods: {
         scrollToSection() {
             console.log('ciao');

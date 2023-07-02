@@ -20,7 +20,7 @@
               <IconStarFilled class="text-doc-accent" v-if="star" />
               <IconStar v-else />
             </span>
-            <span class="ms-2">({{ 0 }})</span>
+            <span class="ms-2">({{ doctor.reviews.length ?? 0 }})</span>
           </div>
           <p class="address m-0 p-0 pt-1">{{ removeCommaAndCAP }} {{ doctor.city }}</p>
         </div>
