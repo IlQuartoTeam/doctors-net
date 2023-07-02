@@ -8,7 +8,8 @@
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
             </div>
             <h6 v-if="store.userDoctor" class="fw-semibold">{{ store.userDoctor.name }} {{ store.userDoctor.surname }}</h6>
-            <span class="text-light fw-semibold">Qui la specializzazione</span>
+            <span v-if="store.userDoctor" class="text-light fw-semibold">{{ store.userDoctor.specialization }}</span>
+            
         </div>
         <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3">
             <h6 class="fw-semibold">Gestione</h6>
