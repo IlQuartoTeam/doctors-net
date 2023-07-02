@@ -1,7 +1,7 @@
 <template>
-  <div class="container py-5">
+  <div class="container">
     <div class="row">
-      <div class="col pb-5 text-center">
+      <div class="col text-center">
         <div class="d-flex justify-content-center gap-0">
            <h1 class="call">Trova adesso<br class="d-lg-none"><div class="d-inline-block change"><span ref="scritta" 
              class="special">{{ currentText
@@ -76,17 +76,14 @@ export default {
   font-weight: bold;
   letter-spacing: 1px;
   transition: all 1.5s;
+}
 
-
+.container{
+  padding: 100px 0px;
 }
 
 .change {
   min-width: 300px
-}
-
-.container {
-  margin-top: 200px;
-  margin-bottom: 200px;
 }
 
 .cerca {
@@ -126,10 +123,10 @@ export default {
     letter-spacing: 1px;
   }
 
-  .container {
-    margin-top: 300px;
-    margin-bottom: 200px;
-  }
+  /*  .container {
+    margin-top: 150px;
+    margin-bottom: 150px;
+  }  */
 
 
   .cerca {
@@ -153,8 +150,8 @@ export default {
   }
 
   .container {
-    margin-top: 200px;
-    margin-bottom: 200px;
+    margin-top: 150px;
+    margin-bottom: 150px;
   }
 
   .cerca {
@@ -176,10 +173,10 @@ export default {
  
   }
 
-  .container {
+  /* .container {
     margin-top: 350px;
     margin-bottom: 200px;
-  }
+  } */
 
   .cerca {
     margin-top: 70px;

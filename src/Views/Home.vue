@@ -38,9 +38,11 @@
         <HomeSection :imgs="showImgs" reverse="true"/>
         <HomeSection :imgs="contactImgs"/>
     </div>
+    <CtaComponent/>
 </template>
 
 <script>
+import CtaComponent from '../components/CtaComponent.vue';
 import HomeSection from '../components/HomeSection.vue';
 import InputComponent from '../components/InputComponent.vue'
 import ThreeObject from '../components/ThreeObject.vue';
@@ -71,7 +73,8 @@ export default {
     ButtonComponent,
     InputComponent,
     FirstAid,
-    HomeSection
+    HomeSection,
+    CtaComponent
 }
 }
 </script>
