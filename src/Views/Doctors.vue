@@ -9,8 +9,16 @@ import { store } from '../store/store.js'
 
 
 export default {
-    components: { MapComponent, InputComponent, ButtonComponent, DoctorCard, SmallLoaderComponent },
-    data() {
+    components: 
+    { 
+        MapComponent, 
+        InputComponent, 
+        ButtonComponent, 
+        DoctorCard, 
+        SmallLoaderComponent 
+    },
+    data() 
+    {
         return {
             store,
             addresses: [],
@@ -21,59 +29,68 @@ export default {
             specializationInput: '',
         }
     },
-    methods: {
-        handleClick() {
+    methods: 
+    {
+        handleClick() 
+        {
             store.citySearched = this.city
             this.searchDoctors(this.city)
         },
-        filterDoctors() {
-            
-        },
-        searchDoctors(city) {
-            this.specialization = this.specializationInput
-            axios.get(store.API_URL + 'doctors?city=' + this.city).then((res) => {
-                const results = res.data.results.data
-                if(this.specialization === ''){
-                    store.doctorsQueried = results
-                } else {
-
-                    store.doctorsQueried  = results.filter(doctor => {
-                        const specializations = doctor.specializations
-                        let itContains = false
-                        specializations.forEach((spec) => {
-                            if (spec.name.includes(this.specialization)){
-                                itContains = true
-                            }
-                        });
-                        if (itContains)
-                        {
-                            itContains = false
-                            return true
-                        }
-                    })
-                    
+        filterDoctors(resultsFromDB) 
+        {
+            store.doctorsQueried = resultsFromDB.filter(doctor => 
+            {
+                const specializations = doctor.specializations
+                let itContains = false
+                specializations.forEach((spec) => 
+                {
+                    if (spec.name.includes(this.specialization)) 
+                    {
+                        itContains = true
+                    }
+                });
+                if (itContains) 
+                {
+                    itContains = false
+                    return true
                 }
-               
+            })
+        },
+        searchDoctors(city) 
+        {
+            this.specialization = this.specializationInput
+            axios.get(store.API_URL + 'doctors?city=' + this.city)
+            .then((res) => 
+            {
+                const results = res.data.results.data
+
+                if (this.specialization === '') 
+                {
+                    store.doctorsQueried = results
+                } 
+                else 
+                {
+                    this.filterDoctors(results)
+                }
                 this.message = null
-            }).catch((err)=>{
+            })
+            .catch((err) => 
+            {
                 const success = err.response.data.success
-               if (!success)
-               {
-                this.message = "Nessun risultato trovato"
-                store.doctorsQueried = null
-               }
+                if (!success) 
+                {
+                    this.message = "Nessun risultato trovato"
+                    store.doctorsQueried = null
+                }
             })
         }
     },
-    /* watch:{
-        city(newValue){
-            store.citySearched = newValue
-        }
-    }, */
-    mounted() {
+    mounted() 
+    {
         this.searchDoctors(this.store.citySearched)
     },
-    created(){
+    created() 
+    {
         this.searchDoctors(this.store.citySearched)
     }
 }
@@ -87,7 +104,7 @@ export default {
                 <input id="spec_search_doctors" type="text" placeholder="Dermatologa" v-model="specializationInput"
                     className="mb-3 mb-md-0 text-doc-blue" />
                 <p class="d-none d-md-block m-0 p-0">a</p>
-                <input @keyup.enter="handleClick()" id="city_search_doctors" type="text" placeholder="Roma" v-model="city"
+                <input @keyup.enter="city != '' &&  handleClick()" id="city_search_doctors" type="text" placeholder="Roma" v-model="city"
                     class="text-doc-blue mb-3 mb-md-0" />
             </div>
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
@@ -108,7 +125,7 @@ export default {
 
 
                 <div class="mb-3 mb-md-0">
-                    <ButtonComponent @click="handleClick()" :button="true" type="submit" className="primary w-100 m-0">Cerca
+                    <ButtonComponent @click="handleClick()" :button="true" type="submit" className="primary w-100 m-0" :disabled="city === ''">Cerca
                     </ButtonComponent>
                 </div>
             </div>
@@ -116,7 +133,8 @@ export default {
     </div>
     <section class="doctors-list bg-doc-primary bg-opacity-25 py-3">
         <h6 class="text-doc-blue fw-bold text-center py-4">
-            <span v-if="!message && specialization !== ''">{{ store.doctorsQueried.length }} risultati per {{ specialization }} a {{ store.citySearched }}</span>
+            <span v-if="!message && specialization !== ''">{{ store.doctorsQueried.length }} risultati per {{ specialization
+            }} a {{ store.citySearched }}</span>
             <span v-else-if="message">Nessun risultato trovato.</span>
         </h6>
         <div v-if="store.doctorsQueried" class="row row-cols-1 row-cols-lg-2 gx-0 px-1 px-md-5">
@@ -155,4 +173,5 @@ select {
     }
 
 
-}</style>
+}
+</style>
