@@ -9,7 +9,7 @@
           </h1>
         </div>
 
-        <ButtonComponent class="cerca fw-bold" className="accent px-6">INIZIA ORA</ButtonComponent>
+        <ButtonComponent @click="sendToDoctors" class="cerca fw-bold" className="accent px-6">INIZIA ORA</ButtonComponent>
       </div>
     </div>
   </div>
@@ -55,6 +55,10 @@ export default {
       }, 900);
       if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
 
+    },
+    sendToDoctors() {
+      this.$router.push({ path: '/doctors' })
+      window.scrollTo(0, 0);
     }
   },
   mounted() {

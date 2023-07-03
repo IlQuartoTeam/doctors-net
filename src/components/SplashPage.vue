@@ -2,20 +2,20 @@
     <div class="vh-100 d-flex flex-column justify-content-center align-items-center">
       <div class="logo-container d-flex align-items-center justify-content-center">
         <div class="box-logo d-flex align-items-center">
-          <div class="title title-left d-flex align-items-center" v-for="letter in lettersLeft">
+          <div class="title title-left d-none d-md-flex align-items-center" v-for="letter in lettersLeft">
             <span class="h-100">{{ letter }}</span>
           </div>
           <div class="box-image pt-2">
             <img src="/img/logo/hearts-no-track.png" class="heart locator" alt="" />
             <div class="circle-animation circle" ref="circle" :class="['animate', { scaleAnimation: this.count < 2, bigAnimation: this.count >= 2 }]"></div>
           </div>
-          <div class="title title-right d-flex align-items-center" v-for="letter in lettersRight">
+          <div class="title title-right d-none d-md-flex align-items-center" v-for="letter in lettersRight">
             <span class="h-100">{{ letter }}</span>
           </div>
         </div>
       </div>
       <div>
-        <span class="slogan d-flex justify-content-center text-uppercase">trova lo specialista pi&ugrave; adatto per le tue esigenze</span>
+        <span class="slogan d-none d-md-flex justify-content-center text-uppercase">trova lo specialista pi&ugrave; adatto per le tue esigenze</span>
       </div>
     </div>
   </template>
