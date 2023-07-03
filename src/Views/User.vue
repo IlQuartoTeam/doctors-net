@@ -6,6 +6,7 @@
         <SidebarComponent />
         <HeroUserComponent v-if="store.dashboard.heroOpen" />
         <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
+        <SettingUserComponent v-if="store.dashboard.settingsOpen" />
     </div>
     
    
@@ -21,9 +22,10 @@ import { store } from '../store/store';
 import HeroUserComponent from '../components/HeroUserComponent.vue';
 import SidebarComponent from '../components/SidebarComponent.vue';
 import MessageUserComponent from '../components/MessageUserComponent.vue';
+import SettingUserComponent from '../components/SettingUserComponent.vue';
 
     export default {
-        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent },
+        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent },
         data(){
             return{
                 store,
