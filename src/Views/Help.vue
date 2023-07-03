@@ -2,21 +2,24 @@
     <div ref="privacySection">
        <PrivacyComponent />
        <CtaComponent />
+    
     </div>
 </template>
 
 <script>
 import PrivacyComponent from '../components/PrivacyComponent.vue';
 import CtaComponent from '../components/CtaComponent.vue';
+
 export default {
     data() {
         return {
-
+         
         }
     },
     components: {
         PrivacyComponent,
-        CtaComponent
+        CtaComponent,
+        
     },
     methods: {
         scrollToSection() {
