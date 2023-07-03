@@ -94,7 +94,16 @@
     },
     
     mounted() {
-      this.initializeMap();
+      if(this.map)
+        {
+          this.map.off()
+          this.map.remove()
+          this.initializeMap()
+        }
+      else
+      {
+        this.initializeMap()
+      }
     }
   }
   </script>
