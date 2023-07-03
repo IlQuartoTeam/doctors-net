@@ -1,11 +1,11 @@
 <template>
 <div class="col">
     <InputComponent ref="address" :required="true" label="Indirizzo*" id="autocomplete" type="text"
-      placeholder="Bevilacqua" v-model="store.address" />
+      placeholder="Corso Inghilterra" v-model="store.address" />
     </div>
     <div class="col">
     <InputComponent ref="city" :required="true" label="Città*" id="city" type="text"
-      placeholder="Nome della città" v-model="store.city" />
+      placeholder="Torino" v-model="store.city" />
   </div>
 </template>
 
