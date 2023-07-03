@@ -3,9 +3,11 @@
    {{ store.user }}
    {{ store.doctor }} -->
     <div class="box-component">
-        <SidebarComponent />
-        <HeroUserComponent />
+        <SidebarComponent @updateMessageActive="updateMessageActive" />
+        <HeroUserComponent v-if="!this.messageActive" />
+        <MessageUserComponent v-if="this.messageActive" />
     </div>
+    
    
    
    
@@ -18,20 +20,22 @@ import router from '../router/router';
 import { store } from '../store/store';
 import HeroUserComponent from '../components/HeroUserComponent.vue';
 import SidebarComponent from '../components/SidebarComponent.vue';
+import MessageUserComponent from '../components/MessageUserComponent.vue';
 
     export default {
-        components: { DoctorCard, HeroUserComponent, SidebarComponent },
+        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent },
         data(){
             return{
-                store
+                store,
+                messageActive: false
             }
         },
         methods: {
             getUser(){
-            if ( this.$cookies.get("session-token")){
-                const token = this.$cookies.get("session-token")
+                if ( this.$cookies.get("session-token")){
+                    const token = this.$cookies.get("session-token")
                
-                const config = { headers: { Authorization: `Bearer ${token}` }}
+                    const config = { headers: { Authorization: `Bearer ${token}` }}
                     axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
                             store.doctor = res.data.doctor
                             store.doctor.specialization = res.data.doctor.specializations[0].name
@@ -45,7 +49,9 @@ import SidebarComponent from '../components/SidebarComponent.vue';
                             this.loading = false
                         })
             }
-        }
+        },
+        updateMessageActive(value) {
+            this.messageActive = value;
         },
         mounted(){
             if (!this.$cookies.get("session-token") && !store.user){
@@ -56,6 +62,7 @@ import SidebarComponent from '../components/SidebarComponent.vue';
             
         }
     }
+}
 </script>
 
 <style lang="scss" scoped>
