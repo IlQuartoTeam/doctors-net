@@ -62,7 +62,8 @@ export default {
   {
     splittedText() 
     {
-      return this.doctor.examinations.split(';');
+      if (this.doctor.examination)
+      {return this.doctor.examinations.split(';');}
     },
     removeCommaAndCAP() 
     {
