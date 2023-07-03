@@ -62,8 +62,8 @@ import ButtonComponent from './ButtonComponent.vue';
                 this.isOpenMessage = !this.isOpenMessage
             },
             toggledashboardActive() {
-                store.heroOpen = !store.heroOpen;
-                store.messaggesOpen = !store.messaggesOpen;
+                store.dashboard.heroOpen = !store.dashboard.heroOpen;
+                store.dashboard.messaggesOpen = !store.dashboard.messaggesOpen;
                 this.isOpen = !this.isOpen
             },
         }
