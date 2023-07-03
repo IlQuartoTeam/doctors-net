@@ -13,13 +13,13 @@
         <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3">
             <h6 class="fw-semibold">Gestione</h6>
             <!-- FUNZIONE togglemessageActive PROVVISORIA AL CLICK SU DASHBOARD -->
-            <span @click="toggledashboardActive"><IconHome /> <span class="text-light">Dashboard</span></span>
-            <span @click="togglemessageActive"><IconMessageCircle2 /> <span class="text-light">Messaggi</span></span>
+            <span @click="toggleSectionActive('dashboard')"><IconHome /> <span class="text-light">Dashboard</span></span>
+            <span @click="toggleSectionActive('messages')"><IconMessageCircle2 /> <span class="text-light">Messaggi</span></span>
             <span><IconUserStar /> <span class="text-light">Recensioni</span></span>
         </div>
         <div class="settings d-flex flex-column mt-3 px-4 py-2 gap-3">
             <h6 class="fw-semibold">Impostazioni</h6>
-            <span @click="togglesettingActive"><IconSettings /> <span class="text-light">Account</span></span>
+            <span @click="toggleSectionActive('settings')"><IconSettings /> <span class="text-light">Account</span></span>
         </div>
         <div class="short-link p-4 mt-5 d-flex flex-column align-items-center justify-content-center gap-3">
             <router-link to="/"><ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged"><span>Torna alla Homepage</span></ButtonComponent></router-link>
@@ -68,45 +68,12 @@ import ButtonComponent from './ButtonComponent.vue';
                     this.isOpen = false;
                 }
             },
-            togglemessageActive() {
-                if(store.dashboard.messaggesOpen === false) {
-                    store.dashboard.heroOpen = false;
-                    store.dashboard.messaggesOpen = true;
-                    store.dashboard.settingsOpen = false;
-                    store.dashboard.chartsOpen = false;
-                    this.isOpen = !this.isOpen;
-                }
-                else if(store.dashboard.messaggesOpen === true){
-                    store.dashboard.messaggesOpen = true;
-                    this.isOpen = !this.isOpen;
-                }
-                console.log(store.dashboard.messaggesOpen)
-            },
-            toggledashboardActive() {
-                if(store.dashboard.heroOpen === false) {
-                    store.dashboard.heroOpen = true;
-                    store.dashboard.chartsOpen = true;
-                    store.dashboard.messaggesOpen = false;
-                    store.dashboard.settingsOpen = false;
-                    this.isOpen = !this.isOpen;
-                }
-                else if(store.dashboard.heroOpen === true){
-                    store.dashboard.heroOpen = true;
-                    this.isOpen = !this.isOpen;
-                }
-            },
-            togglesettingActive(){
-                if(store.dashboard.settingsOpen === false) {
-                    store.dashboard.settingsOpen = true;
-                    store.dashboard.heroOpen = false;
-                    store.dashboard.messaggesOpen = false;
-                    store.dashboard.chartsOpen = false;
-                    this.isOpen = !this.isOpen;
-                }
-                else if(store.dashboard.messaggesOpen === true){
-                    store.dashboard.settingsOpen = true;
-                    this.isOpen = !this.isOpen;
-                }
+            toggleSectionActive(section) {
+                store.dashboard.heroOpen = section === 'dashboard';
+                store.dashboard.messaggesOpen = section === 'messages';
+                store.dashboard.settingsOpen = section === 'settings';
+                store.dashboard.chartsOpen = section === 'dashboard';
+                this.isOpen = !this.isOpen;
             },
             scrollToTop() {
             window.scrollTo(0, 0);
