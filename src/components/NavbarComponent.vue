@@ -22,7 +22,7 @@
                         }}</span>
                     </ButtonComponent>
                 </router-link>
-                <div v-if="store.isAuthenticated" class="logout-desk m-auto">
+                <div v-if="!store.isAuthenticated" class="logout-desk m-auto">
                     <router-link to="/logout">Logout</router-link>
                 </div>
                 <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
@@ -50,7 +50,7 @@
                             </ButtonComponent>
                         </router-link>
                     </div>
-                    <div v-if="store.isAuthenticated" class="logout m-auto pb-3">
+                    <div v-if="!store.isAuthenticated" class="logout m-auto pb-3">
                         <router-link to="/logout">Logout</router-link>
                     </div>
                 </div>
