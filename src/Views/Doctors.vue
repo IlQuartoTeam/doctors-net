@@ -169,20 +169,26 @@ export default {
                     class="text-doc-blue mb-3 mb-md-0" />
             </div>
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
-                <select v-model="ratingSelected" class="mb-3 mb-md-0 text-doc-blue" name="rating_select" id="rating_select">
+                <div class="w-100 select-container">
+                    <select v-model="ratingSelected" class="mb-3 mb-md-0 text-doc-blue" name="rating_select" id="rating_select">
                     <option value="all">Media Recensioni</option>
                     <option value="1">1+ stelle</option>
                     <option value="2">2+ stelle</option>
                     <option value="3">3+ stelle</option>
                     <option value="4">4+ stelle</option>
                 </select>
+                </div>
+                
 
-                <select v-model="reviewCountSelected" class="mb-3  mb-md-0 text-doc-blue" name="reviews_select" id="reviews_select">
+                <div class="w-100 select-container">
+                    <select v-model="reviewCountSelected" class="mb-3  mb-md-0 text-doc-blue" name="reviews_select" id="reviews_select">
                     <option value="all">Numero Recensioni</option>
                     <option value="1">Qualcuna</option>
                     <option value="10">Tante</option>
                     <option value="50">Tantissime</option>
                 </select>
+                </div>
+                
 
 
                 <div class="mb-3 mb-md-0 h-100 w-100 d-flex">
@@ -210,8 +216,14 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/styles/variables' as *;
 
+
 input,
 select {
+    position: relative;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     width: 100%;
     border: 1px solid $doc-primary;
     border-radius: 5px;
@@ -236,5 +248,17 @@ select {
     }
 
 
+}
+
+.select-container{
+    position: relative;
+    &:after{
+    // content: $ti-icon-chevron-down;
+    content: '\ea5f';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
+    }
 }
 </style>
