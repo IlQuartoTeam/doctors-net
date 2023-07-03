@@ -27,7 +27,7 @@
                 </div>
                 <div class="linksrow flex-column d-flex gap-2 my-1">
                     <RouterLink class="routeLink" :to="{ name: '' }">Assistenza</RouterLink>
-                    <RouterLink class="routeLink" :to="{ name: '' }">Chi siamo</RouterLink>
+                    <RouterLink class="routeLink" :to="{ path: '/team' }">Chi siamo</RouterLink>
                 </div>
             </div>
             <div class="paymentButton">

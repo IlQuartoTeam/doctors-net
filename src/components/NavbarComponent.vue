@@ -7,7 +7,7 @@
             <div class="box-voices d-flex align-items-center m-auto gap-3">
                 <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/">Home</router-link>
                 <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/doctors">I nostri specialisti</router-link>
-                <span class="py-3 px-3 paragraph-hero-p fw-bold">Chi siamo</span>
+                <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/team">Chi siamo</router-link>
                 <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help">Assistenza</router-link>
             </div>
             <div class="box-button d-flex align-items-center">
