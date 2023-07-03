@@ -28,7 +28,7 @@ import { store } from '../store/store';
     }
     @media screen and (min-width:1200px){
     .hero{
-        width: calc(100% - 400px);
+        width: calc(100% - 350px);
         max-height: 400px;
     }
 }

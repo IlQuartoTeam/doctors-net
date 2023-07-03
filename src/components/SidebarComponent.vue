@@ -2,8 +2,8 @@
     <div class="open-side d-flex align-items-center">
         <IconChevronRight v-if="!this.isOpen" @click="OpenSidebar" class="ms-3 ps-1" />
     </div>
-    <div class="sidebar d-flex flex-column mt-3" :class="{'d-inline-block': this.isOpen, 'side-visible': !this.isOpen}">
-        <div class="user-details d-flex flex-column align-items-center">
+    <div class="sidebar d-flex flex-column" :class="{'d-inline-block': this.isOpen, 'side-visible': !this.isOpen}">
+        <div class="user-details d-flex flex-column align-items-center mt-4">
             <div class="box-image mb-3">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
             </div>
@@ -13,8 +13,9 @@
         </div>
         <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3">
             <h6 class="fw-semibold">Gestione</h6>
-            <span><IconHome /> <span class="text-light">Dashboard</span></span>
-            <span><IconMessageCircle2 /> <span class="text-light">Messaggi</span></span>
+            <!-- FUNZIONE togglemessageActive PROVVISORIA AL CLICK SU DASHBOARD -->
+            <span @click="togglemessageActive"><IconHome /> <span class="text-light">Dashboard</span></span>
+            <span @click="togglemessageActive"><IconMessageCircle2 /> <span class="text-light">Messaggi</span></span>
             <span><IconUserStar /> <span class="text-light">Recensioni</span></span>
         </div>
         <div class="settings d-flex flex-column mt-3 px-4 py-2 gap-3">
@@ -49,22 +50,31 @@ import { IconChevronLeft } from '@tabler/icons-vue';
         data(){
             return{
                 store,
-                isOpen: false
+                isOpen: false,
+                messageActive: false
             }
         },
         methods: {
             OpenSidebar(){
                 if(this.isOpen === false){
                     this.isOpen = true;
-                   
+                    this.scrollToTop();
                 }
                 else{
                     this.isOpen = false;
                 }
-            }
+            },
+            togglemessageActive() {
+                this.messageActive = !this.messageActive;
+                this.$emit('updateMessageActive', this.messageActive);
+                this.isOpen = !this.isOpen;
+            },
+            scrollToTop() {
+            window.scrollTo(0, 0);
+            },
         },
         mounted() {
-            console.log(store.doctor)
+           
         }
     }
 </script>
@@ -75,9 +85,10 @@ import { IconChevronLeft } from '@tabler/icons-vue';
     }
     .sidebar{
         width: calc(100vw - 20px);
-        height: 100vh;
+        padding-bottom: 200px;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        overflow: hidden;
     }
     .box-image{
         width: 150px;
@@ -123,9 +134,14 @@ import { IconChevronLeft } from '@tabler/icons-vue';
     .side-visible{
         display: none !important;
     }
+    .management, .settings{
+        span{
+            cursor: pointer;
+        }
+    }
     @media screen and (min-width:1200px){
         .sidebar{
-            max-width: 400px !important;
+            max-width: 350px !important;
             overflow: hidden;
         }
         .side-visible{
