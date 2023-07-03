@@ -1,5 +1,6 @@
 <template>
     <nav>
+        <button @click="authentication">Verifica autenticazione</button>
         <div class="menu d-flex justify-content-between align-items-center">
             <div class="box-logo">
                 <router-link to="/"><img src="/img/logo/hearts-no-track.svg" class="logo" alt="logo"></router-link>
@@ -11,7 +12,7 @@
                 <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help">Assistenza</router-link>
             </div>
             <div class="box-button d-flex align-items-center">
-                <button v-if="!store.isAuthenticated || store.userDoctor == null" class="button-doctor button-none"
+                <button v-if="!store.isAuthenticated" class="button-doctor button-none"
                     @click="goLogin()">
                     <IconUser class="mb-1" :size="24" /> Sei un medico?
                 </button>
@@ -22,7 +23,7 @@
                         }}</span>
                     </ButtonComponent>
                 </router-link>
-                <div v-if="!store.isAuthenticated" class="logout-desk m-auto">
+                <div v-if="store.isAuthenticated" class="logout-desk m-auto">
                     <router-link to="/logout">Logout</router-link>
                 </div>
                 <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
@@ -50,7 +51,7 @@
                             </ButtonComponent>
                         </router-link>
                     </div>
-                    <div v-if="!store.isAuthenticated" class="logout m-auto pb-3">
+                    <div v-if="store.isAuthenticated" class="logout m-auto pb-3">
                         <router-link to="/logout">Logout</router-link>
                     </div>
                 </div>
@@ -88,6 +89,10 @@ export default {
         goLogin() {
             this.$router.push({ name: 'login' })
         },
+        authentication(){
+            console.log('utente autenticato? :' + store.isAuthenticated)
+            console.log(store.userDoctor)
+        }
     },
     mounted() {
         
