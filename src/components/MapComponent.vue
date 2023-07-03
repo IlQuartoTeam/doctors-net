@@ -40,7 +40,16 @@
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             }).addTo(this.map);
 
-            const icon = L.icon(
+            
+
+            this.putPinsOnMap()
+            
+
+          });
+      },
+      putPinsOnMap()
+      {
+        const icon = L.icon(
               {
                 iconUrl: '/img/other/pin-leaflet-border.png',
                 shadowUrl: '/img/other/pin-leaflet-shadow.png',
@@ -52,31 +61,35 @@
                 popupAnchor: [0, 2]
               }
             )
-
-            this.doctors.forEach(element => {
-              const marker = L.marker([element.address_lat, element.address_long], {icon: icon}).addTo(this.map);
-              const popup = `
+        if(this.doctors)
+        {
+          this.doctors.forEach(element => {
+            const marker = L.marker([element.address_lat, element.address_long], {icon: icon}).addTo(this.map);
+            const popup = `
               <h6 class="markerPopup-name text-center">${element.name} ${element.surname}</h6>
               <p class="text-center m-0 p-0 mb-2">${element.specializations[0].name ?? 'Medicina Generale'}</p>
               <a class="d-block text-center text-doc-primary text-underline popup-link" href="/doctors/${element.slug}">Dettagli</a>
               `
-              marker.bindPopup(popup)
-            });
-            
-
-          });
-      },
+            marker.bindPopup(popup)
+            })
+        }
+        
+      }
     },
     watch: {
         'store.citySearched'(newValue){
-        this.city = newValue
-        this.map.remove();
-        this.initializeMap()
+        this.city = newValue 
       },
       'store.doctorsQueried'(newValue){
         this.doctors = newValue
-        this.map.remove();
-        this.initializeMap()
+        if(this.map)
+        {
+          this.map.off()
+          this.map.remove()
+          this.initializeMap()
+        }
+        
+       
       }
     },
     
