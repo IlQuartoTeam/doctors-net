@@ -26,7 +26,7 @@ export default {
         return {
             store,
             addresses: [],
-            doctors: store.doctorsQueried,
+            doctors: null,
             specialization: '',
             city: '',
             message: null,
@@ -131,6 +131,13 @@ export default {
             })
         }
     },
+    watch:
+    {
+        'store.doctors'(newValue)
+        {
+            this.doctors = newValue
+        }
+    },
     mounted() 
     {
         this.searchDoctors(this.store.citySearched)
@@ -187,7 +194,7 @@ export default {
             <span v-else-if="message">Nessun risultato trovato.</span>
         </h6>
         <div v-if="store.doctorsQueried" class="row row-cols-1 row-cols-lg-2 gx-0 px-1 px-md-5">
-            <DoctorCard v-for="doctor in store.doctorsQueried" :doctor="doctor" />
+            <DoctorCard v-for="doctor in (this.doctors ?? store.doctorsQueried)" :doctor="doctor" />
         </div>
     </section>
 </template>
