@@ -6,7 +6,6 @@
   import axios from 'axios';
   import ButtonComponent from './ButtonComponent.vue'
   import { store } from '../store/store';
-  import { ref } from 'vue';
 
   export default {
     components: {ButtonComponent},
