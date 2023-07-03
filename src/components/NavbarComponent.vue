@@ -1,6 +1,5 @@
 <template>
     <nav>
-        <button @click="authentication">Verifica autenticazione</button>
         <div class="menu d-flex justify-content-between align-items-center">
             <div class="box-logo">
                 <router-link to="/"><img src="/img/logo/hearts-no-track.svg" class="logo" alt="logo"></router-link>
@@ -17,15 +16,12 @@
                     <IconUser class="mb-1" :size="24" /> Sei un medico?
                 </button>
                 <router-link to="/users/profile">
-                    <ButtonComponent v-if="store.isAuthenticated && store.userDoctor" className="button-doctor outline"
+                    <ButtonComponent v-if="store.isAuthenticated && store.userDoctor" className="button-doctor outline m-0"
                         id="btn-logged">
                         <IconUser /><span v-if="store.userDoctor">{{ store.userDoctor.name }} {{ store.userDoctor.surname
                         }}</span>
                     </ButtonComponent>
                 </router-link>
-                <div v-if="store.isAuthenticated" class="logout-desk m-auto">
-                    <router-link to="/logout">Logout</router-link>
-                </div>
                 <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
                 <IconX :size="60" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
             </div>
@@ -45,14 +41,14 @@
                         </button>
                         <router-link to="/users/profile">
                             <ButtonComponent v-if="store.isAuthenticated"
-                                className="outline d-flex align-items-center gap-2" id="btn-logged">
+                                className="outline d-flex align-items-center gap-2">
                                 <IconUser /><span v-if="store.userDoctor">{{ store.userDoctor.name }} {{
                                     store.userDoctor.surname }}</span>
                             </ButtonComponent>
                         </router-link>
                     </div>
                     <div v-if="store.isAuthenticated" class="logout m-auto pb-3">
-                        <router-link to="/logout">Logout</router-link>
+                        <router-link to="/logout"><ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged"><span>Logout</span></ButtonComponent></router-link>
                     </div>
                 </div>
             </div>
@@ -89,10 +85,6 @@ export default {
         goLogin() {
             this.$router.push({ name: 'login' })
         },
-        authentication(){
-            console.log('utente autenticato? :' + store.isAuthenticated)
-            console.log(store.userDoctor)
-        }
     },
     mounted() {
         
@@ -130,17 +122,6 @@ export default {
 
 .menu-open {
     box-shadow: 0px 14px 12px 0px rgba(0, 0, 0, 0.15);
-
-    span {
-        color: #0071A2;
-        transition: background-color 0.5s;
-
-        &:hover {
-            color: white;
-            background: linear-gradient(48deg, rgba(243, 143, 35, 0.00) 0%, rgba(41, 167, 181, 0.00) 100%), #2FB0BD;
-            cursor: pointer;
-        }
-    }
 }
 
 .fade-in {
@@ -173,17 +154,6 @@ button {
 .button-doctor:hover {
     background-color: #0071A2;
     color: white;
-}
-
-.outline {
-    background-color: #0071A2;
-    color: white;
-
-    &:hover {
-        background-color: transparent;
-        color: #0071A2;
-        border: 1px solid #29A7B5;
-    }
 }
 
 .logout-desk {
