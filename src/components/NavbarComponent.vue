@@ -58,6 +58,7 @@
 
 <script>
 import { store } from '../store/store';
+import axios from 'axios';
 import { IconUser } from '@tabler/icons-vue';
 import { IconBrandGoogleHome } from '@tabler/icons-vue';
 import { IconMenu2 } from '@tabler/icons-vue';
@@ -85,9 +86,27 @@ export default {
         goLogin() {
             this.$router.push({ name: 'login' })
         },
+        getUser(){
+            if ( this.$cookies.get("session-token")){
+                const token = this.$cookies.get("session-token")
+               
+                const config = { headers: { Authorization: `Bearer ${token}` }}
+                    axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
+                    store.doctor = res.data.doctor
+                    store.doctor.specialization = res.data.doctor.specializations[0].name
+                    store.user = res.data.user
+                    store.userDoctor = {...res.data.doctor, ...res.data.user}
+                    console.log(store.userDoctor)
+                    router.push('/users/profile')
+                }).catch(err => {
+                    this.message.text = 'Ooops! Si è verificato un errore.'
+                    this.loading = false
+                })
+            }
+        },
     },
-    mounted() {
-        
+    mounted(){
+        this.getUser()
     }
 }
 </script>
