@@ -4,7 +4,10 @@
    {{ store.doctor }} -->
     <div class="box-component">
         <SidebarComponent />
-        <HeroUserComponent v-if="store.dashboard.heroOpen" />
+        <div class="dashboard">
+            <HeroUserComponent v-if="store.dashboard.heroOpen" />
+            <ChartComponent v-if="store.userDoctor" />
+        </div>
         <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
         <SettingUserComponent v-if="store.dashboard.settingsOpen" />
     </div>
@@ -20,12 +23,13 @@ import axios from 'axios';
 import router from '../router/router';
 import { store } from '../store/store';
 import HeroUserComponent from '../components/HeroUserComponent.vue';
+import ChartComponent from '../components/ChartComponent.vue';
 import SidebarComponent from '../components/SidebarComponent.vue';
 import MessageUserComponent from '../components/MessageUserComponent.vue';
 import SettingUserComponent from '../components/SettingUserComponent.vue';
 
     export default {
-        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent },
+        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, ChartComponent },
         data(){
             return{
                 store,
