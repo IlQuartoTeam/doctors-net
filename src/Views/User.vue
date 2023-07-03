@@ -4,8 +4,8 @@
    {{ store.doctor }} -->
     <div class="box-component">
         <SidebarComponent />
-        <HeroUserComponent v-if="!store.heroOpen" />
-        <MessageUserComponent v-if="store.messaggesOpen" />
+        <HeroUserComponent v-if="store.dashboard.heroOpen" />
+        <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
     </div>
     
    

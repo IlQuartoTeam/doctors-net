@@ -64,24 +64,25 @@ import { IconChevronLeft } from '@tabler/icons-vue';
                 }
             },
             togglemessageActive() {
-                if(store.messaggesOpen === false) {
-                    store.heroOpen = !store.heroOpen;
-                    store.messaggesOpen = !store.messaggesOpen;
+                if(store.dashboard.messaggesOpen === false) {
+                    store.dashboard.heroOpen = !store.dashboard.heroOpen;
+                    store.dashboard.messaggesOpen = !store.dashboard.messaggesOpen;
                     this.isOpen = !this.isOpen;
                 }
-                else if(store.messaggesOpen === true){
-                    store.messaggesOpen = true;
+                else if(store.dashboard.messaggesOpen === true){
+                    store.dashboard.messaggesOpen = true;
                     this.isOpen = !this.isOpen;
                 }
+                console.log(store.dashboard.messaggesOpen)
             },
             toggledashboardActive() {
-                if(store.heroOpen === false) {
-                    store.heroOpen = !store.heroOpen;
-                    store.messaggesOpen = !store.messaggesOpen;
+                if(store.dashboard.heroOpen === false) {
+                    store.dashboard.heroOpen = !store.dashboard.heroOpen;
+                    store.dashboard.messaggesOpen = !store.dashboard.messaggesOpen;
                     this.isOpen = !this.isOpen;
                 }
-                else if(store.heroOpen === true){
-                    store.heroOpen = true;
+                else if(store.dashboard.heroOpen === true){
+                    store.dashboard.heroOpen = true;
                     this.isOpen = !this.isOpen;
                 }
             },
