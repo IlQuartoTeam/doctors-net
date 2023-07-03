@@ -1,10 +1,5 @@
 <template>
-  <button
-    v-if="button === true"
-    :type="type"
-    class="btn"
-    :class="className"
-  >
+  <button v-if="button === true" :type="type" class="btn" :class="className">
     <slot></slot>
   </button>
   <a v-else :href="link" class="btn" :class="className">
@@ -23,7 +18,7 @@ export default {
 @use "../assets/styles/_variables.scss" as *;
 
 .btn {
-  
+
   padding: 1rem 2rem;
   border-radius: 5px;
   font-size: 13px;
@@ -40,19 +35,24 @@ export default {
 
 .primary {
   background-color: $doc-primary;
-  border:  $doc-primary;
-  
+  border: $doc-primary;
+
+  &:active {
+    background-color: $doc-blue !important;
+    color: $doc-white !important;
+  }
 }
 
 .primary:hover {
-  background-color:  $doc-blue;
+  background-color: $doc-blue;
   color: $doc-white;
 }
 
 .outline {
   background-color: $doc-white;
-  border: 1px solid  $doc-blue;
+  border: 1px solid $doc-blue;
   color: $doc-blue;
+
 }
 
 .outline:hover {
@@ -64,6 +64,11 @@ export default {
   background-color: $doc-accent;
   border: $doc-accent;
   color: $doc-white;
+
+  &:active {
+    background-color: $doc-red !important;
+    color: $doc-white !important;
+  }
 }
 
 .accent:hover {
@@ -71,21 +76,18 @@ export default {
   color: $doc-white;
 }
 
-.heroButton{
+.heroButton {
   width: 100%;
   padding: 15px 32px;
   font-size: inherit;
 }
 
 @media screen and (min-width: 768px) {
-  .heroButton{
-  width: fit-content;
-  padding: 15px 100px;
+  .heroButton {
+    width: fit-content;
+    padding: 15px 100px;
 
+  }
 }
-}
-
-
-
 </style>
 

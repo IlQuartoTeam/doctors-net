@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col mx-0 text-center">
+    <div class="">
+      <div class=" mx-0 text-center">
         <div class="d-flex justify-content-center gap-0">
           <h1 class="call">Trova adesso<br class="d-lg-none">
             <div class="d-inline-block change"><span ref="scritta" class="special">{{ currentText
@@ -9,7 +9,7 @@
           </h1>
         </div>
 
-        <ButtonComponent class="cerca fw-bold" className="accent">INIZIA ORA</ButtonComponent>
+        <ButtonComponent class="cerca fw-bold" className="accent px-6">INIZIA ORA</ButtonComponent>
       </div>
     </div>
   </div>
@@ -88,7 +88,6 @@ export default {
 }
 
 .cerca {
-  width: 353px;
   font-size: 20px;
   margin-top: 25px;
 
