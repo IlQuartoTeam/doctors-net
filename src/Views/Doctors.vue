@@ -142,10 +142,6 @@ export default {
     {
         this.searchDoctors(this.store.citySearched)
        
-    },
-    created() 
-    {
-        this.searchDoctors(this.store.citySearched)
     }
 }
 </script>
