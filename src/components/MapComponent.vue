@@ -1,5 +1,7 @@
 <template>
     <div id="map"></div>
+    {{ newCity }}
+    <h2>{{ prevCity }}</h2>
   </template>
   
   <script>
@@ -17,15 +19,27 @@
         openStreetApi: `https://nominatim.openstreetmap.org/search?format=json&q=`,
         map: null,
         city: store.citySearched,
-        doctors: store.doctorsQueried
+        newCity: 'Roma',
+        prevCity: store.citySearched,
+        doctors: store.doctorsQueried,
+        error: false,
       };
     },
     
     methods: {
-      initializeMap() {
+      initializeMap(cityToSearch) {
+        /* if(this.prevCity != null)
+        {
+          if (store.citySearched != this.prevCity)
+          {
+            store.citySearched = this.prevCity
+          }
+        } */
+       
         axios
-          .get(this.openStreetApi + (this.city) + ',Italy', {withCredentials: false})
+          .get(this.openStreetApi + (cityToSearch) + ',Italy', {withCredentials: false})
           .then((response) => {
+            this.error = false;
             this.cityData.lat = response.data[0].lat;
             this.cityData.long = response.data[0].lon;
             this.map = L.map('map').setView(
@@ -39,11 +53,13 @@
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             }).addTo(this.map);
 
-            
-
             this.putPinsOnMap()
-            
 
+          }).catch(() => 
+          {
+            console.log('errore');
+            this.error = true;
+          
           });
       },
       putPinsOnMap()
@@ -76,20 +92,34 @@
       }
     },
     watch: {
-        'store.citySearched'(newValue){
-        this.city = newValue 
+      'store.citySearched'(newValue, oldValue ){
+        if(!this.error)
+        {
+          this.newCity = newValue 
+          this.prevCity = oldValue;
+          if(this.map)
+          {
+            this.map.off()
+            this.map.remove()
+            this.initializeMap(newValue)
+          }
+        } 
+        else 
+        {
+          store.citySearched = this.prevCity
+          this.newCity = this.prevCity
+          this.initializeMap(this.prevCity)
+
+          }
         
       },
       'store.doctorsQueried'(newValue){
         this.doctors = newValue
-        if(this.map)
-        {
-          this.map.off()
-          this.map.remove()
-          this.initializeMap()
-        }
-        
-       
+      },
+      newCity(newValue)
+      {
+        store.citySearched = newValue
+        this.initializeMap(newValue)
       }
     },
     
@@ -98,11 +128,11 @@
         {
           this.map.off()
           this.map.remove()
-          this.initializeMap()
+          this.initializeMap('Roma')
         }
       else
       {
-        this.initializeMap()
+        this.initializeMap('Roma')
       }
     }
   }
