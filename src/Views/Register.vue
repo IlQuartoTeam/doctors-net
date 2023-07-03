@@ -19,7 +19,7 @@
         </div>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
-                <InputComponent :invalid="message.phone" label="Telefono" id="register_phone" type="number" placeholder="368 88 99 555"
+                <InputComponent :invalid="message.phone" label="Telefono" id="register_phone" type="text" placeholder="368 88 99 555"
                     v-model="phone" />
                     <p class="text-doc-red" v-if="message.phone">{{ message.phone }}</p>
             </div>
