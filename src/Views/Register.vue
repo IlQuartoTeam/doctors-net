@@ -3,7 +3,7 @@
         <h1 class="text-doc-blue text-center">Modulo di Registrazione</h1>
         <h2 class="text-doc-blue">Dati Personali</h2>
         <small class="text-doc-primary mb-3 d-block">I dati obbligatori sono contrassegnati da *</small>
-        <form @submit.prevent="getLatLongCoordinates()"> 
+        <form @submit.prevent="register()"> 
             <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
                 <InputComponent :required="true" :invalid="message.name" label="Nome*" id="register_name" type="text" placeholder="Osvaldo" v-model="name" />
@@ -31,22 +31,7 @@
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
-            <div class="col">
-                <InputComponent :required="true" :invalid="message.address" label="Indirizzo*" id="register_address" type="text" placeholder="Corso Inghilterra"
-                    v-model="address" />
-                    <p class="text-doc-red" v-if="message.address">{{ message.address }}</p>
-
-            </div>
-            <div class="col">
-                <InputComponent :required="true" :invalid="message.address" label="Numero Civico*" id="register_address_number" type="number" placeholder="47"
-                    v-model="address_number" />
-            </div>
-        </div>
-        <div class="row row-cols-1 row-cols-md-2">
-            <div class="col">
-                <InputComponent :required="true" :invalid="message.city" label="City*" id="register_city" type="text" placeholder="Torino" v-model="city" />
-                <p class="text-doc-red" v-if="message.city">{{ message.city }}</p>
-            </div>
+                <Places />
         </div>
         <h2 class="text-doc-blue">Dati Account</h2>
         <div class="row row-cols-1 row-cols-md-2">
@@ -74,12 +59,13 @@
 <script>
 import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
+import Places from '../components/Places.vue';
 import axios from 'axios'
 import { store } from '../store/store';
 import router from '../router/router';
 
 export default {
-    components: { InputComponent, ButtonComponent },
+    components: { InputComponent, ButtonComponent, Places },
     data() {
         return {
             openStreetApi: `https://nominatim.openstreetmap.org/search?format=json&q=`,
@@ -103,26 +89,18 @@ export default {
     },
     methods: {
         register() {
-            let fulladdress = '';
             this.message = {};
-            if (!this.address || !this.address_number) {
-                 fulladdress = '';
-                }
-                else {
-                 fulladdress = this.address + ', ' + this.address_number
-                }
             axios.post(store.API_URL + 'register', {
                 name: this.name,
                 surname: this.surname,
                 email: this.email,
                 password: this.password,
                 phone: this.phone,
-                city: this.city,
-
-                address: this.address + ', ' + this.address_number,
+                city: this.store.city,
+                address: store.address,
                 specialization: 1,
-                lat: this.lat,
-                long: this.lon
+                lat: this.store.lat,
+                long: this.store.lon
             }).then((res) => {
                 if(res.data.access_token)
                 {
@@ -167,15 +145,6 @@ export default {
                 })
 
         },
-        getLatLongCoordinates() {
-        axios.get(this.openStreetApi + this.address + ', ' + this.address_number + ',' + this.city, {withCredentials: false}).then(res => {
-            this.lat = res.data[0].lat
-            this.lon = res.data[0].lon
-        }).catch(() => {
-            this.lat = ''
-            this.lon = ''
-        }).finally(() => {this.register()})
-      }
     }
 
 }
