@@ -49,13 +49,12 @@ import MessageUserComponent from '../components/MessageUserComponent.vue';
                         })
             }
         },
-        mounted(){
-            if (!this.$cookies.get("session-token") && !store.user){
-                router.push('/login')
-            } else {
-                this.getUser()
-            }
-            
+    },
+    mounted(){
+        if (!this.$cookies.get("session-token") && !store.user){
+            router.push('/login')
+        } else {
+            this.getUser()
         }
     }
 }
