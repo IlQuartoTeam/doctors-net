@@ -43,7 +43,9 @@
             </div>
             <div class="col">
                 <InputComponent :required="true" label="Conferma Password*" id="register_confirm_password" type="password"
-                    placeholder="Conferma password" v-model="confirm_password" />
+                    placeholder="Conferma password" v-model="confirmPassword" />
+                    <p class="text-doc-red" v-if="errPsw">La conferma password non coincide con password</p>
+
             </div>
         </div>
         <div class="text-end mt-2 mb-5">
@@ -78,10 +80,11 @@ export default {
             address_number: null,
             city: null,
             password: null,
-            confirm_password: null,
+            confirmPassword: null,
             lat: null, 
             lon: null,
             message: {},
+            errPsw: false
             
           
 
@@ -90,6 +93,11 @@ export default {
     methods: {
         register() {
             this.message = {};
+            this.errPsw = false;
+            if (this.password != this.confirmPassword){
+                this.errPsw = true;
+                return
+            }
             axios.post(store.API_URL + 'register', {
                 name: this.name,
                 surname: this.surname,
