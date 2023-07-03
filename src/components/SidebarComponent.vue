@@ -67,18 +67,22 @@ import { IconChevronLeft } from '@tabler/icons-vue';
                 if(store.messaggesOpen === false) {
                     store.heroOpen = !store.heroOpen;
                     store.messaggesOpen = !store.messaggesOpen;
+                    this.isOpen = !this.isOpen;
                 }
                 else if(store.messaggesOpen === true){
                     store.messaggesOpen = true;
+                    this.isOpen = !this.isOpen;
                 }
             },
             toggledashboardActive() {
                 if(store.heroOpen === false) {
                     store.heroOpen = !store.heroOpen;
                     store.messaggesOpen = !store.messaggesOpen;
+                    this.isOpen = !this.isOpen;
                 }
                 else if(store.heroOpen === true){
                     store.heroOpen = true;
+                    this.isOpen = !this.isOpen;
                 }
             },
             scrollToTop() {
