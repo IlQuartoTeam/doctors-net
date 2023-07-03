@@ -145,6 +145,9 @@ import ButtonComponent from './ButtonComponent.vue';
             cursor: pointer;
         }
     }
+    #btn-logged{
+        min-width: 250px;
+    }
     @media screen and (min-width:1200px){
         .sidebar{
             max-width: 350px !important;
