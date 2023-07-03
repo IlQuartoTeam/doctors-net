@@ -26,13 +26,14 @@ export default {
         return {
             store,
             addresses: [],
-            doctors: null,
+            doctors: store.doctorsQueried,
             specialization: '',
             city: '',
             message: null,
             specializationInput: '',
             ratingSelected: 'all',
-            reviewCountSelected: 'all'
+            reviewCountSelected: 'all',
+            loading: true
         }
     },
     methods: 
@@ -45,30 +46,35 @@ export default {
         filterDoctors(resultsFromDB) 
         {
             store.doctorsQueried = resultsFromDB 
+            
             let results = null
             if (this.specialization.trim() != '')
             {
                 results = this.filterBySpecialization(resultsFromDB)
                 store.doctorsQueried = results
+                
             }
             if (this.ratingSelected != 'all')
             {
                 results = this.filterByRatingCount(results ?? resultsFromDB)
                
                 store.doctorsQueried = results
+                
             }
             if (this.reviewCountSelected != 'all')
             {
                 results = this.filterByReviewCount(results ?? resultsFromDB)
                 console.log(results);
                 store.doctorsQueried = results
+                
             }
-
+            
             
                 
         },
         filterByRatingCount(doctorsList)
         {
+            
             return doctorsList.filter(doctor => 
             {
                 if(Math.round(doctor.average_rating) >= parseInt(this.ratingSelected))
@@ -79,6 +85,7 @@ export default {
         },
         filterByReviewCount(doctorsList)
         {
+            
             return doctorsList.filter(doctor =>
             {
                 if(doctor.reviews.length >= parseInt(this.reviewCountSelected))
@@ -91,6 +98,7 @@ export default {
         },
         filterBySpecialization(doctorsList)
         {
+            
             const results = doctorsList.filter(doctor => 
                 {
                     const specializations = doctor.specializations
@@ -119,6 +127,7 @@ export default {
                 const results = res.data.results.data
                 this.filterDoctors(results)
                 this.message = null
+              
             })
             .catch((err) => 
             {
@@ -127,18 +136,23 @@ export default {
                 {
                     this.message = "Nessun risultato trovato"
                     store.doctorsQueried = null
+                   
                 }
             })
+        }
+    },
+    watch:
+    {
+        'store.doctorsQueried'(newValue)
+        {
+            this.doctors = newValue
+           
         }
     },
     mounted() 
     {
         this.searchDoctors(this.store.citySearched)
        
-    },
-    created() 
-    {
-        this.searchDoctors(this.store.citySearched)
     }
 }
 </script>
@@ -180,14 +194,14 @@ export default {
     </div>
     <section class="doctors-list bg-doc-primary bg-opacity-25 py-3">
         <h6 class="text-doc-blue fw-bold text-center py-4">
-            <span v-if="!message">
+            <span v-if="!message && store.doctorsQueried">
                 {{ store.doctorsQueried.length }}
                 {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0  ? 'risultati' : 'risultato' }} 
                 {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'trovati' : 'trovato' }}</span>
             <span v-else-if="message">Nessun risultato trovato.</span>
         </h6>
         <div v-if="store.doctorsQueried" class="row row-cols-1 row-cols-lg-2 gx-0 px-1 px-md-5">
-            <DoctorCard v-for="doctor in store.doctorsQueried" :doctor="doctor" />
+            <DoctorCard :key="doctor.email" v-for="doctor in store.doctorsQueried" :doctor="doctor" />
         </div>
     </section>
 </template>

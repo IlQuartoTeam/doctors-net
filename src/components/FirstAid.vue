@@ -107,8 +107,8 @@ export default {
          */
         console.log(this.$refs.webgl);
         const sizes = {
-            width: this.$refs.webgl.offsetWidth,
-            height: this.$refs.webgl.offsetHeight
+            width: this.$refs.webgl.offsetWidth ?? 400,
+            height: this.$refs.webgl.offsetHeight ?? 400
         }
 
         window.addEventListener('resize', () => {
