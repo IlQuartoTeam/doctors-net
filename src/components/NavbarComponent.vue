@@ -11,20 +11,17 @@
                 <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help">Assistenza</router-link>
             </div>
             <div class="box-button d-flex align-items-center">
-                <button v-if="!store.isAuthenticated || store.userDoctor == null" class="button-doctor button-none"
+                <button v-if="!store.isAuthenticated" class="button-doctor button-none"
                     @click="goLogin()">
                     <IconUser class="mb-1" :size="24" /> Sei un medico?
                 </button>
                 <router-link to="/users/profile">
-                    <ButtonComponent v-if="store.isAuthenticated && store.userDoctor" className="button-doctor outline"
+                    <ButtonComponent v-if="store.isAuthenticated && store.userDoctor" className="button-doctor outline m-0"
                         id="btn-logged">
                         <IconUser /><span v-if="store.userDoctor">{{ store.userDoctor.name }} {{ store.userDoctor.surname
                         }}</span>
                     </ButtonComponent>
                 </router-link>
-                <div v-if="store.isAuthenticated" class="logout-desk m-auto">
-                    <router-link to="/logout">Logout</router-link>
-                </div>
                 <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
                 <IconX :size="60" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
             </div>
@@ -33,9 +30,10 @@
             <div v-if="menuOpen" class="fade-in">
                 <div class="menu-open d-flex flex-column">
                     <div class="menu-link d-flex flex-column">
-                        <span class="py-3 px-3 paragraph-hero-p fw-bold">I nostri specialisti</span>
-                        <span class="py-3 px-3 paragraph-hero-p fw-bold">Chi siamo</span>
-                        <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/" @click="openMenu">Home</router-link>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/doctors" @click="openMenu">I nostri specialisti</router-link>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/team" @click="openMenu">Chi siamo</router-link>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help" @click="openMenu">Assistenza</router-link>
                     </div>
                     <div class="menu-button p-3 m-auto">
                         <button v-if="!store.isAuthenticated" class="button-doctor" @click="goLogin()">
@@ -43,14 +41,14 @@
                         </button>
                         <router-link to="/users/profile">
                             <ButtonComponent v-if="store.isAuthenticated"
-                                className="outline d-flex align-items-center gap-2" id="btn-logged">
+                                className="outline d-flex align-items-center gap-2">
                                 <IconUser /><span v-if="store.userDoctor">{{ store.userDoctor.name }} {{
                                     store.userDoctor.surname }}</span>
                             </ButtonComponent>
                         </router-link>
                     </div>
                     <div v-if="store.isAuthenticated" class="logout m-auto pb-3">
-                        <router-link to="/logout">Logout</router-link>
+                        <router-link to="/logout"><ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged"><span>Logout</span></ButtonComponent></router-link>
                     </div>
                 </div>
             </div>
@@ -82,20 +80,14 @@ export default {
     },
     methods: {
         openMenu() {
-            if (this.menuOpen === false) {
-                this.menuOpen = true;
-
-            }
-            else {
-                this.menuOpen = false;
-            }
+            this.menuOpen = !this.menuOpen
         },
         goLogin() {
             this.$router.push({ name: 'login' })
-        }
+        },
     },
     mounted() {
-        console.log(store.doctor)
+        
     }
 }
 </script>
@@ -130,17 +122,6 @@ export default {
 
 .menu-open {
     box-shadow: 0px 14px 12px 0px rgba(0, 0, 0, 0.15);
-
-    span {
-        color: #0071A2;
-        transition: background-color 0.5s;
-
-        &:hover {
-            color: white;
-            background: linear-gradient(48deg, rgba(243, 143, 35, 0.00) 0%, rgba(41, 167, 181, 0.00) 100%), #2FB0BD;
-            cursor: pointer;
-        }
-    }
 }
 
 .fade-in {
@@ -173,17 +154,6 @@ button {
 .button-doctor:hover {
     background-color: #0071A2;
     color: white;
-}
-
-.outline {
-    background-color: #0071A2;
-    color: white;
-
-    &:hover {
-        background-color: transparent;
-        color: #0071A2;
-        border: 1px solid #29A7B5;
-    }
 }
 
 .logout-desk {

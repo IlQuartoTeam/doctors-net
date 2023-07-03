@@ -22,6 +22,10 @@
             <h6 class="fw-semibold">Impostazioni</h6>
             <span><IconSettings /> <span class="text-light">Account</span></span>
         </div>
+        <div class="short-link p-4 mt-5 d-flex flex-column align-items-center justify-content-center gap-3">
+            <router-link to="/"><ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged"><span>Torna alla Homepage</span></ButtonComponent></router-link>
+            <router-link to="/logout"><ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged"><span>Logout</span></ButtonComponent></router-link>
+        </div>
     </div>
     <div class="close-side d-flex align-items-center">
         <IconChevronLeft v-if="this.isOpen" @click="OpenSidebar" class="me-3 ps-2" />
@@ -36,6 +40,7 @@ import { IconUserStar } from '@tabler/icons-vue';
 import { IconSettings } from '@tabler/icons-vue';
 import { IconChevronRight } from '@tabler/icons-vue';
 import { IconChevronLeft } from '@tabler/icons-vue';
+import ButtonComponent from './ButtonComponent.vue';
     export default {
         name: 'SidebarComponent',
         components: {
@@ -44,7 +49,8 @@ import { IconChevronLeft } from '@tabler/icons-vue';
             IconUserStar,
             IconSettings,
             IconChevronRight,
-            IconChevronLeft
+            IconChevronLeft,
+            ButtonComponent
         },
         props: ['doctor'],
         data(){
