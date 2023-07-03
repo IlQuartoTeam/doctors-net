@@ -113,7 +113,7 @@ export default {
         searchDoctors(city) 
         {
             this.specialization = this.specializationInput
-            axios.get(store.API_URL + 'doctors?city=' + this.city)
+            axios.get(store.API_URL + 'doctors?city=' + city)
             .then((res) => 
             {
                 const results = res.data.results.data
@@ -181,7 +181,7 @@ export default {
     <section class="doctors-list bg-doc-primary bg-opacity-25 py-3">
         <h6 class="text-doc-blue fw-bold text-center py-4">
             <span v-if="!message">
-                {{ store.doctorsQueried.length }} 
+                {{ store.doctorsQueried.length }}
                 {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0  ? 'risultati' : 'risultato' }} 
                 {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'trovati' : 'trovato' }}</span>
             <span v-else-if="message">Nessun risultato trovato.</span>

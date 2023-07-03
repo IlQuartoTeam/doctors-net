@@ -33,9 +33,17 @@
     <div class="separator w-100">
         <svg class="waves w-100"  data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" ><path  d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill" fill="#2FB0BD" fill-opacity="1"></path></svg>
     </div>
+    <div class="sections bg-doc-primary">
+        <HomeSection :imgs="indexImgs"/>
+        <HomeSection :imgs="showImgs" reverse="true"/>
+        <HomeSection :imgs="contactImgs"/>
+    </div>
+    <CtaComponent/>
 </template>
 
 <script>
+import CtaComponent from '../components/CtaComponent.vue';
+import HomeSection from '../components/HomeSection.vue';
 import InputComponent from '../components/InputComponent.vue'
 import ThreeObject from '../components/ThreeObject.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
@@ -43,14 +51,30 @@ import FirstAid from '../components/FirstAid.vue';
 export default {
     data() {
         return {
-
+            indexImgs: {
+                imgSm: 'indexMobile',
+                imgMd: 'indexTablet',
+                imgLg: 'indexLg',
+            },
+            showImgs: {
+                imgSm: 'showMobile',
+                imgMd: 'showLg',
+                imgLg: 'showLg',
+            },
+            contactImgs: {
+                imgSm: 'contactMobile',
+                imgMd: 'contactLg',
+                imgLg: 'contactLg',
+            },
         }
     },
     components: {
     ThreeObject,
     ButtonComponent,
     InputComponent,
-    FirstAid
+    FirstAid,
+    HomeSection,
+    CtaComponent
 }
 }
 </script>
@@ -83,7 +107,9 @@ export default {
             left: -50px;
         }
     }
-    
+}
+.sections{
+    padding: 120px 50px 100px;
 }
 .waves{
     rotate: 180deg;
@@ -93,7 +119,10 @@ export default {
     bottom: -3px;
 }
 
-@media screen and (min-width: 990px) {
+@media screen and (min-width: 992px) {
+    .sections{
+    padding: 80px 50px 80px;
+}
     .hero {
         .title {
             h1 {

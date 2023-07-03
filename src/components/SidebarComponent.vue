@@ -8,7 +8,8 @@
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
             </div>
             <h6 v-if="store.userDoctor" class="fw-semibold">{{ store.userDoctor.name }} {{ store.userDoctor.surname }}</h6>
-            <span class="text-light fw-semibold">Qui la specializzazione</span>
+            <span v-if="store.userDoctor" class="text-light fw-semibold">{{ store.userDoctor.specialization }}</span>
+            
         </div>
         <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3">
             <h6 class="fw-semibold">Gestione</h6>
@@ -57,7 +58,7 @@ import { IconChevronLeft } from '@tabler/icons-vue';
             OpenSidebar(){
                 if(this.isOpen === false){
                     this.isOpen = true;
-                   
+                    this.scrollToTop();
                 }
                 else{
                     this.isOpen = false;
@@ -67,7 +68,10 @@ import { IconChevronLeft } from '@tabler/icons-vue';
                 this.messageActive = !this.messageActive;
                 this.$emit('updateMessageActive', this.messageActive);
                 this.isOpen = !this.isOpen;
-            }
+            },
+            scrollToTop() {
+            window.scrollTo(0, 0);
+            },
         },
         mounted() {
            
@@ -81,7 +85,7 @@ import { IconChevronLeft } from '@tabler/icons-vue';
     }
     .sidebar{
         width: calc(100vw - 20px);
-        height: 100vh;
+        padding-bottom: 200px;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
         overflow: hidden;

@@ -5,43 +5,33 @@
             <img class="d-block mx-auto img-fluid" src="/img/logo/hearts-no-track.svg" alt="logo">
             <h1 class="text-uppercase text-doc-accent text-center mt-2">doctors<span class="text-doc-primary">net</span>
             </h1>
+            <form @submit.prevent="login()" action="#">
             <h2 class="text-center text-doc-blue fw-bold">Login</h2>
-          
-                <InputComponent
-                :invalid="message.email || error"
-                :required="true" 
-                v-model="email" 
-                id="email_login" 
-                label="E-mail" 
-                type="email"
-                placeholder="gastanifrinzi@gmail.com" />
-                <p class="text-doc-red" v-if="message.email || error">{{ message.email }}</p>
-                
-                <InputComponent 
-                    :invalid="message.password || error "
-                    :required="true" 
-                    v-model="password" 
-                    id="password_login" 
-                    label="Password" 
-                    type="password"
-                    placeholder="Password" />
-                <p class="text-doc-red" v-if="message.password || error">{{ message.password }}</p>
-              
-                <div class="text-center d-flex flex-column gap-2">
-                    <ButtonComponent @click.prevent="login()" type="submit" className="primary">Login</ButtonComponent>
-                    <ButtonComponent link="/register" className="outline">Registrati</ButtonComponent>
-                </div>
-                <p v-if="message.text" class="text-doc-red text-center mt-2">{{ message.text }}</p>
-               
-                <div class="loader text-center mt-4">
-                  <div v-if="loading" class="spinner-border text-primary">
+
+            <InputComponent :invalid="message.email || error" :required="true" v-model="email" id="email_login"
+                label="E-mail" type="email" placeholder="gastanifrinzi@gmail.com" />
+            <p class="text-doc-red" v-if="message.email || error">{{ message.email }}</p>
+
+            <InputComponent :invalid="message.password || error" :required="true" v-model="password" id="password_login"
+                label="Password" type="password" placeholder="Password" />
+            <p class="text-doc-red" v-if="message.password || error">{{ message.password }}</p>
+
+            <div class="text-center d-flex flex-column gap-2">
+                <ButtonComponent :button="true" :type="submit" className="primary">Login</ButtonComponent>
+                <ButtonComponent link="/register" className="outline">Registrati</ButtonComponent>
+            </div>
+            <p v-if="message.text" class="text-doc-red text-center mt-2">{{ message.text }}</p>
+        </form>
+
+            <div class="loader text-center mt-4">
+                <div v-if="loading" class="spinner-border text-primary">
                     <span class="visually-hidden">Loading...</span>
-                    </div>
                 </div>
-               
+            </div>
+
 
         </div>
-        
+
     </section>
 </template>
 
@@ -50,9 +40,9 @@ import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 import SmallLoaderComponent from '../components/SmallLoaderComponent.vue';
 import axios from 'axios'
-import {IconRefresh} from '@tabler/icons-vue';
+import { IconRefresh } from '@tabler/icons-vue';
 import router from '../router/router'
-import {store} from '../store/store'
+import { store } from '../store/store'
 
 export default {
     components: { InputComponent, ButtonComponent, IconRefresh, SmallLoaderComponent },
@@ -60,14 +50,14 @@ export default {
         return {
             password: null,
             email: null,
-            message: {email: null, password: null},
+            message: { email: null, password: null },
             loading: false,
             store,
             error: false,
         }
     },
     methods: {
-       
+
         login() {
             this.error = false
             this.message.email = '';
@@ -87,8 +77,8 @@ export default {
                 }).catch(error => {
                     const messages = error.response.data.errors
                     const invalid = error.response.data.message
-    
-                    if (invalid){
+
+                    if (invalid) {
                         this.message.email = null
                         this.message.password = null
                         this.message.text = invalid
@@ -96,43 +86,44 @@ export default {
                         this.error = true
 
                     }
-                    
-                    if (messages.email){
+
+                    if (messages.email) {
                         this.message.email = messages.email[0]
                         this.loading = false
                     }
-                    if (messages.password){
+                    if (messages.password) {
                         this.message.password = messages.password[0]
                         this.loading = false
                     }
-                    
+
                 })
         },
-        getUser(){
-            if ( this.$cookies.get("session-token")){
+        getUser() {
+            if (this.$cookies.get("session-token")) {
                 const token = this.$cookies.get("session-token")
-               
-                const config = { headers: { Authorization: `Bearer ${token}` }}
-                    axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
-                            store.doctor = res.data.doctor
-                            store.user = res.data.user
-                            store.userDoctor = {...res.data.doctor, ...res.data.user}
-                            console.log(store.userDoctor)
-                            router.push('/users/profile')
 
-                        }).catch(err => {
-                            this.message.text = 'Ooops! Si è verificato un errore.'
-                            this.loading = false
-                        })
+                const config = { headers: { Authorization: `Bearer ${token}` } }
+                axios.post(store.API_URL + 'user', { key: 'value' }, config).then(res => {
+                    store.doctor = res.data.doctor
+                    store.doctor.specialization = res.data.doctor.specializations[0].name
+                    store.user = res.data.user
+                    store.userDoctor = { ...res.data.doctor, ...res.data.user }
+                    console.log(store.userDoctor)
+                    router.push('/users/profile')
+
+                }).catch(err => {
+                    this.message.text = 'Ooops! Si è verificato un errore.'
+                    this.loading = false
+                })
             }
         }
     },
-    mounted(){
-        if (this.$cookies.get("session-token")){
+    mounted() {
+        if (this.$cookies.get("session-token")) {
             this.getUser()
         }
-      
-       
+
+
     }
 }
 </script>
@@ -145,7 +136,8 @@ section {
     height: 100dvh;
     display: grid;
     place-items: center;
-    .login-container{
+
+    .login-container {
         width: 100%;
     }
 
@@ -156,29 +148,33 @@ section {
         background-size: cover;
         display: grid;
         place-items: center;
-        .login-container{
+
+        .login-container {
             width: 400px;
             margin: 0 auto;
             padding: 2rem;
             border-radius: 20px;
             background-color: white;
         }
-       
+
     }
+
     @media screen and (min-width: 992px) {
         background: #FAFAFA;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .image-container{
-        background: url('/img/other/login-image.jpg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        width: 50%;
-        height: 100dvh;
+
+        .image-container {
+            background: url('/img/other/login-image.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 50%;
+            height: 100dvh;
         }
-        .login-container{
+
+        .login-container {
             background-color: #fafafa;
         }
     }

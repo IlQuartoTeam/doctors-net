@@ -37,20 +37,21 @@ import MessageUserComponent from '../components/MessageUserComponent.vue';
                
                     const config = { headers: { Authorization: `Bearer ${token}` }}
                     axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
-                        store.doctor = res.data.doctor
-                        store.user = res.data.user
-                        store.userDoctor = {...res.data.doctor, ...res.data.user}
-                        console.log(store.userDoctor)
-                        router.push('/users/profile')
-                    }).catch(err => {
-                        this.message.text = 'Ooops! Si è verificato un errore.'
-                        this.loading = false
-                    })
-                }
-            },
-            updateMessageActive(value) {
-                this.messageActive = value;
+                            store.doctor = res.data.doctor
+                            store.doctor.specialization = res.data.doctor.specializations[0].name
+                            store.user = res.data.user
+                            store.userDoctor = {...res.data.doctor, ...res.data.user}
+                            console.log(store.userDoctor)
+                            router.push('/users/profile')
+
+                        }).catch(err => {
+                            this.message.text = 'Ooops! Si è verificato un errore.'
+                            this.loading = false
+                        })
             }
+        },
+        updateMessageActive(value) {
+            this.messageActive = value;
         },
         mounted(){
             if (!this.$cookies.get("session-token") && !store.user){
@@ -61,6 +62,7 @@ import MessageUserComponent from '../components/MessageUserComponent.vue';
             
         }
     }
+}
 </script>
 
 <style lang="scss" scoped>

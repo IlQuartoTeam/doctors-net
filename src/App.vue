@@ -7,11 +7,14 @@
       <div class="intro">
       </div>
     </div>
-    <template v-if="this.$route.path != '/login'">
+    <template v-if="this.$route.path != '/login' && this.$route.path != '/users/profile'">
       <NavbarComponent />
     </template>
     <router-view></router-view>
-    <Footer v-if="$route.name != 'login'"></Footer>
+    <template v-if="!this.$route.path.includes('/users') && !this.$route.path.includes('/doctors')">
+      <!-- <CtaComponent /> -->
+    </template>
+    <Footer v-if="this.$route.name != 'login'"></Footer>
   </template>
 </template>
 
@@ -19,6 +22,7 @@
 import SplashPage from './components/SplashPage.vue';
 import NavbarComponent from './components/NavbarComponent.vue';
 import Footer from './components/Footer.vue';
+import CtaComponent from './components/CtaComponent.vue';
 import { store } from './store/store';
 export default {
   data() {
@@ -33,7 +37,8 @@ export default {
   components: {
     NavbarComponent,
     Footer,
-    SplashPage
+    SplashPage,
+    CtaComponent
   },
   methods: {
     getReady() {
