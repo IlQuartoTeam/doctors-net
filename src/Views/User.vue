@@ -3,9 +3,9 @@
    {{ store.user }}
    {{ store.doctor }} -->
     <div class="box-component">
-        <SidebarComponent @updateMessageActive="updateMessageActive" />
-        <HeroUserComponent v-if="!this.messageActive" />
-        <MessageUserComponent v-if="this.messageActive" />
+        <SidebarComponent />
+        <HeroUserComponent v-if="store.dashboard.heroOpen" />
+        <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
     </div>
     
    
@@ -27,7 +27,6 @@ import MessageUserComponent from '../components/MessageUserComponent.vue';
         data(){
             return{
                 store,
-                messageActive: false
             }
         },
         methods: {
@@ -50,9 +49,6 @@ import MessageUserComponent from '../components/MessageUserComponent.vue';
                         })
             }
         },
-        updateMessageActive(value) {
-            this.messageActive = value;
-        },
         mounted(){
             if (!this.$cookies.get("session-token") && !store.user){
                 router.push('/login')
@@ -69,6 +65,7 @@ import MessageUserComponent from '../components/MessageUserComponent.vue';
     @media screen and (min-width:1200px){
         .box-component{
             display: flex;
+            overflow: hidden;
         }
     }
 </style>

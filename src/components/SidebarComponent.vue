@@ -14,7 +14,7 @@
         <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3">
             <h6 class="fw-semibold">Gestione</h6>
             <!-- FUNZIONE togglemessageActive PROVVISORIA AL CLICK SU DASHBOARD -->
-            <span @click="togglemessageActive"><IconHome /> <span class="text-light">Dashboard</span></span>
+            <span @click="toggledashboardActive"><IconHome /> <span class="text-light">Dashboard</span></span>
             <span @click="togglemessageActive"><IconMessageCircle2 /> <span class="text-light">Messaggi</span></span>
             <span><IconUserStar /> <span class="text-light">Recensioni</span></span>
         </div>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="close-side d-flex align-items-center">
-        <IconChevronLeft v-if="this.isOpen" @click="OpenSidebar" class="me-3 pe-1" />
+        <IconChevronLeft v-if="this.isOpen" @click="OpenSidebar" class="me-3 ps-2" />
     </div>
 </template>
 
@@ -51,7 +51,6 @@ import { IconChevronLeft } from '@tabler/icons-vue';
             return{
                 store,
                 isOpen: false,
-                messageActive: false
             }
         },
         methods: {
@@ -65,9 +64,27 @@ import { IconChevronLeft } from '@tabler/icons-vue';
                 }
             },
             togglemessageActive() {
-                this.messageActive = !this.messageActive;
-                this.$emit('updateMessageActive', this.messageActive);
-                this.isOpen = !this.isOpen;
+                if(store.dashboard.messaggesOpen === false) {
+                    store.dashboard.heroOpen = !store.dashboard.heroOpen;
+                    store.dashboard.messaggesOpen = !store.dashboard.messaggesOpen;
+                    this.isOpen = !this.isOpen;
+                }
+                else if(store.dashboard.messaggesOpen === true){
+                    store.dashboard.messaggesOpen = true;
+                    this.isOpen = !this.isOpen;
+                }
+                console.log(store.dashboard.messaggesOpen)
+            },
+            toggledashboardActive() {
+                if(store.dashboard.heroOpen === false) {
+                    store.dashboard.heroOpen = !store.dashboard.heroOpen;
+                    store.dashboard.messaggesOpen = !store.dashboard.messaggesOpen;
+                    this.isOpen = !this.isOpen;
+                }
+                else if(store.dashboard.heroOpen === true){
+                    store.dashboard.heroOpen = true;
+                    this.isOpen = !this.isOpen;
+                }
             },
             scrollToTop() {
             window.scrollTo(0, 0);
@@ -84,7 +101,7 @@ import { IconChevronLeft } from '@tabler/icons-vue';
         color: #979797;
     }
     .sidebar{
-        width: calc(100vw - 20px);
+        width: calc(100vw - 17px);
         padding-bottom: 200px;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -119,7 +136,7 @@ import { IconChevronLeft } from '@tabler/icons-vue';
     .close-side{
         position: absolute;
         top: 50%;
-        right: -40px;
+        right: -20px;
         transform: translate(-50%);
         background-color: rgba(0, 0, 0, 0.158);
         height: 52px;
