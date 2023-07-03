@@ -19,7 +19,7 @@
             </tbody>
         </table>
         <div class="text-center mt-4">
-            <router-link to="/users/profile"><ButtonComponent className="button-doctor outline">Torna alla Dashboard</ButtonComponent></router-link>
+            <ButtonComponent @click="toggledashboardActive" className="button-doctor outline">Torna alla Dashboard</ButtonComponent>
         </div>
     </div>
     <div v-if="isOpenMessage" class="container-fluid mt-4" id="show">
@@ -60,7 +60,12 @@ import ButtonComponent from './ButtonComponent.vue';
             },
             openMessage(){
                 this.isOpenMessage = !this.isOpenMessage
-            }
+            },
+            toggledashboardActive() {
+                store.heroOpen = !store.heroOpen;
+                store.messaggesOpen = !store.messaggesOpen;
+                this.isOpen = !this.isOpen
+            },
         }
     }
 </script>
