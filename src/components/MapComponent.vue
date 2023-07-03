@@ -79,6 +79,7 @@
     watch: {
         'store.citySearched'(newValue){
         this.city = newValue 
+        
       },
       'store.doctorsQueried'(newValue){
         this.doctors = newValue

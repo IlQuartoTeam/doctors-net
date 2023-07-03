@@ -26,7 +26,7 @@ export default {
         return {
             store,
             addresses: [],
-            doctors: null,
+            doctors: store.doctorsQueried,
             specialization: '',
             city: '',
             message: null,
@@ -180,7 +180,7 @@ export default {
     </div>
     <section class="doctors-list bg-doc-primary bg-opacity-25 py-3">
         <h6 class="text-doc-blue fw-bold text-center py-4">
-            <span v-if="!message">
+            <span v-if="!message && store.doctorsQueried">
                 {{ store.doctorsQueried.length }}
                 {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0  ? 'risultati' : 'risultato' }} 
                 {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'trovati' : 'trovato' }}</span>
