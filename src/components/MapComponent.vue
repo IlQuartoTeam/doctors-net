@@ -88,8 +88,6 @@
           this.map.remove()
           this.initializeMap()
         }
-        
-       
       }
     },
     
