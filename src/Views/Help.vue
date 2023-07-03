@@ -2,13 +2,14 @@
     <div ref="privacySection">
        <PrivacyComponent />
        <CtaComponent />
-    
+       <CookiesCompontent />
     </div>
 </template>
 
 <script>
 import PrivacyComponent from '../components/PrivacyComponent.vue';
 import CtaComponent from '../components/CtaComponent.vue';
+import CookiesCompontent from '../components/CookiesComponent.vue'
 
 export default {
     data() {
@@ -19,6 +20,7 @@ export default {
     components: {
         PrivacyComponent,
         CtaComponent,
+        CookiesCompontent
         
     },
     methods: {
