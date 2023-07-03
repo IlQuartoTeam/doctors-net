@@ -51,7 +51,7 @@ export default {
       }, 6500);
       setTimeout(() => {
         this.loaded = !this.loaded
-      }, 7500);
+      }, 8500);
     }
   },
   mounted(){
@@ -76,7 +76,7 @@ export default {
   left:50%;
   translate: -50% -50%;
   scale: 200;
-  animation: reduce .5s linear forwards;
+  animation: reduce 1s ease-out forwards;
 }
 .introWrap{
   position: absolute;
