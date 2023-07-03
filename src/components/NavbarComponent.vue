@@ -33,9 +33,10 @@
             <div v-if="menuOpen" class="fade-in">
                 <div class="menu-open d-flex flex-column">
                     <div class="menu-link d-flex flex-column">
-                        <span class="py-3 px-3 paragraph-hero-p fw-bold">I nostri specialisti</span>
-                        <span class="py-3 px-3 paragraph-hero-p fw-bold">Chi siamo</span>
-                        <span class="py-3 px-3 paragraph-hero-p fw-bold">Assistenza</span>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/" @click="openMenu">Home</router-link>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/doctors" @click="openMenu">I nostri specialisti</router-link>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/team" @click="openMenu">Chi siamo</router-link>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help" @click="openMenu">Assistenza</router-link>
                     </div>
                     <div class="menu-button p-3 m-auto">
                         <button v-if="!store.isAuthenticated" class="button-doctor" @click="goLogin()">
@@ -82,20 +83,14 @@ export default {
     },
     methods: {
         openMenu() {
-            if (this.menuOpen === false) {
-                this.menuOpen = true;
-
-            }
-            else {
-                this.menuOpen = false;
-            }
+            this.menuOpen = !this.menuOpen
         },
         goLogin() {
             this.$router.push({ name: 'login' })
-        }
+        },
     },
     mounted() {
-        console.log(store.doctor)
+        
     }
 }
 </script>
