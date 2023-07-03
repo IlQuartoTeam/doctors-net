@@ -73,6 +73,7 @@ import ButtonComponent from './ButtonComponent.vue';
                     store.dashboard.heroOpen = false;
                     store.dashboard.messaggesOpen = true;
                     store.dashboard.settingsOpen = false;
+                    store.dashboard.chartsOpen = false;
                     this.isOpen = !this.isOpen;
                 }
                 else if(store.dashboard.messaggesOpen === true){
@@ -84,6 +85,7 @@ import ButtonComponent from './ButtonComponent.vue';
             toggledashboardActive() {
                 if(store.dashboard.heroOpen === false) {
                     store.dashboard.heroOpen = true;
+                    store.dashboard.chartsOpen = true;
                     store.dashboard.messaggesOpen = false;
                     store.dashboard.settingsOpen = false;
                     this.isOpen = !this.isOpen;
@@ -98,6 +100,7 @@ import ButtonComponent from './ButtonComponent.vue';
                     store.dashboard.settingsOpen = true;
                     store.dashboard.heroOpen = false;
                     store.dashboard.messaggesOpen = false;
+                    store.dashboard.chartsOpen = false;
                     this.isOpen = !this.isOpen;
                 }
                 else if(store.dashboard.messaggesOpen === true){

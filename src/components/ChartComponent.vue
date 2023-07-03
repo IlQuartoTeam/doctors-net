@@ -67,16 +67,11 @@
         this.loaded = false;
         let today = moment();
         let labels = [];
-
         for (let i = 6; i >= 0; i--) {
             let day = today.clone().subtract(i, 'days').format('DD/MM');
             labels.push(day);
         }
-
         this.data.labels = labels
-
-        console.log(store.userDoctor.messages.length)
-        console.log(this.data.labels)
         setTimeout(() => {
           this.loaded = true;
         }, 100);
@@ -88,16 +83,11 @@
         console.log(this.data.labels);
         let today = moment();
         let labels = [];
-
         for (let i = 6; i >= 0; i--) {
             let week = today.clone().subtract(i, 'weeks').format('DD MMM');
             labels.push(week);
         }
-
         this.data.labels = labels;
-
-        console.log(store.userDoctor.messages.length)
-        console.log(this.data.labels)
         setTimeout(() => {
           this.loaded = true;
         }, 100);
@@ -109,16 +99,11 @@
         console.log(this.data.labels);
         let today = moment();
         let labels = [];
-
         for (let i = 6; i >= 0; i--) {
             let month = today.clone().subtract(i, 'months').format('MMMM');
             labels.push(month);
         }
-
         this.data.labels = labels;
-
-        console.log(store.userDoctor.messages.length)
-        console.log(this.data.labels)
         setTimeout(() => {
           this.loaded = true;
         }, 100);
@@ -130,16 +115,11 @@
         console.log(this.data.labels);
         let today = moment();
         let labels = [];
-
         for (let i = 6; i >= 0; i--) {
             let year = today.clone().subtract(i, 'years').format('YYYY');
             labels.push(year);
         }
-
         this.data.labels = labels;
-
-        console.log(store.userDoctor.messages.length)
-        console.log(this.data.labels)
         setTimeout(() => {
           this.loaded = true;
         }, 100);
