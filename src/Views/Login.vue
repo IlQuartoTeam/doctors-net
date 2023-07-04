@@ -17,7 +17,7 @@
             <p class="text-doc-red" v-if="message.password || error">{{ message.password }}</p>
 
             <div class="text-center d-flex flex-column gap-2">
-                <ButtonComponent :button="true" :type="submit" className="primary">Login</ButtonComponent>
+                <ButtonComponent :button="true" type="submit" className="primary">Login</ButtonComponent>
                 <ButtonComponent link="/register" className="outline">Registrati</ButtonComponent>
             </div>
             <p v-if="message.text" class="text-doc-red text-center mt-2">{{ message.text }}</p>
