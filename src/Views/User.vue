@@ -12,6 +12,7 @@
              <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
              <SettingUserComponent v-if="store.dashboard.generalInfo" />
              <PerformancesUserComponent v-if="store.dashboard.performances" />
+             <ChangeUserPassword v-if="store.dashboard.changePassword" />
              <div class="sideButton d-block d-xl-none">
                  <div v-if="!store.dashboard.sidebarOpen" @click="() => store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen" class="open-side d-flex align-items-center" :class="[store.dashboard.messaggesOpen === true ? 'bg-variable' : '']">
                      <IconChevronRight class="ms-3" />
@@ -38,9 +39,10 @@
  import MessageUserComponent from '../components/MessageUserComponent.vue';
  import SettingUserComponent from '../components/SettingUserComponent.vue';
  import PerformancesUserComponent from '../components/PerformancesUserComponent.vue';
+ import ChangeUserPassword from '../components/ChangeUserPassword.vue';
  
      export default {
-         components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, IconChevronRight },
+         components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, ChangeUserPassword, IconChevronRight },
          data(){
              return{
                  store,
