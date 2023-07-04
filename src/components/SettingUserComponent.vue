@@ -1,5 +1,4 @@
 <template>
-   
     <div class="userInfo w-100">
         <h1 class="px-4 py-2 text-doc-blue">Modifica i tuoi dati</h1>
         <small class="px-4">I campi contrassegnati da * sono obbligatori.</small>
@@ -30,6 +29,7 @@
 
 <script>
 import axios from 'axios';
+import { useToast } from "vue-toastification";
 import { store } from '../store/store';
 import InputComponent from '../components/InputComponent.vue'
 import Places from '../components/Places.vue'
@@ -47,13 +47,12 @@ export default {
             store,
             apiUrl: store.API_URL + 'user/edit',
             userInfo: { ...store.userDoctor },
-            error:null,
+            error: null,
             
         }
     },
     methods: {
         handleSubmit() {
-            console.log('submitted');
             const config = 
             { 
                 headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}`}
@@ -62,17 +61,30 @@ export default {
             .put(this.apiUrl, this.userInfo, config)
             .then(res => 
             {
-                console.log(res);
+                if(res.data.status)
+                {
+                    this.toast.success("Informazioni modificate", {timeout: 1500});
+                    store.userDoctor = {...this.userInfo}
+                }
+                else
+                {
+                    this.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
+                }
+                
             })
             .catch(err =>
             {
-                console.log(err);
+                this.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
             })
         }
     },
     mounted() {
         console.log(store.userDoctor);
-    }
+    },
+    setup() {
+      const toast = useToast();
+      return { toast }
+    },
 }
 </script>
 
