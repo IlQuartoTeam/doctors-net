@@ -10,7 +10,7 @@
             <div class="col">
                 <InputComponent id="doctor_surname" label="Cognome*" v-model="userInfo.surname" type="text" :required="true" />
             </div>
-            <Places :modelAddressPlaces="userInfo.address" :modelCityPlaces="userInfo.city" />
+            <Places :modelAddressPlaces="store.address ?? userInfo.address" :modelCityPlaces="store.city ?? userInfo.city" />
             <div class="col">
                 <InputComponent id="doctor_email" label="Email*" v-model="userInfo.email" type="email" :required="true" />
             </div>
@@ -52,6 +52,11 @@ export default {
     },
     methods: {
         handleSubmit() {
+            this.userInfo.address = store.address
+            this.userInfo.city = store.city
+            this.userInfo.address_lat = store.lat
+            this.userInfo.address_long = store.lon
+
             const config = 
             { 
                 headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}`}
