@@ -66,7 +66,7 @@ export default {
         })
         .catch((err) => 
         {
-          console.log(err);
+         
         })
         
     },
@@ -95,7 +95,7 @@ export default {
       if(this.doctors)
       {
         this.doctors.forEach(element => {
-         element.city != 'Roma' && console.log(element);
+         
           const marker = L.marker([element.address_lat, element.address_long], {icon: icon}).addTo(this.map);
           const specialization = element.specializations[0].name ?? 'Medicina Generale'
           const popup = `
