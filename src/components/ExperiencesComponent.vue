@@ -7,7 +7,7 @@
                         <h2>Esperienze</h2>
                         <li  v-for="(experience, index) in data.experiences">suca</li>
                     </ul>
-                    <ul class="py-4" v-for="(section, index) in data" >
+                    <ul class="py-4">
                         <h2>Formazione</h2>
                         <li v-for="(formation, index) in data.formations">suca</li>
                     </ul>
