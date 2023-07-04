@@ -75,7 +75,7 @@ export default {
         this.map.off()
         this.map.remove()
         this.initializeMap(value)
-        this.putPinsOnMap()
+       
       }
     },
     putPinsOnMap()
