@@ -24,6 +24,7 @@
 
     <div>
        <ExperiencesComponent />
+       <ExaminationsComponent  doctor="store.singleDoctor" />
     </div>
 </template>
 
@@ -33,8 +34,10 @@ import axios from 'axios';
 import { IconStar, IconStarFilled } from '@tabler/icons-vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 import ExperiencesComponent from '../components/ExperiencesComponent.vue';
+import ExaminationsComponent from '../components/ExaminationsComponent.vue';
+
     export default {
-        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent},
+        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent},
         data () {
             return {
                 store,
@@ -72,6 +75,7 @@ import ExperiencesComponent from '../components/ExperiencesComponent.vue';
         },
         mounted() {
             this.getDoctor()
+            
         }
     }
 </script>
