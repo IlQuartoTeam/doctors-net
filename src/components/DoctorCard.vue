@@ -62,7 +62,7 @@ export default {
   {
     splittedText() 
     {
-      if (this.doctor.examination)
+      if (this.doctor.examinations)
       {return this.doctor.examinations.split(';');}
     },
     removeCommaAndCAP() 
@@ -170,7 +170,7 @@ h4{
 }
 
 .spec {
-  font-size: 15px;
+  font-size: 12px;
   font-weight: bold;
   color: $doc-light-dark;
   letter-spacing: 1px;
