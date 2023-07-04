@@ -2,11 +2,21 @@
    <!-- {{ $route.params.id }}
    {{ store.user }}
    {{ store.doctor }} -->
-    <div class="box-component">
-        <SidebarComponent />
-        <div class="dashboard">
+    <div class="box-component d-flex w-100 overflow-hidden overflow-sm-auto">
+        <div class="sidebar">
+            <SidebarComponent />
+        </div>
+        <div class="content position-relative flex-grow-1">
             <HeroUserComponent v-if="store.dashboard.heroOpen" />
-            <ChartComponent v-if="store.dashboard.chartsOpen" />
+            <!-- <ChartComponent v-if="store.dashboard.chartsOpen" /> -->
+            <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
+            <SettingUserComponent v-if="store.dashboard.generalInfo" />
+            <PerformancesUserComponent v-if="store.dashboard.performances" />
+            <div class="sideButton d-block d-xl-none">
+                <div v-if="!store.dashboard.sidebarOpen" @click="() => store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen" class="open-side d-flex align-items-center" :class="[store.dashboard.messaggesOpen === true ? 'bg-variable' : '']">
+                    <IconChevronRight class="ms-3" />
+                </div>
+            </div>
         </div>
         <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
         <SettingUserComponent v-if="store.dashboard.generalInfo" />
@@ -23,6 +33,8 @@ import DoctorCard from '../components/DoctorCard.vue';
 import axios from 'axios';
 import router from '../router/router';
 import { store } from '../store/store';
+import { IconHome } from '@tabler/icons-vue';
+import { IconChevronRight } from '@tabler/icons-vue';
 import HeroUserComponent from '../components/HeroUserComponent.vue';
 import ChartComponent from '../components/ChartComponent.vue';
 import SidebarComponent from '../components/SidebarComponent.vue';
@@ -32,6 +44,10 @@ import ChangeUserPassword from '../components/ChangeUserPassword.vue';
 
     export default {
         components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, ChartComponent, ChangeUserPassword },
+import PerformancesUserComponent from '../components/PerformancesUserComponent.vue';
+
+    export default {
+        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, IconChevronRight },
         data(){
             return{
                 store,
@@ -68,10 +84,26 @@ import ChangeUserPassword from '../components/ChangeUserPassword.vue';
 </script>
 
 <style lang="scss" scoped>
-    @media screen and (min-width:1200px){
-        .box-component{
-            display: flex;
-            overflow: hidden;
+.sideButton{
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
+}
+.open-side{
+        background-color: rgba(255, 255, 255, 0.349);
+        width: 50px;
+        height: 50px;
+        margin-left: -10px;
+        border-radius: 5px;
+        transition: margin-left 0.3s;
+        &:hover{
+            cursor: pointer;
+            margin-left: -5px;
+            background-color: rgba(255, 255, 255, 0.548);
         }
+    }
+    @media screen and (min-width:1200px){
+      /*   */
     }
 </style>
