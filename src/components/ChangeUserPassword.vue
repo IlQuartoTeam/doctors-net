@@ -22,6 +22,7 @@
             </div>
             <div class="text-end px-5">
                 <ButtonComponent type="submit" :button="true" className="primary">Modifica</ButtonComponent>
+
             </div>
         </form>
     </div>
@@ -32,15 +33,20 @@ import axios from 'axios'
 
 import InputComponent from '../components/InputComponent.vue'
 import ButtonComponent from '../components/ButtonComponent.vue'
+import { store } from '../store/store';
+
 export default {
     name: 'ChangeUserPassword',
     data() {
         return {
-            apiUrl: '/test',
+            apiUrl: 'api/user/password',
             oldPassword: '',
             newPassword: '',
             confirmedNewPassword: '',
             notMatching: false,
+            badPassword: false,
+            message: '',
+            store,
         }
     },
     components: {
@@ -49,6 +55,7 @@ export default {
     },
     methods: {
         changePassword() {
+            this.message =  '',
             this.notMatching = false;
             if (this.newPassword != this.confirmedNewPassword) {
                 this.notMatching = true;
@@ -65,12 +72,23 @@ export default {
             axios
                 .patch(this.apiUrl, data, config)
                 .then(res => {
+                    this.message = res.data.message;
+                    store.toast.success(this.message, {timeout: 1500});
+
+
                    
 
                 })
                 .catch(err => {
-                   
-                })
+                    this.message = err.response.data.message;
+                    console.log(this.message);
+                    store.toast.error(this.message, {timeout: 1500});
+
+                }).finally(fin => {
+                    this.oldPassword = '',
+                    this.newPassword = '',
+                    this.confirmedNewPassword = ''
+                } )
         }
     }
 }
