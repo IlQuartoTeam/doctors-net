@@ -119,12 +119,11 @@ h2{
 
 .card-img {
   max-width: 100%;
-  max-height: 300px;
   border-radius: 10px;
   overflow: hidden;
 
   img {
-  
+    min-height: 250px;
     max-height: 250px;
     width: 100%;
     object-fit: cover;

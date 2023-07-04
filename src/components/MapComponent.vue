@@ -66,7 +66,7 @@ export default {
         })
         .catch((err) => 
         {
-          
+         
         })
         
     },
@@ -75,6 +75,7 @@ export default {
         this.map.off()
         this.map.remove()
         this.initializeMap(value)
+        this.putPinsOnMap()
       }
     },
     putPinsOnMap()
@@ -94,14 +95,17 @@ export default {
       if(this.doctors)
       {
         this.doctors.forEach(element => {
+         
           const marker = L.marker([element.address_lat, element.address_long], {icon: icon}).addTo(this.map);
+          const specialization = element.specializations[0].name ?? 'Medicina Generale'
           const popup = `
             <h6 class="markerPopup-name text-center">${element.name} ${element.surname}</h6>
-            <p class="text-center m-0 p-0 mb-2">${element.specializations[0].name ?? 'Medicina Generale'}</p>
+            <p class="text-center m-0 p-0 mb-2">${specialization}</p>
             <a class="d-block text-center text-doc-primary text-underline popup-link" href="/doctors/${element.slug}">Dettagli</a>
             `
           marker.bindPopup(popup)
           })
+         
       }
       
     }
