@@ -1,5 +1,6 @@
 import { reactive } from "vue";
 import axios from "axios";
+import { useToast } from "vue-toastification"
 
 export const store = reactive({
   API_URL: "/api/",
@@ -22,5 +23,6 @@ export const store = reactive({
     changePassword: false,
     chartsOpen: true
   },
-  specialization: ''
+  specialization: '',
+  toast: useToast()
 });
