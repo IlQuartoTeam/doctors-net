@@ -11,6 +11,7 @@
             <!-- <ChartComponent v-if="store.dashboard.chartsOpen" /> -->
             <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
             <SettingUserComponent v-if="store.dashboard.generalInfo" />
+            <PerformancesUserComponent v-if="store.dashboard.performances" />
             <div class="sideButton d-block d-xl-none">
                 <div v-if="!store.dashboard.sidebarOpen" @click="() => store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen" class="open-side d-flex align-items-center" :class="[store.dashboard.messaggesOpen === true ? 'bg-variable' : '']">
                     <IconChevronRight class="ms-3" />
@@ -36,9 +37,10 @@ import ChartComponent from '../components/ChartComponent.vue';
 import SidebarComponent from '../components/SidebarComponent.vue';
 import MessageUserComponent from '../components/MessageUserComponent.vue';
 import SettingUserComponent from '../components/SettingUserComponent.vue';
+import PerformancesUserComponent from '../components/PerformancesUserComponent.vue';
 
     export default {
-        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, ChartComponent, IconChevronRight },
+        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, IconChevronRight },
         data(){
             return{
                 store,
