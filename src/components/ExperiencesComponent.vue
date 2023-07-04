@@ -5,11 +5,11 @@
                 <div class="col">
                   <ul class="py-4">
                         <h2>Esperienze</h2>
-                        <li  v-for="(experience, index) in data.experiences">suca</li>
+                        <li  v-for="(experience, index) in data.experiences">{{ experience.name }}</li>
                     </ul>
                     <ul class="py-4">
                         <h2>Formazione</h2>
-                        <li v-for="(formation, index) in data.formations">suca</li>
+                        <li v-for="(formation, index) in data.formations">{{ formation.name }}</li>
                     </ul>
                 </div>
                 
