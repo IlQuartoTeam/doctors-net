@@ -5,8 +5,8 @@
                 <div class="col">
                   <ul class="py-4">
                     <h2 class="py-2">Prestazioni:</h2>
-                    <li v-for="(examination, index) in splitExaminations" :key="index">{{ examination }}</li>
-                     <p>{{ store.singleDoctor.examinations }}</p>
+                    <li v-for="(examination, index) in takeExaminations" :key="index">{{ examination }}</li>
+
                         
                     </ul>
                 </div>
@@ -20,7 +20,7 @@
 import { store } from '../store/store';
 export default {
     computed: {
-        splitExaminations() {
+        takeExaminations() {
       if (this.store.singleDoctor.examinations) {
         return this.store.singleDoctor.examinations.split("; ");
       } else {
