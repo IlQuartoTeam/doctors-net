@@ -30,7 +30,7 @@
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.performances}" @click="toggleSectionActive('performances')"><IconReceipt2 /> <span>Le tue prestazioni</span></span>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.changePassword}" @click="toggleSectionActive('changePassword')"><IconShieldLock /> <span>Cambia password</span></span>
         </div>
-        <div class="short-link p-4 mt-5 d-flex flex-column align-items-center justify-content-center gap-3">
+        <div class="short-link p-4 my-5 d-flex flex-column align-items-center justify-content-center gap-3">
             <router-link to="/"><ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged"><span>Torna alla Homepage</span></ButtonComponent></router-link>
             <router-link to="/logout"><ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged"><span>Logout</span></ButtonComponent></router-link>
         </div>
