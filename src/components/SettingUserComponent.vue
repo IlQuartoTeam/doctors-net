@@ -67,7 +67,7 @@ export default {
                 }
                 else
                 {
-                    this.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
+                    store.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
                 }
                 
             })
