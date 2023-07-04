@@ -1,14 +1,11 @@
-<template>
-    <div class="button-toggle overflow-hidden d-flex" :class="[store.dashboard.sidebarOpen === false ? 'justify-content-start' : 'justify-content-end']">
-        <div v-if="!store.dashboard.sidebarOpen" @click="OpenSidebar" class="open-side d-flex align-items-center" :class="[store.dashboard.messaggesOpen === true ? 'bg-variable' : '']">
-            <IconChevronRight class="ms-3" />
+<template>    
+    <div class="sidebar d-flex flex-column" v-if="store.dashboard.sidebarOpen">
+        <div class="button-toggle toggle-tablet overflow-hidden d-flex" :class="[store.dashboard.sidebarOpen === false ? 'justify-content-start' : 'justify-content-end']">
+            
+            <div v-if="store.dashboard.sidebarOpen" @click="ToggleSidebar" class="close-side d-flex align-items-center">
+                <IconChevronLeft class="ms-2" />
+            </div>
         </div>
-        <div v-if="store.dashboard.sidebarOpen" @click="OpenSidebar" class="close-side d-flex align-items-center">
-            <IconChevronLeft class="ms-2" />
-        </div>
-    </div>
-    
-    <div class="sidebar d-flex flex-column" :class="{'d-inline-block': store.dashboard.sidebarOpen, 'side-visible': !store.dashboard.sidebarOpen}">
         <div class="user-details d-flex flex-column align-items-center mt-4">
             <div class="box-image mb-3">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
@@ -73,14 +70,8 @@ import ButtonComponent from './ButtonComponent.vue';
             }
         },
         methods: {
-            OpenSidebar(){
-                if(store.dashboard.sidebarOpen === false){
-                    store.dashboard.sidebarOpen = true;
-                    this.scrollToTop();
-                }
-                else{
-                    store.dashboard.sidebarOpen = false;
-                }
+            ToggleSidebar(){
+                store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen
             },
             toggleSectionActive(section) {
                 store.dashboard.heroOpen = section === 'dashboard';
@@ -96,8 +87,12 @@ import ButtonComponent from './ButtonComponent.vue';
             scrollToTop() {
             window.scrollTo(0, 0);
             },
+            getSize() {
+                
+            }
         },
-        mounted() {
+    mounted() {
+            
            
         }
     }
@@ -113,11 +108,10 @@ import ButtonComponent from './ButtonComponent.vue';
         color: #979797;
     }
     .sidebar{
-        width: calc(100vw - 14px) ;
+        width: calc(100vw - 12px) ;
         min-height: 100vh;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-        overflow: hidden;
         position: relative;
     }
     .box-image{
@@ -131,19 +125,7 @@ import ButtonComponent from './ButtonComponent.vue';
             object-fit: cover;
         }
     }
-    .open-side{
-        background-color: rgba(255, 255, 255, 0.349);
-        width: 50px;
-        height: 50px;
-        margin-left: -10px;
-        border-radius: 5px;
-        transition: margin-left 0.3s;
-        &:hover{
-            cursor: pointer;
-            margin-left: -5px;
-            background-color: rgba(255, 255, 255, 0.548);
-        }
-    }
+    
     .bg-variable{
         background-color: rgba(0, 0, 0, 0.158) !important;
     }
@@ -174,18 +156,22 @@ import ButtonComponent from './ButtonComponent.vue';
     }
     @media screen and (min-width:768px){
         .sidebar{
-            max-width: 350px !important;
-            overflow: hidden;
+            min-width: 350px !important;
         }
         .side-visible{
             display: inline-block !important;
         }
-        .open-side, .close-side{
+        .toggle-mobile{
             display: none !important;
         }
         .management, .settings{
             padding-left: 50px !important;
         }
 
+    }
+    @media screen and (min-width:576px){
+        .sidebar{
+            width: 100%;
+        }
     }
 </style>
