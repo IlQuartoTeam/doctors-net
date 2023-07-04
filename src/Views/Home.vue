@@ -24,9 +24,11 @@
         </div>
         <div class="searchBar">
             <div class="d-flex flex-column flex-md-row gap-3 align-items-center px-3">
-                <InputComponent class="formInput" :invalid="error" :required="true" v-model="email" className="searchHero"
-                    id="searchHero" type="text" placeholder="Cardiologo, Dermatologo, Ginecologo..." />
-                <ButtonComponent className="primary heroButton mb-3">cerca</ButtonComponent>
+                <InputComponent class="formInput" :invalid="error" :required="true" 
+               
+                v-model="specialization" className="searchHero"
+                    id="searchHero" type="text" placeholder="Cardiologia, Dermatologia, Ginecologia..." />
+                <ButtonComponent @click="handleClick()" className="primary heroButton mb-3">cerca</ButtonComponent>
             </div>
         </div>
     </div>
@@ -48,6 +50,8 @@ import InputComponent from '../components/InputComponent.vue'
 import ThreeObject from '../components/ThreeObject.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 import FirstAid from '../components/FirstAid.vue';
+import { store } from '../store/store';
+
 export default {
     data() {
         return {
@@ -66,6 +70,7 @@ export default {
                 imgMd: 'contactLg',
                 imgLg: 'contactLg',
             },
+            specialization: null
         }
     },
     components: {
@@ -75,6 +80,13 @@ export default {
     FirstAid,
     HomeSection,
     CtaComponent
+},
+methods: {
+    handleClick()
+    {
+        store.specialization = this.specialization
+        this.$router.push('/doctors')
+    }
 }
 }
 </script>

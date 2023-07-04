@@ -27,10 +27,10 @@ export default {
             store,
             addresses: [],
             doctors: store.doctorsQueried,
-            specialization: '',
-            city: '',
+            specialization: store.specialization,
+            city: 'Roma',
             message: null,
-            specializationInput: '',
+            specializationInput: store.specialization,
             ratingSelected: 'all',
             reviewCountSelected: 'all',
             loading: true
@@ -105,7 +105,7 @@ export default {
                     let itContains = false
                     specializations.forEach((spec) => 
                     {
-                        if (spec.name.includes(this.specializationInput)) 
+                        if (spec.name.toLowerCase().includes(this.specializationInput.toLowerCase().trim())) 
                         {
                             itContains = true
                         }
@@ -120,7 +120,7 @@ export default {
         },
         searchDoctors(city) 
         {
-            this.specialization = this.specializationInput
+            this.specialization = this.specializationInput.toLowerCase()
             axios.get(store.API_URL + 'doctors?city=' + city)
             .then((res) => 
             {
