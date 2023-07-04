@@ -96,10 +96,9 @@ export default {
                     store.doctor.specialization = res.data.doctor.specializations[0].name
                     store.user = res.data.user
                     store.userDoctor = {...res.data.doctor, ...res.data.user}
-                    console.log(store.userDoctor)
                     router.push('/users/profile')
                 }).catch(err => {
-                    this.message.text = 'Ooops! Si è verificato un errore.'
+                   
                     this.loading = false
                 })
             }
