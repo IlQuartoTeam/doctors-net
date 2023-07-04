@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-h2 text-doc-blue fw-semibold text-center mt-4">La tua dashboard</h1>
-  <div class="row">
+  <div class="row g-0">
       <div class="col-12 col-lg-6 px-5 pt-4">
         <div class="timeframe d-flex justify-content-end me-4 gap-1">
           <span @click="oneYear" class="badge bg-primary fw-light" :class="[this.isSelected === 'year' ? 'selected' : '']">1 Y</span>

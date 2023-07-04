@@ -1,5 +1,5 @@
 <template>
-    <div class="button-toggle d-flex" :class="[store.dashboard.sidebarOpen === false ? 'justify-content-start' : 'justify-content-end']">
+    <div class="button-toggle overflow-hidden d-flex" :class="[store.dashboard.sidebarOpen === false ? 'justify-content-start' : 'justify-content-end']">
         <div v-if="!store.dashboard.sidebarOpen" @click="OpenSidebar" class="open-side d-flex align-items-center" :class="[store.dashboard.messaggesOpen === true ? 'bg-variable' : '']">
             <IconChevronRight class="ms-3" />
         </div>
@@ -14,23 +14,23 @@
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
             </div>
             <h6 v-if="store.userDoctor" class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{ store.userDoctor.surname }}</h6>
-            <span v-if="store.userDoctor" class="text-doc-accent fw-semibold">{{ store.userDoctor.specialization }}</span>
+            <span v-if="store.userDoctor" class="text-doc-primary fw-semibold">{{ store.userDoctor.specialization }}</span>
         </div>
-        <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3">
+        <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3 align-items-center align-items-md-start">
             <h6 class="fw-semibold text-doc-blue fs-5">Gestione</h6>
             <!-- FUNZIONE togglemessageActive PROVVISORIA AL CLICK SU DASHBOARD -->
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.heroOpen}" @click="toggleSectionActive('dashboard')"><IconHome /> <span>Dashboard</span></span>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.messaggesOpen}" @click="toggleSectionActive('messages')"><IconMessageCircle2 /> <span>Messaggi</span></span>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.reviewsOpen}" @click="toggleSectionActive('reviewsOpen')"><IconUserStar /> <span>Recensioni</span></span>
         </div>
-        <div class="settings d-flex flex-column mt-3 px-4 py-2 gap-3">
+        <div class="settings d-flex flex-column mt-3 px-4 py-2 gap-3 align-items-center align-items-md-start">
             <h6 class="fw-semibold text-doc-blue fs-5">Impostazioni</h6>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.generalInfo}" @click="toggleSectionActive('generalInfo')"><IconInfoCircle /> <span>Informazioni principali</span></span>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.experiences}" @click="toggleSectionActive('experiences')"><IconBriefcase /> <span>Le tue esperienze</span></span>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.performances}" @click="toggleSectionActive('performances')"><IconReceipt2 /> <span>Le tue prestazioni</span></span>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.changePassword}" @click="toggleSectionActive('changePassword')"><IconShieldLock /> <span>Cambia password</span></span>
         </div>
-        <div class="short-link p-4 mt-5 d-flex flex-column align-items-center justify-content-center gap-3">
+        <div class="short-link p-4 my-5 d-flex flex-column align-items-center justify-content-center gap-3">
             <router-link to="/"><ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged"><span>Torna alla Homepage</span></ButtonComponent></router-link>
             <router-link to="/logout"><ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged"><span>Logout</span></ButtonComponent></router-link>
         </div>
@@ -113,8 +113,8 @@ import ButtonComponent from './ButtonComponent.vue';
         color: #979797;
     }
     .sidebar{
-        width: 100vw;
-        padding-bottom: 200px;
+        width: calc(100vw - 14px) ;
+        min-height: 100vh;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
         overflow: hidden;
@@ -172,7 +172,7 @@ import ButtonComponent from './ButtonComponent.vue';
     #btn-logged{
         min-width: 250px;
     }
-    @media screen and (min-width:1200px){
+    @media screen and (min-width:768px){
         .sidebar{
             max-width: 350px !important;
             overflow: hidden;
