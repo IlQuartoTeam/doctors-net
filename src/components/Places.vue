@@ -1,11 +1,11 @@
 <template>
 <div class="col">
     <InputComponent ref="address" :required="true" label="Indirizzo*" id="autocomplete" type="text"
-      placeholder="Corso Inghilterra" v-model="store.address" />
+      placeholder="Corso Inghilterra" :modelValue="modelAddressPlaces" />
     </div>
     <div class="col">
     <InputComponent ref="city" :required="true" label="Città*" id="city" type="text"
-      placeholder="Torino" v-model="store.city" />
+      placeholder="Torino" :modelValue="modelCityPlaces" />
   </div>
 </template>
 
@@ -14,6 +14,7 @@ import { store } from '../store/store';
 import InputComponent from './InputComponent.vue'
 
 export default {
+  props: ['modelAddressPlaces', 'modelCityPlaces'],
   data() {
     return {
       location: '',

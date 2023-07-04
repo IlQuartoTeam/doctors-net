@@ -1,31 +1,72 @@
 <template>
-    <div class="userInfo">
-        
+   
+    <div class="userInfo w-100">
+        <h1 class="px-4 py-2 text-doc-blue">Modifica i tuoi dati</h1>
+        <small class="px-4">I campi contrassegnati da * sono obbligatori.</small>
+        <form @submit.prevent="handleSubmit()">
+            <div class="row row-cols-1 row-cols-md-2 w-100 p-4">
+            <div class="col">
+                <InputComponent id="doctor_name" label="Nome*" :modelValue="userInfo.name" type="text" :required="true" />
+            </div>
+            <div class="col">
+                <InputComponent id="doctor_surname" label="Cognome*" :modelValue="userInfo.surname" type="text" :required="true" />
+            </div>
+            <Places :modelAddressPlaces="userInfo.address" :modelCityPlaces="userInfo.city" />
+            <div class="col">
+                <InputComponent id="doctor_email" label="Email*" :modelValue="userInfo.email" type="email" :required="true" />
+            </div>
+            <div class="col">
+                <InputComponent id="doctor_phone" label="Telefono" :modelValue="userInfo.phone" type="text" :required="false" />
+            </div>
+        </div>
+        <div class="text-end px-5">
+            <ButtonComponent type="submit" :button="true" className="primary">Modifica</ButtonComponent>
+        </div>
+        </form>
+       
+      
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { store } from '../store/store';
+import InputComponent from '../components/InputComponent.vue'
+import Places from '../components/Places.vue'
+import ButtonComponent from '../components/ButtonComponent.vue'
+
 export default {
     name: 'SettingUserComponent',
+    components: {
+        InputComponent,
+        Places,
+        ButtonComponent
+    },
     data() {
         return {
             store,
-            apiUrl: '/api/user/edit',
+            apiUrl: store.API_URL + 'user/edit',
             userInfo: { ...store.userDoctor },
             error:null,
             
         }
     },
     methods: {
-        postChanges() {
-            if (!store.isAuthenticated) {
-                return this.$route.push({path: '/'})
+        handleSubmit() {
+            console.log('submitted');
+            const config = 
+            { 
+                headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}`}
             }
-            const config = { headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` }}
-            axios.post(this.apiUrl, this.userInfo, config).then(res => {
-                
+            axios
+            .patch(this.apiUrl, this.userInfo, config)
+            .then(res => 
+            {
+                console.log(res);
+            })
+            .catch(err =>
+            {
+                console.log(err);
             })
         }
     },
