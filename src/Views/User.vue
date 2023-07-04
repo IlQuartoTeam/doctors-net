@@ -2,7 +2,7 @@
    <!-- {{ $route.params.id }}
    {{ store.user }}
    {{ store.doctor }} -->
-    <div class="box-component">
+    <div class="box-component pb-5">
         <SidebarComponent />
         <div class="dashboard">
             <HeroUserComponent v-if="store.dashboard.heroOpen" />
@@ -10,6 +10,7 @@
         </div>
         <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
         <SettingUserComponent v-if="store.dashboard.generalInfo" />
+        <PerformancesUserComponent v-if="store.dashboard.performances" />
     </div>
     
    
@@ -27,9 +28,10 @@ import ChartComponent from '../components/ChartComponent.vue';
 import SidebarComponent from '../components/SidebarComponent.vue';
 import MessageUserComponent from '../components/MessageUserComponent.vue';
 import SettingUserComponent from '../components/SettingUserComponent.vue';
+import PerformancesUserComponent from '../components/PerformancesUserComponent.vue';
 
     export default {
-        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, ChartComponent },
+        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, ChartComponent, PerformancesUserComponent },
         data(){
             return{
                 store,
