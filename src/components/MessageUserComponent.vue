@@ -13,13 +13,16 @@
                 <tr @click="openMessage" class="prev-message">
                     <td class="d-none">{{ message.fullname }}</td>
                     <td>{{ message.email }}</td>
-                    <td class="d-none">{{ truncateMessage(message.text, 30) }}</td>
-                    <td>{{ truncateMessage(message.text, 10) }}</td>
-                </tr>         
+                    <!-- <td class="d-none">{{ truncateMessage(message.text, 30) }}</td> -->
+                    <td class="message">
+                        {{ message.text }}
+                    </td>
+                </tr>
             </tbody>
         </table>
         <div class="text-center mt-4">
-            <ButtonComponent @click="toggledashboardActive" className="button-doctor outline">Torna alla Dashboard</ButtonComponent>
+            <ButtonComponent @click="toggledashboardActive" className="button-doctor outline">Torna alla Dashboard
+            </ButtonComponent>
         </div>
     </div>
     <div v-if="isOpenMessage" class="container-fluid mt-4" id="show">
@@ -38,47 +41,59 @@
 <script>
 import { store } from '../store/store';
 import ButtonComponent from './ButtonComponent.vue';
-    export default {
-        name:'MessageUserComponent',
-        components: {
-            ButtonComponent
-        },
-        data(){
-            return{
-                store,
-                isOpenMessage: false
+export default {
+    name: 'MessageUserComponent',
+    components: {
+        ButtonComponent
+    },
+    data() {
+        return {
+            store,
+            isOpenMessage: false
+        }
+    },
+    methods: {
+        truncateMessage(message, length) {
+            if (message.length <= length) {
+                return message;
+            }
+            else {
+                return message.slice(0, length) + "...";
             }
         },
-        methods: {
-            truncateMessage(message, length) {
-                if (message.length <= length) {
-                    return message;
-                } 
-                else {
-                    return message.slice(0, length) + "...";
-                }
-            },
-            openMessage(){
-                this.isOpenMessage = !this.isOpenMessage
-            },
-            toggledashboardActive() {
-                store.dashboard.heroOpen = !store.dashboard.heroOpen;
-                store.dashboard.messaggesOpen = !store.dashboard.messaggesOpen;
-                this.isOpen = !this.isOpen
-            },
-        }
+        openMessage() {
+            this.isOpenMessage = !this.isOpenMessage
+        },
+        toggledashboardActive() {
+            store.dashboard.heroOpen = !store.dashboard.heroOpen;
+            store.dashboard.messaggesOpen = !store.dashboard.messaggesOpen;
+            this.isOpen = !this.isOpen
+        },
     }
+}
 </script>
 
 <style lang="scss" scoped>
-    #index, #show{
-        min-height: 50vh;
-    }
-    .table{
-        --bs-table-bg: transparent;
-        --bs-table-border-color: #0071A2;
-    }
-    .prev-message{
-        cursor: pointer;
-    }
+#index,
+#show {
+    min-height: 50vh;
+}
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-border-color: #0071A2;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.prev-message {
+    cursor: pointer;
+}
+
+.message {
+    max-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 </style>
