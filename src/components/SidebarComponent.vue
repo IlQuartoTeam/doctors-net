@@ -13,19 +13,22 @@
             <div class="box-image mb-3">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
             </div>
-            <h6 v-if="store.userDoctor" class="fw-semibold">{{ store.userDoctor.name }} {{ store.userDoctor.surname }}</h6>
-            <span v-if="store.userDoctor" class="text-light fw-semibold">{{ store.userDoctor.specialization }}</span>
+            <h6 v-if="store.userDoctor" class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{ store.userDoctor.surname }}</h6>
+            <span v-if="store.userDoctor" class="text-doc-accent fw-semibold">{{ store.userDoctor.specialization }}</span>
         </div>
         <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3">
-            <h6 class="fw-semibold">Gestione</h6>
+            <h6 class="fw-semibold text-doc-blue fs-5">Gestione</h6>
             <!-- FUNZIONE togglemessageActive PROVVISORIA AL CLICK SU DASHBOARD -->
-            <span @click="toggleSectionActive('dashboard')"><IconHome /> <span class="text-light">Dashboard</span></span>
-            <span @click="toggleSectionActive('messages')"><IconMessageCircle2 /> <span class="text-light">Messaggi</span></span>
-            <span><IconUserStar /> <span class="text-light">Recensioni</span></span>
+            <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.heroOpen}" @click="toggleSectionActive('dashboard')"><IconHome /> <span>Dashboard</span></span>
+            <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.messaggesOpen}" @click="toggleSectionActive('messages')"><IconMessageCircle2 /> <span>Messaggi</span></span>
+            <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.reviewsOpen}" @click="toggleSectionActive('reviewsOpen')"><IconUserStar /> <span>Recensioni</span></span>
         </div>
         <div class="settings d-flex flex-column mt-3 px-4 py-2 gap-3">
-            <h6 class="fw-semibold">Impostazioni</h6>
-            <span @click="toggleSectionActive('settings')"><IconSettings /> <span class="text-light">Account</span></span>
+            <h6 class="fw-semibold text-doc-blue fs-5">Impostazioni</h6>
+            <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.generalInfo}" @click="toggleSectionActive('generalInfo')"><IconInfoCircle /> <span>Informazioni principali</span></span>
+            <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.experiences}" @click="toggleSectionActive('experiences')"><IconBriefcase /> <span>Le tue esperienze</span></span>
+            <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.performances}" @click="toggleSectionActive('performances')"><IconReceipt2 /> <span>Le tue prestazioni</span></span>
+            <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.changePassword}" @click="toggleSectionActive('changePassword')"><IconShieldLock /> <span>Cambia password</span></span>
         </div>
         <div class="short-link p-4 mt-5 d-flex flex-column align-items-center justify-content-center gap-3">
             <router-link to="/"><ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged"><span>Torna alla Homepage</span></ButtonComponent></router-link>
@@ -35,6 +38,10 @@
 </template>
 
 <script>
+import { IconShieldLock } from '@tabler/icons-vue';
+import { IconReceipt2 } from '@tabler/icons-vue';
+import { IconBriefcase } from '@tabler/icons-vue';
+import { IconInfoCircle } from '@tabler/icons-vue';
 import { store } from '../store/store';
 import { IconHome } from '@tabler/icons-vue';
 import { IconMessageCircle2 } from '@tabler/icons-vue';
@@ -46,14 +53,18 @@ import ButtonComponent from './ButtonComponent.vue';
     export default {
         name: 'SidebarComponent',
         components: {
-            IconHome,
-            IconMessageCircle2,
-            IconUserStar,
-            IconSettings,
-            IconChevronRight,
-            IconChevronLeft,
-            ButtonComponent
-        },
+    IconHome,
+    IconMessageCircle2,
+    IconUserStar,
+    IconSettings,
+    IconChevronRight,
+    IconChevronLeft,
+    ButtonComponent,
+    IconInfoCircle,
+    IconBriefcase,
+    IconReceipt2,
+    IconShieldLock
+},
         props: ['doctor'],
         data(){
             return{
@@ -74,8 +85,12 @@ import ButtonComponent from './ButtonComponent.vue';
             toggleSectionActive(section) {
                 store.dashboard.heroOpen = section === 'dashboard';
                 store.dashboard.messaggesOpen = section === 'messages';
-                store.dashboard.settingsOpen = section === 'settings';
+                store.dashboard.generalInfo = section === 'generalInfo';
+                store.dashboard.experiences = section === 'experiences';
+                store.dashboard.performances = section === 'performances';
+                store.dashboard.changePassword = section === 'changePassword';
                 store.dashboard.chartsOpen = section === 'dashboard';
+                store.dashboard.reviewsOpen = section === 'reviewsOpen';
                 store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen;
             },
             scrollToTop() {
