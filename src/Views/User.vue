@@ -10,6 +10,7 @@
         </div>
         <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
         <SettingUserComponent v-if="store.dashboard.generalInfo" />
+        <ChangeUserPassword v-if="store.dashboard.changePassword"/>
     </div>
     
    
@@ -27,9 +28,10 @@ import ChartComponent from '../components/ChartComponent.vue';
 import SidebarComponent from '../components/SidebarComponent.vue';
 import MessageUserComponent from '../components/MessageUserComponent.vue';
 import SettingUserComponent from '../components/SettingUserComponent.vue';
+import ChangeUserPassword from '../components/ChangeUserPassword.vue';
 
     export default {
-        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, ChartComponent },
+        components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, ChartComponent, ChangeUserPassword },
         data(){
             return{
                 store,
