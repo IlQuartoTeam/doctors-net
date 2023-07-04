@@ -16,6 +16,10 @@ export const store = reactive({
     messaggesOpen: false,
     reviewsOpen: false,
     settingsOpen: false,
+    generalInfo: false,
+    experiences: false,
+    performances: false,
+    changePassword: false,
     chartsOpen: true
   },
   specialization: ''
