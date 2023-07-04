@@ -9,7 +9,7 @@
             <ChartComponent v-if="store.dashboard.chartsOpen" />
         </div>
         <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
-        <SettingUserComponent v-if="store.dashboard.settingsOpen" />
+        <SettingUserComponent v-if="store.dashboard.generalInfo" />
     </div>
     
    
