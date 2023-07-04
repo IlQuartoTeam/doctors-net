@@ -29,7 +29,6 @@
 
 <script>
 import axios from 'axios';
-import { useToast } from "vue-toastification";
 import { store } from '../store/store';
 import InputComponent from '../components/InputComponent.vue'
 import Places from '../components/Places.vue'
@@ -63,7 +62,7 @@ export default {
             {
                 if(res.data.status)
                 {
-                    this.toast.success("Informazioni modificate", {timeout: 1500});
+                    store.toast.success("Informazioni modificate", {timeout: 1500});
                     store.userDoctor = {...this.userInfo}
                 }
                 else
@@ -74,16 +73,12 @@ export default {
             })
             .catch(err =>
             {
-                this.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
+                store.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
             })
         }
     },
     mounted() {
         console.log(store.userDoctor);
-    },
-    setup() {
-      const toast = useToast();
-      return { toast }
     },
 }
 </script>
