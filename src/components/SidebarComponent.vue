@@ -113,7 +113,7 @@ import ButtonComponent from './ButtonComponent.vue';
         color: #979797;
     }
     .sidebar{
-        width: calc(100vw - 14px) ;
+        width: calc(100vw - 12px) ;
         min-height: 100vh;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
