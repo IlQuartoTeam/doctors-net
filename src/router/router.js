@@ -6,6 +6,7 @@ import User from '../Views/User.vue'
 import Logout from '../Views/Logout.vue'
 import Help from '../Views/Help.vue'
 import Doctors from '../Views/Doctors.vue'
+import SingleDoctor from '../Views/SingleDoctor.vue'
 import Tests from '../Views/Tests.vue'
 import Team from '../Views/Team.vue';
 
@@ -19,6 +20,7 @@ const routes = [
   { path: '/logout', component: Logout },
   { path: '/help', component: Help },
   { path: '/doctors', component: Doctors },
+  { path: '/doctors/:user', component: SingleDoctor },
   { path: '/tests', component: Tests },
   { path: '/team', component: Team },
   ]
