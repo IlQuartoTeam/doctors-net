@@ -111,7 +111,7 @@ export default {
                     console.log(store.userDoctor)
                     router.push('/users/profile')
                 }).catch(err => {
-                    this.message.text = 'Ooops! Si è verificato un errore.'
+                  //  this.message.text = 'Ooops! Si è verificato un errore.'
                     this.loading = false
                 })
             }
