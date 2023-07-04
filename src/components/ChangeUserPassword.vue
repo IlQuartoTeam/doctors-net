@@ -80,7 +80,7 @@ export default {
 
                 })
                 .catch(err => {
-                    if (err.response.data.errors.newPassword) {
+                    if (err.response.data.errors) {
                         console.log(err.response.data)
                         this.message = err.response.data.errors.newPassword[0]
                     }
