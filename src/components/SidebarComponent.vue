@@ -16,14 +16,14 @@
             <h6 v-if="store.userDoctor" class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{ store.userDoctor.surname }}</h6>
             <span v-if="store.userDoctor" class="text-doc-accent fw-semibold">{{ store.userDoctor.specialization }}</span>
         </div>
-        <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3">
+        <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3 align-items-center align-items-lg-start">
             <h6 class="fw-semibold text-doc-blue fs-5">Gestione</h6>
             <!-- FUNZIONE togglemessageActive PROVVISORIA AL CLICK SU DASHBOARD -->
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.heroOpen}" @click="toggleSectionActive('dashboard')"><IconHome /> <span>Dashboard</span></span>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.messaggesOpen}" @click="toggleSectionActive('messages')"><IconMessageCircle2 /> <span>Messaggi</span></span>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.reviewsOpen}" @click="toggleSectionActive('reviewsOpen')"><IconUserStar /> <span>Recensioni</span></span>
         </div>
-        <div class="settings d-flex flex-column mt-3 px-4 py-2 gap-3">
+        <div class="settings d-flex flex-column mt-3 px-4 py-2 gap-3 align-items-center align-items-lg-start">
             <h6 class="fw-semibold text-doc-blue fs-5">Impostazioni</h6>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.generalInfo}" @click="toggleSectionActive('generalInfo')"><IconInfoCircle /> <span>Informazioni principali</span></span>
             <span class="text-doc-primary d-flex align-items-center gap-1" :class="{'text-doc-accent' : store.dashboard.experiences}" @click="toggleSectionActive('experiences')"><IconBriefcase /> <span>Le tue esperienze</span></span>
@@ -172,7 +172,7 @@ import ButtonComponent from './ButtonComponent.vue';
     #btn-logged{
         min-width: 250px;
     }
-    @media screen and (min-width:1200px){
+    @media screen and (min-width:992px){
         .sidebar{
             max-width: 350px !important;
             overflow: hidden;
