@@ -6,17 +6,17 @@
         <form @submit.prevent="handleSubmit()">
             <div class="row row-cols-1 row-cols-md-2 w-100 p-4">
             <div class="col">
-                <InputComponent id="doctor_name" label="Nome*" :modelValue="userInfo.name" type="text" :required="true" />
+                <InputComponent id="doctor_name" label="Nome*" v-model="userInfo.name" type="text" :required="true" />
             </div>
             <div class="col">
-                <InputComponent id="doctor_surname" label="Cognome*" :modelValue="userInfo.surname" type="text" :required="true" />
+                <InputComponent id="doctor_surname" label="Cognome*" v-model="userInfo.surname" type="text" :required="true" />
             </div>
             <Places :modelAddressPlaces="userInfo.address" :modelCityPlaces="userInfo.city" />
             <div class="col">
-                <InputComponent id="doctor_email" label="Email*" :modelValue="userInfo.email" type="email" :required="true" />
+                <InputComponent id="doctor_email" label="Email*" v-model="userInfo.email" type="email" :required="true" />
             </div>
             <div class="col">
-                <InputComponent id="doctor_phone" label="Telefono" :modelValue="userInfo.phone" type="text" :required="false" />
+                <InputComponent id="doctor_phone" label="Telefono" v-model="userInfo.phone" type="text" :required="false" />
             </div>
         </div>
         <div class="text-end px-5">
@@ -59,7 +59,7 @@ export default {
                 headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}`}
             }
             axios
-            .patch(this.apiUrl, this.userInfo, config)
+            .put(this.apiUrl, this.userInfo, config)
             .then(res => 
             {
                 console.log(res);

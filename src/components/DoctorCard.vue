@@ -37,7 +37,7 @@
         </div>
         <div class="d-flex flex-column justify-content-between align-items-center gx-0">
           <div class="col-12 pt-3 pt-md-0">
-            <ButtonComponent class="btn-card w-100" :link="doctor.slug" className="primary">Dettagli</ButtonComponent>
+            <ButtonComponent class="btn-card w-100" :link="'/doctors/'+doctor.slug" className="primary">Dettagli</ButtonComponent>
           </div>
         </div>
       </div>
