@@ -62,6 +62,7 @@ export default {
             this.error = false
             this.message.email = '';
             this.message.password = '';
+            this.message.text = '';
             this.loading = true
             axios.post(store.API_URL + 'login',
                 {
