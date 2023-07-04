@@ -12,7 +12,7 @@
             <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
             <SettingUserComponent v-if="store.dashboard.generalInfo" />
             <PerformancesUserComponent v-if="store.dashboard.performances" />
-            <div class="sideButton d-block d-xl-none">
+            <div class="sideButton d-block d-lg-none">
                 <div v-if="!store.dashboard.sidebarOpen" @click="() => store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen" class="open-side d-flex align-items-center" :class="[store.dashboard.messaggesOpen === true ? 'bg-variable' : '']">
                     <IconChevronRight class="ms-3" />
                 </div>
