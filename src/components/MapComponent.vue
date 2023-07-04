@@ -45,7 +45,7 @@ export default {
                   '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
               }).addTo(this.map)
 
-              this.putPinsOnMap()
+              setTimeout(this.putPinsOnMap, 500)
             } 
             else
             {
@@ -60,7 +60,8 @@ export default {
                   '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
               }).addTo(this.map)
 
-              this.putPinsOnMap()
+              setTimeout(this.putPinsOnMap, 500)
+
             }
         })
         .catch((err) => 
