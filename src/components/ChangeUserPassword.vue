@@ -80,8 +80,13 @@ export default {
 
                 })
                 .catch(err => {
-                    this.message = err.response.data.message;
-                    console.log(this.message);
+                    if (err.response.data.errors.newPassword) {
+                        console.log(err.response.data)
+                        this.message = err.response.data.errors.newPassword[0]
+                    }
+                    else {
+                        this.message = err.response.data.message;
+                    }
                     store.toast.error(this.message, {timeout: 1500});
 
                 }).finally(fin => {
