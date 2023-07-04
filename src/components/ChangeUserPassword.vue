@@ -36,6 +36,7 @@ export default {
     name: 'ChangeUserPassword',
     data() {
         return {
+            apiUrl: '/test',
             oldPassword: '',
             newPassword: '',
             confirmedNewPassword: '',
@@ -53,12 +54,16 @@ export default {
                 this.notMatching = true;
                 return
             }
+            const data = {
+                oldPassword : this.oldPassword,
+                newPassword : this.newPassword
+            }
             const config =
             {
                 headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` }
             }
             axios
-                .patch(this.apiUrl, this.userInfo, config)
+                .patch(this.apiUrl, data, config)
                 .then(res => {
                    
 
