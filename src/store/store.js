@@ -1,5 +1,4 @@
 import { reactive } from "vue";
-import axios from "axios";
 import { useToast } from "vue-toastification"
 
 export const store = reactive({
