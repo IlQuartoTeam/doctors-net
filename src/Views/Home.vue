@@ -3,9 +3,6 @@
 
         <div
             class="top d-flex ps-md-5 flex-column overflow-hidden align-items-center flex-md-row-reverse w-100 justify-content-center justify-content-lg-between">
-
-            <!-- <ThreeObject class="medikit py-4" w="500" h="250" yRot="0.7" xRot="0.004" ambLight="5" isRotOnMouse="true" directLight="10" rotOnMouse="0.0003" far="6"
-                path="/threeObjects/firstAid-mod.gltf" /> -->
             <FirstAid />
             <div class="title text-center text-md-start position-relative">
                 <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img

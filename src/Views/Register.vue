@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
-                <Places />
+                <Places :modelAddressPlaces="store.address" :modelCityPlaces="store.city" />
         </div>
         <h2 class="text-doc-blue">Dati Account</h2>
         <div class="row row-cols-1 row-cols-md-2">
