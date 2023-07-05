@@ -18,19 +18,17 @@
         </div>
     </div>
     <div class="advanced mt-3">
-        <div class="box-section d-flex ms-5 gap-2">
+        <div v-if="store.singleDoctor" class="box-section d-flex ms-5 gap-2">
             <span @click="openSection('info')" :class="[this.isSelected === 'info' ? 'selected' : '']" class="fw-semibold pe-5">Informazioni</span>
-            <span @click="openSection('review')" :class="[this.isSelected === 'review' ? 'selected' : '']" class="fw-semibold pe-5">Recensioni</span>
+            <span @click="openSection('review')" :class="[this.isSelected === 'review' ? 'selected' : '']" class="fw-semibold pe-5">Recensioni ({{ store.singleDoctor.reviews.length }})</span>
             <span @click="openSection('curriculum')" :class="[this.isSelected === 'curriculum' ? 'selected' : '']" class="fw-semibold pe-5">Curriculum Vitae</span>
         </div>
     </div>
 
-
-
-
-    <div>
-       <ExperiencesComponent />
-       <ExaminationsComponent  doctor="store.singleDoctor" />
+    <div v-if="store.singleDoctor">
+        <ExaminationsComponent v-if="isOpen === 'info'" doctor="store.singleDoctor" />
+        <ReviewComponent v-if="isOpen === 'review'" />
+        <ExperiencesComponent v-if="isOpen === 'curriculum'" />   
     </div>
 </template>
 
@@ -39,11 +37,12 @@ import { store } from '../store/store';
 import axios from 'axios';
 import { IconStar, IconStarFilled } from '@tabler/icons-vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
-import ExperiencesComponent from '../components/ExperiencesComponent.vue';
 import ExaminationsComponent from '../components/ExaminationsComponent.vue';
+import ReviewComponent from '../components/ReviewComponent.vue';
+import ExperiencesComponent from '../components/ExperiencesComponent.vue';
 
     export default {
-        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent},
+        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent, ReviewComponent},
         data () {
             return {
                 store,
