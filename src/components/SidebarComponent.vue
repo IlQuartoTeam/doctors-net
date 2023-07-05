@@ -19,9 +19,10 @@
                 </div>
             </div>
             <div v-if="store.userDoctor" class="userMainInfo">
-                <h6  class="fw-semibold fs-5 text-doc-blue text-center">{{ store.userDoctor.name }} {{
+                <h6 class="fw-semibold fs-5 text-doc-blue text-center">{{ store.userDoctor.name }} {{
                     store.userDoctor.surname }}</h6>
-                <div v-if="store.userDoctor.specializations[0] != ''" class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
+                <div v-if="store.userDoctor.specializations[0] != ''"
+                    class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
                     <span class="d-block" v-for="spec in store.userDoctor.specializations">{{ spec.name }}</span>
                 </div>
             </div>
@@ -142,10 +143,9 @@ export default {
             axios.get('/sanctum/csrf-cookie').then(() => {
                 const file = event.target.files[0];
                 console.log(file);
-
+                if (!file) return
                 const formData = new FormData();
                 formData.append('image', file);
-
                 axios.post('/api/user/image', formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -153,10 +153,12 @@ export default {
                     }
                 })
                     .then(response => {
+                        store.toast.success("Immagine modificata", { timeout: 1500 });
                         store.userDoctor.profile_image_url = response.data.imagelink;
                     })
                     .catch(error => {
                         console.error(error);
+                        store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
                     });
             });
         }
@@ -215,6 +217,7 @@ export default {
     &:hover .changePhotoIcon {
         opacity: 1;
         backdrop-filter: blur(2px);
+        background-color: #00000020;
 
     }
 
@@ -224,7 +227,7 @@ export default {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        transition: all 1s;
+        transition: all .3s;
         opacity: 0;
     }
 

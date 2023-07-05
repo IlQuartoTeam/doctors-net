@@ -60,7 +60,7 @@ export default {
     data() {
         return {
             store,
-            apiUrl: store.API_URL + 'user/edit',
+            apiUrl: store.API_URL + 'user/examinations', //nuovo endpoint, pullare
             userInfo: { ...store.userDoctor },
             userExaminations: store.userDoctor.examinations ? [ ...store.userDoctor.examinations.split(';')] : [],
             newExamination: '',
@@ -76,8 +76,17 @@ export default {
             {
                 headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` }
             }
+
+            const examinationsString = this.userExaminations.join(';');//User examinations da un console.log era un array, qui uso join 
+            //per rendere l'array una stringa divisa da ;
+            console.log(examinationsString);
+
+
+            const data = {
+                examinations: examinationsString,//invio all'endpoint creato per sicurezza da zero, la stringa
+            }
             axios
-                .put(this.apiUrl, this.userInfo, config)
+                .post(this.apiUrl, data, config)
                 .then(res => {
                     if (res.data.status) {
                         store.toast.success("Informazioni modificate", { timeout: 1500 });
