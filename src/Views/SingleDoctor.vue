@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!loading" class="hero d-flex flex-column align-items-center gap-4 mt-5 mx-4 px-5 pb-5">
+    <div v-if="!loading && store.singleDoctor" class="hero d-flex flex-column align-items-center gap-4 mt-5 mx-4 px-5 pb-5">
         <div class="box-image">
             <img :src=store.singleDoctor.profile_image_url alt="">
         </div>
