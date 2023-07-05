@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div v-if="store.singleDoctor">
+    <div v-if="store.singleDoctor" class="components">
         <ExaminationsComponent v-if="isOpen === 'info'" doctor="store.singleDoctor" />
         <ReviewComponent v-if="isOpen === 'review'" />
         <ExperiencesComponent v-if="isOpen === 'curriculum'" />   
@@ -134,6 +134,9 @@ import ExperiencesComponent from '../components/ExperiencesComponent.vue';
         .selected {
             color: $doc-accent !important;
         }
+    }
+    .components{
+        overflow: hidden;
     }
     @media screen and (min-width: 576px) {
         .box-section{
