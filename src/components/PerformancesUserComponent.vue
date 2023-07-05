@@ -1,6 +1,6 @@
 <template>
     <div class="userInfo w-100 p-4">
-        <h1 class="py-2 text-doc-blue">Modifica le tue prestazioni</h1>
+        <h1 class="py-2 text-doc-blue fw-bold">Modifica o aggiungi le tue prestazioni</h1>
         <p>Inserisci una nuova prestazione o rimuovi quelle esistenti</p>
         
         <div class="row row-cols-auto gx-0 py-4">
