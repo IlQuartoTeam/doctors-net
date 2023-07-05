@@ -23,7 +23,13 @@
             <span @click="openSection('review')" :class="[this.isSelected === 'review' ? 'selected' : '']" class="fw-semibold pe-5">Recensioni ({{ store.singleDoctor.reviews.length }})</span>
             <span @click="openSection('curriculum')" :class="[this.isSelected === 'curriculum' ? 'selected' : '']" class="fw-semibold pe-5">Curriculum Vitae</span>
         </div>
+       
     </div>
+     <div v-if="!loading" >
+                <ExperiencesComponent />
+                <ExaminationsComponent   />
+                <InfoDoctorMapComponent />
+         </div>
 
     <div v-if="store.singleDoctor" class="components">
         <ExaminationsComponent v-if="isOpen === 'info'" doctor="store.singleDoctor" />
@@ -40,9 +46,10 @@ import ButtonComponent from '../components/ButtonComponent.vue';
 import ExaminationsComponent from '../components/ExaminationsComponent.vue';
 import ReviewComponent from '../components/ReviewComponent.vue';
 import ExperiencesComponent from '../components/ExperiencesComponent.vue';
+import InfoDoctorMapComponent from '../components/InfoDoctorMapComponent.vue';
 
     export default {
-        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent, ReviewComponent},
+        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent, ReviewComponent, InfoDoctorMapComponent},
         data () {
             return {
                 store,
