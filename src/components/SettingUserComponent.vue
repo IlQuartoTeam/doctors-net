@@ -21,6 +21,8 @@
             <div class="col flex-grow-1">
                 <label class="mb-2 text-doc-blue">Specializzazioni</label>
                  <MultiselectComponent v-if="specializations.length > 0" :array="specializations" :selectedValues="specializationsSelected" @sendResult="setSpecializationsSelected" />
+                    <p v-if="specError" class="text-doc-red  mt-2">Inserisci almeno una specializzazione</p>
+
                
             </div>
         </div>
@@ -55,13 +57,14 @@ export default {
             error: null,
             specializations: [],
             specializationsSelected: [],
-            config: { headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}`}}
+            config: { headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}`}},
+            specError: false
             
         }
     },
     methods: {
         handleSubmit() {
-
+            this.specError = false
             this.userInfo.address = store.address
             this.userInfo.city = store.city
             this.userInfo.address_lat = store.lat
@@ -75,6 +78,11 @@ export default {
 
             specializationsID.push(this.specializations.indexOf(element) + 1)
            })
+
+           if (specializationsID.length === 0) {
+            this.specError = true
+            return
+           }
 
            this.userInfo.specializations = specializationsID
             

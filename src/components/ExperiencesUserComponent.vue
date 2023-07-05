@@ -2,17 +2,28 @@
     <div class="userInfo w-100">
         <h1 class="px-4 py-2 text-doc-blue fw-bold">Modifica i tuoi dati</h1>
         <small class="px-4">I campi contrassegnati da * sono obbligatori.</small>
-        
+
         <div class="row row-cols-1 row-cols-md-2 w-100 p-4">
             <form @submit.prevent="addEduItem()">
-              
+
                 <div class="col">
-                    
+
                     <template v-for="(experience, index) in userExperiences">
-                        <div v-if="experience.type === 'education'" @click="removeItem(index, experience.id)" :key="experience"
-                            class="col examination d-flex justify-content-between align-items-center text-doc-blue mx-1 my-4">
-                            <span> {{ experience.name }} </span>
-                            <IconCircleX class="ms-2 flex-shrink-0" />
+                        <div>
+                            <div v-if="experience.type === 'education'" class="examination text-doc-blue mx-1 my-4">
+                                <div  @click="removeItem(index, experience.id)"
+                                    :key="experience"
+                                    class="col  d-flex justify-content-between align-items-center text-doc-blue ">
+                                    <span> {{ experience.name }} </span>
+
+                                    <IconCircleX class="ms-2 mt-4 flex-shrink-0" />
+                                </div>
+                                <div>
+                                    <p class="m-0 mt-2">Dal {{ experience.start_date }} <span v-if="experience.end_date">al
+                                            {{ experience.end_date }}</span></p>
+                                </div>
+
+                            </div>
                         </div>
                     </template>
 
@@ -26,15 +37,26 @@
                 </div>
 
             </form>
-          
+
             <form @submit.prevent="addWorkItem">
                 <div class="col">
-                   
+
                     <template v-for="(experience, index) in userExperiences">
-                        <div v-if="experience.type === 'work'" @click="removeItem(index, experience.id)" :key="experience"
-                            class="col examination d-flex justify-content-between align-items-center text-doc-blue mx-1 my-4">
-                            <span> {{ experience.name }} </span>
-                            <IconCircleX class="ms-2 flex-shrink-0" />
+                        <div>
+                            <div  v-if="experience.type === 'work'" class="examination text-doc-blue mx-1 my-4">
+                                <div  @click="removeItem(index, experience.id)"
+                                    :key="experience"
+                                    class="col  d-flex justify-content-between align-items-center text-doc-blue ">
+                                    <span> {{ experience.name }} </span>
+
+                                    <IconCircleX class="ms-2 mt-4 flex-shrink-0" />
+                                </div>
+                                <div>
+                                    <p class="m-0 mt-2">Dal {{ experience.start_date }} <span v-if="experience.end_date">al
+                                            {{ experience.end_date }}</span></p>
+                                </div>
+
+                            </div>
                         </div>
                     </template>
                     <h4 class="text-doc-blue">Aggiungi un'esperienza lavorativa</h4>
@@ -81,17 +103,15 @@ export default {
     },
     methods:
     {
-        addWorkItem()
-        {
-            if(this.newWorkEnd != '')
-            {
+        addWorkItem() {
+            if (this.newWorkEnd != '') {
                 this.userExperiences.push(
-                {
-                    name: this.newWorkName,
-                    type: 'work',
-                    start_date: this.newWorkStart,
-                    end_date: this.newWorkEnd
-                }
+                    {
+                        name: this.newWorkName,
+                        type: 'work',
+                        start_date: this.newWorkStart,
+                        end_date: this.newWorkEnd
+                    }
                 )
                 this.workObject = {
                     name: this.newWorkName,
@@ -100,38 +120,35 @@ export default {
                     end_date: this.newWorkEnd
                 }
             }
-            else
-            {
+            else {
                 this.userExperiences.push(
-                {
+                    {
+                        name: this.newWorkName,
+                        type: 'work',
+                        start_date: this.newWorkStart,
+                    }
+                )
+                this.workObject = {
                     name: this.newWorkName,
                     type: 'work',
                     start_date: this.newWorkStart,
                 }
-            )
-            this.workObject = {
-                name: this.newWorkName,
-                    type: 'work',
-                    start_date: this.newWorkStart,
             }
-            }
-            
+
             this.newWorkEnd = ''
             this.newWorkStart = ''
             this.newWorkName = ''
             this.handleSubmit(this.workObject)
         },
-        addEduItem()
-        {
-            if(this.newEducationEnd != '')
-            {
+        addEduItem() {
+            if (this.newEducationEnd != '') {
                 this.userExperiences.push(
-                {
-                    name: this.newEducationName,
-                    type: 'education',
-                    start_date: this.newEducationStart,
-                    end_date: this.newEducationEnd
-                }
+                    {
+                        name: this.newEducationName,
+                        type: 'education',
+                        start_date: this.newEducationStart,
+                        end_date: this.newEducationEnd
+                    }
                 )
                 this.eduObject = {
                     name: this.newEducationName,
@@ -140,14 +157,13 @@ export default {
                     end_date: this.newEducationEnd
                 }
             }
-            else
-            {
+            else {
                 this.userExperiences.push(
-                {
-                    name: this.newEducationName,
-                    type: 'education',
-                    start_date: this.newEducationStart,
-                }
+                    {
+                        name: this.newEducationName,
+                        type: 'education',
+                        start_date: this.newEducationStart,
+                    }
                 )
                 this.eduObject = {
                     name: this.newEducationName,
@@ -155,7 +171,7 @@ export default {
                     start_date: this.newEducationStart,
                 }
             }
-            
+
             this.newEducationEnd = ''
             this.newEducationStart = ''
             this.newEducationName = ''
@@ -215,9 +231,10 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/styles/variables' as *;
 
-h4{
+h4 {
     color: $doc-blue !important;
 }
+
 .examination {
     padding: .5rem 1rem;
     margin: 0 10px;
