@@ -12,8 +12,7 @@
             <div class="box-image mb-3 position-relative">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
                 <div class="uploadImage position-absolute">
-                    <input id="profile-image-upload" type="file" @change="handleFileUpload"
-                        @mouseenter.prevent="removingHelp" />
+                    <input id="profile-image-upload" type="file" @change="handleFileUpload"/>
                 </div>
             </div>
             <h6 v-if="store.userDoctor" class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{
@@ -108,9 +107,6 @@ export default {
         }
     },
     methods: {
-        removingHelp(e) {
-            e.preventDefault();
-        },
         ToggleSidebar() {
             store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen
         },
@@ -142,7 +138,7 @@ export default {
                 }
             })
                 .then(response => {
-                    const newImageUrl = response.data.imageUrl;
+                    store.userDoctor.profile_image_url = response.data.imageUrl;
                 })
                 .catch(error => {
                     console.error(error);
