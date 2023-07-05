@@ -217,6 +217,7 @@ export default {
     &:hover .changePhotoIcon {
         opacity: 1;
         backdrop-filter: blur(2px);
+        background-color: #00000020;
 
     }
 
