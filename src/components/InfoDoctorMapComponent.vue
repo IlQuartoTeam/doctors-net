@@ -39,7 +39,7 @@ export default {
 @use "../assets/styles/_variables.scss" as *;
 
 span {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     letter-spacing: 1px;
     color: rgba($doc-dark, 0.6);
@@ -53,7 +53,7 @@ p {
 .container-fluid {
     display: flex;
     flex-direction: column-reverse;
-    gap: 30px;
+    padding: 150px 80px 50px 10px;
 }
 
 
@@ -63,15 +63,25 @@ p {
 
 
     .container-fluid {
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 0 40px;
+    padding: 150px 60px 100px 60px;
 }
 
 
 p { 
     padding: 8px 0 8px 15px;
+}
+
+span {
+ 
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: rgba($doc-dark, 0.6);
+    display: inline-block;
 }
 
 
@@ -88,7 +98,17 @@ p {
     .container-fluid {
     display: flex;
     justify-content: space-between;
+    padding: 190px 60px 140px 60px;
     
+}
+
+
+span {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: rgba($doc-dark, 0.6);
+    display: inline-block;
 }
 }
 
@@ -102,13 +122,25 @@ p {
 
 
     .container-fluid {
+    
     display: flex;
     justify-content: space-between;
-    padding: 0 60px;
+    padding: 250px 60px 200px 60px;
     
 
 
 }
+
+span {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: rgba($doc-dark, 0.6);
+    display: inline-block;
 }
+
+}
+
+
 
 </style>
