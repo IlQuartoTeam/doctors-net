@@ -130,7 +130,7 @@ export default {
         store.address = this.userInfo.address
         store.city = this.userInfo.city
         store.lat = this.userInfo.address_lat
-        store.long = this.userInfo.address_long
+        store.lon = this.userInfo.address_long
        
     },
 }
