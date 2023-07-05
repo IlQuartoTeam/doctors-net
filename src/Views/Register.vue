@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="row row-cols-1">
-            <MultiselectComponent :array="specializationAvailable" />
+            <MultiselectComponent v-if="specializations.length > 0" :array="specializations" @sendResult="setSpecializationsSelected" />
         </div>
         <div class="row row-cols-1 row-cols-md-2">
                 <Places :modelAddressPlaces="store.address" :modelCityPlaces="store.city" />
@@ -87,53 +87,10 @@ export default {
             confirmPassword: null,
             lat: null, 
             lon: null,
+            specializations: [],
+            specializationsSelected: [],
             message: {},
-            errPsw: false,
-            specializationAvailable : [
-                "Allergologia",
-                "Anatomia patologica",
-                "Angiologia",
-                "Chirurgia generale",
-                "Chirurgia pediatrica",
-                "Chirurgia plastica ed estetica",
-                "Chirurgia toracica",
-                "Chirurgia vascolare",
-                "Dermatologia e venereologia",
-                "Ematologia",
-                "Gastroenterologia",
-                "Genetica medica",
-                "Geriatria",
-                "Malattie infettive",
-                "Medicina dello sport",
-                "Medicina del lavoro",
-                "Fisioterapia",
-                "Medicina generale",
-                "Medicina interna",
-                "Medicina legale",
-                "Medicina nucleare",
-                "Medicina termale",
-                "Microbiologia e virologia",
-                "Nefrologia",
-                "Neonatologia",
-                "Neurochirurgia",
-                "Neurologia",
-                "Neuroradiologia",
-                "Oftalmologia",
-                "Oncologia medica",
-                "Oncologia radioterapica",
-                "Ortopedia e traumatologia",
-                "Ostetricia e ginecologia",
-                "Otorinolaringoiatria",
-                "Pediatria",
-                "Psichiatria",
-                "Radiodiagnostica",
-                "Radioterapia",
-                "Reumatologia",
-                "Urologia",
-            ]
-            
-          
-
+            errPsw: false,       
         }
     },
     methods: {
@@ -199,6 +156,25 @@ export default {
                 })
 
         },
+        setSpecializationsSelected(result)
+        {
+           this.specializationsSelected.length = 0
+           this.specializationsSelected = [...result]
+           
+        }
+    },
+    mounted()
+    {
+        axios.get(store.API_URL + 'specializations')
+        .then(res => 
+        {
+            const array = res.data.specializations
+            console.log(array);
+            array.forEach(element => {
+                this.specializations.push(element.name)
+            });
+            console.log(this.specializations);
+        })
     }
 
 }
