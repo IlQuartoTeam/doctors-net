@@ -158,7 +158,27 @@ export default {
         },
         removeItem(index)
         {
-            this.userExperiences.splice(index, 1)
+            this.userExperiences.splice(index, 1) //la cancella dal front
+            index++//incrementa indice per sincronizzarsi con gli id del database
+            const config =
+            {
+                headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` }
+            }
+            axios
+                .post('api/user/experiences/' + index + '/delete', {}, config)//invia chiamata api alla delete della recensione relativa
+                .then(res => {
+                    if (res.data.status) {
+                        store.toast.success("Informazioni modificate", { timeout: 1500 });
+                        store.userDoctor = { ...this.userInfo }
+                    }
+                    else {
+                        store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
+                    }
+
+                })
+                .catch(err => {
+                    store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
+                })
         },
         handleSubmit(theObject) {
             const config =
