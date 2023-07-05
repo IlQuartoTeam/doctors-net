@@ -1,6 +1,6 @@
 <template>
-    <div class="selectMultiple w-100" :class="{ open: isOpen }">
-        <div @click.stop="toggleOpen">
+    <div class="selectMultiple w-100" :class="{ open: isOpen}">
+        <div @click.stop="toggleOpen" :class="{error: store.specError}">
             <span v-if="!selectedOptions.length">{{ placeholder }}</span>
             <a v-for="option in selectedOptions" @click.stop="removeOption(option)" class="">
                 <em>{{ option }}</em>
@@ -68,13 +68,16 @@
  *           consigliato impostare un numero da 0 a -0.5;
  * 
  */
+
+ import { store } from '../store/store';
 export default {
     data() {
         return {
             placeholder: "Seleziona un'opzione",
             options: ['Giampapa', 'Lip', 'Zibra', 'Capaldo', 'Taaaano'],
             selectedOptions: [],
-            isOpen: false
+            isOpen: false,
+            store
         }
     },
     props: ['array', 'selectedValues'],
@@ -132,6 +135,9 @@ $resize: -0.21;
     width: 240px;
     position: relative;
     cursor: pointer;
+    .error{
+        border: 1px solid $red;
+    }
 
     select {
         display: none;

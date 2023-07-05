@@ -102,6 +102,11 @@ export default {
                 this.errPsw = true;
                 return
             }
+            if(this.specializationsSelected.length === 0)
+            {
+                store.specError = true
+                return store.toast.error("Inserisci almeno una specializzazione.")
+            }
             axios.post(store.API_URL + 'register', {
                 name: this.name,
                 surname: this.surname,
@@ -119,6 +124,8 @@ export default {
                     this.store.isAuthenticated = true
                     this.$cookies.set("session-token", res.data.access_token)
                     router.push('/users/profile')
+                    store.addressError = null
+                    store.specError = null
                 }
                 
             }).catch(error => {
@@ -143,11 +150,13 @@ export default {
                     if (messages.address){
                         this.message.address = messages.address[0]
                         this.loading = false
+                        store.addressError = true
+                        store.toast.error('Scegli un indirizzo dalla lista, per favore.', {timeout: false})
                     }
                     if (messages.city){
                         this.message.city = messages.city[0]
                         this.loading = false
-
+                        store.addressError = true
                     }
                     if (messages.password){
                         this.message.password = messages.password[0]
