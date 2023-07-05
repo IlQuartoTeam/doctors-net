@@ -18,9 +18,13 @@
                     <input name="image" id="profile-image-upload" type="file" @change="handleFileUpload" />
                 </div>
             </div>
-            <h6 v-if="store.userDoctor" class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{
-                store.userDoctor.surname }}</h6>
-            <span v-if="store.userDoctor" class="text-doc-primary fw-semibold">{{ store.userDoctor.specialization }}</span>
+            <div v-if="store.userDoctor" class="userMainInfo">
+                <h6  class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{
+                    store.userDoctor.surname }}</h6>
+                <div v-if="store.userDoctor.specializations[0] != ''" class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
+                    <span class="d-block" v-for="spec in store.userDoctor.specializations">{{ spec.name }}</span>
+                </div>
+            </div>
         </div>
         <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3 align-items-center align-items-sm-start">
             <h6 class="fw-semibold text-doc-blue fs-5">Gestione</h6>

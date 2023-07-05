@@ -93,6 +93,7 @@ export default {
         removeOption(option) {
             this.options.push(option);
             this.selectedOptions = this.selectedOptions.filter(o => o !== option);
+            this.options = this.options.sort()
             this.sendResult();
         },
         sendResult() {
