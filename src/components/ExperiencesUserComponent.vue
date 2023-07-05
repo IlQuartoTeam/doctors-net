@@ -2,10 +2,12 @@
     <div class="userInfo w-100">
         <h1 class="px-4 py-2 text-doc-blue fw-bold">Modifica i tuoi dati</h1>
         <small class="px-4">I campi contrassegnati da * sono obbligatori.</small>
+        
         <div class="row row-cols-1 row-cols-md-2 w-100 p-4">
             <form @submit.prevent="addEduItem()">
+              
                 <div class="col">
-                    <h4 lass="text-doc-blue">Aggiungi un'esperienza formativa</h4>
+                    
                     <template v-for="(experience, index) in userExperiences">
                         <div v-if="experience.type === 'education'" @click="removeItem(index, experience.id)" :key="experience"
                             class="col examination d-flex justify-content-between align-items-center text-doc-blue mx-1 my-4">
@@ -14,7 +16,7 @@
                         </div>
                     </template>
 
-
+                    <h4 lass="text-doc-blue">Aggiungi un'esperienza formativa</h4>
                     <InputComponent type="text" id="userCVEduName" label="Nome dell'esperienza*"
                         placeholder="Università degli studi di Torino" v-model="newEducationName" :required="true" />
                     <InputComponent type="date" id="userCvEduStart" label="Data di inizio*" v-model="newEducationStart"
@@ -24,9 +26,10 @@
                 </div>
 
             </form>
+          
             <form @submit.prevent="addWorkItem">
                 <div class="col">
-                    <h4 class="text-doc-blue">Aggiungi un'esperienza lavorativa</h4>
+                   
                     <template v-for="(experience, index) in userExperiences">
                         <div v-if="experience.type === 'work'" @click="removeItem(index, experience.id)" :key="experience"
                             class="col examination d-flex justify-content-between align-items-center text-doc-blue mx-1 my-4">
@@ -34,7 +37,7 @@
                             <IconCircleX class="ms-2 flex-shrink-0" />
                         </div>
                     </template>
-                   
+                    <h4 class="text-doc-blue">Aggiungi un'esperienza lavorativa</h4>
                     <InputComponent type="text" id="userCVWorkName" label="Nome dell'esperienza*"
                         placeholder="Primario presso Ospedale di Milano" v-model="newWorkName" :required="true" />
                     <InputComponent type="date" id="userCVEduName" label="Data di inizio*" v-model="newWorkStart"
