@@ -143,10 +143,9 @@ export default {
             axios.get('/sanctum/csrf-cookie').then(() => {
                 const file = event.target.files[0];
                 console.log(file);
-
+                if (!file) return
                 const formData = new FormData();
                 formData.append('image', file);
-
                 axios.post('/api/user/image', formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -227,7 +226,7 @@ export default {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        transition: all 1s;
+        transition: all .3s;
         opacity: 0;
     }
 
