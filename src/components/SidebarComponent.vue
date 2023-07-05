@@ -11,6 +11,9 @@
         <div class="user-details d-flex flex-column align-items-center mt-4">
             <div class="box-image mb-3 position-relative">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
+                <div class="changePhotoIcon position-absolute d-flex justify-content-center align-items-center">
+                    <IconEdit :size="80" color="#fafafa"/>
+                </div>
                 <div class="uploadImage position-absolute">
                     <input id="profile-image-upload" type="file" @change="handleFileUpload"/>
                 </div>
@@ -71,6 +74,7 @@
 </template>
 
 <script>
+import { IconEdit } from '@tabler/icons-vue';
 import { IconShieldLock } from '@tabler/icons-vue';
 import { IconReceipt2 } from '@tabler/icons-vue';
 import { IconBriefcase } from '@tabler/icons-vue';
@@ -96,7 +100,8 @@ export default {
         IconInfoCircle,
         IconBriefcase,
         IconReceipt2,
-        IconShieldLock
+        IconShieldLock,
+        IconEdit
     },
     props: ['doctor'],
     data() {
@@ -194,6 +199,19 @@ export default {
             height: 100%;
             opacity: 0;
         }
+    }
+    &:hover .changePhotoIcon{
+        opacity: 1;
+
+    }
+    .changePhotoIcon{
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        transition: all 1s;
+        opacity: 0;
     }
 
     img {
