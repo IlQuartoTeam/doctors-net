@@ -117,6 +117,7 @@ export default {
     },
     'store.doctorsQueried'(newValue){
       this.doctors = newValue
+      this.reInitializateMap(store.citySearched)
     }
   },
   
