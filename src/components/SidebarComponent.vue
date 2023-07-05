@@ -226,7 +226,7 @@ export default {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        transition: all 1s;
+        transition: all .3s;
         opacity: 0;
     }
 
