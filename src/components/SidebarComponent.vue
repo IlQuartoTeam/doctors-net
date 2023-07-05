@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div v-if="store.userDoctor" class="userMainInfo">
-                <h6  class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{
+                <h6  class="fw-semibold fs-5 text-doc-blue text-center">{{ store.userDoctor.name }} {{
                     store.userDoctor.surname }}</h6>
                 <div v-if="store.userDoctor.specializations[0] != ''" class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
                     <span class="d-block" v-for="spec in store.userDoctor.specializations">{{ spec.name }}</span>
