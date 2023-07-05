@@ -132,18 +132,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-/*
-info da showare pè fozza:
-
-    address, city, email, examinations, experiences, name, surname, phone, profile_image_url, specializations,
-
-
-info carine:
-
-    created_at, email_verified_at, 
-
-
-*/
-
-</style>
+<style lang="scss" scoped></style>
