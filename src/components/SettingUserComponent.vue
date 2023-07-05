@@ -20,7 +20,7 @@
             </div>
             <div class="col flex-grow-1">
                 <label class="mb-2 text-doc-blue">Specializzazioni</label>
-                 <MultiselectComponent v-if="specializations.length > 0" :array="specializations" @sendResult="setSpecializationsSelected" />
+                 <MultiselectComponent v-if="specializations.length > 0" :array="specializations" :selectedValues="specializationsSelected" @sendResult="setSpecializationsSelected" />
                
             </div>
         </div>
@@ -28,8 +28,6 @@
             <ButtonComponent type="submit" :button="true" className="primary">Modifica</ButtonComponent>
         </div>
         </form>
-       
-      
     </div>
 </template>
 
@@ -56,7 +54,7 @@ export default {
             userInfo: { ...store.userDoctor },
             error: null,
             specializations: [],
-            specializationsSelected: store.userDoctor.specializations,
+            specializationsSelected: [],
             
         }
     },
@@ -66,6 +64,7 @@ export default {
             this.userInfo.city = store.city
             this.userInfo.address_lat = store.lat
             this.userInfo.address_long = store.lon
+            this.userInfo.specializations = this.specializationsSelected
 
             const config = 
             { 
@@ -93,13 +92,7 @@ export default {
         },
         setSpecializationsSelected(result)
         {
-           this.specializationsSelected.length = 0
-  
-           result.forEach(element => 
-           {
-    
-            this.specializationsSelected.push(this.specializations.indexOf(element) + 1)
-           })
+          this.specializationsSelected = result
            
         }
     },
@@ -109,9 +102,15 @@ export default {
         {
             const array = res.data.specializations
             array.forEach(element => {
-                this.specializations.push(element.name)
+                this.specializations.push(element.name.toString())
             });
+           
+            this.userInfo.specializations.forEach(element => {
+                this.specializationsSelected.push(element.name.toString())
+            });
+            
         })
+       
     },
 }
 </script>
