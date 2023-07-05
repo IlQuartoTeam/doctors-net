@@ -12,7 +12,7 @@
             <div class="box-image mb-3 position-relative">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
                 <div class="changePhotoIcon position-absolute d-flex justify-content-center align-items-center">
-                    <IconEdit :size="80" color="#fafafa"/>
+                    <IconEdit :size="50" color="#fafafa"/>
                 </div>
                 <div class="uploadImage position-absolute">
                     <input id="profile-image-upload" type="file" @change="handleFileUpload"/>
@@ -202,6 +202,7 @@ export default {
     }
     &:hover .changePhotoIcon{
         opacity: 1;
+        backdrop-filter: blur(2px);
 
     }
     .changePhotoIcon{
