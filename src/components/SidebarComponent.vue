@@ -19,9 +19,10 @@
                 </div>
             </div>
             <div v-if="store.userDoctor" class="userMainInfo">
-                <h6  class="fw-semibold fs-5 text-doc-blue text-center">{{ store.userDoctor.name }} {{
+                <h6 class="fw-semibold fs-5 text-doc-blue text-center">{{ store.userDoctor.name }} {{
                     store.userDoctor.surname }}</h6>
-                <div v-if="store.userDoctor.specializations[0] != ''" class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
+                <div v-if="store.userDoctor.specializations[0] != ''"
+                    class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
                     <span class="d-block" v-for="spec in store.userDoctor.specializations">{{ spec.name }}</span>
                 </div>
             </div>
@@ -153,10 +154,12 @@ export default {
                     }
                 })
                     .then(response => {
+                        store.toast.success("Immagine modificata", { timeout: 1500 });
                         store.userDoctor.profile_image_url = response.data.imagelink;
                     })
                     .catch(error => {
                         console.error(error);
+                        store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
                     });
             });
         }
