@@ -25,14 +25,11 @@
         </div>
        
     </div>
-     <div v-if="!loading" >
-                <ExperiencesComponent />
-                <ExaminationsComponent   />
-                <InfoDoctorMapComponent />
-         </div>
-
     <div v-if="store.singleDoctor" class="components">
-        <ExaminationsComponent v-if="isOpen === 'info'" doctor="store.singleDoctor" />
+        <div v-if="isOpen === 'info'" class="info-doctor">
+            <InfoDoctorMapComponent />
+            <ExaminationsComponent doctor="store.singleDoctor" />
+        </div>
         <ReviewComponent v-if="isOpen === 'review'" />
         <ExperiencesComponent v-if="isOpen === 'curriculum'" />   
     </div>

@@ -9,7 +9,6 @@
         </div>
         <div class="row">
             <div class="col text-center">
-               ciao
                 
                 
             </div>
