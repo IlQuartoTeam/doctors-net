@@ -136,6 +136,7 @@ export default {
         },
         handleFileUpload(event) {
             const file = event.target.files[0];
+            console.log(file);
             const formData = new FormData();
             formData.append('image', file);
 
