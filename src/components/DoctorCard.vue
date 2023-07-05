@@ -28,11 +28,11 @@
 
       <div class="d-md-flex flex-column justify-content-between h-100 w-100">
         <div class="card-content d-md-flex flex-column">
-          <h2 class="text-center text-md-start text-h2">{{ doctor.name }} {{ doctor.surname }}</h2>
+          <h2 class="text-center text-md-start text-h2 text-doc-blue">{{ doctor.name }} {{ doctor.surname }}</h2>
           <p class="spec text-center text-md-start">
             <span v-for="spec in doctor.specializations">{{ spec.name }} <br></span>
           </p>
-          <h4>Tariffe</h4>
+          <h4 class="text-doc-blue">Tariffe</h4>
           <p v-for="examination in splittedText" class="mb-0 spec">{{ examination }}</p>
         </div>
         <div class="d-flex flex-column justify-content-between align-items-center gx-0">
@@ -109,6 +109,7 @@ export default {
 
 h2{
     font-size: 34px;
+    
   }
 
 .doc-card {
