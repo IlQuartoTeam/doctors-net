@@ -23,6 +23,7 @@ input {
     border-radius: 5px;
     padding: 1rem 20px;
     display: block;
+    color: $doc-primary;
 
     &::placeholder{
         color: $doc-blue;

@@ -55,6 +55,7 @@ export default {
             error: null,
             specializations: [],
             specializationsSelected: [],
+            config: { headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}`}}
             
         }
     },
@@ -77,20 +78,18 @@ export default {
 
            this.userInfo.specializations = specializationsID
             
-            
-
-            const config = 
-            { 
-                headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}`}
-            }
             axios
-            .put(this.apiUrl, this.userInfo, config)
+            .put(this.apiUrl, this.userInfo, this.config)
             .then(res => 
             {
                 if(res.data.status)
                 {
-                    store.toast.success("Informazioni modificate", {timeout: 1500});
-                    store.userDoctor = {...this.userInfo}
+                    store.toast.success("Informazioni modificate", { timeout: 1500 });
+                    axios.post(store.API_URL + 'user', {}, this.config).then((res) => {
+                        store.userDoctor = { ...res.data.doctor, ...res.data.user }
+                    }).catch(error => {
+                        store.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
+                    })
                 }
                 else
                 {

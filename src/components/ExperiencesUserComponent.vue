@@ -1,10 +1,11 @@
 <template>
     <div class="userInfo w-100">
-        <h1 class="px-4 py-2 text-doc-blue">Modifica i tuoi dati</h1>
+        <h1 class="px-4 py-2 text-doc-blue fw-bold">Modifica i tuoi dati</h1>
         <small class="px-4">I campi contrassegnati da * sono obbligatori.</small>
         <div class="row row-cols-1 row-cols-md-2 w-100 p-4">
             <form @submit.prevent="addEduItem()">
                 <div class="col">
+                    <h4 lass="text-doc-blue">Aggiungi un'esperienza formativa</h4>
                     <template v-for="(experience, index) in userExperiences">
                         <div v-if="experience.type === 'education'" @click="removeItem(index, experience.id)" :key="experience"
                             class="col examination d-flex justify-content-between align-items-center text-doc-blue mx-1 my-4">
@@ -25,8 +26,9 @@
             </form>
             <form @submit.prevent="addWorkItem">
                 <div class="col">
+                    <h4 class="text-doc-blue">Aggiungi un'esperienza lavorativa</h4>
                     <template v-for="(experience, index) in userExperiences">
-                        <div v-if="experience.type === 'work'" @click="removeItem(index)" :key="experience"
+                        <div v-if="experience.type === 'work'" @click="removeItem(index, experience.id)" :key="experience"
                             class="col examination d-flex justify-content-between align-items-center text-doc-blue mx-1 my-4">
                             <span> {{ experience.name }} </span>
                             <IconCircleX class="ms-2 flex-shrink-0" />
@@ -210,6 +212,9 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/styles/variables' as *;
 
+h4{
+    color: $doc-blue !important;
+}
 .examination {
     padding: .5rem 1rem;
     margin: 0 10px;

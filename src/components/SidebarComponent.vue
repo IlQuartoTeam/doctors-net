@@ -11,14 +11,21 @@
         <div class="user-details d-flex flex-column align-items-center mt-4">
             <div class="box-image mb-3 position-relative">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
+                <div class="changePhotoIcon position-absolute d-flex justify-content-center align-items-center">
+                    <IconEdit :size="50" color="#fafafa" />
+                </div>
                 <div class="uploadImage position-absolute">
-                    <input id="profile-image-upload" type="file" @change="handleFileUpload"
-                        @mouseenter.prevent="removingHelp" />
+                    <input name="image" id="profile-image-upload" type="file" @change="handleFileUpload" />
                 </div>
             </div>
-            <h6 v-if="store.userDoctor" class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{
-                store.userDoctor.surname }}</h6>
-            <span v-if="store.userDoctor" class="text-doc-primary fw-semibold">{{ store.userDoctor.specialization }}</span>
+            <div v-if="store.userDoctor" class="userMainInfo">
+                <h6 class="fw-semibold fs-5 text-doc-blue text-center">{{ store.userDoctor.name }} {{
+                    store.userDoctor.surname }}</h6>
+                <div v-if="store.userDoctor.specializations[0] != ''"
+                    class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
+                    <span class="d-block" v-for="spec in store.userDoctor.specializations">{{ spec.name }}</span>
+                </div>
+            </div>
         </div>
         <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3 align-items-center align-items-sm-start">
             <h6 class="fw-semibold text-doc-blue fs-5">Gestione</h6>
@@ -72,6 +79,7 @@
 </template>
 
 <script>
+import { IconEdit } from '@tabler/icons-vue';
 import { IconShieldLock } from '@tabler/icons-vue';
 import { IconReceipt2 } from '@tabler/icons-vue';
 import { IconBriefcase } from '@tabler/icons-vue';
@@ -84,6 +92,8 @@ import { IconSettings } from '@tabler/icons-vue';
 import { IconChevronRight } from '@tabler/icons-vue';
 import { IconChevronLeft } from '@tabler/icons-vue';
 import ButtonComponent from './ButtonComponent.vue';
+import axios from 'axios';
+
 export default {
     name: 'SidebarComponent',
     components: {
@@ -97,7 +107,8 @@ export default {
         IconInfoCircle,
         IconBriefcase,
         IconReceipt2,
-        IconShieldLock
+        IconShieldLock,
+        IconEdit
     },
     props: ['doctor'],
     data() {
@@ -108,9 +119,6 @@ export default {
         }
     },
     methods: {
-        removingHelp(e) {
-            e.preventDefault();
-        },
         ToggleSidebar() {
             store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen
         },
@@ -132,21 +140,28 @@ export default {
             this.windowWidth = innerWidth;
         },
         handleFileUpload(event) {
-            const file = event.target.files[0];
-            const formData = new FormData();
-            formData.append('file', file);
+            axios.get('/sanctum/csrf-cookie').then(() => {
+                const file = event.target.files[0];
+                console.log(file);
 
-            axios.post('/api/upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-                .then(response => {
-                    const newImageUrl = response.data.imageUrl;
+                const formData = new FormData();
+                formData.append('image', file);
+
+                axios.post('/api/user/image', formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        'Authorization': `Bearer ${this.$cookies.get('session-token')}`
+                    }
                 })
-                .catch(error => {
-                    console.error(error);
-                });
+                    .then(response => {
+                        store.toast.success("Immagine modificata", { timeout: 1500 });
+                        store.userDoctor.profile_image_url = response.data.imagelink;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
+                    });
+            });
         }
     },
     mounted() {
@@ -198,6 +213,22 @@ export default {
             height: 100%;
             opacity: 0;
         }
+    }
+
+    &:hover .changePhotoIcon {
+        opacity: 1;
+        backdrop-filter: blur(2px);
+
+    }
+
+    .changePhotoIcon {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        transition: all 1s;
+        opacity: 0;
     }
 
     img {
