@@ -132,7 +132,7 @@ export default {
             const formData = new FormData();
             formData.append('file', file);
 
-            axios.post('/api/upload', formData, {
+            axios.post('/api/user/image', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
