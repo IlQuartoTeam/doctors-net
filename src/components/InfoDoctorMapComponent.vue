@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col info">
-                <p class="d-flex align-items-center"><IconMapPin :color="$doc-primary"/><span class="ps-2">{{ store.singleDoctor.address }}</span><span class="ps-2">{{ store.singleDoctor.city }}</span></p>
+                <p class="d-flex align-items-center"><IconMapPin :color="$doc-primary"/><span v-for="address in takeAddress" class="ps-2">{{ address }}</span><span v-if="index !== takeAddress.length - 1">,</span><span class="ps-2">{{ store.singleDoctor.city }}</span></p>
                 <p class="d-flex align-items-center gap-2"><IconPhone :color="$doc-primary" /><span>{{ store.singleDoctor.phone }}</span></p>
                 <p class="d-flex align-items-center gap-2"><IconMail :color="$doc-primary" /><span>{{ store.singleDoctor.email }}</span></p>
             </div>
@@ -22,6 +22,16 @@ import { store } from '../store/store';
 import { IconMail, IconPhone, IconMapPin } from '@tabler/icons-vue';
 export default {
     components: { IconMail, IconPhone, IconMapPin},
+    computed: {
+        takeAddress() {
+      if (this.store.singleDoctor.address) {
+        return this.store.singleDoctor.address.split(",");
+      } else {
+        return []
+      }
+      }
+ 
+    },
     data () {
         
 
@@ -39,7 +49,7 @@ export default {
 @use "../assets/styles/_variables.scss" as *;
 
 span {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     letter-spacing: 1px;
     color: rgba($doc-dark, 0.6);
@@ -53,7 +63,7 @@ p {
 .container-fluid {
     display: flex;
     flex-direction: column-reverse;
-    gap: 30px;
+    padding: 150px 80px 50px 10px;
 }
 
 
@@ -63,15 +73,25 @@ p {
 
 
     .container-fluid {
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 0 40px;
+    padding: 150px 60px 100px 60px;
 }
 
 
 p { 
     padding: 8px 0 8px 15px;
+}
+
+span {
+ 
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: rgba($doc-dark, 0.6);
+    display: inline-block;
 }
 
 
@@ -88,7 +108,17 @@ p {
     .container-fluid {
     display: flex;
     justify-content: space-between;
+    padding: 190px 60px 140px 60px;
     
+}
+
+
+span {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: rgba($doc-dark, 0.6);
+    display: inline-block;
 }
 }
 
@@ -102,13 +132,25 @@ p {
 
 
     .container-fluid {
+    
     display: flex;
     justify-content: space-between;
-    padding: 0 60px;
+    padding: 250px 60px 200px 60px;
     
 
 
 }
+
+span {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: rgba($doc-dark, 0.6);
+    display: inline-block;
 }
+
+}
+
+
 
 </style>

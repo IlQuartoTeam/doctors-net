@@ -1,11 +1,11 @@
 <template>
     <div> 
-        <div v-if="store.singleDoctor" class="container m-0">
+        <div v-if="store.singleDoctor" class="container-fluid my-5">
             <div class="row">
                 <div class="col">
-                  <ul class="py-4">
+                  <ul>
                     <h2 class="py-2">Prestazioni:</h2>
-                    <li v-for="(examination, index) in takeExaminations" :key="index">{{ examination }}</li>
+                    <li v-for="(examination, index) in takeExaminations" :key="index">{{ examination }} </li>
 
                         
                     </ul>
@@ -56,11 +56,12 @@ h2 {
 }
 ul {
   list-style-type: none; 
+  margin: 0;
 }
 
 li {
   position: relative; 
- padding-left: 27px; 
+ padding-left: 22px; 
   color: rgba($doc-dark, 0.6);
   letter-spacing: 1px;
   font-weight: bold;
@@ -69,7 +70,7 @@ li {
 li:before {
   content: "";
   position: absolute; 
-  left: 3.5%; 
+  left: 2%; 
   top: 50%; 
   transform: translate(-50%, -50%); 
   width: 8px; 
@@ -89,6 +90,9 @@ li:before {
     li {
   position: relative; 
   padding-left: 27px; 
+  font-weight: bold;
+    letter-spacing: 1px;
+  
 }
 
 li:before {
@@ -128,6 +132,8 @@ h2 {
   position: relative; 
   padding-left: 27px; 
   font-size: 20px;
+  font-weight: bold;
+    letter-spacing: 1px;
 }
 
 li:before {
@@ -163,6 +169,8 @@ li:before {
   position: relative; 
   padding-left: 27px;
   font-size: 24px; 
+  font-weight: bold;
+    letter-spacing: 1px;
 }
 
 li:before {
