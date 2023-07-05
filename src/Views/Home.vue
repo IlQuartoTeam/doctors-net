@@ -21,9 +21,7 @@
         </div>
         <div class="searchBar">
             <div class="d-flex flex-column flex-md-row gap-3 align-items-center px-3">
-                <InputComponent class="formInput" :invalid="error" :required="true" 
-               
-                v-model="specialization" className="searchHero"
+                <InputComponent  :required="true" v-model="specialization" className="searchHero formInput"
                     id="searchHero" type="text" placeholder="Cardiologia, Dermatologia, Ginecologia..." />
                 <ButtonComponent @click="handleClick()" className="primary heroButton mb-3">cerca</ButtonComponent>
             </div>

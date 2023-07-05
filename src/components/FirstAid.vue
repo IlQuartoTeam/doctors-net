@@ -66,7 +66,7 @@ export default {
                 modelLoaded.position.set(0, 0, 0)
                 scene.add(modelLoaded)
             }
-        }, 1000)
+        }, 1200)
 
 
         /**
@@ -105,7 +105,6 @@ export default {
         /**
          * Sizes
          */
-        console.log(this.$refs.webgl);
         const sizes = {
             width: this.$refs.webgl.offsetWidth ?? 400,
             height: this.$refs.webgl.offsetHeight ?? 400
