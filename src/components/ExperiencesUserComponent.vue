@@ -3,32 +3,39 @@
         <h1 class="px-4 py-2 text-doc-blue">Modifica i tuoi dati</h1>
         <small class="px-4">I campi contrassegnati da * sono obbligatori.</small>
         <div class="row row-cols-1 row-cols-md-2 w-100 p-4">
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="addEduItem()">
                 <div class="col">
-                    <ul v-if="useExperiences">
-                        <template v-for="experience in useExperiences">
-                            <li v-if="experience.type === 'work'">{{ experience.name }}</li>
-                        </template>
-                    </ul>
-                    <InputComponent type="text" id="userCVEduName" label="Nome dell'esperienza"
-                        placeholder="Università degli studi di Torino"  v-model="newEducationName" :required="true" />
-                    <InputComponent type="date" id="userCvEduStart" label="Data di inizio"  v-model="newEducationStart"
+                    <template v-for="(experience, index) in userExperiences">
+                        <div v-if="experience.type === 'education'" @click="removeItem(index)" :key="experience"
+                            class="col examination d-flex justify-content-between align-items-center text-doc-blue mx-1 my-4">
+                            <span> {{ experience.name }} </span>
+                            <IconCircleX class="ms-2 flex-shrink-0" />
+                        </div>
+                    </template>
+
+
+                    <InputComponent type="text" id="userCVEduName" label="Nome dell'esperienza*"
+                        placeholder="Università degli studi di Torino" v-model="newEducationName" :required="true" />
+                    <InputComponent type="date" id="userCvEduStart" label="Data di inizio*" v-model="newEducationStart"
                         :required="true" />
-                    <InputComponent type="date" id="userCvEduEnd" label="Data di fine"  v-model="newEducationEnd" />
+                    <InputComponent type="date" id="userCvEduEnd" label="Data di fine" v-model="newEducationEnd" />
                     <ButtonComponent :button="true" type="submit" className="primary">Aggiungi</ButtonComponent>
                 </div>
 
             </form>
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="addWorkItem">
                 <div class="col">
-                    <ul v-if="useExperiences">
-                        <template v-for="experience in useExperiences">
-                            <li v-if="experience.type === 'education'">{{ experience.name }}</li>
-                        </template>
-                    </ul>
-                    <InputComponent type="text" id="userCVWorkName" label="Nome dell'esperienza"
-                        placeholder="Primario presso Ospedale di Milano"  v-model="newWorkName" :required="true" />
-                    <InputComponent type="date" id="userCVEduName" label="Data di inizio"  v-model="newWorkStart"
+                    <template v-for="(experience, index) in userExperiences">
+                        <div v-if="experience.type === 'work'" @click="removeItem(index)" :key="experience"
+                            class="col examination d-flex justify-content-between align-items-center text-doc-blue mx-1 my-4">
+                            <span> {{ experience.name }} </span>
+                            <IconCircleX class="ms-2 flex-shrink-0" />
+                        </div>
+                    </template>
+                   
+                    <InputComponent type="text" id="userCVWorkName" label="Nome dell'esperienza*"
+                        placeholder="Primario presso Ospedale di Milano" v-model="newWorkName" :required="true" />
+                    <InputComponent type="date" id="userCVEduName" label="Data di inizio*" v-model="newWorkStart"
                         :required="true" />
                     <InputComponent type="date" id="userCvWorkEnd" label="Data di fine" v-model="newWorkEnd" />
                     <ButtonComponent :button="true" type="submit" className="primary">Aggiungi</ButtonComponent>
@@ -39,19 +46,26 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { store } from '../store/store';
 import ButtonComponent from '../components/ButtonComponent.vue'
 import InputComponent from '../components/InputComponent.vue'
+import { IconCircleX, IconCircleXFilled } from '@tabler/icons-vue';
 export default {
     components: {
         InputComponent,
-        ButtonComponent
+        ButtonComponent,
+        IconCircleX,
+        IconCircleXFilled
     },
     data() {
         return {
             store,
+            apiUrl: store.API_URL + 'user/experiences',
             userInfo: { ...store.userDoctor },
-            useExperiences: { ...store.userDoctor.experiences },
+            userExperiences: store.userDoctor.experiences,
+            eduObject: null,
+            workObject: null,
             newEducationName: '',
             newEducationStart: '',
             newEducationEnd: '',
@@ -62,9 +76,110 @@ export default {
     },
     methods:
     {
-        handleSubmit() {
-            console.log('submitted');
-            console.log(this.newEducationStart);
+        addWorkItem()
+        {
+            if(this.newWorkEnd != '')
+            {
+                this.userExperiences.push(
+                {
+                    name: this.newWorkName,
+                    type: 'work',
+                    start_date: this.newWorkStart,
+                    end_date: this.newWorkEnd
+                }
+                )
+                this.workObject = {
+                    name: this.newWorkName,
+                    type: 'work',
+                    start_date: this.newWorkStart,
+                    end_date: this.newWorkEnd
+                }
+            }
+            else
+            {
+                this.userExperiences.push(
+                {
+                    name: this.newWorkName,
+                    type: 'work',
+                    start_date: this.newWorkStart,
+                }
+            )
+            this.workObject = {
+                name: this.newWorkName,
+                    type: 'work',
+                    start_date: this.newWorkStart,
+            }
+            }
+            
+            this.newWorkEnd = ''
+            this.newWorkStart = ''
+            this.newWorkName = ''
+            this.handleSubmit(this.workObject)
+        },
+        addEduItem()
+        {
+            if(this.newEducationEnd != '')
+            {
+                this.userExperiences.push(
+                {
+                    name: this.newEducationName,
+                    type: 'education',
+                    start_date: this.newEducationStart,
+                    end_date: this.newEducationEnd
+                }
+                )
+                this.eduObject = {
+                    name: this.newEducationName,
+                    type: 'education',
+                    start_date: this.newEducationStart,
+                    end_date: this.newEducationEnd
+                }
+            }
+            else
+            {
+                this.userExperiences.push(
+                {
+                    name: this.newEducationName,
+                    type: 'education',
+                    start_date: this.newEducationStart,
+                }
+                )
+                this.eduObject = {
+                    name: this.newEducationName,
+                    type: 'education',
+                    start_date: this.newEducationStart,
+                }
+            }
+            
+            this.newEducationEnd = ''
+            this.newEducationStart = ''
+            this.newEducationName = ''
+            this.handleSubmit(this.eduObject)
+        },
+        removeItem(index)
+        {
+            this.userExperiences.splice(index, 1)
+        },
+        handleSubmit(theObject) {
+            const config =
+            {
+                headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` }
+            }
+            axios
+                .post(this.apiUrl, theObject, config)
+                .then(res => {
+                    if (res.data.status) {
+                        store.toast.success("Informazioni modificate", { timeout: 1500 });
+                        store.userDoctor = { ...this.userInfo }
+                    }
+                    else {
+                        store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
+                    }
+
+                })
+                .catch(err => {
+                    store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
+                })
         }
     },
     mounted() {
@@ -73,4 +188,22 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use '../assets/styles/variables' as *;
+
+.examination {
+    padding: .5rem 1rem;
+    margin: 0 10px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid $doc-primary;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+        background-color: $doc-red;
+        cursor: pointer;
+        color: white !important;
+        border: 1px solid $doc-accent;
+    }
+}
+</style>
