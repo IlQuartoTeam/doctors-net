@@ -149,7 +149,7 @@ export default {
                     }
                 })
                     .then(response => {
-                        store.userDoctor.profile_image_url = response.data.imageUrl;
+                        store.userDoctor.profile_image_url = response.data.imagelink;
                     })
                     .catch(error => {
                         console.error(error);
