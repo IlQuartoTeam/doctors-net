@@ -84,12 +84,11 @@ export default {
                 if(res.data.status)
                 {
                     store.toast.success("Informazioni modificate", { timeout: 1500 });
-                    axios.get(store.API_URL + 'user', {}, this.config).then((res) => {
+                    axios.post(store.API_URL + 'user', {}, this.config).then((res) => {
                         store.userDoctor = { ...res.data.doctor, ...res.data.user }
                     }).catch(error => {
-                        //store.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
+                        store.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
                     })
-                    //store.userDoctor = {...this.userInfo}
                 }
                 else
                 {

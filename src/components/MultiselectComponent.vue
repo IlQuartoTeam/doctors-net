@@ -101,8 +101,8 @@ export default {
             this.$emit('sendResult', this.selectedOptions);
         },
         handleSelectedValues() {
-            this.options.filter(val => !this.selectedValues.includes(val));
             this.selectedOptions = this.selectedValues
+            this.options = this.array.filter(val => !this.selectedOptions.includes(val));
         }
     },
     mounted() {
