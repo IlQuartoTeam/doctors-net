@@ -4,10 +4,12 @@
         <p>Inserisci una nuova prestazione o rimuovi quelle esistenti</p>
         
         <div class="row row-cols-auto gx-0 py-4">
+            <transition-group name="list" tag="div">
             <div @click="removeFromList(index)" v-for="(examination, index) in userExaminations" :key="examination" class="col examination d-flex justify-content-between align-items-center text-white m-1">
                 <span> {{ examination }} </span>
                 <IconCircleX class="ms-2 flex-shrink-0" />
             </div>
+            </transition-group>
         </div>
        
         <form @submit.prevent="handleSubmit()">
@@ -27,7 +29,7 @@
                     <ButtonComponent @click.prevent="addItem()" type="button" :button="true" className="primary w-100" :disabled="(newExamination.trim() === '') || (newPrice.trim() === '')">aggiungi prestazione</ButtonComponent>
                 </div>
                 <div class="col p-2 text-center">
-                    <ButtonComponent type="submit" :button="true" className="w-100 primary" :disabled="userExaminations.length === store.userDoctor.examinations.split(';').length">completa modifica</ButtonComponent>
+                    <ButtonComponent type="submit" :button="true" className="w-100 primary" :disabled="isTheSameArray">completa modifica</ButtonComponent>
                 </div>
                
                 
@@ -62,7 +64,7 @@ export default {
             userInfo: { ...store.userDoctor },
             userExaminations: [],
             newExamination: '',
-            newPrice: ''
+            newPrice: '',
         }
     },
     methods: {
@@ -94,11 +96,13 @@ export default {
             if(this.userExaminations.length === 0)
             {
                 this.userExaminations = []
+                
             }
             else
             {
                 this.userExaminations.splice(index, 1)
             }
+            
             
             
         },
@@ -109,8 +113,28 @@ export default {
                 this.userExaminations.push(this.newExamination + ': ' + this.newPrice + '€')
                 this.newExamination = ''
                 this.newPrice = ''
+                
             }
             
+        },
+    },
+    computed: 
+    {
+        isTheSameArray()
+        {
+            let isTheSame = true
+            const originalArray = store.userDoctor.examinations.split(';')
+
+            this.userExaminations.forEach(oldElement => {
+                const found = originalArray.find(newElement => newElement === oldElement)
+                console.log(found);
+                if (!found)
+                {
+                    isTheSame = false
+                } 
+            });
+
+            return isTheSame
         }
     },
     mounted() {
@@ -149,4 +173,15 @@ export default {
             cursor: pointer;
         }
     }
+
+    .list-enter-active,
+.list-leave-active {
+  transition: all 1s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
 </style>

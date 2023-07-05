@@ -252,13 +252,6 @@ select {
 
 .select-container{
     position: relative;
-    &:after{
-    // content: $ti-icon-chevron-down;
-    content: '\ea5f';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translate(0, -50%);
-    }
+    
 }
 </style>
