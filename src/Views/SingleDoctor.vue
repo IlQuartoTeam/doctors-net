@@ -1,5 +1,6 @@
 <template>
     <div v-if="!loading" class="hero d-flex flex-column align-items-center gap-4 mt-5 px-5 pb-5">
+        
         <div class="box-image">
             <img :src=store.singleDoctor.profile_image_url alt="">
         </div>
@@ -15,17 +16,21 @@
                 </span>
             </div>
             <ButtonComponent class="primary w-75"><span class="text-uppercase ">contatta</span></ButtonComponent>
-
+           
+           
         </div>
+       
     </div>
+     <div v-if="!loading" >
+                <ExperiencesComponent />
+                <ExaminationsComponent   />
+                <InfoDoctorMapComponent />
+         </div>
 
 
 
 
-    <div>
-       <ExperiencesComponent />
-       <ExaminationsComponent  doctor="store.singleDoctor" />
-    </div>
+    
 </template>
 
 <script>
@@ -35,9 +40,10 @@ import { IconStar, IconStarFilled } from '@tabler/icons-vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 import ExperiencesComponent from '../components/ExperiencesComponent.vue';
 import ExaminationsComponent from '../components/ExaminationsComponent.vue';
+import InfoDoctorMapComponent from '../components/InfoDoctorMapComponent.vue';
 
     export default {
-        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent},
+        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent, InfoDoctorMapComponent},
         data () {
             return {
                 store,
