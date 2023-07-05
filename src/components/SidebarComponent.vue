@@ -12,10 +12,10 @@
             <div class="box-image mb-3 position-relative">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
                 <div class="changePhotoIcon position-absolute d-flex justify-content-center align-items-center">
-                    <IconEdit :size="50" color="#fafafa"/>
+                    <IconEdit :size="50" color="#fafafa" />
                 </div>
                 <div class="uploadImage position-absolute">
-                    <input name="image" id="profile-image-upload" type="file" @change="handleFileUpload"/>
+                    <input name="image" id="profile-image-upload" type="file" @change="handleFileUpload" />
                 </div>
             </div>
             <h6 v-if="store.userDoctor" class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{
@@ -135,22 +135,26 @@ export default {
             this.windowWidth = innerWidth;
         },
         handleFileUpload(event) {
-            const file = event.target.files[0];
-            const formData = new FormData();
-            formData.append('image', file);
+            axios.get('/sanctum/csrf-cookie').then(() => {
+                const file = event.target.files[0];
+                console.log(file);
 
-            axios.put('/api/user/image', formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    'Authorization': `Bearer ${this.$cookies.get('session-token')}`
-                }
-            })
-                .then(response => {
-                    store.userDoctor.profile_image_url = response.data.imageUrl;
+                const formData = new FormData();
+                formData.append('image', file);
+
+                axios.post('/api/user/image', formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        'Authorization': `Bearer ${this.$cookies.get('session-token')}`
+                    }
                 })
-                .catch(error => {
-                    console.error(error);
-                });
+                    .then(response => {
+                        store.userDoctor.profile_image_url = response.data.imageUrl;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            });
         }
     },
     mounted() {
@@ -203,12 +207,14 @@ export default {
             opacity: 0;
         }
     }
-    &:hover .changePhotoIcon{
+
+    &:hover .changePhotoIcon {
         opacity: 1;
         backdrop-filter: blur(2px);
 
     }
-    .changePhotoIcon{
+
+    .changePhotoIcon {
         top: 0;
         left: 0;
         width: 100%;
