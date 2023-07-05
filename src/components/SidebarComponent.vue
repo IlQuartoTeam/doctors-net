@@ -9,8 +9,12 @@
             </div>
         </div>
         <div class="user-details d-flex flex-column align-items-center mt-4">
-            <div class="box-image mb-3">
+            <div class="box-image mb-3 position-relative">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
+                <div class="uploadImage position-absolute">
+                    <input id="profile-image-upload" type="file" @change="handleFileUpload"
+                        @mouseenter.prevent="removingHelp" />
+                </div>
             </div>
             <h6 v-if="store.userDoctor" class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{
                 store.userDoctor.surname }}</h6>
@@ -55,11 +59,13 @@
         <div class="short-link p-4 my-5 d-flex flex-column align-items-center justify-content-center gap-3">
             <router-link to="/">
                 <ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged">
-                    <span>Torna alla Homepage</span></ButtonComponent>
+                    <span>Torna alla Homepage</span>
+                </ButtonComponent>
             </router-link>
             <router-link to="/logout">
                 <ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged">
-                    <span>Logout</span></ButtonComponent>
+                    <span>Logout</span>
+                </ButtonComponent>
             </router-link>
         </div>
     </div>
@@ -102,6 +108,9 @@ export default {
         }
     },
     methods: {
+        removingHelp(e) {
+            e.preventDefault();
+        },
         ToggleSidebar() {
             store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen
         },
@@ -121,6 +130,23 @@ export default {
         },
         getSize() {
             this.windowWidth = innerWidth;
+        },
+        handleFileUpload(event) {
+            const file = event.target.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            axios.post('/api/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(response => {
+                    const newImageUrl = response.data.imageUrl;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
     },
     mounted() {
@@ -157,6 +183,22 @@ export default {
     height: 150px;
     border-radius: 50%;
     overflow: hidden;
+
+    .uploadImage {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+
+
+        input {
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+    }
 
     img {
         height: 100%;
@@ -224,4 +266,5 @@ export default {
     .sidebar {
         width: 100%;
     }
-}</style>
+}
+</style>
