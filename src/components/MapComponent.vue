@@ -8,7 +8,7 @@ import ButtonComponent from './ButtonComponent.vue'
 import { store } from '../store/store';
 
 export default {
-  components: {ButtonComponent},
+  components: { ButtonComponent },
 
   data() {
     return {
@@ -21,82 +21,77 @@ export default {
       doctors: store.doctorsQueried
     };
   },
-  
+
   methods: {
     initializeMap(cityToSearch) {
       axios
-        .get(this.openStreetApi + (cityToSearch) + ',Italy', {withCredentials: false})
-        .then((response) => 
-          {
-            if(response.data.length > 0)
-            {
-              
-              this.cityData.lat = response.data[0].lat;
-              this.cityData.long = response.data[0].lon;
-              this.lastRightCoordinates = {lat: this.cityData.lat, long: this.cityData.long}
-              this.map = L.map('map').setView(
-                [this.cityData.lat, this.cityData.long],
-                14
-              );
+        .get(this.openStreetApi + (cityToSearch) + ',Italy', { withCredentials: false })
+        .then((response) => {
+          if (response.data.length > 0) {
 
-              L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution:
-                  '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-              }).addTo(this.map)
+            this.cityData.lat = response.data[0].lat;
+            this.cityData.long = response.data[0].lon;
+            this.lastRightCoordinates = { lat: this.cityData.lat, long: this.cityData.long }
+            this.map = L.map('map').setView(
+              [this.cityData.lat, this.cityData.long],
+              14
+            );
 
-              setTimeout(this.putPinsOnMap, 500)
-            } 
-            else
-            {
-              this.map = L.map('map').setView(
-                [this.lastRightCoordinates.lat, this.lastRightCoordinates.long],
-                14
-              );
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution:
+                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            }).addTo(this.map)
+            setTimeout(this.putPinsOnMap, 500)
+            
+          }
+          else {
+            this.map = L.map('map').setView(
+              [this.lastRightCoordinates.lat, this.lastRightCoordinates.long],
+              14
+            );
 
-              L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution:
-                  '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-              }).addTo(this.map)
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution:
+                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            }).addTo(this.map)
 
-              setTimeout(this.putPinsOnMap, 500)
-
-            }
+            setTimeout(this.putPinsOnMap, 500)
+          }
         })
-        .catch((err) => 
-        {
-         
+        .catch((err) => {
+
         })
-        
+
     },
     reInitializateMap(value) {
       if (this.map) {
         this.map.off()
         this.map.remove()
         this.initializeMap(value)
-       
+        setTimeout(this.putPinsOnMap, 500)
+        
+
       }
     },
-    putPinsOnMap()
-    {
+    putPinsOnMap() {
       const icon = L.icon(
-            {
-              iconUrl: '/img/other/pin-leaflet-border.png',
-              shadowUrl: '/img/other/pin-leaflet-shadow.png',
-            
-              iconSize: [30, 50],
-              shadowSize: [30, 50],
-              iconAnchor: [15, 0],
-              shadowAnchor: [15, 0],
-              popupAnchor: [0, 2]
-            }
-          )
-      if(this.doctors)
-      {
+        {
+          iconUrl: '/img/other/pin-leaflet-border.png',
+          shadowUrl: '/img/other/pin-leaflet-shadow.png',
+
+          iconSize: [30, 50],
+          shadowSize: [30, 50],
+          iconAnchor: [15, 0],
+          shadowAnchor: [15, 0],
+          popupAnchor: [0, 2]
+        }
+      )
+      if (this.doctors) {
         this.doctors.forEach(element => {
-         
-          const marker = L.marker([element.address_lat, element.address_long], {icon: icon}).addTo(this.map);
+
+          const marker = L.marker([element.address_lat, element.address_long], { icon: icon }).addTo(this.map);
           const specialization = element.specializations[0].name ?? 'Medicina Generale'
           const popup = `
             <h6 class="markerPopup-name text-center">${element.name} ${element.surname}</h6>
@@ -104,23 +99,24 @@ export default {
             <a class="d-block text-center text-doc-primary text-underline popup-link" href="/doctors/${element.slug}">Dettagli</a>
             `
           marker.bindPopup(popup)
-          })
-         
+        })
+
       }
-      
+
     }
   },
   watch: {
-      'store.citySearched'(newValue, oldValue){
+    'store.citySearched'(newValue, oldValue) {
       this.lastCityExist = oldValue
-      this.reInitializateMap(newValue)
     },
-    'store.doctorsQueried'(newValue){
+    'store.doctorsQueried'(newValue) {
       this.doctors = newValue
       this.reInitializateMap(store.citySearched)
+     
+
     }
   },
-  
+
   mounted() {
     this.initializeMap(store.citySearched ?? 'Roma');
   }
@@ -132,25 +128,26 @@ export default {
 
 #map {
   height: 250px;
+
   @media screen and (min-width: 560px) {
-      height: 350px;
+    height: 350px;
   }
 }
 
-.leaflet-popup-content-wrapper{
+.leaflet-popup-content-wrapper {
   border-radius: 5px;
   background-color: $doc-white;
   color: $doc-blue;
   font-weight: bold;
   width: auto;
 }
-.popup-link{
-  &:hover{
+
+.popup-link {
+  &:hover {
     cursor: pointer;
   }
-  
-}
 
+}
 </style>
 
 
