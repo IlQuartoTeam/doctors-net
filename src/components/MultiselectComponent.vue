@@ -93,6 +93,7 @@ export default {
         removeOption(option) {
             this.options.push(option);
             this.selectedOptions = this.selectedOptions.filter(o => o !== option);
+            this.options = this.options.sort()
             this.sendResult();
         },
         sendResult() {
@@ -100,8 +101,8 @@ export default {
             this.$emit('sendResult', this.selectedOptions);
         },
         handleSelectedValues() {
-            this.options.filter(val => !this.selectedValues.includes(val));
             this.selectedOptions = this.selectedValues
+            this.options = this.array.filter(val => !this.selectedOptions.includes(val));
         }
     },
     mounted() {
