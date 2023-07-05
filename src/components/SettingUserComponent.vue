@@ -64,7 +64,19 @@ export default {
             this.userInfo.city = store.city
             this.userInfo.address_lat = store.lat
             this.userInfo.address_long = store.lon
-            this.userInfo.specializations = this.specializationsSelected
+
+         
+            
+            const specializationsID = []
+            this.specializationsSelected.forEach(element => 
+           {
+
+            specializationsID.push(this.specializations.indexOf(element) + 1)
+           })
+
+           this.userInfo.specializations = specializationsID
+            
+            
 
             const config = 
             { 
@@ -102,14 +114,19 @@ export default {
         {
             const array = res.data.specializations
             array.forEach(element => {
-                this.specializations.push(element.name.toString())
+                this.specializations.push(element.name)
+                this.userInfo.specializations.forEach(el =>
+                {
+                    if(element.id === el.id)
+                    {
+                        this.specializationsSelected.push(el.name)
+                    }
+                })
             });
-           
-            this.userInfo.specializations.forEach(element => {
-                this.specializationsSelected.push(element.name.toString())
-            });
+        
             
         })
+        
        
     },
 }
