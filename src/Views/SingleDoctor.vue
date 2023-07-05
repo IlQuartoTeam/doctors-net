@@ -1,9 +1,9 @@
 <template>
-    <div v-if="!loading" class="hero d-flex flex-column align-items-center gap-4 mt-5 px-5 pb-5">
+    <div v-if="!loading" class="hero d-flex flex-column align-items-center gap-4 mt-5 mx-4 px-5 pb-5">
         <div class="box-image">
             <img :src=store.singleDoctor.profile_image_url alt="">
         </div>
-        <div class="doctor-details d-flex flex-column align-items-center gap-2">
+        <div class="doctor-details d-flex flex-column align-items-center text-center gap-2">
             <h1 class="fw-semibold">{{ store.singleDoctor.name }} {{ store.singleDoctor.surname }}</h1>
             <div class="specialization" v-for="specialization in store.singleDoctor.specializations">
                 <h5 class="fs-4">{{ specialization.name }}</h5>
@@ -15,7 +15,13 @@
                 </span>
             </div>
             <ButtonComponent class="primary w-75"><span class="text-uppercase ">contatta</span></ButtonComponent>
-
+        </div>
+    </div>
+    <div class="advanced mt-3">
+        <div class="box-section d-flex ms-5 gap-2">
+            <span @click="openSection('info')" :class="[this.isSelected === 'info' ? 'selected' : '']" class="fw-semibold pe-5">Informazioni</span>
+            <span @click="openSection('review')" :class="[this.isSelected === 'review' ? 'selected' : '']" class="fw-semibold pe-5">Recensioni</span>
+            <span @click="openSection('curriculum')" :class="[this.isSelected === 'curriculum' ? 'selected' : '']" class="fw-semibold pe-5">Curriculum Vitae</span>
         </div>
     </div>
 
@@ -42,7 +48,9 @@ import ExaminationsComponent from '../components/ExaminationsComponent.vue';
             return {
                 store,
                 stars: [],
-                loading: true
+                loading: true,
+                isOpen: 'info',
+                isSelected: 'info'
             }
         },
         methods: {
@@ -71,11 +79,14 @@ import ExaminationsComponent from '../components/ExaminationsComponent.vue';
                     return stars
                 });
                 
+            },
+            openSection(section){
+                this.isOpen = section;
+                this.isSelected = section;
             }
         },
         mounted() {
             this.getDoctor()
-            
         }
     }
 </script>
@@ -102,6 +113,32 @@ import ExaminationsComponent from '../components/ExaminationsComponent.vue';
         }
         h5{
             color: $doc-blue;
+        }
+    }
+    .advanced{
+        &::-webkit-scrollbar{
+            display: none;
+        }
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+    .box-section{
+        span{
+            color: $doc-primary;
+            display: inline-block;
+            cursor: pointer;
+            transition: color 0.3s;
+            &:hover{
+                color: $doc-blue;
+            }
+        }
+        .selected {
+            color: $doc-accent !important;
+        }
+    }
+    @media screen and (min-width: 576px) {
+        .box-section{
+            justify-content: center;
         }
     }
     @media screen and (min-width: 768px) {
