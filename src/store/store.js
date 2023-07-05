@@ -9,6 +9,7 @@ export const store = reactive({
   newUser: true,
   userDoctor: null,
   singleDoctor: null,
+  addReview: false,
   citySearched: 'Roma',
   doctorsQueried: null,
   dashboard:{

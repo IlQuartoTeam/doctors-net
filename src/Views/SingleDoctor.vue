@@ -33,6 +33,7 @@
         <ReviewComponent v-if="isOpen === 'review'" />
         <ExperiencesComponent v-if="isOpen === 'curriculum'" />   
     </div>
+    
 </template>
 
 <script>
