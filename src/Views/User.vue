@@ -11,6 +11,7 @@
              <!-- <ChartComponent v-if="store.dashboard.chartsOpen" /> -->
              <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
              <SettingUserComponent v-if="store.dashboard.generalInfo" />
+             <ExperiencesUserComponent v-if="store.dashboard.experiences"  />
              <PerformancesUserComponent v-if="store.dashboard.performances" />
              <ChangeUserPassword v-if="store.dashboard.changePassword" />
              <div class="sideButton d-block d-lg-none">
@@ -40,9 +41,10 @@
  import SettingUserComponent from '../components/SettingUserComponent.vue';
  import PerformancesUserComponent from '../components/PerformancesUserComponent.vue';
  import ChangeUserPassword from '../components/ChangeUserPassword.vue';
+ import ExperiencesUserComponent from '../components/ExperiencesUserComponent.vue';
  
      export default {
-         components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, ChangeUserPassword, IconChevronRight },
+         components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, ChangeUserPassword, IconChevronRight, ExperiencesUserComponent },
          data(){
              return{
                  store,
