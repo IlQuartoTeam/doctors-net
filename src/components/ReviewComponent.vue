@@ -1,65 +1,70 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1 class="m-0 name">{{ review.name }}</h1>
-                  <div class="d-flex aling-items-center gap-5 pt-1">
-                    <p class="pt-1 data">{{ review.created_at }}</p>
-                    <div class="pb-5">
-                            <span v-for="star in createStars">
-                            <IconStarFilled class="text-doc-accent" v-if="star" />
-                            <IconStar v-else />
-                            </span>
-                    </div>
-                   
-                </div>
-                <div>
-                    <p class="text">
-                        {{review.text}}
-                    </p>
-                </div>
+  <div class="box-button text-center mt-5">
+    <ButtonComponent class="outline text-lowercase"><IconPencil/><span class="ps-2 pt-2 fw-semibold">Aggiungi una recensione</span></ButtonComponent>
+  </div>
+  <div class="container-fluid mt-5 px-5" v-if="store.singleDoctor">
+    <div class="box-reviews container-fluid">
+      <div class="row mb-5 pt-3" v-for="review in store.singleDoctor.reviews">
+        <div class="col-12">
+          <h2 class="fw-semibold name">{{ review.name }}</h2>
+          <div class="date-review d-flex align-items-center gap-5">
+            <span>{{ review.created_at }} creato in data</span>
+            <div class="d-flex align-items-center justify-content-center pb-2 pt-md-0">
+              <span v-for="(star, index) in review.rating">
+                  <IconStarFilled class="text-doc-accent" v-if="star" />
+              </span>
+              <span v-for="star in (5 - review.rating)"><IconStar /></span>
             </div>
+          </div>
+          <p class="fs-5 mt-2">{{ review.text }}</p>
         </div>
-           
+      </div>
     </div>
+  </div>
+  <div class="box-button text-center mt-5 mb-5">
+    <ButtonComponent class="outline text-lowercase"><IconCirclePlus /><span class="ps-2 pt-2 fw-semibold">Carica altre recensioni</span></ButtonComponent>
+  </div>
 </template>
 
 <script>
-
-import { IconStar, IconStarFilled } from '@tabler/icons-vue';
+import { store } from '../store/store';
+import { IconStar, IconStarFilled, IconPencil, IconCirclePlus } from '@tabler/icons-vue';
+import ButtonComponent from './ButtonComponent.vue';
 export default {
-    components: {  IconStar, IconStarFilled },
+    components: {  IconStar, IconStarFilled, IconPencil, ButtonComponent, IconCirclePlus},
      props: ['review'],
-    setup () {
-        
-
+      data() {
         return {
-            stars: [],
-         
+          store,
+          visible: false,
+          stars: []
         }
     },
-    computed:
-  {
-  
-    createStars() 
-    {
-      const totals = [1, 2, 3, 4, 5]
-      const vote = Math.round(this.review.rating)
-      const stars = []
-      totals.forEach(number => 
-      {
-        if (number <= vote) 
-        {
-          stars.push(true)
+    methods: {
+      createStars(index) {
+        if(store.singleDoctor) {
+            const totals = [1, 2, 3, 4, 5]
+            let rating = Math.round(store.singleDoctor.reviews.rating)
+            let stars = []
+            totals.forEach(number => {
+              if (number <= rating) {
+                stars.push(true)
+              } 
+              else 
+              {
+                stars.push(false)
+              }
+            });
+            this.stars = stars
+            console.log(this.stars)
         } 
-        else 
-        {
-          stars.push(false)
-        }
-      });
-      return stars
+      },
+    },
+    mounted() {
+      setTimeout(() => {
+        this.createStars()
+      }, 1000);
     }
-  }
 }
 </script>
 
@@ -77,17 +82,6 @@ export default {
     color: $doc-blue;
     letter-spacing: 1px;
 }
-
-.data {
-    font-size: 16px;
-    letter-spacing: 1px;
-}
-
-.text {
-    font-size: 20px;
-    letter-spacing: 1px;
-}
-
 
 @media only screen and (min-width: 768px) {
 
