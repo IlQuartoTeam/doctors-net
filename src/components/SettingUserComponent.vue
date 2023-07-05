@@ -60,6 +60,7 @@ export default {
     },
     methods: {
         handleSubmit() {
+
             this.userInfo.address = store.address
             this.userInfo.city = store.city
             this.userInfo.address_lat = store.lat
@@ -127,6 +128,10 @@ export default {
             
         })
         
+        store.address = this.userInfo.address
+        store.city = this.userInfo.city
+        store.lat = this.userInfo.address_lat
+        store.long = this.userInfo.address_long
        
     },
 }
