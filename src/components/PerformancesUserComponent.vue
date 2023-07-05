@@ -1,30 +1,36 @@
 <template>
-    <div class="userInfo w-100">
-        <h1 class="px-4 py-2 text-doc-blue">Modifica le tue prestazioni</h1>
-        <p class="px-4">Inserisci le prestazioni seguendo queste regole:</p>
+    <div class="userInfo w-100 p-4">
+        <h1 class="py-2 text-doc-blue">Modifica le tue prestazioni</h1>
+        <p>Inserisci una nuova prestazione o rimuovi quelle esistenti</p>
         
-        <div class="row row-cols-auto gx-0">
-            <div @click="removeFromList(index)" v-for="(examination, index) in userExaminations" :key="examination" class="col examination d-flex justify-content-between align-items-center text-white">
+        <div class="row row-cols-auto gx-0 py-4">
+            <div @click="removeFromList(index)" v-for="(examination, index) in userExaminations" :key="examination" class="col examination d-flex justify-content-between align-items-center text-white m-1">
                 <span> {{ examination }} </span>
-                <IconCircleX class="ms-2" />
+                <IconCircleX class="ms-2 flex-shrink-0" />
             </div>
         </div>
        
         <form @submit.prevent="handleSubmit()">
-            <div class="row">
-                <div class="col-10">
+            <div class="row row-cols-1 row-cols-lg-2 mt-4">
+                <div class="col flex-grow-1">
                     <InputComponent id="ex_text" label="Nome della prestazione" type="text" placeholder="Prima visita" v-model="newExamination" />
                 </div>
-                <div class="col-2">
-                    <InputComponent id="ex_price" label="Prezzo €" type="number" placeholder="49.99" :required="(newExamination.trim() != '') ? true : false" v-model="newPrice" />
+                <div class="col col-lg-2">
+                    <InputComponent id="ex_price" label="Prezzo €" type="number" placeholder="49.99" v-model="newPrice"   />
                 </div>
                
                 
             </div>
             
-            <div class="text-end px-5">
-                <ButtonComponent @click.prevent="addItem()" type="button" :button="true" className="primary">aggiungi prestazione</ButtonComponent>
-                <ButtonComponent type="submit" :button="true" className="outline ms-3">completa modifica</ButtonComponent>
+            <div class="text-end py-3 row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center align-items-center justify-content-lg-end">
+                <div class="col p-2 text-center">
+                    <ButtonComponent @click.prevent="addItem()" type="button" :button="true" className="primary w-100" :disabled="(newExamination.trim() === '') || (newPrice.trim() === '')">aggiungi prestazione</ButtonComponent>
+                </div>
+                <div class="col p-2 text-center">
+                    <ButtonComponent type="submit" :button="true" className="w-100 primary" :disabled="userExaminations.length === store.userDoctor.examinations.split(';').length">completa modifica</ButtonComponent>
+                </div>
+               
+                
             </div>
             <div class="text-end px-5 pt-3">
                
@@ -54,7 +60,7 @@ export default {
             store,
             apiUrl: store.API_URL + 'user/edit',
             userInfo: { ...store.userDoctor },
-            userExaminations: store.userDoctor.examinations.split(';'),
+            userExaminations: [],
             newExamination: '',
             newPrice: ''
         }
@@ -62,43 +68,60 @@ export default {
     methods: {
         handleSubmit() 
         {
-            console.log(this.userExaminations.join(';'));
-            // this.userInfo.examinations = this.userExaminations.join('')
-            // const config =
-            // {
-            //     headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` }
-            // }
-            // axios
-            //     .put(this.apiUrl, this.userInfo, config)
-            //     .then(res => {
-            //         if (res.data.status) {
-            //             store.toast.success("Informazioni modificate", { timeout: 1500 });
-            //             store.userDoctor = { ...this.userInfo }
-            //         }
-            //         else {
-            //             store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
-            //         }
+            this.userInfo.examinations = this.userExaminations.join(';')
+            const config =
+            {
+                headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` }
+            }
+            axios
+                .put(this.apiUrl, this.userInfo, config)
+                .then(res => {
+                    if (res.data.status) {
+                        store.toast.success("Informazioni modificate", { timeout: 1500 });
+                        store.userDoctor = { ...this.userInfo }
+                    }
+                    else {
+                        store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
+                    }
 
-            //     })
-            //     .catch(err => {
-            //         store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
-            //     })
+                })
+                .catch(err => {
+                    store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
+                })
         },
         removeFromList(index)
         {
-            console.log(index);
-            console.log(this.userExaminations[index]);
-            this.userExaminations.splice(index, 1)
+            if(this.userExaminations.length === 0)
+            {
+                this.userExaminations = []
+            }
+            else
+            {
+                this.userExaminations.splice(index, 1)
+            }
+            
+            
         },
         addItem()
         {
-            this.userExaminations.push(this.newExamination + ': ' + this.newPrice + '€')
-            this.newExamination = ''
-            this.newPrice = ''
+            if(this.newExamination.trim() != '' && this.newPrice.trim() != '')
+            {
+                this.userExaminations.push(this.newExamination + ': ' + this.newPrice + '€')
+                this.newExamination = ''
+                this.newPrice = ''
+            }
+            
         }
     },
     mounted() {
-        console.log(store.userDoctor);
+        const examinations = store.userDoctor.examinations.split(';')
+        examinations.forEach(element => {
+            if (element != '')
+            {
+                this.userExaminations.push(element)
+            }
+        });
+       
     },
 }
 </script>
