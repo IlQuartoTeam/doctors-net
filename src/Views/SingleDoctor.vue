@@ -9,7 +9,7 @@
                 <h5 class="fs-4">{{ specialization.name }}</h5>
             </div>
             <div class="d-flex align-items-center justify-content-center pt-3 pt-md-0">
-                <span v-for="star in createStars(store.singleDoctor.average_rating)">
+                <span v-for="star in this.stars">
                     <IconStarFilled class="text-doc-accent" v-if="star" />
                     <IconStar v-else />
                 </span>
@@ -61,27 +61,27 @@ import InfoDoctorMapComponent from '../components/InfoDoctorMapComponent.vue';
                 axios.get(store.API_URL + 'doctors/' + this.$route.params.user).then(res => {
                     store.singleDoctor = res.data.results;
                     this.loading = false
-                    console.log(store.singleDoctor)
                 }).catch(err => {
                     this.message.text = 'Ooops! Si è verificato un errore.'
                     this.loading = false
                 });
             },
-            createStars(doctor_rating) {
-                const totals = [1, 2, 3, 4, 5]
-                const rating = Math.round(doctor_rating)
-                const stars = []
-                totals.forEach(number => {
-                    if (number <= rating) {
-                        stars.push(true)
-                    } 
-                    else 
-                    {
-                        stars.push(false)
-                    }
-                    return stars
-                });
-                
+            createStars() {
+                if(store.singleDoctor) {
+                    const totals = [1, 2, 3, 4, 5]
+                    const rating = Math.round(store.singleDoctor.average_rating)
+                    let stars = []
+                    totals.forEach(number => {
+                        if (number <= rating) {
+                            stars.push(true)
+                        } 
+                        else 
+                        {
+                            stars.push(false)
+                        }
+                    });
+                    this.stars = stars
+                } 
             },
             openSection(section){
                 this.isOpen = section;
@@ -90,6 +90,9 @@ import InfoDoctorMapComponent from '../components/InfoDoctorMapComponent.vue';
         },
         mounted() {
             this.getDoctor()
+             setTimeout(() => {
+                 this.createStars()
+            }, 1000);
         }
     }
 </script>
