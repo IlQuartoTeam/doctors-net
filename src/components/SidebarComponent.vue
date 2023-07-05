@@ -12,7 +12,7 @@
             <div class="box-image mb-3 position-relative">
                 <img v-if="store.userDoctor" :src="store.userDoctor.profile_image_url" alt="profile-image">
                 <div class="uploadImage position-absolute">
-                    <input id="profile-image-upload" type="file" @change="handleFileUpload"/>
+                    <input name="image" id="profile-image-upload" type="file" @change="handleFileUpload"/>
                 </div>
             </div>
             <h6 v-if="store.userDoctor" class="fw-semibold fs-5 text-doc-blue">{{ store.userDoctor.name }} {{
@@ -83,6 +83,8 @@ import { IconSettings } from '@tabler/icons-vue';
 import { IconChevronRight } from '@tabler/icons-vue';
 import { IconChevronLeft } from '@tabler/icons-vue';
 import ButtonComponent from './ButtonComponent.vue';
+import axios from 'axios';
+
 export default {
     name: 'SidebarComponent',
     components: {
@@ -130,11 +132,12 @@ export default {
         handleFileUpload(event) {
             const file = event.target.files[0];
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('image', file);
 
-            axios.post('/api/user/image', formData, {
+            axios.put('/api/user/image', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    "Content-Type": "multipart/form-data",
+                    'Authorization': `Bearer ${this.$cookies.get('session-token')}`
                 }
             })
                 .then(response => {
