@@ -22,7 +22,7 @@ export default {
     computed: {
         takeExaminations() {
       if (this.store.singleDoctor.examinations) {
-        return this.store.singleDoctor.examinations.split("; ");
+        return this.store.singleDoctor.examinations.split(";");
       } else {
         return []
       }

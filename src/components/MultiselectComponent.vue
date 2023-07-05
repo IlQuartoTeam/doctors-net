@@ -77,7 +77,7 @@ export default {
             isOpen: false
         }
     },
-    props: ['array'],
+    props: ['array', 'selectedValues'],
     methods: {
         toggleOpen() {
             this.isOpen = !this.isOpen;
@@ -98,11 +98,16 @@ export default {
         sendResult() {
             console.log('evento inviato');
             this.$emit('sendResult', this.selectedOptions);
+        },
+        handleSelectedValues() {
+            this.options.filter(val => !this.selectedValues.includes(val));
+            this.selectedOptions = this.selectedValues
         }
     },
     mounted() {
         window.addEventListener('click', this.closeOpen)
-        if (this.array) this.options = [...this.array]
+        if (this.array) this.options = [...this.array];
+        if (this.selectedValues) this.handleSelectedValues();
     },
     beforeUnmount() {
         window.removeEventListener('click', this.closeOpen)
@@ -134,18 +139,13 @@ $resize: -0.21;
     &>div {
         position: relative;
         z-index: 2;
-        padding: 8px 12px 2px 12px;
+        padding: 1rem 20px;
         border-radius: 8px;
         background: #fff;
-        font-size: 14px;
-        min-height: 44px;
-        box-shadow: 0 4px 16px 0 rgba(#162A5A, .12);
+        font-size: inherit;
+        min-height: 60px;
         transition: box-shadow .3s ease;
-
-        &:hover {
-            box-shadow: 0 4px 24px -1px rgba(#162A5A, .16);
-        }
-
+        border: 1px solid $primary;
         .arrow {
             right: 1px;
             top: 0;
@@ -178,13 +178,13 @@ $resize: -0.21;
         }
 
         span {
-            color: $doc-blue;
+            color: $doc-primary;
             display: block;
             position: absolute;
             left: 12px;
             cursor: pointer;
-            top: 8px;
-            line-height: 28px;
+            top: 50%;
+            transform: translateY(-50%);
             transition: all .3s ease;
 
             &.hide {
