@@ -6,7 +6,7 @@
             <form @submit.prevent="addEduItem()">
                 <div class="col">
                     <template v-for="(experience, index) in userExperiences">
-                        <div v-if="experience.type === 'education'" @click="removeItem(index)" :key="experience"
+                        <div v-if="experience.type === 'education'" @click="removeItem(index, experience.id)" :key="experience"
                             class="col examination d-flex justify-content-between align-items-center text-doc-blue mx-1 my-4">
                             <span> {{ experience.name }} </span>
                             <IconCircleX class="ms-2 flex-shrink-0" />
@@ -156,16 +156,15 @@ export default {
             this.newEducationName = ''
             this.handleSubmit(this.eduObject)
         },
-        removeItem(index)
+        removeItem(index, id)//funzione riceve anche id della recensione
         {
             this.userExperiences.splice(index, 1) //la cancella dal front
-            index++//incrementa indice per sincronizzarsi con gli id del database
             const config =
             {
                 headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` }
             }
             axios
-                .post('api/user/experiences/' + index + '/delete', {}, config)//invia chiamata api alla delete della recensione relativa
+                .post('api/user/experiences/' + id + '/delete', {}, config)//invia chiamata api alla delete della recensione relativa
                 .then(res => {
                     if (res.data.status) {
                         store.toast.success("Informazioni modificate", { timeout: 1500 });
