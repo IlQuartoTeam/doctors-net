@@ -62,7 +62,7 @@ export default {
             store,
             apiUrl: store.API_URL + 'user/edit',
             userInfo: { ...store.userDoctor },
-            userExaminations: [...store.userDoctor.examinations.split(';')],
+            userExaminations: store.userDoctor.examinations ? [ ...store.userDoctor.examinations.split(';')] : [],
             newExamination: '',
             newPrice: '',
             isModified: false
@@ -119,7 +119,8 @@ export default {
         },
         isTheSameArray()
         {
-            const originalArray = store.userDoctor.examinations.split(';')
+            
+            const originalArray = store.userDoctor.examinations ? store.userDoctor.examinations.split(';') : []
 
             if(originalArray != this.userExaminations)
             {

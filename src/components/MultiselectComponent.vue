@@ -77,7 +77,7 @@ export default {
             isOpen: false
         }
     },
-    props: ['array'],
+    props: ['array', 'selectedValues'],
     methods: {
         toggleOpen() {
             this.isOpen = !this.isOpen;
@@ -98,11 +98,16 @@ export default {
         sendResult() {
             console.log('evento inviato');
             this.$emit('sendResult', this.selectedOptions);
+        },
+        handleSelectedValues() {
+            this.options.filter(val => !this.selectedValues.includes(val));
+            this.selectedOptions = this.selectedValues
         }
     },
     mounted() {
         window.addEventListener('click', this.closeOpen)
-        if (this.array) this.options = [...this.array]
+        if (this.array) this.options = [...this.array];
+        if (this.selectedValues) this.handleSelectedValues();
     },
     beforeUnmount() {
         window.removeEventListener('click', this.closeOpen)

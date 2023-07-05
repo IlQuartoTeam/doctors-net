@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="row row-cols-1 mb-3">
-            <label class="mb-2 text-doc-blue">Seleziona una o più sepcializzazioni</label>
+            <label class="mb-2 text-doc-blue">Seleziona una o più specializzazioni</label>
             <MultiselectComponent v-if="specializations.length > 0" :array="specializations" @sendResult="setSpecializationsSelected" />
         </div>
         <div class="row row-cols-1 row-cols-md-2">
@@ -110,9 +110,9 @@ export default {
                 phone: this.phone,
                 city: this.store.city,
                 address: store.address,
-                specialization: 1,
+                specializations: this.specializationsSelected,
                 lat: this.store.lat,
-                long: this.store.lon
+                long: this.store.lon,
             }).then((res) => {
                 if(res.data.access_token)
                 {
@@ -160,7 +160,12 @@ export default {
         setSpecializationsSelected(result)
         {
            this.specializationsSelected.length = 0
-           this.specializationsSelected = [...result]
+  
+           result.forEach(element => 
+           {
+    
+            this.specializationsSelected.push(this.specializations.indexOf(element) + 1)
+           })
            
         }
     },
@@ -170,11 +175,9 @@ export default {
         .then(res => 
         {
             const array = res.data.specializations
-            console.log(array);
             array.forEach(element => {
                 this.specializations.push(element.name)
             });
-            console.log(this.specializations);
         })
     }
 
