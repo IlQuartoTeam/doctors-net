@@ -1,6 +1,9 @@
 <template>
-  <div class="box-button text-center mt-5">
-    <ButtonComponent class="outline text-lowercase"><IconPencil/><span class="ps-2 pt-2 fw-semibold">Aggiungi una recensione</span></ButtonComponent>
+  <div class="box-button text-center text-md-end me-md-5 mt-5">
+    <ButtonComponent class="outline">
+      <IconPencil :width="20" class="mb-1" />
+      <span class="ps-2 fw-semibold">Aggiungi una recensione</span>
+    </ButtonComponent>
   </div>
   <div class="container-fluid mt-5 px-5" v-if="store.singleDoctor">
     <div class="box-reviews container-fluid">
@@ -22,7 +25,9 @@
     </div>
   </div>
   <div class="box-button text-center mt-5 mb-5">
-    <ButtonComponent class="outline text-lowercase"><IconCirclePlus /><span class="ps-2 pt-2 fw-semibold">Carica altre recensioni</span></ButtonComponent>
+    <ButtonComponent class="outline">
+      <IconCirclePlus :width="20" class="mb-1" />
+      <span class="ps-2 fw-semibold">Carica altre recensioni</span></ButtonComponent>
   </div>
 </template>
 
@@ -76,10 +81,4 @@ export default {
     color: $doc-blue;
     letter-spacing: 1px;
 }
-
-
-
-
-
-
 </style>
