@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col info">
-                <p class="d-flex align-items-center"><IconMapPin :color="$doc-primary"/><span v-for="address in takeAddress" class="ps-2">{{ address }}</span><span v-if="index !== takeAddress.length - 1">,</span><span class="ps-2">{{ store.singleDoctor.city }}</span></p>
+                <p class="d-flex align-items-center"><IconMapPin :color="$doc-primary"/><span v-for="address in takeAddress" class="ps-2">{{ address }}</span><span>,</span><span class="ps-2">{{ store.singleDoctor.city }}</span></p>
                 <p class="d-flex align-items-center gap-2"><IconPhone :color="$doc-primary" /><span>{{ store.singleDoctor.phone }}</span></p>
                 <p class="d-flex align-items-center gap-2"><IconMail :color="$doc-primary" /><span>{{ store.singleDoctor.email }}</span></p>
             </div>
