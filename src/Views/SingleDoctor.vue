@@ -8,7 +8,7 @@
             <div class="specialization" v-for="specialization in store.singleDoctor.specializations">
                 <h5 class="fs-4">{{ specialization.name }}</h5>
             </div>
-            <div class="d-flex align-items-center justify-content-center pt-3 pt-md-0">
+            <div class="d-flex align-items-center justify-content-center pb-2 pt-md-0">
                 <span v-for="star in this.stars">
                     <IconStarFilled class="text-doc-accent" v-if="star" />
                     <IconStar v-else />
