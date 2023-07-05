@@ -30,6 +30,9 @@
 
             </div>
         </div>
+        <div class="row row-cols-1">
+            <MultiselectComponent :array="specializationAvailable" />
+        </div>
         <div class="row row-cols-1 row-cols-md-2">
                 <Places :modelAddressPlaces="store.address" :modelCityPlaces="store.city" />
         </div>
@@ -61,13 +64,14 @@
 <script>
 import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
+import MultiselectComponent from '../components/MultiselectComponent.vue';
 import Places from '../components/Places.vue';
 import axios from 'axios'
 import { store } from '../store/store';
 import router from '../router/router';
 
 export default {
-    components: { InputComponent, ButtonComponent, Places },
+    components: { InputComponent, ButtonComponent, Places, MultiselectComponent },
     data() {
         return {
             openStreetApi: `https://nominatim.openstreetmap.org/search?format=json&q=`,
@@ -84,7 +88,49 @@ export default {
             lat: null, 
             lon: null,
             message: {},
-            errPsw: false
+            errPsw: false,
+            specializationAvailable : [
+                "Allergologia",
+                "Anatomia patologica",
+                "Angiologia",
+                "Chirurgia generale",
+                "Chirurgia pediatrica",
+                "Chirurgia plastica ed estetica",
+                "Chirurgia toracica",
+                "Chirurgia vascolare",
+                "Dermatologia e venereologia",
+                "Ematologia",
+                "Gastroenterologia",
+                "Genetica medica",
+                "Geriatria",
+                "Malattie infettive",
+                "Medicina dello sport",
+                "Medicina del lavoro",
+                "Fisioterapia",
+                "Medicina generale",
+                "Medicina interna",
+                "Medicina legale",
+                "Medicina nucleare",
+                "Medicina termale",
+                "Microbiologia e virologia",
+                "Nefrologia",
+                "Neonatologia",
+                "Neurochirurgia",
+                "Neurologia",
+                "Neuroradiologia",
+                "Oftalmologia",
+                "Oncologia medica",
+                "Oncologia radioterapica",
+                "Ortopedia e traumatologia",
+                "Ostetricia e ginecologia",
+                "Otorinolaringoiatria",
+                "Pediatria",
+                "Psichiatria",
+                "Radiodiagnostica",
+                "Radioterapia",
+                "Reumatologia",
+                "Urologia",
+            ]
             
           
 

@@ -10,7 +10,7 @@
                 <picture>
                     <source media="(max-width: 768px)" :srcset="imgPath + imgs.imgSm + imgExt">
                     <source media="(max-width: 992px)" :srcset="imgPath + imgs.imgMd + imgExt">
-                    <img class="img-fluid" :src="imgPath + imgs.imgLg + imgExt" :alt="imgName">
+                    <img class="img-fluid" :src="imgPath + imgs.imgLg + imgExt" :alt="imgs.imgLg">
                 </picture>
             </div>
         </div>

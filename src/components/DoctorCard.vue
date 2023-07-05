@@ -11,7 +11,7 @@
         </div>
 
         <div class="card-title d-md-flex flex-column align-items-center justify-content-between">
-          <div class="col-12 d-none d-md-block">
+          <div v-if="doctor.premium" class="col-12 d-none d-md-block">
             <p class="cons fw-bold pb-2 text-center">Consigliato</p>
           </div>
 
