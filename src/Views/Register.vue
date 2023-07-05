@@ -30,7 +30,8 @@
 
             </div>
         </div>
-        <div class="row row-cols-1">
+        <div class="row row-cols-1 mb-3">
+            <label class="mb-2 text-doc-blue">Seleziona una o più sepcializzazioni</label>
             <MultiselectComponent v-if="specializations.length > 0" :array="specializations" @sendResult="setSpecializationsSelected" />
         </div>
         <div class="row row-cols-1 row-cols-md-2">
