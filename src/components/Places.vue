@@ -1,11 +1,11 @@
 <template>
 <div class="col">
     <InputComponent ref="address" :required="true" label="Indirizzo*" id="autocomplete" type="text"
-      placeholder="Corso Inghilterra" :modelValue="modelAddressPlaces" />
+      placeholder="Corso Inghilterra" :modelValue="modelAddressPlaces" :invalid="store.addressError" />
     </div>
     <div class="col">
     <InputComponent ref="city" :required="true" label="Città*" id="city" type="text"
-      placeholder="Torino" :modelValue="modelCityPlaces" />
+      placeholder="Torino" :modelValue="modelCityPlaces" :invalid="store.addressError" />
   </div>
 </template>
 
