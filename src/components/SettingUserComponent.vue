@@ -11,11 +11,17 @@
                 <InputComponent id="doctor_surname" label="Cognome*" v-model="userInfo.surname" type="text" :required="true" />
             </div>
             <Places :modelAddressPlaces="store.address ?? userInfo.address" :modelCityPlaces="store.city ?? userInfo.city" />
+            
             <div class="col">
                 <InputComponent id="doctor_email" label="Email*" v-model="userInfo.email" type="email" :required="true" />
             </div>
             <div class="col">
                 <InputComponent id="doctor_phone" label="Telefono" v-model="userInfo.phone" type="text" :required="false" />
+            </div>
+            <div class="col flex-grow-1">
+                <label class="mb-2 text-doc-blue">Specializzazioni</label>
+                 <MultiselectComponent v-if="specializations.length > 0" :array="specializations" @sendResult="setSpecializationsSelected" />
+               
             </div>
         </div>
         <div class="text-end px-5">
@@ -33,13 +39,15 @@ import { store } from '../store/store';
 import InputComponent from '../components/InputComponent.vue'
 import Places from '../components/Places.vue'
 import ButtonComponent from '../components/ButtonComponent.vue'
+import MultiselectComponent from './MultiselectComponent.vue';
 
 export default {
     name: 'SettingUserComponent',
     components: {
         InputComponent,
         Places,
-        ButtonComponent
+        ButtonComponent,
+        MultiselectComponent
     },
     data() {
         return {
@@ -47,6 +55,8 @@ export default {
             apiUrl: store.API_URL + 'user/edit',
             userInfo: { ...store.userDoctor },
             error: null,
+            specializations: [],
+            specializationsSelected: store.userDoctor.specializations,
             
         }
     },
@@ -80,10 +90,28 @@ export default {
             {
                 store.toast.error("Ooops! Si è verificato un errore. Riprova.", {timeout: 1500});
             })
+        },
+        setSpecializationsSelected(result)
+        {
+           this.specializationsSelected.length = 0
+  
+           result.forEach(element => 
+           {
+    
+            this.specializationsSelected.push(this.specializations.indexOf(element) + 1)
+           })
+           
         }
     },
     mounted() {
-        console.log(store.userDoctor);
+        axios.get(store.API_URL + 'specializations')
+        .then(res => 
+        {
+            const array = res.data.specializations
+            array.forEach(element => {
+                this.specializations.push(element.name)
+            });
+        })
     },
 }
 </script>
