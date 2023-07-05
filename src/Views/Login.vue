@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-doc-white">
+    <section class="bg-doc-white p-4 p-lg-0">
         <div class="image-container"></div>
         <div class="login-container">
             <img class="d-block mx-auto img-fluid" src="/img/logo/hearts-no-track.svg" alt="logo">

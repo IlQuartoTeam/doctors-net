@@ -38,7 +38,7 @@ export default {
         }
     },
     mounted() {
-        console.log (this.splitExaminations)
+        console.log (this.takeExaminations)
     },
 }
 </script>
