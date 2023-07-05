@@ -125,7 +125,7 @@ export default {
             .then((res) => 
             {
                 const results = res.data.results.data
-                this.filterDoctors(results)
+                this.filterDoctors(this.sortByPremium(results))
                 this.message = null
               
             })
@@ -139,7 +139,20 @@ export default {
                    
                 }
             })
-        }
+        },
+        sortByPremium(results) {
+        results.sort((a, b) => {
+            if (a.premium && !b.premium) {
+            return -1; // a viene prima di b
+            } else if (!a.premium && b.premium) {
+            return 1; // b viene prima di a
+            } else {
+            return 0; // mantieni l'ordine originale
+            }
+        });
+
+        return results;
+}
     },
     watch:
     {

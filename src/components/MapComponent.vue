@@ -88,10 +88,19 @@ export default {
           popupAnchor: [0, 2]
         }
       )
+      const premiumIcon = L.icon(
+        {
+          iconUrl: '/img/other/pin-leaflet-premium.png',
+
+          iconSize: [30, 50],
+          iconAnchor: [15, 0],
+          popupAnchor: [0, 2]
+        }
+      )
       if (this.doctors) {
         this.doctors.forEach(element => {
 
-          const marker = L.marker([element.address_lat, element.address_long], { icon: icon }).addTo(this.map);
+          const marker = L.marker([element.address_lat, element.address_long], { icon: element.premium ? premiumIcon : icon }).addTo(this.map);
           const specialization = element.specializations[0].name ?? 'Medicina Generale'
           const popup = `
             <h6 class="markerPopup-name text-center">${element.name} ${element.surname}</h6>
