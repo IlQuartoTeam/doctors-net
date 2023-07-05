@@ -29,7 +29,7 @@
                     <ButtonComponent @click.prevent="addItem()" type="button" :button="true" className="primary w-100" :disabled="(newExamination.trim() === '') || (newPrice.trim() === '')">aggiungi prestazione</ButtonComponent>
                 </div>
                 <div class="col p-2 text-center">
-                    <ButtonComponent type="submit" :button="true" className="w-100 primary" :disabled="isTheSameArray">completa modifica</ButtonComponent>
+                    <ButtonComponent type="submit" :button="true" className="w-100 primary" :disabled="!isModified">completa modifica</ButtonComponent>
                 </div>
                
                 
@@ -62,9 +62,10 @@ export default {
             store,
             apiUrl: store.API_URL + 'user/edit',
             userInfo: { ...store.userDoctor },
-            userExaminations: [],
+            userExaminations: [...store.userDoctor.examinations.split(';')],
             newExamination: '',
             newPrice: '',
+            isModified: false
         }
     },
     methods: {
@@ -90,6 +91,7 @@ export default {
                 .catch(err => {
                     store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
                 })
+                this.isModified = false
         },
         removeFromList(index)
         {
@@ -103,8 +105,6 @@ export default {
                 this.userExaminations.splice(index, 1)
             }
             
-            
-            
         },
         addItem()
         {
@@ -117,34 +117,26 @@ export default {
             }
             
         },
-    },
-    computed: 
-    {
         isTheSameArray()
         {
-            let isTheSame = true
             const originalArray = store.userDoctor.examinations.split(';')
 
-            this.userExaminations.forEach(oldElement => {
-                const found = originalArray.find(newElement => newElement === oldElement)
-                console.log(found);
-                if (!found)
-                {
-                    isTheSame = false
-                } 
-            });
-
-            return isTheSame
+            if(originalArray != this.userExaminations)
+            {
+                this.isModified = true
+            }
         }
     },
+    watch:
+    {
+        'userExaminations.length'()
+        {
+            this.isTheSameArray()
+        }
+    },
+  
     mounted() {
-        const examinations = store.userDoctor.examinations.split(';')
-        examinations.forEach(element => {
-            if (element != '')
-            {
-                this.userExaminations.push(element)
-            }
-        });
+       
        
     },
 }
