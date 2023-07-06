@@ -11,12 +11,12 @@
                   <li class="mt-2 ps-2" v-for="(item, index) in privacyIndex" :key="index">{{ index + 1 }}. <a
                         class="link" :href="`#${item}`">{{ item }}</a></li>
                </ul>
-               <ul class="mt-5 pt-4" v-for="(section, index) in privacyData">
+               <ul class="mt-5 pt-4 px-0" v-for="(section, index) in privacyData">
                   <li>
                      <h2 :id="section.title" class="ps-2 mb-3">{{ index + 1 }}. {{ section.title }}</h2>
                   </li>
                   <li v-for="(row, index) in section.paragraphs">
-                     <p class="m-0 paragrafo">{{ index + 1 }}. {{ row }} </p>
+                     <span class="m-0 paragrafo">{{ index + 1 }}. {{ row }} </span>
                   </li>
                </ul>
             </div>
