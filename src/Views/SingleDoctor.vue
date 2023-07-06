@@ -14,7 +14,8 @@
                     <IconStar v-else />
                 </span>
             </div>
-            <ButtonComponent class="primary w-75"><span class="text-uppercase ">contatta</span></ButtonComponent>
+            <ButtonComponent @click="contactNow" class="primary w-75"><span class="text-uppercase ">contatta</span></ButtonComponent>
+            <ContactFormComponent v-if="store.contactForm" />
         </div>
     </div>
     <div class="advanced mt-3">
@@ -33,6 +34,7 @@
         <ReviewComponent v-if="isOpen === 'review'" />
         <ExperiencesComponent v-if="isOpen === 'curriculum'" />   
     </div>
+    <div v-if="store.contactForm" class="layover"></div>
     
 </template>
 
@@ -45,9 +47,10 @@ import ExaminationsComponent from '../components/ExaminationsComponent.vue';
 import ReviewComponent from '../components/ReviewComponent.vue';
 import ExperiencesComponent from '../components/ExperiencesComponent.vue';
 import InfoDoctorMapComponent from '../components/InfoDoctorMapComponent.vue';
+import ContactFormComponent from '../components/ContactFormComponent.vue';
 
     export default {
-        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent, ReviewComponent, InfoDoctorMapComponent},
+        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent, ReviewComponent, InfoDoctorMapComponent, ContactFormComponent},
         data () {
             return {
                 store,
@@ -87,6 +90,9 @@ import InfoDoctorMapComponent from '../components/InfoDoctorMapComponent.vue';
             openSection(section){
                 this.isOpen = section;
                 this.isSelected = section;
+            },
+            contactNow() {
+                store.contactForm = !store.contactForm;
             }
         },
         mounted() {
@@ -145,6 +151,13 @@ import InfoDoctorMapComponent from '../components/InfoDoctorMapComponent.vue';
     }
     .components{
         overflow: hidden;
+    }
+    .layover{
+        position: fixed;
+        top:0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.267);
     }
     @media screen and (min-width: 576px) {
         .box-section{
