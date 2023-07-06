@@ -18,10 +18,6 @@ $font-path: "../fonts/" !default;
 }
 
 
-
-
-
-
 /* BOOTSTRAP IMPORT */
 @import "bootstrap/scss/functions";
 
@@ -121,3 +117,66 @@ a{
     border-radius: 2px;
     border: 0px solid #fafafa;
   }
+
+  
+@import 'vue-select/dist/vue-select.css';
+
+:root {
+
+  --blue: #0071A2;
+  --primary: #2FB0BD;
+  /* Search Input */
+  --vs-search-input-color: var(--blue);
+
+  /* Font */
+  --vs-font-size: 16px;
+
+  /* Borders */
+  --vs-border-color: var(--blue);
+  --vs-border-width: 1px;
+  --vs-border-style: solid;
+  --vs-border-radius: 5px;
+
+  /* Actions: house the component controls */
+  --vs-actions-padding: 4px 6px 0 3px;
+
+  /* Component Controls: Clear, Open Indicator */
+  --vs-controls-color: var(--blue);
+  --vs-controls-size: 1;
+  --vs-controls--deselect-text-shadow: 0 1px 0 #fff;
+
+  /* Selected */
+  --vs-selected-color: var(--blue);
+
+
+  /* Dropdown */
+  /* Options */
+  --vs-dropdown-option-color: var(--blue);
+  --vs-dropdown-option-padding: 3px 20px;
+
+  /* Active State */
+  --vs-dropdown-option--active-bg: var(--primary);
+}
+
+
+.searchHome{
+  .vs__search, .vs__search:active, .vs__search:focus {
+    padding: .6rem 20px;
+  }
+
+  .vs__clear {
+    display: none;
+    
+  }
+}
+
+.searchDoctors{
+  --vs-border-color: #2FB0BD;
+  .vs__search, .vs__search:active, .vs__search:focus {
+    padding: .6rem 20px;
+  }
+  .vs__clear {
+    display: none;
+    
+  }
+}

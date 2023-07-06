@@ -166,7 +166,19 @@ export default {
     },
     mounted() {
         this.searchDoctors(this.store.citySearched)
-
+        axios.get(store.API_URL + 'specializations')
+        .then(res => 
+        {
+            console.log(res.data);
+            const array = res.data.specializations
+            array.forEach(element => {
+                store.specializationsSet.push(element.name)
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+       
     }
 }
 </script>
@@ -176,8 +188,17 @@ export default {
         <MapComponent />
         <div class="py-3 mt-3 d-md-flex flex-md-column gap-3 flex-lg-row">
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
-                <input id="spec_search_doctors" type="text" placeholder="Dermatologa" v-model="specializationInput"
-                    className="mb-3 mb-md-0 text-doc-blue" />
+                <div class="searchDoctors w-100">
+                    <v-select
+                    v-model="specializationInput"
+                    placeholder="Specializzazione"
+                    :options="store.specializationsSet"
+                    class="w-100"
+                    >
+                 <template #no-options="{ search, searching, loading }">Nessun risultato</template>
+                </v-select>
+                </div>
+                    
                 <p class="d-none d-md-block m-0 p-0">a</p>
                 <input @keyup.enter="city != '' && handleClick()" id="city_search_doctors" type="text" placeholder="Roma"
                     v-model="city" class="text-doc-blue mb-3 mb-md-0" />
