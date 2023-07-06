@@ -21,20 +21,22 @@
         </div>
         <div class="searchBar ">
             <div class="d-flex flex-column flex-md-row gap-3 align-items-center justify-content-center px-5">
-                <div class="flex-grow-1 w-100 d-flex align-items-start"> 
+                <div class="flex-grow-1 w-100 d-flex align-items-start searchHome"> 
                     <v-select
+                    v-model="specialization"
                     placeholder="Scegli una specializzazione"
                     :options="store.specializationsSet"
-                    class="w-100 selectHome"
+                    class="w-100"
                     >
                  <template #no-options="{ search, searching, loading }">Sembra non ci sia nulla con quella parola.</template>
                 </v-select>
                 </div>
                
-         
-                <!-- <InputComponent  :required="true" v-model="specialization" className="searchHero formInput"
-                    id="searchHero" type="text" placeholder="Cardiologia, Dermatologia, Ginecologia..." /> -->
-                <ButtonComponent @click="handleClick()" className="primary heroButton mb-3">cerca</ButtonComponent>
+        
+                    <div class="button-conatiner">
+                        <ButtonComponent @click="handleClick()" className="primary heroButton">cerca</ButtonComponent>
+                    </div>
+               
             </div>
         </div>
     </div>
@@ -117,10 +119,12 @@ mounted()
 <style lang="scss" scoped>
 @use '../assets/styles/variables' as *;
 
-.selectHome .vs-search-input{
-  background-color: gold;
-  padding: 2rem 0;
+.button-conatiner{
+    
+    display: grid;
+    place-items: center;
 }
+
 .hero {
     padding: 100px 0;
     .title {

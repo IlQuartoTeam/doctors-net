@@ -158,3 +158,25 @@ a{
   --vs-dropdown-option--active-bg: var(--primary);
 }
 
+
+.searchHome{
+  .vs__search, .vs__search:active, .vs__search:focus {
+    padding: .6rem 20px;
+  }
+
+  .vs__clear {
+    display: none;
+    
+  }
+}
+
+.searchDoctors{
+  --vs-border-color: #2FB0BD;
+  .vs__search, .vs__search:active, .vs__search:focus {
+    padding: .6rem 20px;
+  }
+  .vs__clear {
+    display: none;
+    
+  }
+}
