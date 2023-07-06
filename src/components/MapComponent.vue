@@ -55,7 +55,7 @@ export default {
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             }).addTo(this.map)
           }
-          setTimeout(this.putPinsOnMap, 500)
+          setTimeout(this.putPinsOnMap, 600)
         })
         .catch((err) => {
 
@@ -92,8 +92,10 @@ export default {
         }
       )
       if (this.doctors) {
-        this.doctors.forEach(element => {
+        this.doctors.forEach((element, index) => {
           const marker = L.marker([element.address_lat, element.address_long], { icon: element.premium ? premiumIcon : icon }).addTo(this.map);
+  
+          
           const specialization = element.specializations[0].name ?? 'Medicina Generale'
           const popup = `
             <h6 class="markerPopup-name text-center">${element.name} ${element.surname}</h6>
@@ -102,7 +104,10 @@ export default {
             `
           marker.bindPopup(popup)
         })
+       
 
+  
+        
       }
 
     }

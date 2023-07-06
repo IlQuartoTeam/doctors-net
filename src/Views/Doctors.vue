@@ -65,8 +65,6 @@ export default {
 
             }
 
-
-
         },
         filterByRatingCount(doctorsList) {
 
@@ -104,8 +102,12 @@ export default {
             return results
         },
         searchDoctors(city) {
-            this.specialization = this.specializationInput.toLowerCase()
-            axios.get(store.API_URL + 'doctors?city=' + city)
+            
+            this.specialization = this.specializationInput ?? ''
+           
+            const apiURL = store.API_URL + 'doctors?city=' + city.trim()
+
+            axios.get(apiURL + ('&specialization='+this.specialization ?? ''))
                 .then((res) => {
                     const results = res.data.results.data
                     this.filterDoctors(this.sortByPremium(results))
@@ -139,14 +141,35 @@ export default {
             this.loadingMore = true
             axios.get(this.paginationItems.next_page_url)
                 .then((res) => {
-                    console.log(res.data.results.data);
-                    store.doctorsQueried = store.doctorsQueried.concat(res.data.results.data)
+                    
+                    let results = null
+                    if (this.specialization.trim() != '') {
+                        results = this.filterBySpecialization(this.sortByPremium(res.data.results.data))
+                        store.doctorsQueried = store.doctorsQueried.concat(results)
+                    }
+                    if (this.ratingSelected != 'all') {
+                        results = this.filterByRatingCount(results ?? this.sortByPremium(res.data.results.data))
+
+                        store.doctorsQueried = store.doctorsQueried.concat(results)
+
+                    }
+                    if (this.reviewCountSelected != 'all') {
+                        results = this.filterByReviewCount(results ?? this.sortByPremium(res.data.results.data))
+                        store.doctorsQueried = store.doctorsQueried.concat(results)
+
+                    }
+                    if(!results)
+                    {
+                        store.doctorsQueried = store.doctorsQueried.concat(res.data.results.data)
+                    }
+
                     this.message = null
                     this.paginationItems = res.data.results
                     this.loadingMore = false
 
                 })
                 .catch((err) => {
+                    console.log(err);
                     const success = err.response.data.success
                     if (!success) {
                         this.message = "C'è stato un problema"
@@ -205,6 +228,7 @@ export default {
             </div>
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
                 <div class="w-100 select-container">
+                    
                     <select v-model="ratingSelected" class="mb-3 mb-md-0 text-doc-blue" name="rating_select"
                         id="rating_select">
                         <option value="all">Media Recensioni</option>
