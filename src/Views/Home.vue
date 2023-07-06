@@ -123,6 +123,10 @@ mounted()
     
     display: grid;
     place-items: center;
+    width: 100%;
+    @media screen and (min-width:768px) {
+        width: fit-content;
+    }
 }
 
 .hero {
