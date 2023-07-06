@@ -10,16 +10,18 @@
 
                     <template v-for="(experience, index) in userExperiences">
                         <div>
-                            <div v-if="experience.type === 'education'" class="examination text-doc-blue mx-1 my-4">
+                            <div v-if="experience.type === 'education'" class="examination mx-1 my-4">
                                 <div  @click="removeItem(index, experience.id)"
                                     :key="experience"
-                                    class="col  d-flex justify-content-between align-items-center text-doc-blue ">
-                                    <span> {{ experience.name }} </span>
-
-                                    <IconCircleX class="ms-2 mt-4 flex-shrink-0" />
+                                    class="col d-flex justify-content-between align-items-center">
+                                    <span class="py-1 fw-bold"> {{ experience.name }} </span>
+                                    
+                                        <IconCircleX class="flex-shrink-0" :size="30" />
+                            
+                                    
                                 </div>
                                 <div>
-                                    <p class="m-0 mt-2">Dal {{ experience.start_date }} <span v-if="experience.end_date">al
+                                    <p class="m-0 py-1">Dal {{ experience.start_date }} <span v-if="experience.end_date">al
                                             {{ experience.end_date }}</span></p>
                                 </div>
 
@@ -27,7 +29,7 @@
                         </div>
                     </template>
 
-                    <h4 lass="text-doc-blue">Aggiungi un'esperienza formativa</h4>
+                    <h4 class="text-doc-blue">Aggiungi un'esperienza formativa</h4>
                     <InputComponent type="text" id="userCVEduName" label="Nome dell'esperienza*"
                         placeholder="Università degli studi di Torino" v-model="newEducationName" :required="true" />
                     <InputComponent type="date" id="userCvEduStart" label="Data di inizio*" v-model="newEducationStart"
@@ -43,16 +45,16 @@
 
                     <template v-for="(experience, index) in userExperiences">
                         <div>
-                            <div  v-if="experience.type === 'work'" class="examination text-doc-blue mx-1 my-4">
+                            <div  v-if="experience.type === 'work'" class="examination mx-1 my-4">
                                 <div  @click="removeItem(index, experience.id)"
                                     :key="experience"
-                                    class="col  d-flex justify-content-between align-items-center text-doc-blue ">
-                                    <span> {{ experience.name }} </span>
+                                    class="col  d-flex justify-content-between align-items-center">
+                                    <span class="py-1 fw-bold"> {{ experience.name }} </span>
 
-                                    <IconCircleX class="ms-2 mt-4 flex-shrink-0" />
+                                    <IconCircleX class="flex-shrink-0" :size="30" />
                                 </div>
                                 <div>
-                                    <p class="m-0 mt-2">Dal {{ experience.start_date }} <span v-if="experience.end_date">al
+                                    <p class="m-0 py-1">Dal {{ experience.start_date }} <span v-if="experience.end_date">al
                                             {{ experience.end_date }}</span></p>
                                 </div>
 
@@ -211,6 +213,13 @@ export default {
                     if (res.data.status) {
                         store.toast.success("Informazioni modificate", { timeout: 1500 });
                         store.userDoctor = { ...this.userInfo }
+                        axios.post(store.API_URL + 'user', { key: 'value' }, config).then(res => {
+                            store.userDoctor = { ...res.data.doctor, ...res.data.user }
+                            this.userInfo = { ...res.data.doctor, ...res.data.user }
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
                     }
                     else {
                         store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
@@ -222,6 +231,13 @@ export default {
                 })
         }
     },
+    watch: 
+    {
+        'store.userDoctor'(newValue)
+        {
+            this.userExperiences = newValue.experiences
+        }
+    },
     mounted() {
 
     }
@@ -231,15 +247,14 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/styles/variables' as *;
 
-h4 {
-    color: $doc-blue !important;
-}
+
 
 .examination {
     padding: .5rem 1rem;
     margin: 0 10px;
     border-radius: 5px;
-    background-color: white;
+    color: /* $doc-blue */ $doc-white;
+    background-color: $doc-primary;
     border: 1px solid $doc-primary;
     transition: all .3s ease-in-out;
 
@@ -250,4 +265,6 @@ h4 {
         border: 1px solid $doc-accent;
     }
 }
+
+
 </style>
