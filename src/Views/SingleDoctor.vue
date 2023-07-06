@@ -61,6 +61,7 @@ import InfoDoctorMapComponent from '../components/InfoDoctorMapComponent.vue';
             getDoctor() {
                 axios.get(store.API_URL + 'doctors/' + this.$route.params.user).then(res => {
                     store.singleDoctor = res.data.results;
+                    console.log (this.singleDoctor);
                     this.loading = false
                 }).catch(err => {
                     this.message.text = 'Ooops! Si è verificato un errore.'

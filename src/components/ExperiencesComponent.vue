@@ -1,35 +1,39 @@
 <template>
   <div>
-    <div class="container m-0">
+    <div class="container" >
       <div class="row">
         <div class="col">
           <div class="exp">
             <h2>Esperienze Lavorative</h2>
-            <ul class="p-0">
-              <li v-for="experience in filteredExperiences('work')" :key="experience.id">
-                <div class="d-flex flex-column">
-                  <span>{{ experience.name }}</span>
-                 <div class="d-flex gap-4">
-                  <p class="dark">Data inizio: {{ experience.start_date }}</p>
-                  <p class="dark">Data fine: <span v-if="experience.end_date">{{ experience.end_date }}</span><span v-else>In corso</span></p>
-                </div>
-                </div>
-              </li>
-            </ul>
+            <timeline v-for="start in filteredExperiences('work')" :key="start.id">
+           <timeline-title><p class="title">{{ getStartYear(start.start_date) }}</p></timeline-title>
+          <timeline-item v-for="experience in filteredYear('work', getStartYear(start.start_date))" :key="experience.id">
+            <div class="info">
+              <p class="name">{{ experience.name }}</p>
+              <div class="d-flex gap-3">
+                <p class="data">data inizio: {{ experience.start_date }}</p>
+                <p v-if="experience.end_date" class="data">data fine: {{ experience.end_date }}</p>
+                <p v-else class="data">data fine: In corso... </p>
+              </div>
+            </div>
+          </timeline-item>
+         </timeline>
           </div>
           <div class="exp">
-            <h2>Esperienze Lavorative</h2>
-            <ul class="p-0">
-              <li v-for="experience in filteredExperiences('education')" :key="experience.id">
-                <div class="d-flex flex-column">
-                  <span>{{ experience.name }}</span>
-                 <div class="d-flex gap-4">
-                  <p class="dark">Data inizio: {{ experience.start_date }}</p>
-                  <p class="dark">Data fine: <span v-if="experience.end_date">{{ experience.end_date }}</span><span v-else>In corso</span></p>
-                </div>
-                </div>
-              </li>
-            </ul>
+            <h2>Esperienze Formative</h2>
+            <timeline v-for="start in filteredExperiences('education')" :key="start.id">
+           <timeline-title><p class="title">{{ getStartYear(start.start_date) }}</p></timeline-title>
+          <timeline-item v-for="experience in filteredYear('education', getStartYear(start.start_date))" :key="experience.id">
+            <div class="info">
+              <p class="name">{{ experience.name }}</p>
+              <div class="d-flex gap-3">
+                <p class="data">data inizio: {{ experience.start_date }}</p>
+                <p v-if="experience.end_date" class="data">data fine: {{ experience.end_date }}</p>
+                <p v-else class="data">data fine: In corso... </p>
+              </div>
+            </div>
+          </timeline-item>
+         </timeline>
           </div>
         </div>
       </div>
@@ -39,8 +43,16 @@
 
 
 <script>
+import timeline from '../components/timeline.vue'
+import timelineItem from '../components/timelineItem.vue'
+import timelineTitle from '../components/timelineTitle.vue'
 import { store } from '../store/store';
 export default {
+  components: {
+    timeline,
+    timelineItem,
+    timelineTitle
+  },
     data () {
         
 
@@ -51,55 +63,67 @@ export default {
     methods: {
     filteredExperiences(type) {
       return this.store.singleDoctor.experiences.filter(experience => experience.type === type);
-    }
-  }
-}
+    },
+    getStartYear(dateString) {
+      const startDate = new Date(dateString);
+      return startDate.getFullYear();
+    },
+    filteredYear(type, year) {
+      return this.store.singleDoctor.experiences.filter(experience => {
+        return experience.type === type && this.getStartYear(experience.start_date) === year;
+      });
+  },
 
+  },
+ 
+  mounted() {
+    console.log(this.filteredYear);
+  }
+
+}
 </script>
 
 <style lang="scss" scoped>
 
 @use "../assets/styles/_variables.scss" as *;
 
-.dark {
-  color: black;
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
 }
-.exp {
-  padding-left: 15px;
-}
-p {
-  color: rgba($doc-dark, 0.6);
+.data {
+  color:  #A4A4A4;
   font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 15px;
 }
+.title {
+  color:  #2FB0BD;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.name {
+  color:   #2FB0BD;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+
+.exp {
+  padding-left: 30px;
+}
+
 
 h2 {
     color: $doc-blue;
    font-weight: bold;
    letter-spacing: 1px;
+   padding-bottom: 20px;
    
 }
-ul {
-  list-style-type: none; 
-}
 
-li {
-  position: relative; 
-  padding-left: 25px; 
-  color: rgba($doc-dark, 0.6);
-  font-weight: bold;
-}
-
-li:before {
-  content: "";
-  position: absolute; 
-  left: 3%; 
-  top: 18%; 
-  transform: translate(-50%, -50%); 
-  width: 8px; 
-  height: 8px; 
-  border: 1px solid $doc-primary; 
-  border-radius: 50%;
-}
 
 
 
@@ -108,26 +132,40 @@ li:before {
 
 @media only screen and (min-width: 768px) {
    
-  .exp {
-  padding-left: 20px;
+  .data {
+  color:  #A4A4A4;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.title {
+  color:  #2FB0BD;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 20px;
 }
 
-    li {
-  position: relative; 
-  padding-left: 20px; 
+.name {
+  color:   #2FB0BD;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 20px;
+  
 }
 
-li:before {
-  content: "";
-  position: absolute; 
-  left: 1.6%; 
-  top: 18%; 
-  transform: translate(-50%, -50%); 
-  width: 8px; 
-  height: 8px; 
-  border: 1px solid  $doc-primary; 
-  border-radius: 50%;
+
+.exp {
+  padding-left: 100px;
 }
+
+
+h2 {
+    color: $doc-blue;
+   font-weight: bold;
+   letter-spacing: 1px;
+   padding-bottom: 20px;
+   
+}
+
 
 }
 
@@ -140,33 +178,45 @@ li:before {
 
     .col {
     display: flex;
-   
-    justify-content: space-between;
+     flex-direction: row;
+    gap: 0;
 }
     
-    
-h2 {
-   font-size: 30px;
-   
-}
+.data {
+  color:  #A4A4A4;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 15px;
 
-    li {
-  position: relative; 
-  padding-left: 27px; 
+}
+.title {
+  color:  #2FB0BD;
+  font-weight: bold;
+  letter-spacing: 1px;
   font-size: 20px;
 }
 
-li:before {
-  content: "";
-  position: absolute; 
-  left: 3%; 
-  top: 20%; 
-  transform: translate(-50%, -50%); 
-  width: 10px; 
-  height: 10px; 
-  border: 1px solid  $doc-primary; 
-  border-radius: 50%;
+.name {
+  color:   #2FB0BD;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 20px;
+  
 }
+
+.exp {
+  padding-left: 2.5px;
+}
+
+h2 {
+    color: $doc-blue;
+   font-weight: bold;
+   letter-spacing: 1px;
+   padding-bottom: 30px;
+   
+}
+
+
 
 
 }
@@ -181,34 +231,46 @@ li:before {
     
 .col {
     display: flex;
-   
     justify-content: space-between;
 }
     
-    h2 {
-   font-size: 32px;
+.data {
+  color:  #A4A4A4;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 18px;
+
+}
+.title {
+  color:  #2FB0BD;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 25px;
+}
+
+.name {
+  color:   #2FB0BD;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 25px;
+  
+}
+
+.exp {
+  padding-left: 10px;
+}
+
+h2 {
+    color: $doc-blue;
+   font-weight: bold;
+   letter-spacing: 1px;
+   padding-bottom: 30px;
    
 }
-   
-    li {
-  position: relative; 
-  padding-left: 27px;
-  font-size: 24px; 
-}
-
-li:before {
-  content: "";
-  position: absolute; 
-  left: 2.3%; 
-  top: 20%; 
-  transform: translate(-50%, -50%); 
-  width: 10px; 
-  height: 10px; 
-  border: 1px solid $doc-primary; 
-  border-radius: 50%;
+  
 
 
 }
-}
+
 
 </style>
