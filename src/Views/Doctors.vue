@@ -34,7 +34,8 @@ export default {
             reviewCountSelected: 'all',
             loading: true,
             paginationItems: [],
-            loadingMore: false
+            loadingMore: false,
+            total: null
         }
     },
     methods:
@@ -109,6 +110,7 @@ export default {
 
             axios.get(apiURL + ('&specialization='+this.specialization ?? ''))
                 .then((res) => {
+                    this.total = res.data.results.total
                     const results = res.data.results.data
                     this.filterDoctors(this.sortByPremium(results))
                     this.message = null
@@ -263,9 +265,13 @@ export default {
     <section class="doctors-list bg-doc-primary bg-opacity-25 py-3">
         <h6 class="text-doc-blue fw-bold text-center py-4">
             <span v-if="!message && store.doctorsQueried">
+                {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'Risultati' : 'Risultato' }}
                 {{ store.doctorsQueried.length }}
-                {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'risultati' : 'risultato' }}
-                {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'trovati' : 'trovato' }}</span>
+                <span v-if="total"> di {{ total }} </span>   
+                {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'totali' : 'totale' }}
+               
+            
+            </span>
             <span v-else-if="message">Nessun risultato trovato.</span>
         </h6>
         <div v-if="store.doctorsQueried" class="row row-cols-1 row-cols-lg-2 gx-0 px-1 px-md-5">
