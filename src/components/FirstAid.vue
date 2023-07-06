@@ -5,7 +5,7 @@
 <script>
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-// import * as dat from 'lil-gui'
+import * as dat from 'lil-gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 export default {
     mounted() {
@@ -15,13 +15,13 @@ export default {
          */
         // Debug
         // const gui = new dat.GUI()
-
+        
         // Canvas
         const canvas = this.$refs.webgl
 
         // Scene
         const scene = new THREE.Scene()
-
+        
         /**
          * Models
          */
@@ -31,7 +31,7 @@ export default {
 
         const gltfLoader = new GLTFLoader()
         gltfLoader.load(
-            '/threeObjects/first-aid.gltf',
+            '/threeObjects/first-aid-new.gltf',
             (gltf) => {
                 /*  const children = [...gltf.scene.children]
                 for (const child of children)
@@ -41,6 +41,7 @@ export default {
                 /*  mixer = new THREE.AnimationMixer(gltf.scene)
                 const action = mixer.clipAction(gltf.animations[2])
                 action.play() */
+                
                 modelLoaded = gltf.scene
             },
             (progress) => {
@@ -54,7 +55,7 @@ export default {
         setTimeout(() => {
             if (modelLoaded != null) {
                 console.log(modelLoaded);
-                modelLoaded.scale.set(0.4, 0.4, 0.4)
+                //modelLoaded.scale.set(0.4, 0.4, 0.4)
 
                 // adding shadow
                 modelLoaded.traverse((child) => {
@@ -64,6 +65,7 @@ export default {
                 });
 
                 modelLoaded.position.set(0, 0, 0)
+                modelLoaded.rotateX(Math.PI / 2)
                 scene.add(modelLoaded)
             }
         }, 1200)
@@ -131,11 +133,11 @@ export default {
          */
         // Base camera
         const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-        camera.position.set(2, 2, 2)
+        camera.position.set(2, 1, 3)
         camera.lookAt(0, 0, 0)
         scene.add(camera)
 
-        // Controls
+        //Controls
         // const controls = new OrbitControls(camera, canvas)
         // controls.target.set(0, 0.75, 0)
         // controls.enableDamping = true
@@ -164,6 +166,11 @@ export default {
             position.y = e.clientY
         })
 
+       
+
+               
+            
+
         const tick = () => {
             const elapsedTime = clock.getElapsedTime()
             const deltaTime = elapsedTime - previousTime
@@ -182,8 +189,9 @@ export default {
                 const maxRotation = Math.PI / 12;
                 const rotationX = (position.y / sizes.height) * maxRotation - maxRotation / 2;
                 const rotationY = (position.x / sizes.width) * maxRotation - maxRotation / 2;
-
-                modelLoaded.rotation.set(- Math.PI * 0.05 + rotationX, - Math.PI * 0.55 + rotationY, -Math.PI * 0.06)
+                //modelLoaded.rotation.set(- Math.PI * 0.05 + rotationX, - Math.PI * 0.55 + rotationY, -Math.PI * 0.06)
+                modelLoaded.rotation.set(- Math.PI * 0.08 + rotationX, Math.PI * 0.16 + rotationY, Math.PI * 0.1)
+                
             }
 
 
