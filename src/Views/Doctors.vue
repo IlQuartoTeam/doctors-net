@@ -11,18 +11,17 @@ import { IconStarFilled, IconStar } from '@tabler/icons-vue'
 
 
 export default {
-    components: 
-    { 
-        MapComponent, 
-        InputComponent, 
-        ButtonComponent, 
-        DoctorCard, 
+    components:
+    {
+        MapComponent,
+        InputComponent,
+        ButtonComponent,
+        DoctorCard,
         SmallLoaderComponent,
         IconStar,
-        IconStarFilled 
+        IconStarFilled
     },
-    data() 
-    {
+    data() {
         return {
             store,
             addresses: [],
@@ -33,139 +32,141 @@ export default {
             specializationInput: store.specialization,
             ratingSelected: 'all',
             reviewCountSelected: 'all',
-            loading: true
+            loading: true,
+            paginationItems: [],
+            loadingMore: false
         }
     },
-    methods: 
+    methods:
     {
-        handleClick() 
-        {
+        handleClick() {
             store.citySearched = this.city
             this.searchDoctors(this.city)
         },
-        filterDoctors(resultsFromDB) 
-        {
-            store.doctorsQueried = resultsFromDB 
-            
+        filterDoctors(resultsFromDB) {
+            store.doctorsQueried = resultsFromDB
+
             let results = null
-            if (this.specialization.trim() != '')
-            {
+            if (this.specialization.trim() != '') {
                 results = this.filterBySpecialization(resultsFromDB)
                 store.doctorsQueried = results
-                
+
             }
-            if (this.ratingSelected != 'all')
-            {
+            if (this.ratingSelected != 'all') {
                 results = this.filterByRatingCount(results ?? resultsFromDB)
-               
+
                 store.doctorsQueried = results
-                
+
             }
-            if (this.reviewCountSelected != 'all')
-            {
+            if (this.reviewCountSelected != 'all') {
                 results = this.filterByReviewCount(results ?? resultsFromDB)
                 console.log(results);
                 store.doctorsQueried = results
-                
+
             }
-            
-            
-                
+
+
+
         },
-        filterByRatingCount(doctorsList)
-        {
-            
-            return doctorsList.filter(doctor => 
-            {
-                if(Math.round(doctor.average_rating) >= parseInt(this.ratingSelected))
-                {
+        filterByRatingCount(doctorsList) {
+
+            return doctorsList.filter(doctor => {
+                if (Math.round(doctor.average_rating) >= parseInt(this.ratingSelected)) {
                     return true
                 }
             })
         },
-        filterByReviewCount(doctorsList)
-        {
-            
-            return doctorsList.filter(doctor =>
-            {
-                if(doctor.reviews.length >= parseInt(this.reviewCountSelected))
-                {
+        filterByReviewCount(doctorsList) {
+
+            return doctorsList.filter(doctor => {
+                if (doctor.reviews.length >= parseInt(this.reviewCountSelected)) {
                     return true
                 }
             })
-                
-        
+
+
         },
-        filterBySpecialization(doctorsList)
-        {
-            
-            const results = doctorsList.filter(doctor => 
-                {
-                    const specializations = doctor.specializations
-                    let itContains = false
-                    specializations.forEach((spec) => 
-                    {
-                        if (spec.name.toLowerCase().includes(this.specializationInput.toLowerCase().trim())) 
-                        {
-                            itContains = true
-                        }
-                    });
-                    if (itContains) 
-                    {
-                        itContains = false
-                        return true
+        filterBySpecialization(doctorsList) {
+
+            const results = doctorsList.filter(doctor => {
+                const specializations = doctor.specializations
+                let itContains = false
+                specializations.forEach((spec) => {
+                    if (spec.name.toLowerCase().includes(this.specializationInput.toLowerCase().trim())) {
+                        itContains = true
                     }
-                })
+                });
+                if (itContains) {
+                    itContains = false
+                    return true
+                }
+            })
             return results
         },
-        searchDoctors(city) 
-        {
+        searchDoctors(city) {
             this.specialization = this.specializationInput.toLowerCase()
             axios.get(store.API_URL + 'doctors?city=' + city)
-            .then((res) => 
-            {
-                const results = res.data.results.data
-                this.filterDoctors(this.sortByPremium(results))
-                this.message = null
-              
-            })
-            .catch((err) => 
-            {
-                const success = err.response.data.success
-                if (!success) 
-                {
-                    this.message = "Nessun risultato trovato"
-                    store.doctorsQueried = null
-                   
-                }
-            })
+                .then((res) => {
+                    const results = res.data.results.data
+                    this.filterDoctors(this.sortByPremium(results))
+                    this.message = null
+                    this.paginationItems = res.data.results
+
+                })
+                .catch((err) => {
+                    const success = err.response.data.success
+                    if (!success) {
+                        this.message = "Nessun risultato trovato"
+                        store.doctorsQueried = null
+
+                    }
+                })
         },
         sortByPremium(results) {
-        results.sort((a, b) => {
-            if (a.premium && !b.premium) {
-            return -1; // a viene prima di b
-            } else if (!a.premium && b.premium) {
-            return 1; // b viene prima di a
-            } else {
-            return 0; // mantieni l'ordine originale
-            }
-        });
+            results.sort((a, b) => {
+                if (a.premium && !b.premium) {
+                    return -1; // a viene prima di b
+                } else if (!a.premium && b.premium) {
+                    return 1; // b viene prima di a
+                } else {
+                    return 0; // mantieni l'ordine originale
+                }
+            });
 
-        return results;
-}
+            return results;
+        },
+        loadMore() {
+            this.loadingMore = true
+            axios.get(this.paginationItems.next_page_url)
+                .then((res) => {
+                    console.log(res.data.results.data);
+                    store.doctorsQueried = store.doctorsQueried.concat(res.data.results.data)
+                    this.message = null
+                    this.paginationItems = res.data.results
+                    this.loadingMore = false
+
+                })
+                .catch((err) => {
+                    const success = err.response.data.success
+                    if (!success) {
+                        this.message = "C'è stato un problema"
+                        store.doctorsQueried = null
+
+                    }
+                })
+        },
     },
+
     watch:
     {
-        'store.doctorsQueried'(newValue)
-        {
+        'store.doctorsQueried'(newValue) {
             this.doctors = newValue
-           
+
         }
     },
-    mounted() 
-    {
+    mounted() {
         this.searchDoctors(this.store.citySearched)
-       
+
     }
 }
 </script>
@@ -178,34 +179,37 @@ export default {
                 <input id="spec_search_doctors" type="text" placeholder="Dermatologa" v-model="specializationInput"
                     className="mb-3 mb-md-0 text-doc-blue" />
                 <p class="d-none d-md-block m-0 p-0">a</p>
-                <input @keyup.enter="city != '' &&  handleClick()" id="city_search_doctors" type="text" placeholder="Roma" v-model="city"
-                    class="text-doc-blue mb-3 mb-md-0" />
+                <input @keyup.enter="city != '' && handleClick()" id="city_search_doctors" type="text" placeholder="Roma"
+                    v-model="city" class="text-doc-blue mb-3 mb-md-0" />
             </div>
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
                 <div class="w-100 select-container">
-                    <select v-model="ratingSelected" class="mb-3 mb-md-0 text-doc-blue" name="rating_select" id="rating_select">
-                    <option value="all">Media Recensioni</option>
-                    <option value="1">1+ stelle</option>
-                    <option value="2">2+ stelle</option>
-                    <option value="3">3+ stelle</option>
-                    <option value="4">4+ stelle</option>
-                </select>
+                    <select v-model="ratingSelected" class="mb-3 mb-md-0 text-doc-blue" name="rating_select"
+                        id="rating_select">
+                        <option value="all">Media Recensioni</option>
+                        <option value="1">1+ stelle</option>
+                        <option value="2">2+ stelle</option>
+                        <option value="3">3+ stelle</option>
+                        <option value="4">4+ stelle</option>
+                    </select>
                 </div>
-                
+
 
                 <div class="w-100 select-container">
-                    <select v-model="reviewCountSelected" class="mb-3  mb-md-0 text-doc-blue" name="reviews_select" id="reviews_select">
-                    <option value="all">Numero Recensioni</option>
-                    <option value="1">Qualcuna</option>
-                    <option value="5">Tante</option>
-                    <option value="10">Tantissime</option>
-                </select>
+                    <select v-model="reviewCountSelected" class="mb-3  mb-md-0 text-doc-blue" name="reviews_select"
+                        id="reviews_select">
+                        <option value="all">Numero Recensioni</option>
+                        <option value="1">Qualcuna</option>
+                        <option value="5">Tante</option>
+                        <option value="10">Tantissime</option>
+                    </select>
                 </div>
-                
+
 
 
                 <div class="mb-3 mb-md-0 h-100 w-100 d-flex">
-                    <ButtonComponent @click="handleClick()" :button="true" type="submit" className="primary w-100 m-0" :disabled="city.trim() === ''">Cerca
+                    <ButtonComponent @click="handleClick()" :button="true" type="submit" className="primary w-100 m-0"
+                        :disabled="city.trim() === ''">Cerca
                     </ButtonComponent>
                 </div>
             </div>
@@ -215,12 +219,20 @@ export default {
         <h6 class="text-doc-blue fw-bold text-center py-4">
             <span v-if="!message && store.doctorsQueried">
                 {{ store.doctorsQueried.length }}
-                {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0  ? 'risultati' : 'risultato' }} 
+                {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'risultati' : 'risultato' }}
                 {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'trovati' : 'trovato' }}</span>
             <span v-else-if="message">Nessun risultato trovato.</span>
         </h6>
         <div v-if="store.doctorsQueried" class="row row-cols-1 row-cols-lg-2 gx-0 px-1 px-md-5">
             <DoctorCard :key="doctor.email" v-for="doctor in store.doctorsQueried" :doctor="doctor" />
+        </div>
+        <div class="load-more d-flex justify-content-center">
+            <ButtonComponent v-if="paginationItems.next_page_url != null && !loadingMore" @click="loadMore()" :button="true"
+                className="primary w-25 m-0">Mostra altro
+            </ButtonComponent>
+            <div v-if="loadingMore" class="spinner-border text-primary mt-1" role="status">
+                <span class="sr-only"></span>
+            </div>
         </div>
     </section>
 </template>
@@ -263,8 +275,8 @@ select {
 
 }
 
-.select-container{
+.select-container {
     position: relative;
-    
+
 }
 </style>
