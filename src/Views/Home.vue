@@ -19,10 +19,21 @@
                 </div>
             </div>
         </div>
-        <div class="searchBar">
-            <div class="d-flex flex-column flex-md-row gap-3 align-items-center px-3">
-                <InputComponent  :required="true" v-model="specialization" className="searchHero formInput"
-                    id="searchHero" type="text" placeholder="Cardiologia, Dermatologia, Ginecologia..." />
+        <div class="searchBar ">
+            <div class="d-flex flex-column flex-md-row gap-3 align-items-center justify-content-center px-5">
+                <div class="flex-grow-1 w-100 d-flex align-items-start"> 
+                    <v-select
+                    placeholder="Scegli una specializzazione"
+                    :options="store.specializationsSet"
+                    class="w-100 selectHome"
+                    >
+                 <template #no-options="{ search, searching, loading }">Sembra non ci sia nulla con quella parola.</template>
+                </v-select>
+                </div>
+               
+         
+                <!-- <InputComponent  :required="true" v-model="specialization" className="searchHero formInput"
+                    id="searchHero" type="text" placeholder="Cardiologia, Dermatologia, Ginecologia..." /> -->
                 <ButtonComponent @click="handleClick()" className="primary heroButton mb-3">cerca</ButtonComponent>
             </div>
         </div>
@@ -39,6 +50,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import CtaComponent from '../components/CtaComponent.vue';
 import HomeSection from '../components/HomeSection.vue';
 import InputComponent from '../components/InputComponent.vue'
@@ -65,7 +77,8 @@ export default {
                 imgMd: 'contactLg',
                 imgLg: 'contactLg',
             },
-            specialization: null
+            specialization: null,
+            store
         }
     },
     components: {
@@ -82,11 +95,32 @@ methods: {
         store.specialization = this.specialization
         this.$router.push('/doctors')
     }
+},
+mounted()
+{
+    axios.get(store.API_URL + 'specializations')
+        .then(res => 
+        {
+            console.log(res.data);
+            const array = res.data.specializations
+            array.forEach(element => {
+                store.specializationsSet.push(element.name)
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 }
 </script>
 
 <style lang="scss" scoped>
+@use '../assets/styles/variables' as *;
+
+.selectHome .vs-search-input{
+  background-color: gold;
+  padding: 2rem 0;
+}
 .hero {
     padding: 100px 0;
     .title {
@@ -115,6 +149,7 @@ methods: {
         }
     }
 }
+
 .sections{
     padding: 120px 50px 100px;
 }
