@@ -1,23 +1,30 @@
 <template>
-    <div class="doc-modal px-2">
-        <div @click="goBack" class="back">
-            <IconX />
-        </div>
-        <div class="content container-fluid">
-            <h1>Contatta</h1>
-            <h1 class="text-doc-primary fw-bold">{{ store.singleDoctor.name + ' ' + store.singleDoctor.surname }}</h1>
-            <form submit.prevent>
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <InputComponent id="user_name" type="text" :required="true" placeholder="Giovanna" />
-                        <InputComponent id="user_email" type="email" :required="true" placeholder="giovanna@mail.com" />
-                        <textarea id="user_messagge" label="Messaggio*" type="textarea" :required="true" placeholder="Messaggio" class="mt-5"></textarea>
+    <div class="modal-wrap">
+        <div class="doc-modal p-4">
+            <div class="content mt-5 container-fluid">
+                <h1 class="fs-3">Contatta</h1>
+                <h2 class="text-doc-primary fw-bold fs-3">{{ store.singleDoctor.name + ' ' + store.singleDoctor.surname }}</h2>
+                <form @submit.prevent="sendMessage()">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <InputComponent id="user_name" type="text" :required="true" v-model="name"
+                                placeholder="Giovanna" />
+                            <InputComponent id="user_email" type="email" :required="true" v-model="email"
+                                placeholder="giovanna@mail.com" />
+                            <textarea id="user_messagge" label="Messaggio*" type="textarea" v-model="message"
+                                :required="true" placeholder="Messaggio" class="mt-5"></textarea>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <ButtonComponent class="primary d-flex"><span class="m-auto">invia richiesta</span></ButtonComponent>
-                </div>
-            </form>
+                    <div class="d-flex flex-column gap-3">
+                        <ButtonComponent class="primary d-flex">
+                            <span class="m-auto">invia richiesta</span>
+                        </ButtonComponent>
+                        <ButtonComponent @click="goBack" class="accent d-flex">
+                            <span class="m-auto">chiudi</span>
+                        </ButtonComponent>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -27,41 +34,64 @@ import { store } from '../store/store';
 import { IconX } from '@tabler/icons-vue';
 import InputComponent from '../components/InputComponent.vue'
 import ButtonComponent from '../components/ButtonComponent.vue'
-    export default {
-        name: 'ContactFormComponent',
-        components: {
-            IconX,
-            InputComponent,
-            ButtonComponent
+import axios from 'axios';
+export default {
+    name: 'ContactFormComponent',
+    components: {
+        IconX,
+        InputComponent,
+        ButtonComponent
+    },
+    data() {
+        return {
+            store,
+            name: null,
+            email: null,
+            message: null
+        }
+    },
+    methods: {
+        goBack() {
+            store.contactForm = false;
         },
-        data() {
-            return{
-                store,
-            }
-        },
-        methods: {
-            goBack() {
-                store.contactForm = false;
-            }
+        sendMessage() {
+            axios.post(store.API_URL + '')
         }
     }
+}
 </script>
 
 <style lang="scss" scoped>
 @use "../assets/styles/_variables.scss" as *;
 
-.doc-modal{
-    position: absolute;
+.modal-wrap{
+    position: fixed;
+    width: 100%;
     top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: grid;
+    place-items: center;
+    z-index: 99;
+}
+.doc-modal {
     background-color: white;
-    width: 100vw;
-    height: 100vh;
-    z-index: 2;
+    width: 500px;
+    position: relative;
+    border-radius: 10px;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+    }
 }
 .content{
-    margin-top: 40px;
+    @media screen and (min-width: 768px) {
+        margin-top: 0 !important
+    }
 }
-.back{
+
+.back {
     position: absolute;
     top: 10px;
     right: 20px;
@@ -70,52 +100,32 @@ import ButtonComponent from '../components/ButtonComponent.vue'
     color: $doc-blue;
     cursor: pointer;
     transition: color 0.3s, background-color 0.3s;
-    &:hover{
+
+    &:hover {
         background-color: $doc-accent;
         color: white;
     }
 }
-textarea{
+
+textarea {
     border: 1px solid $doc-primary;
     border-radius: 5px;
     padding: 1rem 20px;
+    resize: none;
     width: 100%;
-    min-height: 200px;;
+    min-height: 100px;
     display: block;
     color: $doc-primary;
     margin-top: 2.5rem !important;
     margin-bottom: 2.5rem !important;
 
-    &::placeholder{
+    &::placeholder {
         color: $doc-blue;
         opacity: 60%;
     }
-    &:focus-visible{
-        outline: 2px solid $doc-blue;
-    } 
-}
 
-@media screen and (min-width:768px) {
-    .doc-modal{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0px 60px !important;
-        width: 30vw;
-        min-width: 500px;
-        height: 80vh;
-        min-height: 700px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 10px;
-        background-color: white;
-        box-shadow: $doc-shadow;
-        z-index: 2;
-    }
-    .content{
-        margin-top: 0 !important;
+    &:focus-visible {
+        outline: 2px solid $doc-blue;
     }
 }
 </style>
