@@ -129,7 +129,7 @@ export default {
   }
 
   .container {
-    padding: 150px 0px;
+    padding: 8rem 0px;
 
   }
 
@@ -154,7 +154,7 @@ export default {
   }
 
   .container {
-    padding: 200px 0px;
+    padding: 8rem 0px;
 
   }
 
