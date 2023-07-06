@@ -14,7 +14,7 @@
              <ExperiencesUserComponent v-if="store.dashboard.experiences"  />
              <PerformancesUserComponent v-if="store.dashboard.performances" />
              <ChangeUserPassword v-if="store.dashboard.changePassword" />
-             <div class="sideButton d-block d-lg-none">
+             <div class="sideButton d-block d-lg-none py-2">
                  <div v-if="!store.dashboard.sidebarOpen" @click="() => store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen" class="open-side d-flex align-items-center" :class="[store.dashboard.messaggesOpen === true ? 'bg-variable' : '']">
                      <IconChevronRight class="ms-3" />
                  </div>
@@ -81,13 +81,14 @@
  
  <style lang="scss" scoped>
  .sideButton{
-     position: absolute;
-     top: 50%;
+     position: fixed;
+     top: 80%;
      left: 0px;
      transform: translateY(-50%);
  }
  .open-side{
-         background-color: rgba(255, 255, 255, 0.349);
+         background-color: rgb(255, 255, 255);
+         box-shadow: rgba(0.24, 0.24, 0, 0.24) 0px 3px 6px;
          width: 50px;
          height: 50px;
          margin-left: -10px;
