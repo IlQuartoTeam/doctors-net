@@ -64,11 +64,13 @@
             </span>
         </div>
         <div class="short-link p-4 my-5 d-flex flex-column align-items-center justify-content-center gap-3">
-            <router-link to="/">
-                <ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged">
-                    <span>Torna alla Homepage</span>
-                </ButtonComponent>
-            </router-link>
+            <div @click="scrollToTop">
+                <router-link to="/">
+                    <ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged">
+                        <span>Torna alla Homepage</span>
+                    </ButtonComponent>
+                </router-link>
+            </div>
             <router-link to="/logout">
                 <ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged">
                     <span>Logout</span>
