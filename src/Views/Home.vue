@@ -199,7 +199,9 @@ mounted()
             }
 
             p {
+                max-width: 530px;
                 line-height: 30px;
+                font-size: 20px;
             }
         }
 
