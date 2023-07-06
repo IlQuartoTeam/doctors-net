@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar d-flex flex-column" v-if="store.dashboard.sidebarOpen || windowWidth > 992">
-        <div class="button-toggle toggle-tablet overflow-hidden d-flex"
+        <div class="button-toggle toggle-tablet overflow-hidden d-flex py-3"
             :class="[store.dashboard.sidebarOpen === false ? 'justify-content-start' : 'justify-content-end']">
 
             <div v-if="store.dashboard.sidebarOpen" @click="ToggleSidebar"
@@ -174,10 +174,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "../assets/styles/_variables.scss" as *;
 .button-toggle {
-    position: absolute;
+    position: fixed;
     width: 100%;
-    top: 25vh;
+    top: 50%;
 }
 
 .text-light {
@@ -185,10 +186,10 @@ export default {
 }
 
 .sidebar {
-    width: calc(100vw - 12px);
+    width: 100vw;
     min-height: 100vh;
     background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: rgb(255, 255, 255) 1.95px 1.95px 2.6px;
     position: relative;
 }
 
@@ -244,7 +245,8 @@ export default {
 
 .close-side {
     z-index: 2;
-    background-color: rgba(0, 0, 0, 0.158);
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0.24, 0.24, 0, 0.24) 0px 3px 6px;
     width: 50px;
     height: 50px;
     margin-right: -10px;
