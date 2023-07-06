@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     getReady() {
-      localStorage.setItem('lastVisitTime', this.currentTime)
       store.newUser = false
       this.isLoading = !this.isLoading;
       this.loaded = !this.loaded
@@ -60,6 +59,7 @@ export default {
       store.isAuthenticated = true;
     }
     if (store.newUser && (this.currentTime - this.lastVisitTime) > 3600000 || !this.lastVisitTime) this.getReady();
+    localStorage.setItem('lastVisitTime', this.currentTime)
   }
 }
 </script>
