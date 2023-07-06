@@ -40,6 +40,12 @@ export default {
     p{
         font-size: 15px;
     }
+    .imgPart{
+        max-width: 500px;
+        @media screen and (min-width: 768px) {
+            max-width: 100%;
+        }
+    }
 }
 
 
@@ -52,6 +58,7 @@ export default {
             font-size: 20px;
         }
     }
+
 
 }
 </style>
