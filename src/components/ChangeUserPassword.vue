@@ -6,15 +6,15 @@
         <form @submit.prevent="changePassword()">
             <div class="row w-100 p-4">
                 <div class="col-12">
-                    <InputComponent id="old_password" label="Vecchia password*" v-model="oldPassword" type="password"
+                    <InputComponent id="old_password" label="Vecchia password*" min="8" v-model="oldPassword" type="password"
                         :required="true" />
                 </div>
                 <div class="col-12">
-                    <InputComponent id="new_password" label="Nuova password*" v-model="newPassword" type="password"
+                    <InputComponent id="new_password" label="Nuova password*" min="8" v-model="newPassword" type="password"
                         :required="true" />
                 </div>
                 <div class="col-12">
-                    <InputComponent id="confirm_newpassword" label="Conferma nuova password*" v-model="confirmedNewPassword"
+                    <InputComponent id="confirm_newpassword" label="Conferma nuova password*" :min="8" v-model="confirmedNewPassword"
                         type="password" :required="true" />
                         <p class="text-doc-red" v-if="notMatching">La conferma password non coincide con password</p>
 

@@ -106,6 +106,8 @@ export default {
             {
                 store.specError = true
                 return store.toast.error("Inserisci almeno una specializzazione.")
+            } else {
+                store.specError = false
             }
             axios.post(store.API_URL + 'register', {
                 name: this.name,
