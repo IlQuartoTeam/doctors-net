@@ -3,10 +3,9 @@
         <div class="row">
             <div class="col text-center">
                <h1 class="cockie">A proposito di cookies</h1>
-               <p class="text mt-5">Utilizziamo cookie e metodi simili per riconoscere i visitatori iscritti al sito e ricordare la loro permanenza sul sito. Nessun cookie di profilazione e/o per fini pubblicitari viene impostato da questo sito sul tuo computer.  e/o dispositivo mobile. Toccando “HO CAPITO” questo banner viene chiuso e la tua navigazione continua come prima. </p>
+               <p class="text mt-5 text-doc-blue">Utilizziamo cookie e metodi simili per riconoscere i visitatori iscritti al sito e ricordare la loro permanenza sul sito. Nessun cookie di profilazione e/o per fini pubblicitari viene impostato da questo sito sul tuo computer.  e/o dispositivo mobile. Toccando “ACCETTA questo banner viene chiuso e la tua navigazione continua come prima. </p>
              <div class="w-100 text-center">
-               <ButtonComponent class="accetta mt-5" :button="true" className="primary">Accetta</ButtonComponent>
-               
+               <ButtonComponent @click="acceptCookies()" class="accetta mt-5" :button="true" className="primary">Accetta</ButtonComponent>
              </div>
              
             </div>
@@ -17,16 +16,22 @@
 
 <script>
 import ButtonComponent from '../components/ButtonComponent.vue';
-
+import { store } from '../store/store';
 
 export default {
     components: {
        ButtonComponent,
     },
     data() {
-        
-
         return {}
+    },
+    methods:
+    {
+        acceptCookies()
+        {
+            store.showCookie = false
+            this.$cookies.set("privacy","seen","24d");
+        }
     }
 }
 </script>
