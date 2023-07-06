@@ -34,7 +34,7 @@
         <ReviewComponent v-if="isOpen === 'review'" />
         <ExperiencesComponent v-if="isOpen === 'curriculum'" />   
     </div>
-    <div v-if="store.contactForm" class="layover"></div>
+    <div v-if="store.contactForm || store.addReview" class="layover"></div>
     
 </template>
 
