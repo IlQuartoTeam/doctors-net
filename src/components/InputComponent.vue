@@ -4,12 +4,14 @@
     :class="[invalid ? 'invalid' : '', className]"
     :required="required"
     :value="modelValue" 
+    :min="min"
+    :max="max"
     @input="$emit('update:modelValue', $event.target.value)" :id="id" class="w-100 mb-3" :type="type" :placeholder="placeholder">
 </template>
 
 <script>
 export default {
-props: ['id', 'label', 'type', 'placeholder', 'modelValue', 'required', 'invalid', 'className'],
+props: ['id', 'label', 'type', 'placeholder', 'modelValue', 'required', 'invalid', 'className', 'min', 'max'],
 emits: ['update:modelValue']
 }
 </script>
