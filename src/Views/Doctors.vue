@@ -108,8 +108,15 @@ export default {
            
             const rankSelected = (this.ratingSelected === 'all') ? '' : this.ratingSelected
             const specializationSelected = this.specialization ?? ''
-            const apiURL = store.API_URL + 'doctors?city=' + city.trim() + '&specialization=' + specializationSelected +'&vote=' + rankSelected
-         
+            const numberOfReviews = this.reviewCountSelected === 'all' ? '' : this.reviewCountSelected
+            
+            const apiURL = store.API_URL + 'doctors?city=' 
+            + city.trim() 
+            + '&specialization=' + specializationSelected 
+            +'&vote=' + rankSelected
+            + '&nReviews=' + numberOfReviews
+            
+            console.log(apiURL);
             axios.get(apiURL)
                 .then((res) => {
                     this.total = res.data.results.total
@@ -280,7 +287,7 @@ export default {
             <DoctorCard :key="doctor.email" v-for="doctor in store.doctorsQueried" :doctor="doctor" />
         </div>
         <div class="load-more d-flex justify-content-center">
-            <ButtonComponent v-if="paginationItems.next_page_url != null && !loadingMore" @click="loadMore()" :button="true"
+            <ButtonComponent v-if="(paginationItems.next_page_url != null || paginationItems.next_page_url != undefined) && !loadingMore" @click="loadMore()" :button="true"
                 className="primary w-25 m-0">Mostra altro
             </ButtonComponent>
             <div v-if="loadingMore" class="spinner-border text-primary mt-1" role="status">
