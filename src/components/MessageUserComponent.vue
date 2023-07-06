@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!isOpenMessage" class="container-fluid" id="index">
+    <div v-if="store.userDoctor.messages.length > 0" class="container-fluid" id="index">
         <h1 class="text-h2 text-doc-blue fw-semibold text-center">I tuoi messaggi</h1>
         <table class="table">
             <thead>
@@ -35,6 +35,13 @@
         <div class="text-center mt-4">
             <ButtonComponent @click="openMessage" className="button-doctor outline">Indietro</ButtonComponent>
         </div>
+    </div>
+    <div v-if="store.userDoctor.messages.length < 1" class="noMessage text-center pt-3 row justify-content-center">
+        <div class="medikit col-6">
+            <img class="img-fluid" src="/img/other/medikit.png" alt="">
+        </div>
+        <h2 class="col-10">Fra ma non hai manco un messaggio?! che sfigato</h2>
+        <!-- <h2>Non hai ancora nessun messaggio</h2> -->
     </div>
 </template>
 
@@ -95,5 +102,9 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.medikit{
+    max-width: 350px;
+    min-width: 200px;
 }
 </style>
