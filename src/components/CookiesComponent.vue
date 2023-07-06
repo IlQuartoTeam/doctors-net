@@ -1,11 +1,11 @@
 <template>
     <div class="container-fluid py-5">
         <div class="row">
-            <div class="col text-center">
+            <div class="col text-center d-flex flex-column justify-content-center align-items-center">
                <h1 class="cockie">A proposito di cookies</h1>
                <p class="text mt-5 text-doc-blue">Utilizziamo cookie e metodi simili per riconoscere i visitatori iscritti al sito e ricordare la loro permanenza sul sito. Nessun cookie di profilazione e/o per fini pubblicitari viene impostato da questo sito sul tuo computer.  e/o dispositivo mobile. Toccando “ACCETTA questo banner viene chiuso e la tua navigazione continua come prima. </p>
-             <div class="w-100 text-center">
-               <ButtonComponent @click="acceptCookies()" class="accetta mt-5" :button="true" className="primary">Accetta</ButtonComponent>
+             <div class="button-container py-4">
+               <ButtonComponent @click="acceptCookies()" :button="true" className="primary w-100">Accetta</ButtonComponent>
              </div>
              
             </div>
@@ -39,6 +39,12 @@ export default {
 <style lang="scss" scoped>
 @use "../assets/styles/_variables.scss" as *;
 
+.button-container
+{
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
 
 .container-fluid{
     position: fixed;
@@ -70,6 +76,10 @@ export default {
 
 @media only screen and (min-width: 768px) {
 
+    .button-container
+    {
+        width: 50%;
+    }
 .cockie {
    font-size: 28px;
    
