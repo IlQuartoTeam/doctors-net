@@ -2,7 +2,6 @@
     <div ref="privacySection">
        <PrivacyComponent />
        <CtaComponent />
-       <CookiesCompontent />
     </div>
 </template>
 

@@ -5,6 +5,7 @@
   <template v-if="!isLoading">
     <div class="introWrap" v-if="!loaded">
       <div class="intro">
+
       </div>
     </div>
     <template v-if="this.$route.path != '/login' && this.$route.path != '/users/profile'">
@@ -12,8 +13,9 @@
     </template>
     <router-view></router-view>
     <template v-if="!this.$route.path.includes('/users') && !this.$route.path.includes('/doctors')">
-      <!-- <CtaComponent /> -->
+      <CtaComponent />
     </template>
+    <CookiesComponent v-if="store.showCookie" />
     <Footer v-if="this.$route.name != 'login'"></Footer>
   </template>
 </template>
@@ -23,6 +25,7 @@ import SplashPage from './components/SplashPage.vue';
 import NavbarComponent from './components/NavbarComponent.vue';
 import Footer from './components/Footer.vue';
 import CtaComponent from './components/CtaComponent.vue';
+import CookiesComponent from './components/CookiesComponent.vue';
 import { store } from './store/store';
 export default {
   data() {
@@ -38,8 +41,9 @@ export default {
     NavbarComponent,
     Footer,
     SplashPage,
-    CtaComponent
-  },
+    CtaComponent,
+    CookiesComponent
+},
   methods: {
     getReady() {
       store.newUser = false
@@ -56,8 +60,13 @@ export default {
   mounted(){
     if(this.$cookies.get('session-token'))
     {
-      store.isAuthenticated = true;
+      store.isAuthenticated = true
     }
+    if(!this.$cookies.get("privacy","seen"))
+    {
+      store.showCookie = true
+    }
+    
     if (store.newUser && (this.currentTime - this.lastVisitTime) > 3600000 || !this.lastVisitTime) this.getReady();
     localStorage.setItem('lastVisitTime', this.currentTime)
   }

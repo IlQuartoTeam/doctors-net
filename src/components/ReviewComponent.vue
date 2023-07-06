@@ -1,5 +1,5 @@
 <template>
-  <div v-if="store.addReview === false">
+  <div>
     <div class="box-button text-center text-md-end me-md-5 mt-5">
     <ButtonComponent  @click="addReview" class="outline">
       <IconPencil :width="20" class="mb-1" />
@@ -31,7 +31,7 @@
         <span class="ps-2 fw-semibold">Carica altre recensioni</span></ButtonComponent>
     </div>
   </div>
-  <div v-if="store.addReview === true">
+  <div v-if="store.addReview">
     <AddReviewComponent />
   </div>
 </template>
@@ -71,7 +71,7 @@ export default {
         } 
       },
       addReview(){
-        store.addReview = true;
+        store.addReview = !store.addReview;
       }
     },
     mounted() {

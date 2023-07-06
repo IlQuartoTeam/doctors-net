@@ -48,7 +48,6 @@
         <HomeSection :imgs="showImgs" reverse="true"/>
         <HomeSection :imgs="contactImgs"/>
     </div>
-    <CtaComponent/>
 </template>
 
 <script>

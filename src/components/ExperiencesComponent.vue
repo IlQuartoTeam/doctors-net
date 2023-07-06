@@ -11,8 +11,8 @@
             <div class="info">
               <p class="name">{{ experience.name }}</p>
               <div class="d-flex gap-3">
-                <p class="data">data inizio: {{ experience.start_date }}</p>
-                <p v-if="experience.end_date" class="data">data fine: {{ experience.end_date }}</p>
+                <p class="data">data inizio: {{ getFormattedDate(experience.start_date) }}</p>
+                <p v-if="experience.end_date" class="data">data fine: {{ getFormattedDate(experience.end_date) }}</p>
                 <p v-else class="data">data fine: In corso... </p>
               </div>
             </div>
@@ -27,8 +27,8 @@
             <div class="info">
               <p class="name">{{ experience.name }}</p>
               <div class="d-flex gap-3">
-                <p class="data">data inizio: {{ experience.start_date }}</p>
-                <p v-if="experience.end_date" class="data">data fine: {{ experience.end_date }}</p>
+                <p class="data">data inizio: {{ getFormattedDate(experience.start_date) }}</p>
+                <p v-if="experience.end_date" class="data">data fine: {{getFormattedDate(experience.end_date) }}</p>
                 <p v-else class="data">data fine: In corso... </p>
               </div>
             </div>
@@ -73,12 +73,17 @@ export default {
         return experience.type === type && this.getStartYear(experience.start_date) === year;
       });
   },
+  getFormattedDate(dateString) {
+      const date = new Date(dateString);
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+  }
 
   },
  
-  mounted() {
-    console.log(this.filteredYear);
-  }
+ 
 
 }
 </script>
@@ -120,7 +125,7 @@ h2 {
     color: $doc-blue;
    font-weight: bold;
    letter-spacing: 1px;
-   padding-bottom: 20px;
+   padding-bottom: 18px;
    
 }
 
@@ -179,14 +184,14 @@ h2 {
     .col {
     display: flex;
      flex-direction: row;
-    gap: 0;
+    gap: 21px;
 }
     
 .data {
   color:  #A4A4A4;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: 15px;
+  font-size: 13px;
 
 }
 .title {
@@ -205,7 +210,7 @@ h2 {
 }
 
 .exp {
-  padding-left: 2.5px;
+  padding-left: 8px;
 }
 
 h2 {
@@ -232,20 +237,21 @@ h2 {
 .col {
     display: flex;
     justify-content: space-between;
+    gap: 0;
 }
     
 .data {
   color:  #A4A4A4;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: 18px;
+  font-size: 17px;
 
 }
 .title {
   color:  #2FB0BD;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: 25px;
+  font-size: 22px;
 }
 
 .name {
@@ -264,7 +270,7 @@ h2 {
     color: $doc-blue;
    font-weight: bold;
    letter-spacing: 1px;
-   padding-bottom: 30px;
+   padding-bottom: 25px;
    
 }
   

@@ -46,14 +46,15 @@ export default {
   },
   methods: {
     cambiaSpecializzazione() {
+      this.textIndex++;
+      if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-in-from-top 0.5s ease-in-out';
+      if (this.textIndex >= this.specializzazioniMediche.length) {
+        this.textIndex = 0;
+      }
       setTimeout(() => {
-        this.textIndex++;
-        if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-in-from-top 1s ease-in-out';
-        if (this.textIndex >= this.specializzazioniMediche.length) {
-          this.textIndex = 0;
-        }
-      }, 900);
-      if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-out-to-bottom 1s ease-in-out';
+        if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-out-to-bottom 0.5s ease-in-out forwards';
+        
+      }, 600);
 
     },
     sendToDoctors() {
@@ -62,7 +63,7 @@ export default {
     }
   },
   mounted() {
-    this.textAnimation = setInterval(this.cambiaSpecializzazione, 1700)
+    this.textAnimation = setInterval(this.cambiaSpecializzazione, 1200)
   },
   beforeUnmount() {
     clearInterval(this.textAnimation)
