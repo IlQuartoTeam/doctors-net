@@ -106,9 +106,11 @@ export default {
             
             this.specialization = this.specializationInput ?? ''
            
-            const apiURL = store.API_URL + 'doctors?city=' + city.trim()
-
-            axios.get(apiURL + ('&specialization='+this.specialization ?? ''))
+            const rankSelected = (this.ratingSelected === 'all') ? '' : this.ratingSelected
+            const specializationSelected = this.specialization ?? ''
+            const apiURL = store.API_URL + 'doctors?city=' + city.trim() + '&specialization=' + specializationSelected +'&vote=' + rankSelected
+         
+            axios.get(apiURL)
                 .then((res) => {
                     this.total = res.data.results.total
                     const results = res.data.results.data
