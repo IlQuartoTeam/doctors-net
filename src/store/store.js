@@ -25,5 +25,6 @@ export const store = reactive({
     chartsOpen: true
   },
   specialization: '',
+  specializationsSet: [],
   toast: useToast()
 });
