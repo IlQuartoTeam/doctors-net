@@ -42,7 +42,7 @@ export default {
     }
     .imgPart{
         max-width: 500px;
-        @media screen and (min-width: 770px) {
+        @media screen and (min-width: 768px) {
             max-width: 100%;
         }
     }
