@@ -12,7 +12,7 @@
             </transition-group>
         </div>
        
-        <form @submit.prevent="handleSubmit()">
+        <form>
             <div class="row row-cols-1 row-cols-lg-2 mt-4">
                 <div class="col flex-grow-1">
                     <InputComponent id="ex_text" label="Nome della prestazione" type="text" placeholder="Prima visita" v-model="newExamination" />
@@ -26,11 +26,11 @@
             
             <div class="text-end py-3 row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center align-items-center justify-content-lg-end">
                 <div class="col p-2 text-center">
-                    <ButtonComponent @click.prevent="addItem()" type="button" :button="true" className="primary w-100" :disabled="(newExamination.trim() === '') || (newPrice.trim() === '')">aggiungi prestazione</ButtonComponent>
+                    <ButtonComponent @click.prevent="addItem()" type="button" :button="true" className="primary w-100" :disabled="(newExamination.trim() === '') || (newPrice.trim() === '')">Aggiungi Prestazione</ButtonComponent>
                 </div>
-                <div class="col p-2 text-center">
+                <!-- <div class="col p-2 text-center">
                     <ButtonComponent type="submit" :button="true" className="w-100 primary" :disabled="!isModified">completa modifica</ButtonComponent>
-                </div>
+                </div> -->
                
                 
             </div>
@@ -113,6 +113,7 @@ export default {
             {
                 this.userExaminations.splice(index, 1)
             }
+            this.handleSubmit();
             
         },
         addItem()
@@ -124,7 +125,7 @@ export default {
                 this.newPrice = ''
                 
             }
-            
+            this.handleSubmit();
         },
         isTheSameArray()
         {
