@@ -28,21 +28,21 @@
 </template>
  
 <script>
-import ProfileReviews from '../components/ProfileReviews.vue';
+import ProfileReviews from '../components/UserProfileComponents/ProfileReviews.vue';
 import DoctorCard from '../components/DoctorCard.vue';
 import axios from 'axios';
 import router from '../router/router';
 import { store } from '../store/store';
 import { IconHome } from '@tabler/icons-vue';
 import { IconChevronRight } from '@tabler/icons-vue';
-import HeroUserComponent from '../components/HeroUserComponent.vue';
-import ChartComponent from '../components/ChartComponent.vue';
-import SidebarComponent from '../components/SidebarComponent.vue';
-import MessageUserComponent from '../components/MessageUserComponent.vue';
-import SettingUserComponent from '../components/SettingUserComponent.vue';
-import PerformancesUserComponent from '../components/PerformancesUserComponent.vue';
-import ChangeUserPassword from '../components/ChangeUserPassword.vue';
-import ExperiencesUserComponent from '../components/ExperiencesUserComponent.vue';
+import HeroUserComponent from '../components/UserProfileComponents/HeroUserComponent.vue';
+import ChartComponent from '../components/UserProfileComponents/ChartComponent.vue';
+import SidebarComponent from '../components/UserProfileComponents/SidebarComponent.vue';
+import MessageUserComponent from '../components/UserProfileComponents/MessageUserComponent.vue';
+import SettingUserComponent from '../components/UserProfileComponents/SettingUserComponent.vue';
+import PerformancesUserComponent from '../components/UserProfileComponents/PerformancesUserComponent.vue';
+import ChangeUserPassword from '../components/UserProfileComponents/ChangeUserPassword.vue';
+import ExperiencesUserComponent from '../components/UserProfileComponents/ExperiencesUserComponent.vue';
 
 export default {
     components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, ChangeUserPassword, IconChevronRight, ExperiencesUserComponent, ProfileReviews },

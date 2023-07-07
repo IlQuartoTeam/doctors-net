@@ -43,10 +43,10 @@
 
 <script>
 import axios from 'axios';
-import { store } from '../store/store';
-import InputComponent from '../components/InputComponent.vue'
-import Places from '../components/Places.vue'
-import ButtonComponent from '../components/ButtonComponent.vue'
+import { store } from '../../store/store';
+import InputComponent from '../InputComponent.vue'
+import Places from '../Places.vue'
+import ButtonComponent from '../ButtonComponent.vue'
 import { IconCircleX, IconCircleXFilled } from '@tabler/icons-vue';
 
 export default {
@@ -154,7 +154,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '../assets/styles/variables' as *;
+@use '../../assets/styles/variables' as *;
 
     textarea {
         outline: none;

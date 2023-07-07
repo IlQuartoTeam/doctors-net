@@ -31,9 +31,9 @@
 <script>
 import axios from 'axios'
 
-import InputComponent from '../components/InputComponent.vue'
-import ButtonComponent from '../components/ButtonComponent.vue'
-import { store } from '../store/store';
+import InputComponent from '../InputComponent.vue'
+import ButtonComponent from '../ButtonComponent.vue'
+import { store } from '../../store/store';
 
 export default {
     name: 'ChangeUserPassword',

@@ -34,7 +34,7 @@
 <script>
 import { IconStar } from '@tabler/icons-vue';
 import { IconStarFilled } from '@tabler/icons-vue';
-import { store } from '../store/store';
+import { store } from '../../store/store';
 export default {
     name: "ProfileReviews",
     data() {
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '../assets/styles/variables' as *;
+@use '../../assets/styles/variables' as *;
 .medikit {
     max-width: 350px;
     min-width: 200px;

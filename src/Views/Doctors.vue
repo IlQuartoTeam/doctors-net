@@ -271,7 +271,7 @@ export default {
             </div>
         </div>
     </div>
-    <section class="doctors-list bg-doc-primary bg-opacity-25 py-3">
+    <section class="doctors-list bg-doc-primary bg-opacity-25 ">
         <h6 class="text-doc-blue fw-bold text-center py-4">
             <span v-if="!message && store.doctorsQueried">
                 {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'Risultati' : 'Risultato' }}
@@ -287,8 +287,8 @@ export default {
             <DoctorCard :key="doctor.email" v-for="doctor in store.doctorsQueried" :doctor="doctor" />
         </div>
         <div class="load-more d-flex justify-content-center">
-            <ButtonComponent v-if="(paginationItems.next_page_url != null || paginationItems.next_page_url != undefined) && !loadingMore" @click="loadMore()" :button="true"
-                className="primary w-25 m-0">Mostra altro
+            <ButtonComponent v-if="paginationItems.next_page_url != null && !loadingMore" @click="loadMore()" :button="true"
+                className="outline w-25 m-0">Mostra altro
             </ButtonComponent>
             <div v-if="loadingMore" class="spinner-border text-primary mt-1" role="status">
                 <span class="sr-only"></span>
@@ -333,6 +333,13 @@ select {
     }
 
 
+}
+
+section.doctors-list{
+    padding: 1rem 0px 5rem;
+    .load-more{
+        margin-top: 5rem;
+    }
 }
 
 .select-container {

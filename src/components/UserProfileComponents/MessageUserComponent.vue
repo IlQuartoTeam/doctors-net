@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import { store } from '../store/store';
-import ButtonComponent from './ButtonComponent.vue';
+import { store } from '../../store/store';
+import ButtonComponent from '../ButtonComponent.vue';
 export default {
     name: 'MessageUserComponent',
     components: {
