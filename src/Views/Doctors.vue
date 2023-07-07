@@ -91,7 +91,7 @@ export default {
                 const specializations = doctor.specializations
                 let itContains = false
                 specializations.forEach((spec) => {
-                    if (spec.name.toLowerCase().includes(this.specializationInput.toLowerCase().trim())) {
+                    if (spec.name.toLowerCase().includes(this.specialization.toLowerCase().trim())) {
                         itContains = true
                     }
                 });
@@ -104,7 +104,7 @@ export default {
         },
         searchDoctors(city) {
             this.paginationItems = []
-            this.specialization = this.specializationInput ?? ''
+            // this.specialization = this.specializationInput ?? ''
            
             const rankSelected = (this.ratingSelected === 'all') ? '' : this.ratingSelected
             const specializationSelected = this.specialization ?? ''
@@ -225,7 +225,7 @@ export default {
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
                 <div class="searchDoctors w-100">
                     <v-select
-                    v-model="specializationInput"
+                    v-model="specialization"
                     placeholder="Specializzazione"
                     :options="store.specializationsSet"
                     class="w-100"
