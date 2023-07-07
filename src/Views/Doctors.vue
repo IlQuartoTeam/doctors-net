@@ -61,7 +61,6 @@ export default {
             }
             if (this.reviewCountSelected != 'all') {
                 results = this.filterByReviewCount(results ?? resultsFromDB)
-                console.log(results);
                 store.doctorsQueried = results
 
             }
@@ -103,6 +102,7 @@ export default {
             return results
         },
         searchDoctors(city) {
+            this.message = null
             this.paginationItems = []
             // this.specialization = this.specializationInput ?? ''
            
@@ -279,8 +279,6 @@ export default {
                 {{ store.doctorsQueried.length }}
                 <span v-if="total"> di {{ total }} </span>   
                 {{ store.doctorsQueried.length > 1 || store.doctorsQueried.length === 0 ? 'totali' : 'totale' }}
-               
-            
             </span>
             <span v-else-if="message">Nessun risultato trovato.</span>
         </h6>
@@ -289,7 +287,7 @@ export default {
         </div>
         <div class="load-more d-flex justify-content-center">
             <ButtonComponent v-if="paginationItems.next_page_url != null && !loadingMore" @click="loadMore()" :button="true"
-                className="outline w-25 m-0">Mostra altro
+                className="outline m-0">Mostra altro
             </ButtonComponent>
             <div v-if="loadingMore" class="spinner-border text-primary mt-1" role="status">
                 <span class="sr-only"></span>
