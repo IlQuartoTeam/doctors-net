@@ -76,9 +76,6 @@ export default {
                 this.email = null
                 this.message = null
                 this.date = new Date().toISOString().split("T")[0]
-                setTimeout(() => {
-                  //  store.addReview = !store.addReview
-                }, 2000);
             }).catch(err => {
                 if (err.response.data.errors.prefered_date) {
                     this.message = err.response.data.errors.date[0];
