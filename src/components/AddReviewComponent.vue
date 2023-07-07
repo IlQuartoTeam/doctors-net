@@ -3,25 +3,25 @@
         <div class="doc-modal p-4">
             <div class="content mt-5 container-fluid text-center">
                 <h1 class="fs-3">Aggiungi una recensione</h1>
-                <form @submit.prevent="sendMessage()">
-                    <div class="stars d-flex align-items-center justify-content-center mt-4 pb-2">
-                        <span v-for="(star, index) in this.totals" @click="starSelected(index + 1)">
+                <form @submit.prevent="sendReview()">
+                    <div class="stars d-flex align-items-center justify-content-center mt-4 pb-2" @mouseleave="resetStars()">
+                        <span v-for="(star, index) in totals" @click="starSelected(index)" @mouseover="starHovered(index)">
                             <IconStar v-if="index > starVote" />
                             <IconStarFilled v-else class="text-doc-accent" />
                         </span>
                     </div>
                     <div class="row mt-3">
                         <div class="col-12">
-                            <InputComponent id="user_name" type="text" :required="true" v-model="name"
+                            <InputComponent id="user_name" type="text" v-model="name"
                                 placeholder="Giovanna" />
-                            <InputComponent id="user_email" type="email" :required="true" v-model="email"
+                            <InputComponent id="user_email" type="email" v-model="email"
                                 placeholder="giovanna@mail.com" />
-                            <textarea id="user_messagge" label="Messaggio*" type="textarea" v-model="message"
-                                :required="true" placeholder="Messaggio" class="mt-5"></textarea>
+                            <textarea id="user_messagge" label="Messaggio*" type="textarea" v-model="text"
+                                placeholder="Messaggio" class="mt-5"></textarea>
                         </div>
                     </div>
                     <div class="d-flex flex-column gap-3">
-                        <ButtonComponent class="primary d-flex">
+                        <ButtonComponent type="submit" :button="true" class="primary d-flex">
                             <span class="m-auto">invia richiesta</span>
                         </ButtonComponent>
                         <ButtonComponent @click="goBack" class="accent d-flex">
@@ -54,10 +54,11 @@ export default {
             store,
             name: null,
             email: null,
-            message: null,
+            text: null,
             rating: null,
             totals: [1, 2, 3, 4, 5],
-            starVote: null
+            starVote: null,
+            message: ''
         }
     },
     methods: {
@@ -65,12 +66,46 @@ export default {
             store.addReview = false;
         },
         starSelected(value) {
-            this.starVote = value - 1;
-            this.rating = value;
+            this.starVote = value;
+            this.rating = value + 1;
             console.log('Rating:', this.rating);
         },
+        starHovered(index) {
+            if(this.rating === null) {
+                this.starVote = index;
+            }    
+        },
+        resetStars() {
+            if(this.rating === null) {
+                this.starVote = null;
+            }
+        },
+        sendReview() {
+            axios.post(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews', {
+                email: this.email,
+                name: this.name,
+                rating: this.rating,
+                text: this.text
+            }).then(res => {
+                this.message = 'Recensione aggiunta con successo';
+                store.toast.success(this.message, {timeout: 1500});
+                setTimeout(() => {
+                    store.addReview = !store.addReview
+                    axios.get(store.API_URL + 'doctors/' + this.$route.params.user).then(res => {
+                        store.singleDoctor = res.data.results;
+                        console.log (this.singleDoctor);
+                    })
+                }, 2000);
+            }).catch(err => {
+                if (err.response.data.errors.rating) {
+                    this.message = err.response.data.errors.rating[1];
+                    store.toast.error(this.message, {timeout: 1500});
+                }
+            })
+        },
+    },
+        
     }
-}
 </script>
 
 <style lang="scss" scoped>
