@@ -62,7 +62,7 @@ export default {
                     store.user = res.data.user
                     store.userDoctor = { ...res.data.doctor, ...res.data.user }
                     router.push('/users/profile')
-
+                    this.getReviews()
                 }).catch(err => {
                     this.message.text = 'Ooops! Si è verificato un errore.'
                     this.loading = false
@@ -87,7 +87,6 @@ export default {
             router.push('/login')
         } else {
             this.getUser()
-            this.getReviews()
         }
     }
 }
