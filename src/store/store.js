@@ -23,7 +23,8 @@ export const store = reactive({
     experiences: false,
     performances: false,
     changePassword: false,
-    chartsOpen: true
+    chartsOpen: true,
+    sponsor: false,
   },
   specialization: '',
   specializationsSet: [],
