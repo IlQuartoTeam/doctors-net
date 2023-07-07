@@ -4,7 +4,7 @@
             <img class="img-fluid rounded" :src=doctor.profile_image_url alt="">
         </div>
         <div class="col d-flex flex-column justify-content-center gap-3 p-4 p-md-4">
-            <div>
+            <div class="text-doc-blue">
                 <h1 class="text-center text-md-start">{{ doctor.name }} {{ doctor.surname }}</h1>
                 <div class="specialization" v-for="specialization in doctor.specializations">
                     <h5 class="fs-4 text-center text-md-start">{{ specialization.name }}</h5>
@@ -74,10 +74,11 @@ export default {
 
 img {
     width: 100%;
+
     @media screen and (min-width: 768px) {
-        max-width: 400px;
         object-fit: cover;
-        max-height: auto;
+        max-height: 400px;
+        object-position: top;
     }
   
 }
