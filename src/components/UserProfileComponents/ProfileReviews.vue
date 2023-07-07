@@ -45,15 +45,7 @@ export default {
         };
     },
     mounted() {
-        axios.get('api/doctors/' + store.userDoctor.id + '/reviews')
-            .then((res) => {
-                this.personalReviews = res.data
-
-
-            }).catch((err) => {
-
-
-            })
+        
     },
     methods: {
         getFormattedDate(dateString) {
