@@ -21,18 +21,21 @@
 export default {
     data() {
         return {
-            title: 'Cerca tra centinaia di medici vicini a te o nella città che preferisci',
-            subTitle: 'Scegli la città e usa tutte le potenzialità di Doctors NET. Filtra tutti i risultati visualizzati in base alle tue preferenze.',
             imgPath: '/img/other/',
             imgExt: '.png',
         }
     },
-    props: ['className', 'reverse', 'imgs'],
+    props: ['className', 'reverse', 'imgs', 'title', 'subTitle'],
 
 }
 </script>
 
 <style lang="scss" scoped>
+
+img{
+    max-height: 500px;
+    border-radius: 10px;
+}
 .singleSectionWrap {
     h3 {
         font-size: 30px;
