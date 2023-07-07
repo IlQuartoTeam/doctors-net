@@ -1,5 +1,8 @@
 <template>
-    <canvas ref="webgl" class="webgl"></canvas>
+    <div>
+        <canvas ref="webgl" class="webgl w-100 h-100"></canvas>
+    </div>
+    
 </template>
 
 <script>
@@ -14,13 +17,13 @@ export default {
          */
         // Debug
         // const gui = new dat.GUI()
-        
+
         // Canvas
         const canvas = this.$refs.webgl
 
         // Scene
         const scene = new THREE.Scene()
-        
+
         /**
          * Models
          */
@@ -40,7 +43,7 @@ export default {
                 /*  mixer = new THREE.AnimationMixer(gltf.scene)
                 const action = mixer.clipAction(gltf.animations[2])
                 action.play() */
-                
+
                 modelLoaded = gltf.scene
             },
             (progress) => {
@@ -107,14 +110,12 @@ export default {
          * Sizes
          */
         const sizes = {
-            width: this.$refs.webgl.offsetWidth ?? 400,
-            height: this.$refs.webgl.offsetHeight ?? 400
+            width: this.$refs.webgl.offsetWidth,
+            height: this.$refs.webgl.offsetHeight
         }
 
         window.addEventListener('resize', () => {
-            // Update sizes
-            sizes.width = this.$refs.webgl.offsetWidth ?? 400
-            sizes.height = this.$refs.webgl.offsetHeight ?? 400
+
 
             // Update camera
             camera.aspect = sizes.width / sizes.height
@@ -165,10 +166,10 @@ export default {
             position.y = e.clientY
         })
 
-       
 
-               
-            
+
+
+
 
         const tick = () => {
             const elapsedTime = clock.getElapsedTime()
@@ -182,7 +183,9 @@ export default {
             /*  if (mixer){
                  mixer.update(deltaTime)
              } */
-
+            // Update sizes
+            sizes.width = this.$refs.webgl.offsetWidth
+            sizes.height = this.$refs.webgl.offsetHeight
 
             if (modelLoaded) {
                 const maxRotation = Math.PI / 12;
@@ -190,7 +193,7 @@ export default {
                 const rotationY = (position.x / sizes.width) * maxRotation - maxRotation / 2;
                 //modelLoaded.rotation.set(- Math.PI * 0.05 + rotationX, - Math.PI * 0.55 + rotationY, -Math.PI * 0.06)
                 modelLoaded.rotation.set(- Math.PI * 0.08 + rotationX, Math.PI * 0.16 + rotationY, Math.PI * 0.1)
-                
+
             }
 
 
@@ -207,9 +210,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$width: 600px;
-canvas{
-    max-width: $width;
-    height: $width - 200px;
-}
+    div {
+        width: 300px;
+        height: 300px;
+
+        @media screen and (min-width: 768px) {
+            width: 400px;
+            height: 400px;
+        }
+
+        @media screen and (min-width: 992px) {
+            width: 600px;
+            height: 600px;
+        }
+    }
 </style>

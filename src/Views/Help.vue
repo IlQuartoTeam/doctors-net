@@ -1,7 +1,6 @@
 <template>
     <div ref="privacySection">
        <PrivacyComponent />
-       <CtaComponent />
     </div>
 </template>
 

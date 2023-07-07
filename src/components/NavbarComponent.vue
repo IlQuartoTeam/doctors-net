@@ -10,7 +10,7 @@
                 <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/team">Chi siamo</router-link>
                 <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help">Assistenza</router-link>
             </div>
-            <div class="box-button d-flex align-items-center">
+            <div class="box-button d-flex align-items-center gap-3">
                 <button v-if="!store.isAuthenticated" class="button-doctor button-none"
                     @click="goLogin()">
                     <IconUser class="mb-1" :size="24" /> Sei un medico?
@@ -22,8 +22,10 @@
                         }}</span>
                     </ButtonComponent>
                 </router-link>
-                <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
-                <IconX :size="60" v-if="menuOpen" class="hamb-icon pe-3" alt="icon-menu" @click="openMenu" />
+                <div>
+                    <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon p-2" alt="icon-menu" @click="openMenu" />
+                    <IconX :size="60" v-if="menuOpen" class="hamb-icon p-2" alt="icon-menu" @click="openMenu" />
+                </div>
             </div>
         </div>
         <Transition name="fade-in">
@@ -47,7 +49,7 @@
                             </ButtonComponent>
                         </router-link>
                     </div>
-                    <div v-if="store.isAuthenticated" class="logout m-auto pb-3">
+                    <div v-if="store.isAuthenticated" class="logout d-flex justify-content-center mb-3">
                         <router-link to="/logout"><ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged"><span>Logout</span></ButtonComponent></router-link>
                     </div>
                 </div>
@@ -112,10 +114,12 @@ export default {
 
 <style lang="scss" scoped>
 @use '../assets/styles/variables' as *;
+nav{
+    height: 100px;
+}
 .router-link-exact-active {
     color: $doc-accent;
 }
-
 .menu {
     padding: 10px 15px;
 }
@@ -155,9 +159,9 @@ button {
     border: 1px solid transparent;
 }
 
-.button-none,
 #btn-logged {
     display: none;
+    padding: 16px 65px;
 }
 
 .button-doctor {
@@ -188,11 +192,10 @@ button {
     }
 
     .button-doctor,
-    #btn-logged {
-        display: inline-block;
-        margin-right: 40px;
+        #btn-logged {
+            display: inline-block;
+        }
     }
-}
 
 @media screen and (min-width:1200px) {
     .hamb-icon {
@@ -216,6 +219,15 @@ button {
             }
         }
     }
+    .box-logo {
+        width: 250px;
+        height: 50px;
+
+    img {
+        width: 60px;
+        height: 100%;
+    }
+}
 
     .logout-desk {
         display: inline-block;

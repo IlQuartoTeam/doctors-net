@@ -81,6 +81,9 @@ export default {
             }
         },
         sendReview() {
+            if(this.rating === null) {
+                this.rating = 1;
+            }
             axios.post(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews', {
                 email: this.email,
                 name: this.name,
@@ -120,7 +123,7 @@ export default {
     bottom: 0;
     display: grid;
     place-items: center;
-    z-index: 99;
+    z-index: 999999;
 }
 .doc-modal {
     background-color: white;

@@ -44,9 +44,22 @@
         <svg class="waves w-100"  data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" ><path  d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill" fill="#2FB0BD" fill-opacity="1"></path></svg>
     </div>
     <div class="sections bg-doc-primary">
-        <HomeSection :imgs="indexImgs"/>
-        <HomeSection :imgs="showImgs" reverse="true"/>
-        <HomeSection :imgs="contactImgs"/>
+        <HomeSection 
+        :imgs="indexImgs" 
+        title="Cerca tra centinaia di medici nella città che preferisci"
+        subTitle="Scegli la citt&agrave; e usa tutte le potenzialità di Doctors NET. Filtra tutti i risultati visualizzati in base alle tue preferenze."
+        />
+
+        <HomeSection 
+        :imgs="showImgs" 
+        title="Visualizza i dettagli del medico scelto o della specialista"
+        sub-title="Sono disponibili anche tutte le recensioni di pazienti proprio come te, leggile prima di inviare la tua richiesta."
+        reverse="true"/>
+        <HomeSection 
+        :imgs="contactImgs"
+        title="Il tuo prossimo appuntamento &egrave; a portata di click"
+        sub-title="Invia una richiesta allo specialista, sar&agrave; sua cura ricontattarti il prima possibile per fissare un incontro."
+        />
     </div>
 </template>
 
@@ -70,11 +83,11 @@ export default {
             },
             showImgs: {
                 imgSm: 'showMobile',
-                imgMd: 'showLg',
+                imgMd: 'showTablet',
                 imgLg: 'showLg',
             },
             contactImgs: {
-                imgSm: 'contactMobile',
+                imgSm: 'contactLg',
                 imgMd: 'contactLg',
                 imgLg: 'contactLg',
             },
@@ -129,7 +142,10 @@ mounted()
 }
 
 .hero {
-    padding: 100px 0;
+    padding: 2rem 0;
+    @media screen and (min-width: 768px) {
+        padding: 4rem 0;
+    }
     .title {
 
         h1 {
