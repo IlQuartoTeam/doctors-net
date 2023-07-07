@@ -1,5 +1,5 @@
 <template>
-  <div class="col p-2 flex d-flex flex-column flex-md-row">
+  <div class="col p-2 flex d-flex flex-column flex-md-row ">
 
     <div class="doc-card d-md-flex align-items-start gap-5 py-4 px-4 w-100 h-100">
       <div class="left-container col-md-5 d-flex flex-column justify-content-between">
@@ -116,6 +116,12 @@ h2{
   border-radius: 20px;
   background-color: #fff;
   margin: 0 0 1rem 0;
+  // border: 1px solid $doc-blue;
+  // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  transition: all .5s ease-in-out;
+  &:hover{
+    scale: 1.009;
+  }
 }
 
 .card-img {
