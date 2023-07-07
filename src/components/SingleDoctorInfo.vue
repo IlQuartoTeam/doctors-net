@@ -3,8 +3,8 @@
         <div class="col p-4 p-md-0">
             <img class="img-fluid rounded" :src=doctor.profile_image_url alt="">
         </div>
-        <div class="col d-flex flex-column justify-content-center gap-3 p-4 p-md-4">
-            <div>
+        <div class="col d-flex flex-column justify-content-center gap-3 p-4 p-md-4 ps-md-4">
+            <div class="text-doc-blue ps-md-4">
                 <h1 class="text-center text-md-start">{{ doctor.name }} {{ doctor.surname }}</h1>
                 <div class="specialization" v-for="specialization in doctor.specializations">
                     <h5 class="fs-4 text-center text-md-start">{{ specialization.name }}</h5>
@@ -17,7 +17,7 @@
                 </div>
                
             </div>
-            <div class="button-container">
+            <div class="button-container ps-md-4">
                 <ButtonComponent @click="contactNow" class="primary w-100">contatta</ButtonComponent>
                 <ContactFormComponent v-if="store.contactForm" />
             </div>
@@ -74,10 +74,11 @@ export default {
 
 img {
     width: 100%;
+
     @media screen and (min-width: 768px) {
-        max-width: 400px;
         object-fit: cover;
-        max-height: auto;
+        max-height: 400px;
+        object-position: top;
     }
   
 }

@@ -24,12 +24,12 @@
       <div>
         <timeline v-for="start in filteredExperiences('education')" :key="start.id">
           <timeline-title>
-            <p class="title">{{ getStartYear(start.start_date) }}</p>
+            <p class="title text-doc-red">{{ getStartYear(start.start_date) }}</p>
           </timeline-title>
           <timeline-item v-for="experience in filteredYear('education', getStartYear(start.start_date))"
             :key="experience.id">
             <div class="info">
-              <p class="name">{{ experience.name }}</p>
+              <p class="name text-doc-blue">{{ experience.name }}</p>
               <div class="d-flex gap-2">
                 <p class="data">inizio: {{ getFormattedDate(experience.start_date) }}</p>
                 <p class="fw-bold data"> - </p>

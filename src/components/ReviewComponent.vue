@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="px-5 pt-5 text-doc-blue fw-bold">Le recensioni più recenti</h3>
+    <h3 class="px-5 pt-5 text-doc-blue fw-bold text-center text-md-start">Le recensioni più recenti</h3>
     <div class="box-button text-center text-md-end me-md-5 mt-5">
     <ButtonComponent  @click="addReview" class="outline">
       <IconPencil :width="20" class="mb-1" />
