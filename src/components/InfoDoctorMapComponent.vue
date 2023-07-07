@@ -1,46 +1,68 @@
 <template>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col info">
-                <p class="d-flex align-items-center"><IconMapPin :color="$doc-primary"/><span v-for="address in takeAddress" class="ps-2">{{ address }}</span><span>,</span><span class="ps-2">{{ store.singleDoctor.city }}</span></p>
-                <p class="d-flex align-items-center gap-2"><IconPhone :color="$doc-primary" /><span>{{ store.singleDoctor.phone }}</span></p>
-                <p class="d-flex align-items-center gap-2"><IconMail :color="$doc-primary" /><span>{{ store.singleDoctor.email }}</span></p>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 p-2 p-md-5 h-100 gx-0">
+        <div class="col text-doc-blue flex-grow-1 p-4 p-md-0">
+            <h3 class="py-2">Informazioni</h3>
+            <p class="d-flex align-items-center gap-2">
+                <IconMapPin :color="$doc - primary" />
+                <span>{{ doctor.address }} - {{ doctor.city }}</span>
+            </p>
+            <p class="d-flex align-items-center gap-2">
+                <IconPhone :color="$doc - primary" />
+                <span>{{ doctor.phone }}</span>
+            </p>
+            <p class="d-flex align-items-center gap-2">
+                <IconMail :color="$doc - primary" />
+                <span>{{ doctor.email }}</span>
+            </p>
+            <div class="text-doc-blue">
+                <h3 class="py-2">Prestazioni</h3>
+                <ExaminationsComponent :examinations="doctor.examinations" />
             </div>
         </div>
-        <div class="row">
-            <div class="col text-center">
-                
-                
-            </div>
+        <div class="col flex-grow-1 bg-info map-container p-4 p-md-0">
+            <div id="doctor-map"></div>
         </div>
-    
     </div>
 </template>
 
 <script>
 import { store } from '../store/store';
 import { IconMail, IconPhone, IconMapPin } from '@tabler/icons-vue';
-export default {
-    components: { IconMail, IconPhone, IconMapPin},
-    computed: {
-        takeAddress() {
-      if (this.store.singleDoctor.address) {
-        return this.store.singleDoctor.address.split(",");
-      } else {
-        return []
-      }
-      }
- 
-    },
-    data () {
-        
+import ExaminationsComponent from '../components/ExaminationsComponent.vue';
 
+export default {
+    components: { IconMail, IconPhone, IconMapPin, ExaminationsComponent },
+    props: ['doctor'],
+    data() {
         return {
             store
         }
     },
     mounted() {
-        'ciao'
+        const map = L.map('doctor-map').setView([this.doctor.address_lat, this.doctor.address_long], 16)
+
+        L.tileLayer(
+            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                maxZoom: 19,
+                attribution:
+                    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            }
+        )
+            .addTo(map)
+
+        const icon = L.icon(
+            {
+                iconUrl: '/img/other/pin-leaflet-border.png',
+                shadowUrl: '/img/other/pin-leaflet-shadow.png',
+                iconSize: [30, 50],
+                shadowSize: [30, 50],
+                iconAnchor: [15, 0],
+                shadowAnchor: [15, 0],
+                popupAnchor: [0, 2]
+            })
+
+        L.marker([this.doctor.address_lat, this.doctor.address_long], { icon: icon }).addTo(map);
     },
 }
 </script>
@@ -48,109 +70,21 @@ export default {
 <style lang="scss" scoped>
 @use "../assets/styles/_variables.scss" as *;
 
-span {
-    font-size: 17px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: rgba($doc-dark, 0.6);
-    display: inline-block;
-}
-
-p { 
-    color:$doc-primary;
-    padding-left: 35px;
-}
-.container-fluid {
-    display: flex;
-    flex-direction: column-reverse;
-    padding: 150px 80px 50px 10px;
-}
-
-
-
-
-@media only screen and (min-width: 768px) {
-
-
-    .container-fluid {
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 40px;
-    padding: 150px 60px 100px 60px;
-}
-
-
-p { 
-    padding: 8px 0 8px 15px;
-}
-
-span {
- 
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: rgba($doc-dark, 0.6);
-    display: inline-block;
-}
-
-
-
-}
-
-
-
-
-
-
-@media only screen and (min-width: 992px) {
-
-    .container-fluid {
-    display: flex;
-    justify-content: space-between;
-    padding: 190px 60px 140px 60px;
+#doctor-map {
+    width: 100%;
+    height: 250px;
+    max-height: 500px;
+    @media screen and (min-width: 768px) {
+        height: 100%;
+    }
     
 }
 
-
-span {
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: rgba($doc-dark, 0.6);
-    display: inline-block;
-}
-}
-
-
-
-
-
-
-@media only screen and (min-width: 1200px) {
-
-
-
-    .container-fluid {
+.map-container{
+    max-width: 100%;
+    @media screen and (min-width: 768px) {
+    max-width: 100%;
+    }
     
-    display: flex;
-    justify-content: space-between;
-    padding: 250px 60px 200px 60px;
-    
-
-
 }
-
-span {
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: rgba($doc-dark, 0.6);
-    display: inline-block;
-}
-
-}
-
-
-
 </style>
