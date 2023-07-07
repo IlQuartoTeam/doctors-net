@@ -1,6 +1,6 @@
 <template>
-    <div v-if="store.userDoctor.messages.length > 0 && !isOpenMessage" class="container-fluid pb-5 py-2" id="index">
-        <h1 class="text-h2 py-3 text-doc-blue fw-semibold">I tuoi messaggi</h1>
+    <div v-if="store.userDoctor.messages.length > 0 && !isOpenMessage" class="w-100 px-lg-2 pb-5 py-2" id="index">
+        <h1 class="text-h2 p-3 text-doc-blue fw-semibold">I tuoi messaggi</h1>
         <table class="table">
             <thead>
                 <tr class="d-none d-lg-table-row">
@@ -148,10 +148,13 @@ export default {
     .small{
         opacity: .7;
     }
+    &:hover{
+        background-color: #0071A220;
+    }
 }
 
 .message {
-    max-width: 0;
+    max-width: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -161,6 +164,7 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 80vw;
 }
 .medikit {
     max-width: 350px;
