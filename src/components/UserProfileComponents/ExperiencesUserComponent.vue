@@ -76,9 +76,9 @@
 
 <script>
 import axios from 'axios'
-import { store } from '../store/store';
-import ButtonComponent from '../components/ButtonComponent.vue'
-import InputComponent from '../components/InputComponent.vue'
+import { store } from '../../store/store';
+import ButtonComponent from '../ButtonComponent.vue'
+import InputComponent from '../InputComponent.vue'
 import { IconCircleX, IconCircleXFilled } from '@tabler/icons-vue';
 export default {
     components: {
@@ -245,7 +245,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '../assets/styles/variables' as *;
+@use '../../assets/styles/variables' as *;
 
 
 

@@ -19,8 +19,8 @@
                 </div>
             </div>
             <div v-if="store.userDoctor" class="userMainInfo">
-                <h6 class="fw-semibold fs-5 text-doc-blue text-center">{{ store.userDoctor.name }} {{
-                    store.userDoctor.surname }}</h6>
+                <h6 class="fw-semibold fs-5 text-doc-blue text-center"><a :href="'/doctors/' + store.userDoctor.slug">{{ store.userDoctor.name }} {{
+                    store.userDoctor.surname }}</a> </h6>
                 <div v-if="store.userDoctor.specializations[0] != ''"
                     class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
                     <span class="d-block" v-for="spec in store.userDoctor.specializations">{{ spec.name }}</span>
@@ -41,6 +41,10 @@
             <span class="text-doc-primary d-flex align-items-center gap-1"
                 :class="{ 'text-doc-accent': store.dashboard.reviewsOpen }" @click="toggleSectionActive('reviewsOpen')">
                 <IconUserStar /> <span>Recensioni</span>
+            </span>
+            <span class="text-doc-primary d-flex align-items-center gap-1"
+                :class="{ 'text-doc-accent': store.dashboard.sponsor }" @click="toggleSectionActive('sponsor')">
+                <IconCreditCard/> <span>Sponsorizzazione</span>
             </span>
         </div>
         <div class="settings d-flex flex-column mt-3 px-4 py-2 gap-3 align-items-center align-items-sm-start">
@@ -64,11 +68,13 @@
             </span>
         </div>
         <div class="short-link p-4 my-5 d-flex flex-column align-items-center justify-content-center gap-3">
-            <router-link to="/">
-                <ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged">
-                    <span>Torna alla Homepage</span>
-                </ButtonComponent>
-            </router-link>
+            <div @click="scrollToTop">
+                <router-link to="/">
+                    <ButtonComponent className="primary d-flex align-items-center justify-content-center" id="btn-logged">
+                        <span>Torna alla Homepage</span>
+                    </ButtonComponent>
+                </router-link>
+            </div>
             <router-link to="/logout">
                 <ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged">
                     <span>Logout</span>
@@ -79,37 +85,39 @@
 </template>
 
 <script>
+import { IconCreditCard } from '@tabler/icons-vue';
 import { IconEdit } from '@tabler/icons-vue';
 import { IconShieldLock } from '@tabler/icons-vue';
 import { IconReceipt2 } from '@tabler/icons-vue';
 import { IconBriefcase } from '@tabler/icons-vue';
 import { IconInfoCircle } from '@tabler/icons-vue';
-import { store } from '../store/store';
+import { store } from '../../store/store';
 import { IconHome } from '@tabler/icons-vue';
 import { IconMessageCircle2 } from '@tabler/icons-vue';
 import { IconUserStar } from '@tabler/icons-vue';
 import { IconSettings } from '@tabler/icons-vue';
 import { IconChevronRight } from '@tabler/icons-vue';
 import { IconChevronLeft } from '@tabler/icons-vue';
-import ButtonComponent from './ButtonComponent.vue';
+import ButtonComponent from '../ButtonComponent.vue';
 import axios from 'axios';
 
 export default {
     name: 'SidebarComponent',
     components: {
-        IconHome,
-        IconMessageCircle2,
-        IconUserStar,
-        IconSettings,
-        IconChevronRight,
-        IconChevronLeft,
-        ButtonComponent,
-        IconInfoCircle,
-        IconBriefcase,
-        IconReceipt2,
-        IconShieldLock,
-        IconEdit
-    },
+    IconHome,
+    IconMessageCircle2,
+    IconUserStar,
+    IconSettings,
+    IconChevronRight,
+    IconChevronLeft,
+    ButtonComponent,
+    IconInfoCircle,
+    IconBriefcase,
+    IconReceipt2,
+    IconShieldLock,
+    IconEdit,
+    IconCreditCard
+},
     props: ['doctor'],
     data() {
         return {
@@ -131,6 +139,7 @@ export default {
             store.dashboard.changePassword = section === 'changePassword';
             store.dashboard.chartsOpen = section === 'dashboard';
             store.dashboard.reviewsOpen = section === 'reviewsOpen';
+            store.dashboard.sponsor = section === 'sponsor';
             store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen;
         },
         scrollToTop() {
@@ -174,7 +183,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "../assets/styles/_variables.scss" as *;
+@use "../../assets/styles/_variables.scss" as *;
 .button-toggle {
     position: fixed;
     width: 100%;

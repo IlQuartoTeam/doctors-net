@@ -35,11 +35,11 @@
 
 <script>
 import axios from 'axios';
-import { store } from '../store/store';
-import InputComponent from '../components/InputComponent.vue'
-import Places from '../components/Places.vue'
-import ButtonComponent from '../components/ButtonComponent.vue'
-import MultiselectComponent from './MultiselectComponent.vue';
+import { store } from '../../store/store';
+import InputComponent from '../InputComponent.vue'
+import Places from '../Places.vue'
+import ButtonComponent from '../ButtonComponent.vue'
+import MultiselectComponent from '../MultiselectComponent.vue';
 
 export default {
     name: 'SettingUserComponent',

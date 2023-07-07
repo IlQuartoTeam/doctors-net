@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import StarsComponent from './StarsComponent.vue';
+import StarsComponent from '../StarsComponent.vue';
 
-import { store } from '../store/store';
+import { store } from '../../store/store';
     export default {
     name: "HeroUserComponent",
     props: ["doctor"],
