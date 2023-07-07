@@ -116,6 +116,8 @@ h2{
   border-radius: 20px;
   background-color: #fff;
   margin: 0 0 1rem 0;
+  /* box-shadow: 0px 0px 20px #2FB0BD20; */
+  border: 3px groove #2FB0BD40;
 }
 
 .card-img {
