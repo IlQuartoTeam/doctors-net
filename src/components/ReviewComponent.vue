@@ -10,9 +10,10 @@
       <div class="box-reviews container-fluid">
         <div class="row mb-5 pt-3" v-for="review in store.singleDoctor.reviews">
           <div class="col-12">
-            <h2 class="fw-semibold name">{{ review.name }}</h2>
+            <h2 class="fw-semibold name" v-if="review.name">{{ review.name }}</h2>
+            <h2 class="fw-semibold name" v-else>Utente anonimo</h2>
             <div class="date-review d-flex align-items-center gap-5">
-              <span>{{ review.created_at }} </span>
+              <span>{{ getFormattedDate(review.created_at) }} </span>
             <div class="d-flex align-items-center justify-content-center pb-2">
               <span v-for="(star, index) in review.rating">
                 <IconStarFilled class="text-doc-accent" v-if="star" />
@@ -69,6 +70,13 @@ export default {
             this.stars = stars
             console.log(this.stars)
         } 
+      },
+      getFormattedDate(dateString) {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
       },
       addReview(){
         store.addReview = !store.addReview;
