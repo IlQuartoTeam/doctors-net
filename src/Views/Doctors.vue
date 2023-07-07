@@ -284,7 +284,7 @@ export default {
   
     <section class="doctors-list">
         <h6 class="text-doc-blue fw-bold text-center py-4">
-            <span v-if="message">Nessun risultato trovato.</span>
+            <!-- <span v-if="message">Nessun risultato trovato.</span> -->
         </h6>
         <div v-if="store.doctorsQueried" class="row row-cols-1 row-cols-lg-2 gx-0 px-1 px-md-5">
             <DoctorCard :key="doctor.email" v-for="doctor in store.doctorsQueried" :doctor="doctor" />
@@ -349,4 +349,5 @@ section.doctors-list{
     position: relative;
 
 }
+
 </style>
