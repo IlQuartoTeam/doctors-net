@@ -41,6 +41,7 @@ export default {
     methods:
     {
         handleClick() {
+            this.paginationItems = [];
             store.citySearched = this.city
             this.searchDoctors(this.city)
         },
@@ -103,7 +104,6 @@ export default {
         },
         searchDoctors(city) {
             this.message = null
-            this.paginationItems = []
             // this.specialization = this.specializationInput ?? ''
            
             const rankSelected = (this.ratingSelected === 'all') ? '' : this.ratingSelected
@@ -119,15 +119,16 @@ export default {
             console.log(apiURL);
             axios.get(apiURL)
                 .then((res) => {
+                    this.paginationItems = res.data.results
                     this.total = res.data.results.total
                     const results = res.data.results.data
                     this.filterDoctors(this.sortByPremium(results))
                     this.message = null
-                    this.paginationItems = res.data.results
+                    console.log(res.data.results)
 
 
-                })
-                .catch((err) => {
+                }).catch((err) => {
+                    
                     const success = err.response.data.success
                     if (!success) {
                         this.message = "Nessun risultato trovato"
