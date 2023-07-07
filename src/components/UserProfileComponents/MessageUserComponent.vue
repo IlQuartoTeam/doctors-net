@@ -10,31 +10,34 @@
                     <th scope="col" class="text-doc-blue">Gestisci</th>
                 </tr>
             </thead>
-            <tbody v-for="(message, index) in store.userDoctor.messages">
-                <tr @click="openMessage(index)" class="prev-message d-lg-none">
-                    <td class="position-relative text-doc-blue">
+            <tbody>
+                <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(message)"
+                    :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }" class="prev-message d-lg-none">
+                    <td class="position-relative text-doc-blue" @click="readMessage(message, true)">
                         <div class="d-flex flex-column pt-2">
                             <div class="name">
                                 <h6 class="mb-0 fw-bold">{{ message.fullname }}</h6>
                             </div>
                             <h6 class="small text-doc-blue mb-0">{{ message.email }}</h6>
-                            <p class="prevMessage text-doc-blue mb-0">
-                                {{ message.text }}
-                            </p>
+                            <div class="smMessageWrap">
+                                <p class="smMessage text-doc-blue mb-0" :style="{'max-width': screenSize < 576 ? '80vw' : (store.dashboard.sidebarOpen ? '40vw' : '80vw')}">
+                                    {{ message.text }}
+                                </p>
+                            </div>
                         </div>
                         <div class="date">
                             <p>{{ formatDate(message.created_at) }}</p>
                         </div>
+                        <div class="actions position-absolute d-flex">
+                            <div class="delete p-2">
+                                <IconTrash />
+                            </div>
+
+                        </div>
                     </td>
-                    <!-- <td>{{ message.fullname }}</td>
-                    <td class="message">
-                        {{ message.text }}
-                    </td>
-                    <td>
-                        elimina
-                    </td> -->
                 </tr>
-                <tr @click="openMessage(index)" class="prev-message d-none d-lg-table-row">
+                <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(index)"
+                    class="prev-message d-none d-lg-table-row">
                     <td>{{ message.fullname }}</td>
                     <td>{{ message.email }}</td>
                     <!-- <td class="d-none">{{ truncateMessage(message.text, 30) }}</td> -->
@@ -78,23 +81,29 @@
 </template>
 
 <script>
+import { IconTrash } from '@tabler/icons-vue';
 import { store } from '../../store/store';
 import ButtonComponent from '../ButtonComponent.vue';
+import axios from 'axios';
 export default {
     name: 'MessageUserComponent',
     components: {
-        ButtonComponent
+        ButtonComponent,
+        IconTrash,
+
     },
     data() {
         return {
             store,
-            isOpenMessage: false
+            isOpenMessage: false,
+            config: { headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` } },
+            screenSize: window.innerWidth,
         }
     },
     methods: {
-        openMessage(index) {
+        openMessage(message) {
             this.isOpenMessage = !this.isOpenMessage;
-            this.messageToView = store.userDoctor.messages[index];
+            this.messageToView = message;
         },
         toggledashboardActive() {
             store.dashboard.heroOpen = !store.dashboard.heroOpen;
@@ -119,15 +128,42 @@ export default {
         addZero(number) {
             return number < 10 ? `0${number}` : number;
         },
+        readMessage(message, action) {
+            if ((message.been_read && action) || (!message.been_read && !action)) {
+                return console.log('nope');
+            }
+            console.log('params: ', message, action);
+            const params = {
+                readAction: action,
+                messageId: message.id
+            }
+            axios.post(store.API_URL + 'doctors/messages/read', params, this.config).then(res => {
+                message.been_read = action ? 1 : 0;
+                console.log(res);
+                console.log(message);
+            }).catch(error => {
+                console.log('errore: ', error);
+            })
+        },
+        getResize() {
+            this.screenSize = window.innerWidth
+        }
     },
     mounted() {
-        console.log(this.formatDate(store.userDoctor.messages[0].created_at) );
+        console.log(this.formatDate(store.userDoctor.messages[0].created_at));
+        window.addEventListener('resize', this.getResize);
     },
+    beforeUnmount() {
+
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-#index, #show{
+@use '../../assets/styles/variables' as *;
+
+#index,
+#show {
     min-height: 50vh;
 }
 
@@ -138,18 +174,61 @@ export default {
     border-collapse: collapse;
 }
 
+.beenRead {
+    background-color: #e0e0e070;
+
+    &:hover {
+        background-color: #e0e0e070;
+
+        .delete {
+            animation: fadeIn .3s forwards;
+
+        }
+    }
+
+}
+
+.unread:hover {
+    background-color: #0071A220;
+
+    .delete {
+        animation: fadeIn .3s forwards;
+
+    }
+
+}
+
 .prev-message {
+
+
+
     cursor: pointer;
-    .date{
+    transition: all .5s;
+
+    .date {
         position: absolute;
         top: .5rem;
         right: .5rem;
     }
-    .small{
+
+    .small {
         opacity: .7;
     }
-    &:hover{
-        background-color: #0071A220;
+
+
+
+    .actions {
+        bottom: .5rem;
+        right: .5rem;
+
+        .delete {
+            opacity: 0;
+            color: $doc-accent;
+
+            &:hover {
+                color: $doc-red;
+            }
+        }
     }
 }
 
@@ -160,12 +239,15 @@ export default {
     text-overflow: ellipsis;
 }
 
-.prevMessage{
+.smMessage {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 80vw;
 }
+
+.smMessageWrap {}
+
 .medikit {
     max-width: 350px;
     min-width: 200px;
@@ -173,5 +255,25 @@ export default {
 
 td {
     /* white-space: nowrap; */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        scale: 0;
+    }
+
+    80% {
+        scale: 1.1;
+    }
+
+    95% {
+        scale: .9;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
 }
 </style>

@@ -28,5 +28,5 @@ export const store = reactive({
   },
   specialization: '',
   specializationsSet: [],
-  toast: useToast()
+  toast: useToast(),
 });
