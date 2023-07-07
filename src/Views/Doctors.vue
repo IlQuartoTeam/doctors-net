@@ -48,7 +48,7 @@ export default {
             store.doctorsQueried = resultsFromDB
 
             let results = null
-            if (this.specialization.trim() != '') {
+            if (this.specialization != '') {
                 results = this.filterBySpecialization(resultsFromDB)
                 store.doctorsQueried = results
 
@@ -85,8 +85,9 @@ export default {
 
         },
         filterBySpecialization(doctorsList) {
-
-            const results = doctorsList.filter(doctor => {
+            if (this.specialization)
+            {
+                const results = doctorsList.filter(doctor => {
                 const specializations = doctor.specializations
                 let itContains = false
                 specializations.forEach((spec) => {
@@ -99,7 +100,14 @@ export default {
                     return true
                 }
             })
-            return results
+                return results
+            }
+            else
+            {
+                return doctorsList
+            }
+            
+            
         },
         searchDoctors(city) {
             this.message = null
@@ -121,13 +129,12 @@ export default {
                 .then((res) => {
                     this.total = res.data.results.total
                     const results = res.data.results.data
-                    this.filterDoctors(this.sortByPremium(results))
+                    this.filterDoctors(results)
                     this.message = null
                     this.paginationItems = res.data.results
-
-
                 })
                 .catch((err) => {
+                    console.log(err);
                     const success = err.response.data.success
                     if (!success) {
                         this.message = "Nessun risultato trovato"
@@ -155,7 +162,7 @@ export default {
                 .then((res) => {
                     
                     let results = null
-                    if (this.specialization.trim() != '') {
+                    if (this.specialization) {
                         results = this.filterBySpecialization(this.sortByPremium(res.data.results.data))
                         store.doctorsQueried = store.doctorsQueried.concat(results)
                     }
