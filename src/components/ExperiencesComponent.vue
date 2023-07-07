@@ -10,10 +10,11 @@
           <timeline-item v-for="experience in filteredYear('work', getStartYear(start.start_date))" :key="experience.id">
             <div class="info">
               <p class="name">{{ experience.name }}</p>
-              <div class="d-flex gap-3">
-                <p class="data">data inizio: {{ getFormattedDate(experience.start_date) }}</p>
-                <p v-if="experience.end_date" class="data">data fine: {{ getFormattedDate(experience.end_date) }}</p>
-                <p v-else class="data">data fine: In corso... </p>
+              <div class="d-flex gap-2">
+                <p class="data">inizio: {{ getFormattedDate(experience.start_date) }}</p>
+                <p class="fw-bold data"> - </p>
+                <p v-if="experience.end_date" class="data">fine: {{ getFormattedDate(experience.end_date) }}</p>
+                <p v-else class="data">In corso </p>
               </div>
             </div>
           </timeline-item>
@@ -26,10 +27,11 @@
           <timeline-item v-for="experience in filteredYear('education', getStartYear(start.start_date))" :key="experience.id">
             <div class="info">
               <p class="name">{{ experience.name }}</p>
-              <div class="d-flex gap-3">
-                <p class="data">data inizio: {{ getFormattedDate(experience.start_date) }}</p>
-                <p v-if="experience.end_date" class="data">data fine: {{getFormattedDate(experience.end_date) }}</p>
-                <p v-else class="data">data fine: In corso... </p>
+              <div class="d-flex gap-2">
+                <p class="data">inizio: {{ getFormattedDate(experience.start_date) }}</p>
+                <p class="fw-bold data"> - </p>
+                <p v-if="experience.end_date" class="data">fine: {{getFormattedDate(experience.end_date) }}</p>
+                <p v-else class="data">In corso</p>
               </div>
             </div>
           </timeline-item>
@@ -122,6 +124,7 @@ export default {
 
 
 h2 {
+   font-size: 20px;
     color: $doc-blue;
    font-weight: bold;
    letter-spacing: 1px;
@@ -164,6 +167,7 @@ h2 {
 
 
 h2 {
+    font-size: 22px;
     color: $doc-blue;
    font-weight: bold;
    letter-spacing: 1px;
@@ -184,7 +188,7 @@ h2 {
     .col {
     display: flex;
      flex-direction: row;
-    gap: 21px;
+    gap: 80px;
 }
     
 .data {
@@ -198,14 +202,14 @@ h2 {
   color:  #2FB0BD;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .name {
   color:   #2FB0BD;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 18px;
   
 }
 
@@ -214,6 +218,7 @@ h2 {
 }
 
 h2 {
+   font-size: 22px;
     color: $doc-blue;
    font-weight: bold;
    letter-spacing: 1px;
@@ -251,14 +256,14 @@ h2 {
   color:  #2FB0BD;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .name {
   color:   #2FB0BD;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: 25px;
+  font-size: 20px;
   
 }
 
@@ -267,6 +272,7 @@ h2 {
 }
 
 h2 {
+    font-size: 24px;
     color: $doc-blue;
    font-weight: bold;
    letter-spacing: 1px;

@@ -2,11 +2,12 @@
     <div v-if="store.userDoctor?.reviews.length > 0" class="reviewsWrapper">
         <div class="container-fluid mt-5 px-5">
             <div class="box-reviews container-fluid">
-                <div class="row mb-5 pt-3" v-for="review in store.userDoctor.reviews">
+                <div class="row mb-5 pt-3" v-for="review in store.personalReviews">
                     <div class="col-12">
-                        <h2 class="fw-semibold name">{{ review.name }}</h2>
+                        <h2 class="fw-semibold name" v-if="review.name">{{ review.name }}</h2>
+                        <h2 class="fw-semibold name" v-else>Utente anonimo</h2>
                         <div class="date-review d-flex align-items-center gap-5">
-                            <span>{{ review.created_at }} </span>
+                            <span>{{ getFormattedDate(review.created_at) }} </span>
                             <div class="d-flex align-items-center justify-content-center pb-2">
                                 <span v-for="(star, index) in review.rating">
                                     <IconStarFilled class="text-doc-accent" v-if="star" />
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { IconStar } from '@tabler/icons-vue';
 import { IconStarFilled } from '@tabler/icons-vue';
 import { store } from '../../store/store';
@@ -43,23 +45,31 @@ export default {
         };
     },
     mounted() {
-        console.log(store.userDoctor);
+        
     },
-    methods: {},
+    methods: {
+        getFormattedDate(dateString) {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }},
     components: { IconStarFilled, IconStar }
 }
 </script>
 
 <style lang="scss" scoped>
 @use '../../assets/styles/variables' as *;
+
 .medikit {
     max-width: 350px;
     min-width: 200px;
 }
+
 .name {
     font-size: 24px;
     font-weight: bold;
     color: $doc-blue;
     letter-spacing: 1px;
-}
-</style>
+}</style>

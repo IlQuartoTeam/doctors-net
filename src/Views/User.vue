@@ -66,15 +66,28 @@ export default {
                 }).catch(err => {
                     this.message.text = 'Ooops! Si è verificato un errore.'
                     this.loading = false
-                })
+                }
+                )
             }
         },
+        getReviews() {
+            axios.get('api/doctors/' + store.userDoctor.id + '/reviews')
+            .then((res) => {
+                store.personalReviews = res.data
+
+
+            }).catch((err) => {
+
+
+            })
+        }
     },
     mounted() {
         if (!this.$cookies.get("session-token") && !store.user) {
             router.push('/login')
         } else {
             this.getUser()
+            this.getReviews()
         }
     }
 }
