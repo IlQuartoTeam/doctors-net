@@ -11,7 +11,8 @@
                 </tr>
             </thead>
             <tbody v-for="(message, index) in store.userDoctor.messages">
-                <tr @click="openMessage(index)" class="prev-message d-lg-none">
+                <tr @click="openMessage(message)" :class="{ 'beenRead': message.been_read, 'unread' : !message.been_read }"
+                    class="prev-message d-lg-none">
                     <td class="position-relative text-doc-blue">
                         <div class="d-flex flex-column pt-2">
                             <div class="name">
@@ -27,9 +28,9 @@
                         </div>
                         <div class="actions position-absolute d-flex">
                             <div class="delete p-2">
-                                <IconTrash/>
+                                <IconTrash />
                             </div>
-                            
+
                         </div>
                     </td>
                     <!-- <td>{{ message.fullname }}</td>
@@ -87,22 +88,26 @@
 import { IconTrash } from '@tabler/icons-vue';
 import { store } from '../../store/store';
 import ButtonComponent from '../ButtonComponent.vue';
+import axios from 'axios';
 export default {
     name: 'MessageUserComponent',
     components: {
         ButtonComponent,
-        IconTrash
+        IconTrash,
+        
     },
     data() {
         return {
             store,
-            isOpenMessage: false
+            isOpenMessage: false,
+            config: { headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` } },
+            readApi: '',
         }
     },
     methods: {
-        openMessage(index) {
+        openMessage(message) {
             this.isOpenMessage = !this.isOpenMessage;
-            this.messageToView = store.userDoctor.messages[index];
+            this.messageToView = message;
         },
         toggledashboardActive() {
             store.dashboard.heroOpen = !store.dashboard.heroOpen;
@@ -127,6 +132,13 @@ export default {
         addZero(number) {
             return number < 10 ? `0${number}` : number;
         },
+        readMessage(message, action) {
+            let params = {
+                messageId: message.id,
+                readAction: action
+            }
+            axios.put().then(res => {}).catch(res => {})
+        }
     },
     mounted() {
         console.log(this.formatDate(store.userDoctor.messages[0].created_at));
@@ -136,6 +148,7 @@ export default {
 
 <style lang="scss" scoped>
 @use '../../assets/styles/variables' as *;
+
 #index,
 #show {
     min-height: 50vh;
@@ -148,9 +161,39 @@ export default {
     border-collapse: collapse;
 }
 
+.beenRead {
+    background-color: #c2c2c220;
+
+    &:hover {
+        background-color: #c2c2c220;
+
+    }
+}
+
+.unread:hover {
+    background-color: #0071A210;
+
+    .delete {
+        animation: fadeIn .3s forwards;
+
+    }
+}
+
+.beenRead {
+    background-color: #0071A220;
+
+    &:hover {
+        background-color: #0071A220;
+
+    }
+}
+
 .prev-message {
+
+
     cursor: pointer;
     transition: all .5s;
+
     .date {
         position: absolute;
         top: .5rem;
@@ -161,20 +204,17 @@ export default {
         opacity: .7;
     }
 
-    &:hover {
-        background-color: #F38F2320;
-        .delete{
-            animation: fadeIn .3s forwards;
-            
-        }
-    }
-    .actions{
+
+
+    .actions {
         bottom: .5rem;
         right: .5rem;
-        .delete{
+
+        .delete {
             opacity: 0;
             color: $doc-accent;
-            &:hover{
+
+            &:hover {
                 color: $doc-red;
             }
         }
@@ -203,21 +243,24 @@ export default {
 td {
     /* white-space: nowrap; */
 }
+
 @keyframes fadeIn {
-    from{
+    from {
         opacity: 0;
         scale: 0;
     }
-    80%{
+
+    80% {
         scale: 1.1;
     }
-    95%{
+
+    95% {
         scale: .9;
     }
-    to{
+
+    to {
         opacity: 1;
         scale: 1;
     }
 }
-
 </style>
