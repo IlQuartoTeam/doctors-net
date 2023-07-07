@@ -142,7 +142,10 @@ mounted()
 }
 
 .hero {
-    padding: 100px 0;
+    padding: 2rem 0;
+    @media screen and (min-width: 768px) {
+        padding: 4rem 0;
+    }
     .title {
 
         h1 {
