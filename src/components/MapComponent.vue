@@ -28,7 +28,6 @@ export default {
         .get(this.openStreetApi + (cityToSearch) + ',Italy', { withCredentials: false })
         .then((response) => {
           if (response.data.length > 0) {
-
             this.cityData.lat = response.data[0].lat;
             this.cityData.long = response.data[0].lon;
             this.lastRightCoordinates = { lat: this.cityData.lat, long: this.cityData.long }
@@ -44,6 +43,7 @@ export default {
             }).addTo(this.map)
           }
           else {
+            console.log(this.lastRightCoordinates);
             this.map = L.map('map').setView(
               [this.lastRightCoordinates.lat, this.lastRightCoordinates.long],
               14
