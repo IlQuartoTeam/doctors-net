@@ -103,7 +103,7 @@ export default {
             return results
         },
         searchDoctors(city) {
-            
+            this.paginationItems = []
             this.specialization = this.specializationInput ?? ''
            
             const rankSelected = (this.ratingSelected === 'all') ? '' : this.ratingSelected
@@ -124,6 +124,7 @@ export default {
                     this.filterDoctors(this.sortByPremium(results))
                     this.message = null
                     this.paginationItems = res.data.results
+
 
                 })
                 .catch((err) => {
