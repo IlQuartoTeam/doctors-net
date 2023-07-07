@@ -25,6 +25,12 @@
                         <div class="date">
                             <p>{{ formatDate(message.created_at) }}</p>
                         </div>
+                        <div class="actions position-absolute d-flex">
+                            <div class="delete p-2">
+                                <IconTrash/>
+                            </div>
+                            
+                        </div>
                     </td>
                     <!-- <td>{{ message.fullname }}</td>
                     <td class="message">
@@ -78,12 +84,14 @@
 </template>
 
 <script>
+import { IconTrash } from '@tabler/icons-vue';
 import { store } from '../../store/store';
 import ButtonComponent from '../ButtonComponent.vue';
 export default {
     name: 'MessageUserComponent',
     components: {
-        ButtonComponent
+        ButtonComponent,
+        IconTrash
     },
     data() {
         return {
@@ -121,13 +129,15 @@ export default {
         },
     },
     mounted() {
-        console.log(this.formatDate(store.userDoctor.messages[0].created_at) );
+        console.log(this.formatDate(store.userDoctor.messages[0].created_at));
     },
 }
 </script>
 
 <style lang="scss" scoped>
-#index, #show{
+@use '../../assets/styles/variables' as *;
+#index,
+#show {
     min-height: 50vh;
 }
 
@@ -140,16 +150,34 @@ export default {
 
 .prev-message {
     cursor: pointer;
-    .date{
+    transition: all .5s;
+    .date {
         position: absolute;
         top: .5rem;
         right: .5rem;
     }
-    .small{
+
+    .small {
         opacity: .7;
     }
-    &:hover{
-        background-color: #0071A220;
+
+    &:hover {
+        background-color: #F38F2320;
+        .delete{
+            animation: fadeIn .3s forwards;
+            
+        }
+    }
+    .actions{
+        bottom: .5rem;
+        right: .5rem;
+        .delete{
+            opacity: 0;
+            color: $doc-accent;
+            &:hover{
+                color: $doc-red;
+            }
+        }
     }
 }
 
@@ -160,12 +188,13 @@ export default {
     text-overflow: ellipsis;
 }
 
-.prevMessage{
+.prevMessage {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 80vw;
 }
+
 .medikit {
     max-width: 350px;
     min-width: 200px;
@@ -174,4 +203,21 @@ export default {
 td {
     /* white-space: nowrap; */
 }
+@keyframes fadeIn {
+    from{
+        opacity: 0;
+        scale: 0;
+    }
+    80%{
+        scale: 1.1;
+    }
+    95%{
+        scale: .9;
+    }
+    to{
+        opacity: 1;
+        scale: 1;
+    }
+}
+
 </style>
