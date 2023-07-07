@@ -61,8 +61,8 @@
   }
   .timeline-circle {
     position: absolute;
-    top: .24em;
-    left: -34px;
+    top: .23em;
+    left: -32.5px;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -89,7 +89,7 @@
   }
   .timeline-title-circle {
     left: -36px;
-    top: .15em;
+    top: 1%;
     width: 16px;
     height: 16px;
     background-color:  #E26439;
