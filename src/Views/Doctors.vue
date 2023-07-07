@@ -103,13 +103,20 @@ export default {
             return results
         },
         searchDoctors(city) {
-            
+            this.paginationItems = []
             this.specialization = this.specializationInput ?? ''
            
             const rankSelected = (this.ratingSelected === 'all') ? '' : this.ratingSelected
             const specializationSelected = this.specialization ?? ''
-            const apiURL = store.API_URL + 'doctors?city=' + city.trim() + '&specialization=' + specializationSelected +'&vote=' + rankSelected
-         
+            const numberOfReviews = this.reviewCountSelected === 'all' ? '' : this.reviewCountSelected
+            
+            const apiURL = store.API_URL + 'doctors?city=' 
+            + city.trim() 
+            + '&specialization=' + specializationSelected 
+            +'&vote=' + rankSelected
+            + '&nReviews=' + numberOfReviews
+            
+            console.log(apiURL);
             axios.get(apiURL)
                 .then((res) => {
                     this.total = res.data.results.total
@@ -117,6 +124,7 @@ export default {
                     this.filterDoctors(this.sortByPremium(results))
                     this.message = null
                     this.paginationItems = res.data.results
+
 
                 })
                 .catch((err) => {
