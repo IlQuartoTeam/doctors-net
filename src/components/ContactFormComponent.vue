@@ -9,6 +9,9 @@
                         <div class="col-12">
                             <InputComponent id="user_name" type="text" :required="true" v-model="name"
                                 placeholder="Giovanna" />
+                                <label for="prefered_date" class="text-doc-primary m-0">Data preferita per un possibile appuntamento</label>
+                                <InputComponent id="prefered_date" :min="today" type="date" :required="true" v-model="date"
+                               />
                             <InputComponent id="user_email" type="email" :required="true" v-model="email"
                                 placeholder="giovanna@mail.com" />
                             <textarea id="user_messagge" label="Messaggio*" type="textarea" v-model="message"
@@ -16,7 +19,7 @@
                         </div>
                     </div>
                     <div class="d-flex flex-column gap-3">
-                        <ButtonComponent class="primary d-flex">
+                        <ButtonComponent :button="true" type="submit" class="primary d-flex">
                             <span class="m-auto">invia richiesta</span>
                         </ButtonComponent>
                         <ButtonComponent @click="goBack" class="accent d-flex">
@@ -47,7 +50,9 @@ export default {
             store,
             name: null,
             email: null,
-            message: null
+            message: null,
+            date: null,
+            today: null
         }
     },
     methods: {
@@ -55,10 +60,35 @@ export default {
             store.contactForm = false;
         },
         sendMessage() {
-            axios.post(store.API_URL + '')
+            const data = {
+
+                email: this.email,
+                fullname: this.name,
+                text: this.message,
+                prefered_date: this.date
+
+            }
+            axios.post(store.API_URL + 'doctors/' + store.singleDoctor.id + '/messages', data).then(res => {
+                this.messageSuccess = 'Messaggio inviato correttamente';
+                store.toast.success(this.messageSuccess, {timeout: 1500});
+                store.contactForm = false
+                this.name = null
+                this.email = null
+                this.message = null
+                this.date = new Date().toISOString().split("T")[0]
+            }).catch(err => {
+                if (err.response.data.errors.prefered_date) {
+                    this.message = err.response.data.errors.date[0];
+                    store.toast.error(this.message, {timeout: 1500});
+                }
+            })
         }
+    },
+    mounted () {
+        this.today = new Date().toISOString().split("T")[0]
+        this.date =  new Date().toISOString().split("T")[0]
     }
-}
+} 
 </script>
 
 <style lang="scss" scoped>
