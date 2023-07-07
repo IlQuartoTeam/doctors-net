@@ -2,8 +2,8 @@
     <div class="modal-wrap">
         <div class="doc-modal p-4">
             <div class="content mt-5 container-fluid">
-                <h1 class="fs-3">Contatta</h1>
-                <h2 class="text-doc-primary fw-bold fs-3">{{ store.singleDoctor.name + ' ' + store.singleDoctor.surname }}</h2>
+                
+                <h2 class="text-doc-primary fw-bold fs-3 text-center"><span class="fs-3 text-doc-blue">Contatta </span>{{ store.singleDoctor.name + ' ' + store.singleDoctor.surname }}</h2>
                 <form @submit.prevent="sendMessage()">
                     <div class="row mt-3">
                         <div class="col-12">
@@ -73,7 +73,7 @@ export default {
     bottom: 0;
     display: grid;
     place-items: center;
-    z-index: 99;
+    z-index: 999999;
 }
 .doc-modal {
     background-color: white;
