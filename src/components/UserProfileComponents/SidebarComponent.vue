@@ -186,8 +186,9 @@ export default {
 @use "../../assets/styles/_variables.scss" as *;
 .button-toggle {
     position: fixed;
-    width: 100%;
+    width: 10%;
     top: 50%;
+    right: 0;
 }
 
 .text-light {
@@ -228,7 +229,6 @@ export default {
         opacity: 1;
         backdrop-filter: blur(2px);
         background-color: #00000020;
-
     }
 
     .changePhotoIcon {
@@ -265,7 +265,6 @@ export default {
     &:hover {
         cursor: pointer;
         margin-right: -5px;
-        background-color: rgba(0, 0, 0, 0.281);
     }
 }
 
