@@ -6,7 +6,7 @@
             <ExperiencesComponent />
             <ReviewComponent :reviews="store.singleDoctor.reviews" />
         </div>
-        <div :class="store.contactForm && 'layover'"></div>
+        <div :class="(store.contactForm || store.addReview) && 'layover'"></div>
 </template>
 
 <script>
