@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="">
+    <div>
       <div class=" mx-0 text-center">
         <div class="d-flex justify-content-center gap-0">
           <h1 class="call">Trova adesso<br class="d-lg-none">
