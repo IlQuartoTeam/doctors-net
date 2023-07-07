@@ -15,7 +15,7 @@
             <ProfileReviews v-if="store.dashboard.reviewsOpen"/>
             <PerformancesUserComponent v-if="store.dashboard.performances" />
             <ChangeUserPassword v-if="store.dashboard.changePassword" />
-            <div class="sideButton d-block d-lg-none py-2">
+            <div class="sideButton d-inline-block d-lg-none py-2">
                 <div v-if="!store.dashboard.sidebarOpen"
                     @click="() => store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen"
                     class="open-side d-flex align-items-center"
@@ -112,7 +112,6 @@ export default {
     &:hover {
         cursor: pointer;
         margin-left: -5px;
-        background-color: rgba(255, 255, 255, 0.548);
     }
 }
 
