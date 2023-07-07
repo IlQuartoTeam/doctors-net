@@ -43,6 +43,7 @@ export default {
             }).addTo(this.map)
           }
           else {
+            store.toast.error("La città cercata è errata", { timeout: 2000 });
             console.log(this.lastRightCoordinates);
             this.map = L.map('map').setView(
               [this.lastRightCoordinates.lat, this.lastRightCoordinates.long],
