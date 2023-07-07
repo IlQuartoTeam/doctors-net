@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="px-5 pt-5 text-doc-blue fw-bold">Le recensioni più recenti</h3>
     <div class="box-button text-center text-md-end me-md-5 mt-5">
     <ButtonComponent  @click="addReview" class="outline">
       <IconPencil :width="20" class="mb-1" />
@@ -8,7 +9,7 @@
     </div>
     <div class="container-fluid mt-5 px-5" v-if="store.singleDoctor">
       <div class="box-reviews container-fluid">
-        <div class="row mb-5 pt-3" v-for="review in store.singleDoctor.reviews">
+        <div class="row mb-5 pt-3" v-for="review in reviews">
           <div class="col-12">
             <h2 class="fw-semibold name" v-if="review.name">{{ review.name }}</h2>
             <h2 class="fw-semibold name" v-else>Utente anonimo</h2>
@@ -44,7 +45,7 @@ import AddReviewComponent from './AddReviewComponent.vue';
 import ButtonComponent from './ButtonComponent.vue';
 export default {
     components: {  IconStar, IconStarFilled, IconPencil, ButtonComponent, IconCirclePlus, AddReviewComponent},
-     props: ['review'],
+     props: ['reviews'],
       data() {
         return {
           store,

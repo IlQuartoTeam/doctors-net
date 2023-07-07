@@ -46,7 +46,8 @@
     top: 0;
     width: 1px;
     height: 100%;
-    background-color: var(--timelineTheme);
+    /* background-color: var(--timelineTheme); */
+    background-color: black;
   }
 
   .timeline-item {
@@ -65,8 +66,8 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    border: 1px solid   #F38F23;
-    background-color:   #F38F23;
+    border: 1px solid   #2FB0BD;
+    background-color:   #2FB0BD;
     z-index: 1;
     box-sizing: content-box;
   }
@@ -79,9 +80,7 @@
     position: relative;
     display: inline-block;
   
-    /**
-     * BFC inline-block 元素与其兄弟元素、子元素和父元素的外边距都不会折叠（包括其父元素和子元素）
-     */
+
     cursor: crosshair;
     margin: -.15em 0 15px 28px
   }
@@ -93,8 +92,8 @@
     top: .15em;
     width: 16px;
     height: 16px;
-    background-color:  #2FB0BD;
-    border: 1px solid   #2FB0BD;
+    background-color:  #E26439;
+    border: 1px solid   #E26439;
    
   }
   .timeline-others {
