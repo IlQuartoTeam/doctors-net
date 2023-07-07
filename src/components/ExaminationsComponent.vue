@@ -1,191 +1,43 @@
 <template>
-    <div> 
-        <div v-if="store.singleDoctor" class="container-fluid my-5">
-            <div class="row">
-                <div class="col">
-                  <ul>
-                    <h2 class="py-2">Prestazioni:</h2>
-                    <li v-for="(examination, index) in takeExaminations" :key="index">{{ examination }} </li>
-
-                        
-                    </ul>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+  <ul class="d-flex flex-column gap-2">
+    <li v-for="(examination, index) in examinations.split(';')" :key="index">{{ examination }} </li>
+  </ul>
 </template>
 
 <script>
 import { store } from '../store/store';
 export default {
-    computed: {
-        takeExaminations() {
-      if (this.store.singleDoctor.examinations) {
-        return this.store.singleDoctor.examinations.split(";");
-      } else {
-        return []
-      }
-      }
- 
-    },
-    data () {
-        
+  props: ['examinations'],
+  data() {
+    return {
+      store
 
-        return {
-            store
-           
-        }
-    },
-    mounted() {
-        console.log (this.takeExaminations)
-    },
+    }
+  },
+  mounted() {
+
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @use "../assets/styles/_variables.scss" as *;
 
-
-h2 {
-    color: $doc-blue;
-   font-weight: bold;
-   letter-spacing: 1px;
-   font-size: 24px;
-   
-}
-ul {
-  list-style-type: none; 
+ul{
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
-
-li {
-  position: relative; 
- padding-left: 22px; 
-  color: rgba($doc-dark, 0.6);
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-li:before {
-  content: "";
-  position: absolute; 
-  left: 2%; 
-  top: 50%; 
-  transform: translate(-50%, -50%); 
-  width: 8px; 
-  height: 8px; 
-  border: 1px solid $doc-primary; 
-  border-radius: 50%;
+li{
+  background-color: $doc-primary;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 20px;
+  position: relative;
+  text-align: center;
+  max-width: fit-content;
 }
 
 
-
-
-
-
-@media only screen and (min-width: 768px) {
-
-
-    li {
-  position: relative; 
-  padding-left: 27px; 
-  font-weight: bold;
-    letter-spacing: 1px;
-  
-}
-
-li:before {
-  content: "";
-  position: absolute; 
-  left: 2.5%; 
-  top: 50%; 
-  transform: translate(-50%, -50%); 
-  width: 8px; 
-  height: 8px; 
-  border: 1px solid  $doc-primary; 
-  border-radius: 50%;
-}
-
-}
-
-
-
-
-
-
-@media only screen and (min-width: 992px) {
-
-    .col {
-    display: flex;
-   
-    justify-content: space-between;
-}
-    
-    
-h2 {
-   font-size: 30px;
-   
-}
-
-    li {
-  position: relative; 
-  padding-left: 27px; 
-  font-size: 20px;
-  font-weight: bold;
-    letter-spacing: 1px;
-}
-
-li:before {
-  content: "";
-  position: absolute; 
-  left: 1.7%; 
-  top: 50%; 
-  transform: translate(-50%, -50%); 
-  width: 10px; 
-  height: 10px; 
-  border: 1px solid  $doc-primary; 
-  border-radius: 50%;
-}
-
-
-}
-
-
-
-
-
-
-@media only screen and (min-width: 1200px) {
-
-    
-
-    h2 {
-   font-size: 32px;
-   
-}
-   
-    li {
-  position: relative; 
-  padding-left: 27px;
-  font-size: 24px; 
-  font-weight: bold;
-    letter-spacing: 1px;
-}
-
-li:before {
-  content: "";
-  position: absolute; 
-  left: 1.3%; 
-  top: 50%; 
-  transform: translate(-50%, -50%); 
-  width: 10px; 
-  height: 10px; 
-  border: 1px solid $doc-primary; 
-  border-radius: 50%;
-
-
-}
-}
 
 </style>
