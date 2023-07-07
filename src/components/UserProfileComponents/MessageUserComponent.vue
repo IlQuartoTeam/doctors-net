@@ -10,18 +10,20 @@
                     <th scope="col" class="text-doc-blue">Gestisci</th>
                 </tr>
             </thead>
-            <tbody v-for="(message, index) in store.userDoctor.messages">
-                <tr @click="openMessage(message)" :class="{ 'beenRead': message.been_read, 'unread' : !message.been_read }"
-                    class="prev-message d-lg-none">
-                    <td class="position-relative text-doc-blue">
+            <tbody>
+                <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(message)"
+                    :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }" class="prev-message d-lg-none">
+                    <td class="position-relative text-doc-blue" @click="readMessage(message, true)">
                         <div class="d-flex flex-column pt-2">
                             <div class="name">
                                 <h6 class="mb-0 fw-bold">{{ message.fullname }}</h6>
                             </div>
                             <h6 class="small text-doc-blue mb-0">{{ message.email }}</h6>
-                            <p class="prevMessage text-doc-blue mb-0">
-                                {{ message.text }}
-                            </p>
+                            <div class="smMessageWrap">
+                                <p class="smMessage text-doc-blue mb-0" :style="{'max-width': screenSize < 576 ? '80vw' : (store.dashboard.sidebarOpen ? '40vw' : '80vw')}">
+                                    {{ message.text }}
+                                </p>
+                            </div>
                         </div>
                         <div class="date">
                             <p>{{ formatDate(message.created_at) }}</p>
@@ -33,15 +35,9 @@
 
                         </div>
                     </td>
-                    <!-- <td>{{ message.fullname }}</td>
-                    <td class="message">
-                        {{ message.text }}
-                    </td>
-                    <td>
-                        elimina
-                    </td> -->
                 </tr>
-                <tr @click="openMessage(index)" class="prev-message d-none d-lg-table-row">
+                <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(index)"
+                    class="prev-message d-none d-lg-table-row">
                     <td>{{ message.fullname }}</td>
                     <td>{{ message.email }}</td>
                     <!-- <td class="d-none">{{ truncateMessage(message.text, 30) }}</td> -->
@@ -94,14 +90,14 @@ export default {
     components: {
         ButtonComponent,
         IconTrash,
-        
+
     },
     data() {
         return {
             store,
             isOpenMessage: false,
             config: { headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` } },
-            readApi: '',
+            screenSize: window.innerWidth,
         }
     },
     methods: {
@@ -133,16 +129,33 @@ export default {
             return number < 10 ? `0${number}` : number;
         },
         readMessage(message, action) {
-            let params = {
-                messageId: message.id,
-                readAction: action
+            if ((message.been_read && action) || (!message.been_read && !action)) {
+                return console.log('nope');
             }
-            axios.put().then(res => {}).catch(res => {})
+            console.log('params: ', message, action);
+            const params = {
+                readAction: action,
+                messageId: message.id
+            }
+            axios.post(store.API_URL + 'doctors/messages/read', params, this.config).then(res => {
+                message.been_read = action ? 1 : 0;
+                console.log(res);
+                console.log(message);
+            }).catch(error => {
+                console.log('errore: ', error);
+            })
+        },
+        getResize() {
+            this.screenSize = window.innerWidth
         }
     },
     mounted() {
         console.log(this.formatDate(store.userDoctor.messages[0].created_at));
+        window.addEventListener('resize', this.getResize);
     },
+    beforeUnmount() {
+
+    }
 }
 </script>
 
@@ -162,33 +175,31 @@ export default {
 }
 
 .beenRead {
-    background-color: #c2c2c220;
+    background-color: #e0e0e070;
 
     &:hover {
-        background-color: #c2c2c220;
+        background-color: #e0e0e070;
 
+        .delete {
+            animation: fadeIn .3s forwards;
+
+        }
     }
+
 }
 
 .unread:hover {
-    background-color: #0071A210;
+    background-color: #0071A220;
 
     .delete {
         animation: fadeIn .3s forwards;
 
     }
-}
 
-.beenRead {
-    background-color: #0071A220;
-
-    &:hover {
-        background-color: #0071A220;
-
-    }
 }
 
 .prev-message {
+
 
 
     cursor: pointer;
@@ -228,12 +239,14 @@ export default {
     text-overflow: ellipsis;
 }
 
-.prevMessage {
+.smMessage {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 80vw;
 }
+
+.smMessageWrap {}
 
 .medikit {
     max-width: 350px;
