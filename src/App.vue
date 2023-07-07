@@ -62,7 +62,7 @@ export default {
     {
       store.isAuthenticated = true
     }
-    if(!this.$cookies.get("privacy","seen"))
+    if(!this.$cookies.get("privacy"))
     {
       store.showCookie = true
     }

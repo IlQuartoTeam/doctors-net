@@ -91,7 +91,7 @@ export default {
                 const specializations = doctor.specializations
                 let itContains = false
                 specializations.forEach((spec) => {
-                    if (spec.name.toLowerCase().includes(this.specializationInput.toLowerCase().trim())) {
+                    if (spec.name.toLowerCase().includes(this.specialization.toLowerCase().trim())) {
                         itContains = true
                     }
                 });
@@ -103,13 +103,20 @@ export default {
             return results
         },
         searchDoctors(city) {
-            
-            this.specialization = this.specializationInput ?? ''
+            this.paginationItems = []
+            // this.specialization = this.specializationInput ?? ''
            
             const rankSelected = (this.ratingSelected === 'all') ? '' : this.ratingSelected
             const specializationSelected = this.specialization ?? ''
-            const apiURL = store.API_URL + 'doctors?city=' + city.trim() + '&specialization=' + specializationSelected +'&vote=' + rankSelected
-         
+            const numberOfReviews = this.reviewCountSelected === 'all' ? '' : this.reviewCountSelected
+            
+            const apiURL = store.API_URL + 'doctors?city=' 
+            + city.trim() 
+            + '&specialization=' + specializationSelected 
+            +'&vote=' + rankSelected
+            + '&nReviews=' + numberOfReviews
+            
+            console.log(apiURL);
             axios.get(apiURL)
                 .then((res) => {
                     this.total = res.data.results.total
@@ -117,6 +124,7 @@ export default {
                     this.filterDoctors(this.sortByPremium(results))
                     this.message = null
                     this.paginationItems = res.data.results
+
 
                 })
                 .catch((err) => {
@@ -217,7 +225,7 @@ export default {
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
                 <div class="searchDoctors w-100">
                     <v-select
-                    v-model="specializationInput"
+                    v-model="specialization"
                     placeholder="Specializzazione"
                     :options="store.specializationsSet"
                     class="w-100"

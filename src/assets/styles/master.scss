@@ -161,12 +161,34 @@ a{
 
 .searchHome{
   .vs__search, .vs__search:active, .vs__search:focus {
-    padding: .6rem 20px;
+    padding: .6rem 10px;
+    position: relative;
   }
+  
 
   .vs__clear {
-    display: none;
-    
+    display: grid;
+    place-items: center;
+    position: absolute;
+    left: 0;
+    padding: 0 10px;
+  
+    &:hover{
+     fill: $doc-red;
+    }   
+  }
+  .vs__selected{
+    margin-left: 20px;
+
+    @media screen and (max-width: 550px) {
+      width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      position: relative;
+      
+    }
+   
   }
 }
 
@@ -176,7 +198,16 @@ a{
     padding: .6rem 20px;
   }
   .vs__clear {
-    display: none;
-    
+    display: grid;
+   place-items: center;
+   position: absolute;
+   left: 5%;
+   &:hover{
+    fill: $doc-red;
+   }
+  
+  }
+  .vs__selected{
+    margin-left: 20px;
   }
 }
