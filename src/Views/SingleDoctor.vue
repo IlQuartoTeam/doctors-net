@@ -1,40 +1,10 @@
 <template>
-    <div v-if="!loading && store.singleDoctor" class="hero d-flex flex-column align-items-center gap-4 mt-5 mx-4 px-5 pb-5">
-        <div class="box-image">
-            <img :src=store.singleDoctor.profile_image_url alt="">
-        </div>
-        <div class="doctor-details d-flex flex-column align-items-center text-center gap-2">
-            <h1 class="fw-semibold">{{ store.singleDoctor.name }} {{ store.singleDoctor.surname }}</h1>
-            <div class="specialization" v-for="specialization in store.singleDoctor.specializations">
-                <h5 class="fs-4">{{ specialization.name }}</h5>
-            </div>
-            <div class="d-flex align-items-center justify-content-center pb-2 pt-md-0">
-                <span v-for="star in this.stars">
-                    <IconStarFilled class="text-doc-accent" v-if="star" />
-                    <IconStar v-else />
-                </span>
-            </div>
-            <ButtonComponent @click="contactNow" class="primary w-75"><span class="text-uppercase ">contatta</span></ButtonComponent>
-            <ContactFormComponent v-if="store.contactForm" />
-        </div>
+    <div v-if="!loading && store.singleDoctor" class="d-flex flex-column gap-4">
+         <SingleDoctorInfo :doctor="store.singleDoctor" />
+         <InfoDoctorMapComponent :doctor="store.singleDoctor" />
+         <ExperiencesComponent />   
+         <ReviewComponent :reviews="store.singleDoctor.reviews" />    
     </div>
-    <div class="advanced mt-3">
-        <div v-if="store.singleDoctor" class="box-section d-flex ms-5 gap-2">
-            <span @click="openSection('info')" :class="[this.isSelected === 'info' ? 'selected' : '']" class="fw-semibold pe-5">Informazioni</span>
-            <span @click="openSection('review')" :class="[this.isSelected === 'review' ? 'selected' : '']" class="fw-semibold pe-5">Recensioni ({{ store.singleDoctor.reviews.length }})</span>
-            <span @click="openSection('curriculum')" :class="[this.isSelected === 'curriculum' ? 'selected' : '']" class="fw-semibold pe-5">Curriculum Vitae</span>
-        </div>
-       
-    </div>
-    <div v-if="store.singleDoctor" class="components">
-        <div v-if="isOpen === 'info'" class="info-doctor">
-            <InfoDoctorMapComponent />
-            <ExaminationsComponent doctor="store.singleDoctor" />
-        </div>
-        <ReviewComponent v-if="isOpen === 'review'" />
-        <ExperiencesComponent v-if="isOpen === 'curriculum'" />   
-    </div>
-    <div v-if="store.contactForm || store.addReview" class="layover"></div>
     
 </template>
 
@@ -47,10 +17,11 @@ import ExaminationsComponent from '../components/ExaminationsComponent.vue';
 import ReviewComponent from '../components/ReviewComponent.vue';
 import ExperiencesComponent from '../components/ExperiencesComponent.vue';
 import InfoDoctorMapComponent from '../components/InfoDoctorMapComponent.vue';
+import SingleDoctorInfo from '../components/SingleDoctorInfo.vue';
 import ContactFormComponent from '../components/ContactFormComponent.vue';
 
     export default {
-        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent, ReviewComponent, InfoDoctorMapComponent, ContactFormComponent},
+        components: { IconStar, IconStarFilled, ButtonComponent, ExperiencesComponent, ExaminationsComponent, ReviewComponent, InfoDoctorMapComponent, ContactFormComponent, SingleDoctorInfo },
         data () {
             return {
                 store,
@@ -112,7 +83,7 @@ import ContactFormComponent from '../components/ContactFormComponent.vue';
         .box-image{
             width: 300px;
             height: 300px;
-            border-radius: 50%;
+            border-radius: 20px;
             overflow: hidden;
 
             img{
