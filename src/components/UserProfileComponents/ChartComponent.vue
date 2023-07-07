@@ -34,7 +34,7 @@ import {
 } from 'chart.js'
 import { Line } from 'vue-chartjs';
 import moment from 'moment'
-import { store } from '../store/store'
+import { store } from '../../store/store'
 
 ChartJS.register(
   CategoryScale,

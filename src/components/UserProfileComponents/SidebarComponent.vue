@@ -91,14 +91,14 @@ import { IconShieldLock } from '@tabler/icons-vue';
 import { IconReceipt2 } from '@tabler/icons-vue';
 import { IconBriefcase } from '@tabler/icons-vue';
 import { IconInfoCircle } from '@tabler/icons-vue';
-import { store } from '../store/store';
+import { store } from '../../store/store';
 import { IconHome } from '@tabler/icons-vue';
 import { IconMessageCircle2 } from '@tabler/icons-vue';
 import { IconUserStar } from '@tabler/icons-vue';
 import { IconSettings } from '@tabler/icons-vue';
 import { IconChevronRight } from '@tabler/icons-vue';
 import { IconChevronLeft } from '@tabler/icons-vue';
-import ButtonComponent from './ButtonComponent.vue';
+import ButtonComponent from '../ButtonComponent.vue';
 import axios from 'axios';
 
 export default {
@@ -183,7 +183,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "../assets/styles/_variables.scss" as *;
+@use "../../assets/styles/_variables.scss" as *;
 .button-toggle {
     position: fixed;
     width: 100%;
