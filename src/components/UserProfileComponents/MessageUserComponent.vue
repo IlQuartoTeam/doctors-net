@@ -280,7 +280,7 @@ export default {
     }
 
     .messageContent {
-        background-color: #e6e6e6;
+        background-color: #e6e6e660;
         border-radius: 5px;
         min-height: 300px;
     }
