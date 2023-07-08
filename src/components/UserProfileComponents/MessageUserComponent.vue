@@ -165,7 +165,7 @@ export default {
             if (!message) {
                 return console.log('errore messaggio');
             }
-            axios.delete(`${store.API_URL}doctors/${store.userDoctor.id}/messages/${message.id}`, { message }, this.config).then(res => {
+            axios.post(`${store.API_URL}messages/${message.id}/delete`, { message }, this.config).then(res => {
                 console.log('Miiii messaggio eliminato', res);
                 store.userDoctor.messages.splice(index, 1)
             }).catch(err => {
