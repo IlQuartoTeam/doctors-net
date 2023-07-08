@@ -4,13 +4,14 @@
         <table class="table">
             <thead>
                 <tr class="d-none d-lg-table-row">
-                    <th scope="col" class=" text-doc-blue">Nome</th>
-                    <th scope="col" class=" text-doc-blue">Email</th>
-                    <th scope="col" class="w-100 text-doc-blue">Messaggio</th>
-                    <th scope="col" class="text-doc-blue">Gestisci</th>
+                    <th scope="col" class=" text-doc-blue"></th>
+                    <th scope="col" class=" w-100 text-doc-blue"></th>
+                    <th scope="col" class=" text-doc-blue"></th>
+                    <!-- <th scope="col" class="text-doc-blue"></th> -->
                 </tr>
             </thead>
             <tbody>
+                <!-- MOBILE & TABLET -->
                 <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(message)"
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }" class="prev-message d-lg-none">
                     <td class="position-relative text-doc-blue" @click="readMessage(message, true)">
@@ -33,10 +34,12 @@
                             <div class="delete" @click.stop.once="deleteMessage(message, index)">
                                 <IconTrash />
                             </div>
-                            <div @click.stop.once="readMessage(message, true)" v-if="!message.been_read" class="readMail mailIcons d-none d-md-block">
+                            <div @click.stop.once="readMessage(message, true)" v-if="!message.been_read"
+                                class="readMail mailIcons d-none d-md-block">
                                 <IconMailOpened />
                             </div>
-                            <div @click.stop.once="readMessage(message, false)" v-if="message.been_read" class="unreadMail mailIcons d-none d-md-block">
+                            <div @click.stop.once="readMessage(message, false)" v-if="message.been_read"
+                                class="unreadMail mailIcons d-none d-md-block">
                                 <IconMail />
                             </div>
                             <a @click.stop="" :href="'mailto:' + message.email" class="sendMail d-none d-sm-block">
@@ -46,18 +49,53 @@
                         </div>
                     </td>
                 </tr>
+                <!-- PC -->
                 <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(index)"
-                    class="prev-message d-none d-lg-table-row"
+                    class="prev-message pcTable d-none d-lg-table-row text-doc-blue position-relative"
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }">
-                    <td class="lgName">{{ message.fullname }}</td>
-                    <td class="lgMail">{{ message.email }}</td>
-                    <!-- <td class="d-none">{{ truncateMessage(message.text, 30) }}</td> -->
-                    <td class="message">
+                    <td class="lgName text-doc-blue fw-bold">{{ message.fullname }}</td>
+
+                    <td class="message text-doc-blue">
                         {{ message.text }}
                     </td>
-                    <td>
-                        elimina
+                    <!-- <td class="d-none">{{ truncateMessage(message.text, 30) }}</td> -->
+                    <td class="lgDate text-doc-blue text-end">
+                        <p class="mb-0">{{ formatDate(message.created_at) }}</p>
                     </td>
+                    <td class="large actions">
+                        <div class="actionsContainer d-flex align-items-center gap-1">
+                            <div class="delete" @click.stop.once="deleteMessage(message, index)">
+                                <IconTrash />
+                            </div>
+                            <div @click.stop.once="readMessage(message, true)" v-if="!message.been_read"
+                                class="readMail mailIcons d-none d-md-block">
+                                <IconMailOpened />
+                            </div>
+                            <div @click.stop.once="readMessage(message, false)" v-if="message.been_read"
+                                class="unreadMail mailIcons d-none d-md-block">
+                                <IconMail />
+                            </div>
+                            <a @click.stop="" :href="'mailto:' + message.email" class="sendMail d-none d-sm-block">
+                                <IconAt />
+                            </a>
+                        </div>
+                    </td>
+                    <!-- <div class="large actions position-absolute d-flex align-items-center gap-1">
+                        <div class="delete" @click.stop.once="deleteMessage(message, index)">
+                            <IconTrash />
+                        </div>
+                        <div @click.stop.once="readMessage(message, true)" v-if="!message.been_read"
+                            class="readMail mailIcons d-none d-md-block">
+                            <IconMailOpened />
+                        </div>
+                        <div @click.stop.once="readMessage(message, false)" v-if="message.been_read"
+                            class="unreadMail mailIcons d-none d-md-block">
+                            <IconMail />
+                        </div>
+                        <a @click.stop="" :href="'mailto:' + message.email" class="sendMail d-none d-sm-block">
+                            <IconAt />
+                        </a>
+                    </div> -->
                 </tr>
             </tbody>
         </table>
@@ -106,7 +144,8 @@ export default {
         IconTrash,
         IconMailOpened,
         IconMail,
-        IconAt
+        IconAt,
+
     },
     data() {
         return {
@@ -114,6 +153,7 @@ export default {
             isOpenMessage: false,
             config: { headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` } },
             screenSize: window.innerWidth,
+
         }
     },
     methods: {
@@ -205,7 +245,7 @@ export default {
     background-color: #e0e0e070;
 
     &:hover {
-        background-color: #e0e0e070;
+        background-color: #aeaeae70;
 
         .delete {
             animation: fadeIn .3s forwards;
@@ -248,6 +288,10 @@ export default {
 .prev-message {
 
 
+    .lgDate {
+        white-space: nowrap;
+        color: $doc-primary;
+    }
 
     cursor: pointer;
     transition: all .5s;
@@ -269,7 +313,7 @@ export default {
     .actions {
         bottom: .5rem;
         right: .5rem;
-        
+
         .delete {
             transition: all .3s;
             opacity: 0;
@@ -289,6 +333,7 @@ export default {
                 color: #0071A250;
             }
         }
+
         .sendMail {
             transition: all .3s;
             opacity: 0;
@@ -299,8 +344,53 @@ export default {
             }
         }
     }
+
+
 }
 
+.pcTable{
+    &:hover{
+        .lgDate{
+            display: none;
+        }
+        .actions{
+            display: table-cell;
+        }
+
+    }
+    .actions{
+        display: none;
+    }
+}
+
+/* .pcTable {
+    .actions {
+        top: 1px;
+        bottom: 1px;
+        right: 0px;
+        padding: .5rem .5rem .5rem 1rem;
+        opacity: 0;
+        transition: all .3;
+    }
+}
+
+.beenRead {
+    &:hover {
+        .actions {
+            background-color: #D8D8D8;
+            opacity: 1;
+        }
+    }
+}
+.unread {
+    &:hover {
+        .actions {
+            opacity: 1;
+            background-color: #DBE9EF;
+        }
+    }
+}
+ */
 .message {
     max-width: 10px;
     white-space: nowrap;
@@ -344,4 +434,5 @@ td {
         opacity: 1;
         scale: 1;
     }
-}</style>
+}
+</style>
