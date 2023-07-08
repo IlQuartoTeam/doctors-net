@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div v-if="store.userDoctor" class="userMainInfo">
-                <h6 class="fw-semibold fs-5 text-doc-blue text-center"><a :href="'/doctors/' + store.userDoctor.slug">{{ store.userDoctor.name }} {{
+                <h6 class="fw-semibold fs-5 text-doc-blue text-center"><a class="text-doc-blue" :href="'/doctors/' + store.userDoctor.slug">{{ store.userDoctor.name }} {{
                     store.userDoctor.surname }}</a> </h6>
                 <div v-if="store.userDoctor.specializations[0] != ''"
                     class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
