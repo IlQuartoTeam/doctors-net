@@ -15,12 +15,13 @@
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }" class="prev-message d-lg-none">
                     <td class="position-relative text-doc-blue" @click="readMessage(message, true)">
                         <div class="d-flex flex-column pt-2">
-                            <div class="name">
+                            <div class="smName">
                                 <h6 class="mb-0 fw-bold">{{ message.fullname }}</h6>
                             </div>
                             <h6 class="small text-doc-blue mb-0">{{ message.email }}</h6>
                             <div class="smMessageWrap">
-                                <p class="smMessage text-doc-blue mb-0" :style="{'max-width': screenSize < 576 ? '80vw' : (store.dashboard.sidebarOpen ? '40vw' : '80vw')}">
+                                <p class="smMessage text-doc-blue mb-0"
+                                    :style="{ 'max-width': screenSize < 576 ? '80vw' : (store.dashboard.sidebarOpen ? '40vw' : '80vw') }">
                                     {{ message.text }}
                                 </p>
                             </div>
@@ -28,18 +29,28 @@
                         <div class="date">
                             <p>{{ formatDate(message.created_at) }}</p>
                         </div>
-                        <div class="actions position-absolute d-flex">
-                            <div class="delete p-2">
+                        <div class="actions position-absolute d-flex align-items-center gap-1 p-2">
+                            <div class="delete" @click.stop.once="deleteMessage(message, index)">
                                 <IconTrash />
                             </div>
+                            <div @click.stop.once="readMessage(message, true)" v-if="!message.been_read" class="readMail mailIcons d-none d-md-block">
+                                <IconMailOpened />
+                            </div>
+                            <div @click.stop.once="readMessage(message, false)" v-if="message.been_read" class="unreadMail mailIcons d-none d-md-block">
+                                <IconMail />
+                            </div>
+                            <a @click.stop="" :href="'mailto:' + message.email" class="sendMail d-none d-sm-block">
+                                <IconAt />
+                            </a>
 
                         </div>
                     </td>
                 </tr>
                 <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(index)"
-                    class="prev-message d-none d-lg-table-row">
-                    <td>{{ message.fullname }}</td>
-                    <td>{{ message.email }}</td>
+                    class="prev-message d-none d-lg-table-row"
+                    :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }">
+                    <td class="lgName">{{ message.fullname }}</td>
+                    <td class="lgMail">{{ message.email }}</td>
                     <!-- <td class="d-none">{{ truncateMessage(message.text, 30) }}</td> -->
                     <td class="message">
                         {{ message.text }}
@@ -81,6 +92,9 @@
 </template>
 
 <script>
+import { IconAt } from '@tabler/icons-vue';
+import { IconMail } from '@tabler/icons-vue';
+import { IconMailOpened } from '@tabler/icons-vue';
 import { IconTrash } from '@tabler/icons-vue';
 import { store } from '../../store/store';
 import ButtonComponent from '../ButtonComponent.vue';
@@ -90,7 +104,9 @@ export default {
     components: {
         ButtonComponent,
         IconTrash,
-
+        IconMailOpened,
+        IconMail,
+        IconAt
     },
     data() {
         return {
@@ -145,6 +161,17 @@ export default {
                 console.log('errore: ', error);
             })
         },
+        deleteMessage(message, index) {
+            if (!message) {
+                return console.log('errore messaggio');
+            }
+            axios.delete(`${store.API_URL}doctors/${store.userDoctor.id}/messages/${message.id}`, { message }, this.config).then(res => {
+                console.log('Miiii messaggio eliminato', res);
+                store.userDoctor.messages.splice(index, 1)
+            }).catch(err => {
+                console.log('stocazzo: ', err);
+            })
+        },
         getResize() {
             this.screenSize = window.innerWidth
         }
@@ -184,6 +211,16 @@ export default {
             animation: fadeIn .3s forwards;
 
         }
+
+        .mailIcons {
+            animation: fadeIn .3s .1s forwards;
+
+        }
+
+        .sendMail {
+            animation: fadeIn .3s .2s forwards;
+
+        }
     }
 
 }
@@ -193,6 +230,16 @@ export default {
 
     .delete {
         animation: fadeIn .3s forwards;
+
+    }
+
+    .mailIcons {
+        animation: fadeIn .3s .1s forwards;
+
+    }
+
+    .sendMail {
+        animation: fadeIn .3s .2s forwards;
 
     }
 
@@ -215,18 +262,40 @@ export default {
         opacity: .7;
     }
 
-
+    .lgName {
+        white-space: nowrap;
+    }
 
     .actions {
         bottom: .5rem;
         right: .5rem;
-
+        
         .delete {
+            transition: all .3s;
             opacity: 0;
             color: $doc-accent;
 
             &:hover {
                 color: $doc-red;
+            }
+        }
+
+        .mailIcons {
+            transition: all .3s;
+            opacity: 0;
+            color: $doc-primary;
+
+            &:hover {
+                color: #0071A250;
+            }
+        }
+        .sendMail {
+            transition: all .3s;
+            opacity: 0;
+            color: #0071A290;
+
+            &:hover {
+                color: #01567b;
             }
         }
     }
@@ -275,5 +344,4 @@ td {
         opacity: 1;
         scale: 1;
     }
-}
-</style>
+}</style>
