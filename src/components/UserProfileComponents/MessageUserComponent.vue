@@ -30,7 +30,7 @@
                             <p>{{ formatDate(message.created_at) }}</p>
                         </div>
                         <div class="actions position-absolute d-flex align-items-center gap-1 p-2">
-                            <div class="delete">
+                            <div class="delete" @click.stop.once="deleteMessage(message, index)">
                                 <IconTrash />
                             </div>
                             <div @click.stop.once="readMessage(message, true)" v-if="!message.been_read" class="readMail mailIcons d-none d-md-block">
@@ -159,6 +159,17 @@ export default {
                 console.log(message);
             }).catch(error => {
                 console.log('errore: ', error);
+            })
+        },
+        deleteMessage(message, index) {
+            if (!message) {
+                return console.log('errore messaggio');
+            }
+            axios.delete(`${store.API_URL}doctors/${store.userDoctor.id}/messages/${message.id}`, { message }, this.config).then(res => {
+                console.log('Miiii messaggio eliminato', res);
+                store.userDoctor.messages.splice(index, 1)
+            }).catch(err => {
+                console.log('stocazzo: ', err);
             })
         },
         getResize() {
