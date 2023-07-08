@@ -35,14 +35,14 @@
                                 <IconTrash />
                             </div>
                             <div @click.stop.once="readMessage(message, true)" v-if="!message.been_read"
-                                class="readMail mailIcons d-none d-md-block">
+                                class="readMail mailIcons d-none d-sm-block">
                                 <IconMailOpened />
                             </div>
                             <div @click.stop.once="readMessage(message, false)" v-if="message.been_read"
-                                class="unreadMail mailIcons d-none d-md-block">
+                                class="unreadMail mailIcons d-none d-sm-block">
                                 <IconMail />
                             </div>
-                            <a @click.stop="" :href="'mailto:' + message.email" class="sendMail d-none d-sm-block">
+                            <a @click.stop="" :href="'mailto:' + message.email" class="sendMail d-none d-md-block">
                                 <IconAt />
                             </a>
 
@@ -50,7 +50,7 @@
                     </td>
                 </tr>
                 <!-- PC -->
-                <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(index)"
+                <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(message)"
                     class="prev-message pcTable d-none d-lg-table-row text-doc-blue position-relative"
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }">
                     <td class="lgName text-doc-blue fw-bold">{{ message.fullname }}</td>
@@ -68,14 +68,14 @@
                                 <IconTrash />
                             </div>
                             <div @click.stop.once="readMessage(message, true)" v-if="!message.been_read"
-                                class="readMail mailIcons d-none d-md-block">
+                                class="readMail mailIcons d-none d-sm-block">
                                 <IconMailOpened />
                             </div>
                             <div @click.stop.once="readMessage(message, false)" v-if="message.been_read"
-                                class="unreadMail mailIcons d-none d-md-block">
+                                class="unreadMail mailIcons d-none d-sm-block">
                                 <IconMail />
                             </div>
-                            <a @click.stop="" :href="'mailto:' + message.email" class="sendMail d-none d-sm-block">
+                            <a @click.stop="" :href="'mailto:' + message.email" class="sendMail d-none d-md-block">
                                 <IconAt />
                             </a>
                         </div>
@@ -104,35 +104,40 @@
     <!-- THE SHOW -->
 
 
-    <div v-if="isOpenMessage" class="container-fluid pb-5" id="show">
-        <div class="miniNav d-flex justify-content-between">
-            <div class="return">
-                <IconArrowLeft/>
+    <div v-if="isOpenMessage" class="container-fluid pb-5 messageShow" id="show">
+        <div class="miniNav d-flex justify-content-between align-items-center py-3">
+            <div class="return text-doc-blue" @click="openMessage">
+                <IconArrowLeft />
             </div>
             <div class="buttons d-flex align-items-center gap-1 p-2">
-                            <div class="destroy" @click.stop.once="deleteMessage(messageToView, index)">
-                                <IconTrash />
-                            </div>
-                            <a @click.stop="" :href="'mailto:' + messageToView.email" class="sendMail d-none d-sm-block">
-                                <IconAt />
-                            </a>
+                <div class="destroy" @click.stop.once="deleteMessage(messageToView, index, true)">
+                    <IconTrash />
+                </div>
+                <a @click.stop="" :href="'mailto:' + messageToView.email" class="sendMail">
+                    <IconAt />
+                </a>
 
-                        </div>
-            
+            </div>
+
         </div>
-        <div class="message-details d-flex flex-column gap-2">
-            <h6><span class="fw-semibold text-doc-primary senderName">Ricevuto da: </span>{{ messageToView.fullname }}</h6>
-            <h6><span class="fw-semibold text-doc-primary senderMail">Email: </span>{{ messageToView.email }}</h6>
-            <h6><span class="fw-semibold text-doc-primary senderText">Messaggio: </span>{{ messageToView.text }}</h6>
+        <div class="message-details d-flex p-2 justify-content-between">
+            <div>
+                <h6 class="mb-0 text-doc-blue senderName">{{ messageToView.fullname }}</h6>
+                <h6 class="mb-0 text-doc-blue senderMail">({{ messageToView.email }})</h6>
+            </div>
+            <div class="showDate">
+                <p class="mb-0 text-doc-blue">{{ formatDate(messageToView.created_at) }}</p>
+            </div>
+        </div>
+        <div class="messageContent mt-3 p-2">
+            <p class="senderText">{{ messageToView.text }}</p>
+
         </div>
         <!-- <div v-for="(message, index) in store.userDoctor.messages" class="message-details d-flex flex-column gap-2">
             <h6><span class="fw-semibold">Ricevuto da: </span>{{ message.fullname }}</h6>
             <h6><span class="fw-semibold">Email: </span>{{ message.email }}</h6>
             <h6><span class="fw-semibold">Messaggio: </span>{{ message.text }}</h6>
         </div> -->
-        <div class="text-center mt-4">
-            <ButtonComponent @click="openMessage" className="button-doctor outline">Indietro</ButtonComponent>
-        </div>
     </div>
 
 
@@ -143,7 +148,7 @@
         <div class="medikit col-6">
             <img class="img-fluid" src="/img/other/medikit.png" alt="">
         </div>
-        <h2 class="col-10">Fra ma non hai manco un messaggio?! che sfigato</h2>
+        <h2 class="col-10 pb-4">Non hai ancora ricevuto nessun messaggio</h2>
         <!-- <h2>Non hai ancora nessun messaggio</h2> -->
     </div>
 </template>
@@ -222,7 +227,7 @@ export default {
                 console.log('errore: ', error);
             })
         },
-        deleteMessage(message, index) {
+        deleteMessage(message, index, goBack = false) {
             if (!message) {
                 return console.log('errore messaggio');
             }
@@ -232,6 +237,9 @@ export default {
             }).catch(err => {
                 console.log('stocazzo: ', err);
             })
+            if (goBack) {
+                this.openMessage(message)
+            }
         },
         getResize() {
             this.screenSize = window.innerWidth
@@ -253,6 +261,42 @@ export default {
 #index,
 #show {
     min-height: 50vh;
+}
+
+.messageShow {
+    .miniNav {}
+
+    .senderName {
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .senderMail {
+        font-size: .8rem;
+    }
+
+    .senderText {
+        color: #0D0D0D99;
+    }
+
+    .messageContent {
+        background-color: #e6e6e6;
+        border-radius: 5px;
+        min-height: 300px;
+    }
+
+    .destroy {
+        transition: all .3s;
+        color: $doc-accent;
+        cursor: pointer;
+
+        &:hover {
+            color: $doc-red;
+        }
+    }
+    .return{
+        cursor: pointer;
+    }
 }
 
 .table {
@@ -369,17 +413,19 @@ export default {
 
 }
 
-.pcTable{
-    &:hover{
-        .lgDate{
+.pcTable {
+    &:hover {
+        .lgDate {
             display: none;
         }
-        .actions{
+
+        .actions {
             display: table-cell;
         }
 
     }
-    .actions{
+
+    .actions {
         display: none;
     }
 }
