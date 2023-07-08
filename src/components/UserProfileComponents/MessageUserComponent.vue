@@ -63,7 +63,7 @@
                         <p class="mb-0">{{ formatDate(message.created_at) }}</p>
                     </td>
                     <td class="large actions">
-                        <div class="actionsContainer d-flex align-items-center gap-1">
+                        <div class="actionsContainer d-flex justify-content-end align-items-center gap-1">
                             <div class="delete" @click.stop.once="deleteMessage(message, index)">
                                 <IconTrash />
                             </div>
