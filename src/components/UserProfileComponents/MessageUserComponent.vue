@@ -101,15 +101,29 @@
         </table>
     </div>
 
-    <!-- MESSAGGIO SINGOLO APERTO -->
+    <!-- THE SHOW -->
 
 
-    <div v-if="isOpenMessage" class="container-fluid mt-4" id="show">
-        <h1 class="text-h2 text-doc-blue fw-semibold text-center mb-4">Messaggio</h1>
+    <div v-if="isOpenMessage" class="container-fluid pb-5" id="show">
+        <div class="miniNav d-flex justify-content-between">
+            <div class="return">
+                <IconArrowLeft/>
+            </div>
+            <div class="buttons d-flex align-items-center gap-1 p-2">
+                            <div class="destroy" @click.stop.once="deleteMessage(messageToView, index)">
+                                <IconTrash />
+                            </div>
+                            <a @click.stop="" :href="'mailto:' + messageToView.email" class="sendMail d-none d-sm-block">
+                                <IconAt />
+                            </a>
+
+                        </div>
+            
+        </div>
         <div class="message-details d-flex flex-column gap-2">
-            <h6><span class="fw-semibold text-doc-primary">Ricevuto da: </span>{{ messageToView.fullname }}</h6>
-            <h6><span class="fw-semibold text-doc-primary">Email: </span>{{ messageToView.email }}</h6>
-            <h6><span class="fw-semibold text-doc-primary">Messaggio: </span>{{ messageToView.text }}</h6>
+            <h6><span class="fw-semibold text-doc-primary senderName">Ricevuto da: </span>{{ messageToView.fullname }}</h6>
+            <h6><span class="fw-semibold text-doc-primary senderMail">Email: </span>{{ messageToView.email }}</h6>
+            <h6><span class="fw-semibold text-doc-primary senderText">Messaggio: </span>{{ messageToView.text }}</h6>
         </div>
         <!-- <div v-for="(message, index) in store.userDoctor.messages" class="message-details d-flex flex-column gap-2">
             <h6><span class="fw-semibold">Ricevuto da: </span>{{ message.fullname }}</h6>
@@ -120,6 +134,11 @@
             <ButtonComponent @click="openMessage" className="button-doctor outline">Indietro</ButtonComponent>
         </div>
     </div>
+
+
+
+
+    <!-- NO MESSAGES SECTION -->
     <div v-if="store.userDoctor.messages.length < 1" class="noMessage text-center pt-3 row justify-content-center">
         <div class="medikit col-6">
             <img class="img-fluid" src="/img/other/medikit.png" alt="">
@@ -130,6 +149,7 @@
 </template>
 
 <script>
+import { IconArrowLeft } from '@tabler/icons-vue';
 import { IconAt } from '@tabler/icons-vue';
 import { IconMail } from '@tabler/icons-vue';
 import { IconMailOpened } from '@tabler/icons-vue';
@@ -145,6 +165,7 @@ export default {
         IconMailOpened,
         IconMail,
         IconAt,
+        IconArrowLeft
 
     },
     data() {
