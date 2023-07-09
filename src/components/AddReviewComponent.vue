@@ -83,7 +83,7 @@ export default {
         },
         resetStars() {
             if(this.rating === null) {
-                this.starVote = null;
+                this.starVote = -1;
             }
         },
         sendReview() {
