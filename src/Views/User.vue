@@ -14,6 +14,7 @@
             <ExperiencesUserComponent v-if="store.dashboard.experiences" />
             <ProfileReviews v-if="store.dashboard.reviewsOpen"/>
             <PerformancesUserComponent v-if="store.dashboard.performances" />
+            <SponsorizationComponent v-if="store.dashboard.sponsor"/>
             <ChangeUserPassword v-if="store.dashboard.changePassword" />
             <div class="sideButton d-inline-block d-lg-none py-2">
                 <div v-if="!store.dashboard.sidebarOpen"
@@ -28,6 +29,7 @@
 </template>
  
 <script>
+import SponsorizationComponent from '../components/UserProfileComponents/SponsorizationComponent.vue';
 import ProfileReviews from '../components/UserProfileComponents/ProfileReviews.vue';
 import DoctorCard from '../components/DoctorCard.vue';
 import axios from 'axios';
@@ -45,7 +47,7 @@ import ChangeUserPassword from '../components/UserProfileComponents/ChangeUserPa
 import ExperiencesUserComponent from '../components/UserProfileComponents/ExperiencesUserComponent.vue';
 
 export default {
-    components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, ChangeUserPassword, IconChevronRight, ExperiencesUserComponent, ProfileReviews },
+    components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, ChangeUserPassword, IconChevronRight, ExperiencesUserComponent, ProfileReviews, SponsorizationComponent },
     data() {
         return {
             store,
