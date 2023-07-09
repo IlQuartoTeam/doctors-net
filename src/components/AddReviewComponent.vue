@@ -8,8 +8,12 @@
                         <span v-for="(star, index) in totals" @click="starSelected(index)" @mouseover="starHovered(index)">
                             <IconStar v-if="index > starVote" />
                             <IconStarFilled v-else class="text-doc-accent" />
+
                         </span>
+
                     </div>
+                    <p v-if="noVote" class="text-doc-red text-center mt-2">Seleziona almeno una stella</p>
+
                     <div class="row mt-3">
                         <div class="col-12">
                             <InputComponent id="user_name" type="text" v-model="name"
@@ -57,8 +61,9 @@ export default {
             text: null,
             rating: null,
             totals: [1, 2, 3, 4, 5],
-            starVote: null,
-            message: ''
+            starVote: -1,
+            message: '',
+            noVote:false,
         }
     },
     methods: {
@@ -66,6 +71,7 @@ export default {
             store.addReview = false;
         },
         starSelected(value) {
+            this.noVote = false
             this.starVote = value;
             this.rating = value + 1;
             console.log('Rating:', this.rating);
@@ -81,6 +87,13 @@ export default {
             }
         },
         sendReview() {
+            if (this.starVote === -1) {
+                this.noVote = true
+                return
+            }
+            else {
+                this.noVote = false
+            }
             axios.post(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews', {
                 email: this.email,
                 name: this.name,
