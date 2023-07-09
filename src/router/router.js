@@ -13,7 +13,7 @@ import Team from '../Views/Team.vue';
 
 
 const routes = [
-  { path: '/',name:'home', component: Home },
+  { path: '/',name:'home', component: Home},
   { path: '/login',name: 'login', component: Login },
   { path: '/register',name: 'register', component: Register },
   { path: '/users/profile', component: User },
@@ -30,5 +30,13 @@ const routes = [
     history: createWebHistory(),
     routes,
   })
+
+router.beforeEach((to, from) => {
+  localStorage.setItem('lastVisitTime', Date.now())
+  window.scrollTo({
+    top: 0,
+    behavior: 'instant'
+  });
+});
 
   export default router
