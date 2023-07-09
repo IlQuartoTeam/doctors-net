@@ -246,7 +246,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.formatDate(store.userDoctor.messages[0].created_at));
         window.addEventListener('resize', this.getResize);
     },
     beforeUnmount() {
