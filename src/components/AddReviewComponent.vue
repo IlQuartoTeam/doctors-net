@@ -81,9 +81,6 @@ export default {
             }
         },
         sendReview() {
-            if(this.rating === null) {
-                this.rating = 1;
-            }
             axios.post(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews', {
                 email: this.email,
                 name: this.name,
@@ -106,6 +103,9 @@ export default {
             })
         },
     },
+    mounted() {
+        console.log(this.rating);
+    }
         
     }
 </script>
