@@ -65,6 +65,7 @@ export default {
                     store.userDoctor = { ...res.data.doctor, ...res.data.user }
                     router.push('/users/profile')
                     this.getReviews()
+                    this.getMessages()
                 }).catch(err => {
                     this.message.text = 'Ooops! Si è verificato un errore.'
                     this.loading = false
@@ -76,6 +77,17 @@ export default {
             axios.get('api/doctors/' + store.userDoctor.id + '/reviews')
             .then((res) => {
                 store.personalReviews = res.data
+
+
+            }).catch((err) => {
+
+
+            })
+        },
+        getMessages() {
+            axios.get('api/doctors/' + store.userDoctor.id + '/messages')
+            .then((res) => {
+                store.personalMessages = res.data
 
 
             }).catch((err) => {
