@@ -1,7 +1,11 @@
 <template>
     <div v-if="store.userDoctor?.reviews.length > 0" class="reviewsWrapper">
-        <div class="container-fluid mt-5 px-5">
+        
+        <div class="container-fluid mt-4 px-5">
+            <h1 class="text-h2 text-doc-blue fw-semibold">Le tue recensioni</h1>
+
             <div class="box-reviews container-fluid">
+                
                 <div class="row mb-5 pt-3" v-for="review in store.personalReviews">
                     <div class="col-12">
                         <h2 class="fw-semibold name" v-if="review.name">{{ review.name }}</h2>
