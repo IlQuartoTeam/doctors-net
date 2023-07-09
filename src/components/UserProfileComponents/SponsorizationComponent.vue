@@ -1,11 +1,11 @@
 <template>
     <div class="container">
         <div>
-            <h1 class="text-doc-blue pt-2 fw-bold">Acquista un pacchetto</h1>
+            <h1 class="text-doc-blue pt-2 fw-bolder">Acquista un pacchetto</h1>
             <p class="text-doc-blue">Appari prima di tutti nelle ricerche degli utenti, acquistando uno dei nostri pacchetti
             </p>
         </div>
-        <div class="cards d-flex justify-content-evenly align-items-center">
+        <div class="cards d-flex justify-content-evenly py-5 align-items-center">
             <div class="base d-flex flex-column align-items-center gap-2">
                 <h6 class="text-doc-blue small">Base</h6>
                 <h2 class="text-doc-blue fw-bold fs-1 my-0 px-4">24 <span class="fw-normal fs-4">ore</span></h2>
