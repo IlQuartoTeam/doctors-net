@@ -72,7 +72,7 @@ export default {
 
 </script>
       
-<style lang="scss">
+<style lang="scss" scoped>
 @use "../assets/styles/_variables.scss" as *;
 
 
