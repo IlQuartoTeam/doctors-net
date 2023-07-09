@@ -7,7 +7,7 @@
       <span class="ps-2 fw-semibold">Aggiungi una recensione</span>
     </ButtonComponent>
     </div>
-    <div class="container-fluid mt-5 px-5" v-if="store.singleDoctor">
+    <div class="container-fluid mt-5 px-5" v-if="store.reviewOrdered">
       <div class="box-reviews container-fluid">
         <div class="row mb-5 pt-3" v-for="review in reviews">
           <div class="col-12">
@@ -40,6 +40,7 @@
 
 <script>
 import { store } from '../store/store';
+import axios from 'axios';
 import { IconStar, IconStarFilled, IconPencil, IconCirclePlus } from '@tabler/icons-vue';
 import AddReviewComponent from './AddReviewComponent.vue';
 import ButtonComponent from './ButtonComponent.vue';
@@ -54,6 +55,11 @@ export default {
         }
     },
     methods: {
+      getReview() {
+        axios.get(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews').then(res => {
+          store.reviewOrdered = res.data;
+        });
+      },
       createStars(index) {
         if(store.singleDoctor) {
             const totals = [1, 2, 3, 4, 5]
@@ -84,6 +90,7 @@ export default {
       }
     },
     mounted() {
+      this.getReview();
       setTimeout(() => {
         this.createStars()
       }, 1000);

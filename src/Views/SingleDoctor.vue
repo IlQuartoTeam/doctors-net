@@ -4,7 +4,7 @@
             <SingleDoctorInfo :doctor="store.singleDoctor" />
             <InfoDoctorMapComponent :doctor="store.singleDoctor" />
             <ExperiencesComponent />
-            <ReviewComponent :reviews="store.singleDoctor.reviews" />
+            <ReviewComponent :reviews="store.reviewOrdered" />
         </div>
         <div :class="(store.contactForm || store.addReview) && 'layover'"></div>
 </template>

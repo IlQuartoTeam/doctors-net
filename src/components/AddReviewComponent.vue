@@ -94,10 +94,9 @@ export default {
                 store.toast.success(this.message, {timeout: 1500});
                 setTimeout(() => {
                     store.addReview = !store.addReview
-                    axios.get(store.API_URL + 'doctors/' + this.$route.params.user).then(res => {
-                        store.singleDoctor = res.data.results;
-                        console.log (this.singleDoctor);
-                    })
+                    axios.get(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews').then(res => {
+                        store.reviewOrdered = res.data;
+                    });
                 }, 2000);
             }).catch(err => {
                 if (err.response.data.errors.rating) {

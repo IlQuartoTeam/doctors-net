@@ -10,6 +10,7 @@ export const store = reactive({
   userDoctor: null,
   singleDoctor: null,
   contactForm: false,
+  reviewOrdered: null,
   addReview: false,
   citySearched: 'Roma',
   doctorsQueried: null,
