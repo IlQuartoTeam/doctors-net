@@ -1,6 +1,9 @@
 <template>
   <ul class="d-flex flex-column gap-2">
-    <li v-for="(examination, index) in examinations.split(';')" :key="index">{{ examination }} </li>
+    <template  v-for="(examination, index) in examinations.split(';')" :key="index">
+      <li v-if="examination != ''">{{ examination }} </li>
+    </template>
+   
   </ul>
 </template>
 
