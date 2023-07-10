@@ -3,7 +3,13 @@
 
         <div
             class="top d-flex ps-md-5 flex-column overflow-hidden align-items-center flex-md-row-reverse w-100 justify-content-center justify-content-lg-between">
-            <FirstAid />
+            <template v-if="isMobile">
+                <FirstAidMobile />
+            </template>
+            <template v-else>
+                <FirstAid />
+            </template>
+            
             <div class="title text-center text-md-start position-relative">
                 <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img
                             src="/img/logo/hearts-no-track.svg" alt=""></span><span class="text-doc-primary">rs Net</span>
@@ -68,6 +74,7 @@ import InputComponent from '../components/InputComponent.vue'
 import ThreeObject from '../components/ThreeObject.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 import FirstAid from '../components/FirstAid.vue';
+import FirstAidMobile from '../components/FirstAidMobile.vue';
 import GalleryComponent from '../components/GalleryComponent.vue';
 import { store } from '../store/store';
 
@@ -90,7 +97,8 @@ export default {
                 imgLg: 'contactLg',
             },
             specialization: null,
-            store
+            store,
+            isMobile: true
         }
     },
     components: {
@@ -98,6 +106,7 @@ export default {
     ButtonComponent,
     InputComponent,
     FirstAid,
+    FirstAidMobile,
     HomeSection,
     CtaComponent,
     GalleryComponent
@@ -111,7 +120,6 @@ export default {
     mounted() {
         axios.get(store.API_URL + 'specializations')
             .then(res => {
-                console.log(res.data);
                 const array = res.data.specializations
                 array.forEach(element => {
                     store.specializationsSet.push(element.name)
@@ -120,6 +128,15 @@ export default {
             .catch(err => {
                 console.log(err);
             })
+            if(navigator.userAgent.includes('Mac' || 'Windows'))
+            {
+                this.isMobile = false
+            }
+            else
+            {
+                this.isMobile = true
+            }
+           
     }
 }
 </script>

@@ -26,7 +26,7 @@
         >
             <swiper-slide v-for="user in premiumUsers">
                 <div class="card-container d-flex flex-column gap-3 text-center shadow-sm text-doc-blue">
-                   <h6 class="text-uppercase fw-bold text-center">{{ user.slug.split('-')[0] }} {{ user.slug.split('-')[1] }}</h6>
+                   <h6 class="fw-bold text-center">{{ user.name }} {{ user.surname }}</h6>
                    <div class="img-container">
                     <img class="img-fluid" :src="user.profile_image_url" />
                    </div>
