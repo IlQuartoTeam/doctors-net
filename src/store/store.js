@@ -30,4 +30,12 @@ export const store = reactive({
   specialization: '',
   specializationsSet: [],
   toast: useToast(),
+  payment: {
+    subscription: null,
+    price: null,
+    hours: null,
+    subID: null
+
+  },
+  payMode:false
 });
