@@ -184,7 +184,7 @@ export default {
              } */
           
 
-            if (modelLoaded) {
+            if (modelLoaded != null) {
                   // Update sizes
                 sizes.width = this.$refs.webgl.offsetWidth
                 sizes.height = this.$refs.webgl.offsetHeight

@@ -110,8 +110,13 @@ export default {
          * Sizes
          */
         const sizes = {
-            width: this.$refs.webgl.offsetWidth,
-            height: this.$refs.webgl.offsetHeight
+            width: 0,
+            height: 0
+        }
+        if (modelLoaded)
+        {
+            sizes.width = this.$refs.webgl.offsetWidth,
+            sizes.height =this.$refs.webgl.offsetHeight
         }
      
         window.addEventListener('resize', () => {
@@ -187,10 +192,6 @@ export default {
            
 
             if (modelLoaded) {
-                sizes.width = this.$refs.webgl.offsetWidth
-                sizes.height = this.$refs.webgl.offsetHeight
-
-                const maxRotation = Math.PI / 12;
                 //modelLoaded.rotation.set(- Math.PI * 0.05 + rotationX, - Math.PI * 0.55 + rotationY, -Math.PI * 0.06)
                 modelLoaded.rotation.set(- Math.PI * 0.008 * elapsedTime, Math.PI * 0.016 * elapsedTime, Math.PI * 0.01 * elapsedTime)
 
