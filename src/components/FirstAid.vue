@@ -56,7 +56,6 @@ export default {
         /* MODEL */
         setTimeout(() => {
             if (modelLoaded != null) {
-                console.log(modelLoaded);
                 //modelLoaded.scale.set(0.4, 0.4, 0.4)
 
                 // adding shadow

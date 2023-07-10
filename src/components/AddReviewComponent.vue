@@ -74,7 +74,6 @@ export default {
             this.noVote = false
             this.starVote = value;
             this.rating = value + 1;
-            console.log('Rating:', this.rating);
         },
         starHovered(index) {
             if(this.rating === null) {
@@ -117,7 +116,7 @@ export default {
         },
     },
     mounted() {
-        console.log(this.rating);
+        
     }
         
     }

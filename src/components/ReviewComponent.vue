@@ -75,7 +75,6 @@ export default {
               }
             });
             this.stars = stars
-            console.log(this.stars)
         } 
       },
       getFormattedDate(dateString) {

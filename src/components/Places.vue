@@ -26,7 +26,6 @@ export default {
 
   methods: {
     MapsInit() {
-      console.log('test')
       this.service = new window.google.maps.places.AutocompleteService()
     }
   },
