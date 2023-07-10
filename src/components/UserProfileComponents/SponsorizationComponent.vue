@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="premium">
-                
+
             </div>
             <div class="top d-flex flex-column align-items-center gap-2 bg-doc-primary">
                 <h6 class="text-doc-white small">Top</h6>
