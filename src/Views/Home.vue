@@ -128,13 +128,13 @@ export default {
             .catch(err => {
                 
             })
-            if(navigator.userAgent.includes('Mac' || 'Windows'))
+            if(navigator.userAgent.includes('Mobile'))
             {
-                this.isMobile = false
+                this.isMobile = true
             }
             else
             {
-                this.isMobile = true
+                this.isMobile = false
             }
            
     }
