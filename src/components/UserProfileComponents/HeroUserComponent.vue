@@ -4,12 +4,12 @@
         <span class="text-white text-decoration-underline mb-5">Hai {{ store.userDoctor.messages.length }} messaggi non letti.</span>
     </div>
     <div class="wrap p-5">
-        <StarsComponent/>
+       
     </div>
 </template>
 
 <script>
-import StarsComponent from '../StarsComponent.vue';
+
 
 import { store } from '../../store/store';
     export default {
@@ -22,7 +22,7 @@ import { store } from '../../store/store';
     },
     mounted() {
     },
-    components: { StarsComponent }
+   
 }
     
 </script>

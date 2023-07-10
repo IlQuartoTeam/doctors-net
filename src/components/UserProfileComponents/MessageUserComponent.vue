@@ -212,30 +212,27 @@ export default {
         },
         readMessage(message, action) {
             if ((message.been_read && action) || (!message.been_read && !action)) {
-                return console.log('nope');
+                return 
             }
-            console.log('params: ', message, action);
             const params = {
                 readAction: action,
                 messageId: message.id
             }
             axios.post(store.API_URL + 'doctors/messages/read', params, this.config).then(res => {
                 message.been_read = action ? 1 : 0;
-                console.log(res);
-                console.log(message);
             }).catch(error => {
-                console.log('errore: ', error);
+                
             })
         },
         deleteMessage(message, index, goBack = false) {
             if (!message) {
-                return console.log('errore messaggio');
+                return 
             }
             axios.post(`${store.API_URL}messages/${message.id}/delete`, { message }, this.config).then(res => {
-                console.log('Miiii messaggio eliminato', res);
+                
                 store.personalMessages.splice(index, 1)
             }).catch(err => {
-                console.log('stocazzo: ', err);
+                
             })
             if (goBack) {
                 this.openMessage(message)

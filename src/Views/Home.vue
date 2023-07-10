@@ -111,14 +111,13 @@ export default {
     mounted() {
         axios.get(store.API_URL + 'specializations')
             .then(res => {
-                console.log(res.data);
                 const array = res.data.specializations
                 array.forEach(element => {
                     store.specializationsSet.push(element.name)
                 });
             })
             .catch(err => {
-                console.log(err);
+                
             })
     }
 }
