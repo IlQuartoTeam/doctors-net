@@ -4,8 +4,7 @@
       <div class=" mx-0 text-center">
         <div class="d-flex justify-content-center gap-0">
           <h1 class="call">Trova adesso<br class="d-lg-none">
-            <div class="d-inline-block change"><span ref="scritta" class="special">{{ currentText
-            }}</span></div><br>di cui hai bisogno
+            <div class="d-inline-block change"><span ref="scritta" class="special">{{ currentText }}</span></div><br>di cui hai bisogno
           </h1>
         </div>
 
@@ -47,7 +46,7 @@ export default {
   methods: {
     cambiaSpecializzazione() {
       this.textIndex++;
-      if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-in-from-top 0.5s ease-in-out';
+      if (this.$refs.scritta) this.$refs.scritta.style.animation = 'fade-in-from-top 0.5s ease-in-out ';
       if (this.textIndex >= this.specializzazioniMediche.length) {
         this.textIndex = 0;
       }
@@ -184,30 +183,6 @@ export default {
 
 
 
-@keyframes fade-in-from-top {
-  0% {
-    opacity: 0;
-    transform: translateY(-25%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-@keyframes fade-out-to-bottom {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(25%);
-  }
-}
 </style>
       
       

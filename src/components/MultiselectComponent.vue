@@ -100,7 +100,6 @@ export default {
             this.sendResult();
         },
         sendResult() {
-            console.log('evento inviato');
             this.$emit('sendResult', this.selectedOptions);
         },
         handleSelectedValues() {

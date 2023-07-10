@@ -23,7 +23,6 @@ export default {
     },
     methods: {
         scrollToSection() {
-            console.log('ciao');
             const hash = window.location.hash;
             if (hash) {
                 const element = this.$refs[hash.substring(1)];

@@ -124,7 +124,6 @@ export default {
             +'&vote=' + rankSelected
             + '&nReviews=' + numberOfReviews
             
-            console.log(apiURL);
             axios.get(apiURL)
                 .then((res) => {
                     this.paginationItems = res.data.results
@@ -132,7 +131,6 @@ export default {
                     const results = res.data.results.data
                     this.filterDoctors(results)
                     this.message = null
-                    console.log(res.data.results)
 
 
                 }).catch((err) => {
@@ -190,7 +188,6 @@ export default {
 
                 })
                 .catch((err) => {
-                    console.log(err);
                     const success = err.response.data.success
                     if (!success) {
                         this.message = "C'è stato un problema"
@@ -213,14 +210,14 @@ export default {
         axios.get(store.API_URL + 'specializations')
         .then(res => 
         {
-            console.log(res.data);
+            
             const array = res.data.specializations
             array.forEach(element => {
                 store.specializationsSet.push(element.name)
             });
         })
         .catch(err => {
-            console.log(err);
+            
         })
        
     }

@@ -50,7 +50,7 @@
                     </td>
                 </tr>
                 <!-- PC -->
-                <tr v-for="(message, index) in store.personalMessages" @click="openMessage(message)"
+                <tr v-for="(message, index) in store.personalMessages" @click="openMessage(message, true)"
                     class="prev-message pcTable d-none d-lg-table-row text-doc-blue position-relative"
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }">
                     <td class="lgName text-doc-blue fw-bold">{{ message.fullname }}</td>
@@ -144,11 +144,13 @@
 
 
     <!-- NO MESSAGES SECTION -->
-    <div v-if="store.personalMessages < 1" class="noMessage text-center pt-3 row justify-content-center">
-        <div class="medikit col-6">
-            <img class="img-fluid" src="/img/other/medikit.png" alt="">
+    <div v-if="store.personalMessages.length < 1" class="noMessage text-center d-flex h-100 align-items-center justify-content-center">
+        <div class="row justify-content-center align-items-center pb-5">
+            <div class="medikit col-6">
+                <img class="img-fluid" src="/img/other/medikit.png" alt="">
+            </div>
+            <h2 class="col-10 pb-4">Non hai ancora ricevuto nessun messaggio</h2>
         </div>
-        <h2 class="col-10 pb-4">Non hai ancora ricevuto nessun messaggio</h2>
         <!-- <h2>Non hai ancora nessun messaggio</h2> -->
     </div>
 </template>
@@ -183,9 +185,12 @@ export default {
         }
     },
     methods: {
-        openMessage(message) {
+        openMessage(message, setRead = false) {
             this.isOpenMessage = !this.isOpenMessage;
             this.messageToView = message;
+            if (setRead) {
+                this.readMessage(message, true)
+            }
         },
         toggledashboardActive() {
             store.dashboard.heroOpen = !store.dashboard.heroOpen;
@@ -212,30 +217,27 @@ export default {
         },
         readMessage(message, action) {
             if ((message.been_read && action) || (!message.been_read && !action)) {
-                return console.log('nope');
+                return 
             }
-            console.log('params: ', message, action);
             const params = {
                 readAction: action,
                 messageId: message.id
             }
             axios.post(store.API_URL + 'doctors/messages/read', params, this.config).then(res => {
                 message.been_read = action ? 1 : 0;
-                console.log(res);
-                console.log(message);
             }).catch(error => {
-                console.log('errore: ', error);
+                
             })
         },
         deleteMessage(message, index, goBack = false) {
             if (!message) {
-                return console.log('errore messaggio');
+                return 
             }
             axios.post(`${store.API_URL}messages/${message.id}/delete`, { message }, this.config).then(res => {
-                console.log('Miiii messaggio eliminato', res);
+                
                 store.personalMessages.splice(index, 1)
             }).catch(err => {
-                console.log('stocazzo: ', err);
+                
             })
             if (goBack) {
                 this.openMessage(message)

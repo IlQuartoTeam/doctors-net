@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <h3 class="px-5 pt-5 text-doc-blue fw-bold text-center text-md-start">Le recensioni più recenti</h3>
+  <div v-if="store.reviewOrdered">
+    <h3 class="px-5 pt-5 text-doc-blue fw-bold text-center text-md-start">Le recensioni più recenti ({{ store.reviewOrdered.length }})</h3>
     <div class="box-button text-center text-md-end me-md-5 mt-5">
     <ButtonComponent  @click="addReview" class="outline">
       <IconPencil :width="20" class="mb-1" />
       <span class="ps-2 fw-semibold">Aggiungi una recensione</span>
     </ButtonComponent>
     </div>
-    <div class="container-fluid mt-5 px-5" v-if="store.reviewOrdered">
+    <div class="container-fluid mt-5 px-5" >
       <div class="box-reviews container-fluid">
         <div class="row mb-5 pt-3" v-for="review in reviews">
           <div class="col-12">
@@ -27,11 +27,7 @@
       </div>
     </div>
     </div>
-    <div class="box-button text-center mt-5 mb-5">
-      <ButtonComponent class="outline">
-        <IconCirclePlus :width="20" class="mb-1" />
-        <span class="ps-2 fw-semibold">Carica altre recensioni</span></ButtonComponent>
-    </div>
+  
   </div>
   <div v-if="store.addReview">
     <AddReviewComponent />
@@ -75,7 +71,6 @@ export default {
               }
             });
             this.stars = stars
-            console.log(this.stars)
         } 
       },
       getFormattedDate(dateString) {
