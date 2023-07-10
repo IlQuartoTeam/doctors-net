@@ -121,7 +121,6 @@ a{
   
 @import 'vue-select/dist/vue-select.css';
 
-
 :root {
 
   --blue: #0071A2;
@@ -157,12 +156,6 @@ a{
 
   /* Active State */
   --vs-dropdown-option--active-bg: var(--primary);
-
-  // SWIPER
-  --swiper-navigation-size: 25px !important;
-  --swiper-navigation-top-offset: 50%;
-  --swiper-navigation-sides-offset: 10px;
-  --swiper-navigation-color: var(--blue);
 }
 
 
@@ -224,4 +217,30 @@ a{
 .max-website{
   max-width: 1500px;
   margin: 0 auto;
+}
+
+
+@keyframes fade-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-25%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes fade-out-to-bottom {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(25%);
+  }
 }
