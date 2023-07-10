@@ -144,11 +144,13 @@
 
 
     <!-- NO MESSAGES SECTION -->
-    <div v-if="store.userDoctor.messages.length < 1" class="noMessage text-center pt-3 row justify-content-center">
-        <div class="medikit col-6">
-            <img class="img-fluid" src="/img/other/medikit.png" alt="">
+    <div v-if="store.userDoctor.messages.length < 1" class="noMessage text-center d-flex h-100 align-items-center justify-content-center">
+        <div class="row justify-content-center align-items-center pb-3">
+            <div class="medikit col-6">
+                <img class="img-fluid" src="/img/other/medikit.png" alt="">
+            </div>
+            <h2 class="col-10 pb-4">Non hai ancora ricevuto nessun messaggio</h2>
         </div>
-        <h2 class="col-10 pb-4">Non hai ancora ricevuto nessun messaggio</h2>
         <!-- <h2>Non hai ancora nessun messaggio</h2> -->
     </div>
 </template>
