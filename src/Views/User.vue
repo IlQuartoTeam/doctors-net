@@ -16,7 +16,7 @@
             <PerformancesUserComponent v-if="store.dashboard.performances" />
             <SponsorizationComponent v-if="store.dashboard.sponsor"/>
             <ChangeUserPassword v-if="store.dashboard.changePassword" />
-            <div class="sideButton d-inline-block d-lg-none py-2">
+            <div class="sideButton d-inline-block d-lg-none">
                 <div v-if="!store.dashboard.sidebarOpen"
                     @click="() => store.dashboard.sidebarOpen = !store.dashboard.sidebarOpen"
                     class="open-side d-flex align-items-center"
@@ -89,7 +89,6 @@ export default {
             axios.get('api/doctors/' + store.userDoctor.id + '/messages')
             .then((res) => {
                 store.personalMessages = res.data
-
 
             }).catch((err) => {
 
