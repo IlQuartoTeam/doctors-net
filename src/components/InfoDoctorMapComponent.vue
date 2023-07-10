@@ -14,7 +14,7 @@
                 <IconMail />
                 <span>{{ doctor.email }}</span>
             </p>
-            <div class="text-doc-blue">
+            <div class="text-doc-blue pe-md-5">
                 <h3 class="py-2">Prestazioni</h3>
                 <ExaminationsComponent :examinations="doctor.examinations" />
             </div>
