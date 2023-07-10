@@ -6,19 +6,15 @@
             </p>
         </div>
         <div class="cards d-flex justify-content-evenly py-5 align-items-center">
-            <div class="base d-flex flex-column align-items-center gap-2">
-                <h6 class="text-doc-blue small">Base</h6>
-                <h2 class="text-doc-blue fw-bold fs-1 my-0 px-4">24 <span class="fw-normal fs-4">ore</span></h2>
+            <div class="base d-flex flex-row align-items-center gap-2">
+                <div v-for="subscription in store.subscriptions" class="col-4">
+                <h6 class="text-doc-blue text-center small">{{ subscription.days_duration === 1 ? 'Base' : subscription.days_duration === 3 ? 'Premium' : 'Gold' }}</h6>
+                <h2 class="text-doc-blue fw-bold fs-1 my-0 px-4">{{ subscription.days_duration }} <span class="fw-normal fs-4">{{ subscription.days_duration > 1 ? 'giorni':'giorno' }}</span></h2>
                 <hr class=" w-100 my-0 text-doc-blue">
-                <h4 class="text-doc-blue fw-bold">2,99€</h4>
+                <h4 class="text-doc-blue text-center fw-bold">{{subscription.price}}€</h4>
                 <div class="w-100">
                     <ButtonComponent :button="true" type="submit" className="outline py-2 fw-bold">Acquista</ButtonComponent>            </div>
                 </div>
-            <div class="premium">
-
-            </div>
-            <div class="top">
-
             </div>
         </div>
     </div>
@@ -26,10 +22,12 @@
 
 <script>
 import ButtonComponent from '../ButtonComponent.vue'
+import { store } from '../../store/store';
+
 export default {
     data() {
         return {
-
+            store
         }
     },
     components: {
