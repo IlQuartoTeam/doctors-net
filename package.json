@@ -16,6 +16,7 @@
     "chartjs-adapter-moment": "^1.0.1",
     "moment": "^2.29.4",
     "sass": "^1.63.6",
+    "swiper": "^10.0.4",
     "three": "^0.154.0",
     "vue": "^3.2.47",
     "vue-chartjs": "^5.2.0",
