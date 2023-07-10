@@ -225,6 +225,7 @@ export default {
             }
             axios.post(store.API_URL + 'doctors/messages/read', params, this.config).then(res => {
                 message.been_read = action ? 1 : 0;
+                action ? store.dashboard.unreadMessages-- : store.dashboard.unreadMessages++
             }).catch(error => {
                 
             })
@@ -236,12 +237,16 @@ export default {
             axios.post(`${store.API_URL}messages/${message.id}/delete`, { message }, this.config).then(res => {
                 
                 store.personalMessages.splice(index, 1)
+                1 ?  store.dashboard.unreadMessages-- : store.dashboard.unreadMessages++
+                store.toast.success('Messaggio cancellato', {timeout: 1500})
+                               
             }).catch(err => {
                 
             })
             if (goBack) {
                 this.openMessage(message)
             }
+            
         },
         getResize() {
             this.screenSize = window.innerWidth

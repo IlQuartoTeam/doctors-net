@@ -19,8 +19,9 @@
                 </div>
             </div>
             <div v-if="store.userDoctor" class="userMainInfo">
-                <h6 class="fw-semibold fs-5 text-doc-blue text-center"><a class="text-doc-blue" :href="'/doctors/' + store.userDoctor.slug">{{ store.userDoctor.name }} {{
-                    store.userDoctor.surname }}</a> </h6>
+                <h6 class="fw-semibold fs-5 text-doc-blue text-center"><a class="text-doc-blue"
+                        :href="'/doctors/' + store.userDoctor.slug">{{ store.userDoctor.name }} {{
+                            store.userDoctor.surname }}</a> </h6>
                 <div v-if="store.userDoctor.specializations[0] != ''"
                     class="text-doc-primary fw-semibold d-flex flex-column align-items-center">
                     <span class="d-block" v-for="spec in store.userDoctor.specializations">{{ spec.name }}</span>
@@ -36,7 +37,9 @@
             </span>
             <span class="text-doc-primary d-flex align-items-center gap-1"
                 :class="{ 'text-doc-accent': store.dashboard.messaggesOpen }" @click="toggleSectionActive('messages')">
-                <IconMessageCircle2 /> <span>Messaggi</span>
+                <IconMessageCircle2 /> <span class="d-flex justify-content-center align-items-center gap-2">Messaggi <span
+                         class="badge rounded-pill text-bg-doc-accent text-white">{{
+                            store.dashboard.unreadMessages }}</span></span>
             </span>
             <span class="text-doc-primary d-flex align-items-center gap-1"
                 :class="{ 'text-doc-accent': store.dashboard.reviewsOpen }" @click="toggleSectionActive('reviewsOpen')">
@@ -44,7 +47,7 @@
             </span>
             <span class="text-doc-primary d-flex align-items-center gap-1"
                 :class="{ 'text-doc-accent': store.dashboard.sponsor }" @click="toggleSectionActive('sponsor')">
-                <IconCreditCard/> <span>Sponsorizzazione</span>
+                <IconCreditCard /> <span>Sponsorizzazione</span>
             </span>
         </div>
         <div class="settings d-flex flex-column mt-3 px-4 py-2 gap-3 align-items-center align-items-sm-start">
@@ -104,20 +107,20 @@ import axios from 'axios';
 export default {
     name: 'SidebarComponent',
     components: {
-    IconHome,
-    IconMessageCircle2,
-    IconUserStar,
-    IconSettings,
-    IconChevronRight,
-    IconChevronLeft,
-    ButtonComponent,
-    IconInfoCircle,
-    IconBriefcase,
-    IconReceipt2,
-    IconShieldLock,
-    IconEdit,
-    IconCreditCard
-},
+        IconHome,
+        IconMessageCircle2,
+        IconUserStar,
+        IconSettings,
+        IconChevronRight,
+        IconChevronLeft,
+        ButtonComponent,
+        IconInfoCircle,
+        IconBriefcase,
+        IconReceipt2,
+        IconShieldLock,
+        IconEdit,
+        IconCreditCard
+    },
     props: ['doctor'],
     data() {
         return {
@@ -169,10 +172,49 @@ export default {
                         store.toast.error("Ooops! Si è verificato un errore. Riprova.", { timeout: 1500 });
                     });
             });
+        },
+        getMessagesStatus() {
+            let unreads = 0
+            store.userDoctor.messages.forEach(element => {
+                if (element.been_read === 0) {
+                    unreads++
+                }
+            });
+            if (unreads === 0) {
+                unreads = null
+            }
+            store.dashboard.unreadMessages = unreads
+
+        },
+        getUser()
+        {
+            if (this.$cookies.get("session-token")) {
+                const token = this.$cookies.get("session-token")
+                const config = { headers: { Authorization: `Bearer ${token}` } }
+                axios.post(store.API_URL + 'user', { key: 'value' }, config).then(res => {
+                    store.userDoctor = { ...res.data.doctor, ...res.data.user }
+                    this.getMessagesStatus()
+                }).catch(err => {})
+            }
+        }
+
+    },
+    watch: {
+        'store.dashboard.unreadMessages'()
+        {
+            this.getMessagesStatus()
+            this.getUser()
+        },
+        'store.personalMessages'()
+        {
+            this.getMessagesStatus()
+            this.getUser()
         }
     },
     mounted() {
         window.addEventListener('resize', this.getSize)
+        this.getUser()
+            
     },
     beforeUnmount() {
         window.removeEventListener('resize', this.getSize)
@@ -183,6 +225,7 @@ export default {
 
 <style lang="scss" scoped>
 @use "../../assets/styles/_variables.scss" as *;
+
 .button-toggle {
     position: fixed;
     width: 10%;

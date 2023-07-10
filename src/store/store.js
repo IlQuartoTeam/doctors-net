@@ -26,7 +26,9 @@ export const store = reactive({
     changePassword: false,
     chartsOpen: true,
     sponsor: false,
+    unreadMessages: 0
   },
+  personalMessages: null,
   specialization: '',
   specializationsSet: [],
   toast: useToast(),
