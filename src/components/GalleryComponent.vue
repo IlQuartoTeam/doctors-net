@@ -6,7 +6,7 @@
     </div>
     <div v-if="premiumUsers" class="gallery-container">
         <swiper 
-        :navigation="true" 
+        :navigation="true"
         :modules="modules" 
         class="gallery" 
         :slidesPerView="1" 
@@ -22,7 +22,7 @@
         1300: {
             slidesPerView: 4
         }
-    }"
+        }"
         >
             <swiper-slide v-for="user in premiumUsers">
                 <div class="card-container d-flex flex-column gap-3 text-center shadow-sm text-doc-blue">
@@ -37,7 +37,6 @@
                 </div>
                 
             </swiper-slide>
-
         </swiper>
     </div>
 
@@ -50,10 +49,7 @@ import axios from 'axios';
 import ButtonComponent from './ButtonComponent.vue';
 import DoctorCard from './DoctorCard.vue';
 import { IconMapPin } from '@tabler/icons-vue';
-
-// Import Swiper styles
 import 'swiper/css';
-
 import 'swiper/css/navigation';
 
 
@@ -84,6 +80,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
 .gallery{
     padding: 2rem;
 }
@@ -100,6 +97,8 @@ img{
     background-color: white;
 
 }
+
+
 
 
 

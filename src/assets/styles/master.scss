@@ -121,6 +121,7 @@ a{
   
 @import 'vue-select/dist/vue-select.css';
 
+
 :root {
 
   --blue: #0071A2;
@@ -156,6 +157,12 @@ a{
 
   /* Active State */
   --vs-dropdown-option--active-bg: var(--primary);
+
+  // SWIPER
+  --swiper-navigation-size: 25px !important;
+  --swiper-navigation-top-offset: 50%;
+  --swiper-navigation-sides-offset: 10px;
+  --swiper-navigation-color: var(--blue);
 }
 
 
