@@ -12,7 +12,7 @@
       <NavbarComponent />
     </template>
     <router-view></router-view>
-    <template v-if="!this.$route.path.includes('/users') && !this.$route.path.includes('/doctors')">
+    <template v-if="!this.$route.path.includes('/users') && !this.$route.path.includes('/doctors') && !this.$route.path.includes('/login')  && !this.$route.path.includes('/register')">
       <CtaComponent />
     </template>
     <CookiesComponent v-if="store.showCookie" />
