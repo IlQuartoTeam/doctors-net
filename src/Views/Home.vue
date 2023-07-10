@@ -126,7 +126,7 @@ export default {
                 });
             })
             .catch(err => {
-                console.log(err);
+                
             })
             if(navigator.userAgent.includes('Mac' || 'Windows'))
             {

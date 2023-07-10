@@ -218,7 +218,7 @@ export default {
                             this.userInfo = { ...res.data.doctor, ...res.data.user }
                             })
                             .catch(err => {
-                                console.log(err);
+                                
                             })
                     }
                     else {

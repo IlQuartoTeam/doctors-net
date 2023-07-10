@@ -79,8 +79,6 @@ export default {
 
             const examinationsString = this.userExaminations.join(';');//User examinations da un console.log era un array, qui uso join 
             //per rendere l'array una stringa divisa da ;
-            console.log(examinationsString);
-
 
             const data = {
                 examinations: examinationsString,//invio all'endpoint creato per sicurezza da zero, la stringa

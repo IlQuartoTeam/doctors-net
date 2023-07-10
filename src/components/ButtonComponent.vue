@@ -52,7 +52,24 @@ export default {
   background-color: $doc-white;
   border: 1px solid $doc-blue;
   color: $doc-blue;
-
+}
+.outline-accent {
+  background-color: $doc-white;
+  border: 1px solid $doc-red;
+  color: $doc-accent;
+  &:hover{
+    background-color: $doc-red;
+    color: $doc-white;
+  }
+}
+.outline-primary {
+  background-color: $doc-white;
+  border: 1px solid $doc-primary;
+  color: $doc-primary;
+  &:hover{
+    background-color: $doc-blue;
+    color: $doc-white;
+  }
 }
 
 .outline:hover {

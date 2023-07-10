@@ -66,6 +66,7 @@ export default {
                     router.push('/users/profile')
                     this.getReviews()
                     this.getMessages()
+                    this.getSubscriptions()
                 }).catch(err => {
                     this.message.text = 'Ooops! Si è verificato un errore.'
                     this.loading = false
@@ -88,6 +89,17 @@ export default {
             axios.get('api/doctors/' + store.userDoctor.id + '/messages')
             .then((res) => {
                 store.personalMessages = res.data
+
+
+            }).catch((err) => {
+
+
+            })
+        },
+        getSubscriptions() {
+            axios.get('api/subscriptions')
+            .then((res) => {
+                store.subscriptions = res.data
 
 
             }).catch((err) => {
