@@ -8,7 +8,7 @@
         </div>
         <div class="content position-relative flex-grow-1">
             <HeroUserComponent v-if="store.dashboard.heroOpen" />
-            <!-- <ChartComponent v-if="store.dashboard.chartsOpen" /> -->
+            <ChartComponent v-if="store.dashboard.chartsOpen" />
             <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
             <SettingUserComponent v-if="store.dashboard.generalInfo" />
             <ExperiencesUserComponent v-if="store.dashboard.experiences" />

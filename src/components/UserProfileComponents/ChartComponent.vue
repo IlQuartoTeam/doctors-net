@@ -11,7 +11,8 @@
               :class="[this.isSelected === 'month' ? 'selected' : '']">1 M</span>
             <span @click="oneWeek" class="badge bg-primary fw-light"
               :class="[this.isSelected === 'week' ? 'selected' : '']">1 W</span>
-            <span @click="oneDay" class="badge bg-primary fw-light" :class="[this.isSelected === 'day' ? 'selected' : '']">1
+            <span @click="oneDay" class="badge bg-primary fw-light"
+              :class="[this.isSelected === 'day' ? 'selected' : '']">1
               D</span>
           </div>
           <Bar v-if="loaded" :data="data" :options="options" />
@@ -28,14 +29,14 @@ import moment from 'moment'
 import { store } from '../../store/store'
 import axios from 'axios'
 
- ChartJS.register(
+ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
   Title,
   Tooltip,
   Legend
- )
+)
 
 export default {
   name: 'BarChart',
@@ -46,11 +47,12 @@ export default {
       loaded: false,
       isSelected: '',
       messageStats: null,
+      sum: {},
       data: {
         labels: [],
         datasets: [
           {
-            data: [0, 12, 0, 0, 0, 4],
+            data: [],
             label: 'Messaggi Ricevuti',
             backgroundColor: '#F38F23',
           }
@@ -62,15 +64,21 @@ export default {
     }
   },
   methods: {
-    getStats(){
-      axios.post(store.API_URL + 'user/messages/stats', null, {
+    getStats() {
+      const startDate = moment().subtract(7, 'year').format('Y-MM-DD');
+      const endDate = moment().format('Y-MM-DD');
+
+      axios.post(store.API_URL + 'user/messages/stats', {
+        start_date: startDate,
+        end_date: endDate
+      }, {
         headers: {
           Authorization: `Bearer ${this.$cookies.get('session-token')}`
         }
       }).then(res => {
-        this.messageStats = res.data
-        console.log(res.data)
-      })
+        this.messageStats = res.data.statsMessages
+        //console.log(res.data.statsMessages)
+      });
     },
     oneDay() {
       this.loaded = false;
@@ -86,15 +94,10 @@ export default {
       }, 100);
       this.isSelected = 'day';
       this.getStats();
-
-        // for(let i = 0; i < store.userDoctor.messages.length; i++) {
-        //   console.log(store.userDoctor.messages[i].created_at)
-        // }
     },
     oneWeek() {
       this.loaded = false;
       this.data.labels = [];
-      console.log(this.data.labels);
       let today = moment();
       let labels = [];
       for (let i = 6; i >= 0; i--) {
@@ -110,7 +113,7 @@ export default {
     oneMonth() {
       this.loaded = false;
       this.data.labels = [];
-      console.log(this.data.labels);
+      //console.log(this.data.labels);
       let today = moment();
       let labels = [];
       for (let i = 6; i >= 0; i--) {
@@ -123,10 +126,12 @@ export default {
       }, 100);
       this.isSelected = 'month';
     },
+
+
+
     oneYear() {
       this.loaded = false;
       this.data.labels = [];
-      console.log(this.data.labels);
       let today = moment();
       let labels = [];
       for (let i = 6; i >= 0; i--) {
@@ -135,14 +140,49 @@ export default {
       }
       this.data.labels = labels;
       setTimeout(() => {
-        this.loaded = true;
+        this.data.labels.forEach((element) => {
+
+          for (const date in this.messageStats) {
+
+            const year = moment(date).format('YYYY');
+            if (element === year) {
+
+
+              if (this.sum[`${[element]}`]) {
+                this.sum[`${[element]}`] += this.messageStats[date]
+              }
+              else {
+                this.sum[`${[element]}`] = 0 + this.messageStats[date]
+              }
+
+            }
+
+          }
+        })
+
+        this.data.labels.forEach(element => {
+          if (this.sum[element]) {
+            this.data.datasets[0].data.push(this.sum[element])
+          }
+          else {
+           this.data.datasets[0].data.push(0)
+          }
+        })
+
+       
+
       }, 100);
+      setTimeout(() => {
+        this.loaded = true
+      }, 600)
       this.isSelected = 'year';
+      this.getStats();
+      
+
     }
   },
   mounted() {
     this.oneDay()
-    this.getStats()
   }
 }
 </script>
@@ -163,4 +203,5 @@ export default {
   color: black;
   font-weight: bold !important;
   box-shadow: rgba(50, 50, 93, 0.062) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.123) 0px 18px 36px -18px inset;
-}</style>
+}
+</style>
