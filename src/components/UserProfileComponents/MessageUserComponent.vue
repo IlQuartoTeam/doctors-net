@@ -50,7 +50,7 @@
                     </td>
                 </tr>
                 <!-- PC -->
-                <tr v-for="(message, index) in store.personalMessages" @click="openMessage(message)"
+                <tr v-for="(message, index) in store.personalMessages" @click="openMessage(message, true)"
                     class="prev-message pcTable d-none d-lg-table-row text-doc-blue position-relative"
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }">
                     <td class="lgName text-doc-blue fw-bold">{{ message.fullname }}</td>
@@ -185,9 +185,12 @@ export default {
         }
     },
     methods: {
-        openMessage(message) {
+        openMessage(message, setRead = false) {
             this.isOpenMessage = !this.isOpenMessage;
             this.messageToView = message;
+            if (setRead) {
+                this.readMessage(message, true)
+            }
         },
         toggledashboardActive() {
             store.dashboard.heroOpen = !store.dashboard.heroOpen;
