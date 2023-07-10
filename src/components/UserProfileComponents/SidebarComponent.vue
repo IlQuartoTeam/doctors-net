@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar d-flex flex-column" v-if="store.dashboard.sidebarOpen || windowWidth > 992">
-        <div class="button-toggle toggle-tablet overflow-hidden d-flex py-3"
+        <div class="button-toggle toggle-tablet overflow-hidden d-flex"
             :class="[store.dashboard.sidebarOpen === false ? 'justify-content-start' : 'justify-content-end']">
 
             <div v-if="store.dashboard.sidebarOpen" @click="ToggleSidebar"
@@ -228,7 +228,6 @@ export default {
 
 .button-toggle {
     position: fixed;
-    width: 10%;
     top: 50%;
     right: 0;
     z-index: 999999;
