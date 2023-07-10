@@ -14,7 +14,7 @@
             <span @click="oneDay" class="badge bg-primary fw-light" :class="[this.isSelected === 'day' ? 'selected' : '']">1
               D</span>
           </div>
-          <Line v-if="loaded" :data="data" :options="options" />
+          <Bar v-if="loaded" :data="data" :options="options" />
         </div>
       </div>
     </div>
@@ -22,45 +22,35 @@
 </template>
   
 <script lang="ts">
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js'
-import { Line } from 'vue-chartjs';
+import { Bar } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import moment from 'moment'
 import { store } from '../../store/store'
+import axios from 'axios'
 
-ChartJS.register(
+ ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
-)
+ )
 
 export default {
-  name: 'ChartComponent',
-  components: {
-    Line
-  },
+  name: 'BarChart',
+  components: { Bar },
   data() {
     return {
       store,
       loaded: false,
       isSelected: '',
+      messageStats: null,
       data: {
         labels: [],
         datasets: [
           {
-            data: [40, 80, 60, 120, 10, 30],
+            data: [0, 12, 0, 0, 0, 4],
             label: 'Messaggi Ricevuti',
             backgroundColor: '#F38F23',
           }
@@ -72,6 +62,16 @@ export default {
     }
   },
   methods: {
+    getStats(){
+      axios.post(store.API_URL + 'user/messages/stats', null, {
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get('session-token')}`
+        }
+      }).then(res => {
+        this.messageStats = res.data
+        console.log(res.data)
+      })
+    },
     oneDay() {
       this.loaded = false;
       let today = moment();
@@ -85,6 +85,11 @@ export default {
         this.loaded = true;
       }, 100);
       this.isSelected = 'day';
+      this.getStats();
+
+        // for(let i = 0; i < store.userDoctor.messages.length; i++) {
+        //   console.log(store.userDoctor.messages[i].created_at)
+        // }
     },
     oneWeek() {
       this.loaded = false;
@@ -137,6 +142,7 @@ export default {
   },
   mounted() {
     this.oneDay()
+    this.getStats()
   }
 }
 </script>
