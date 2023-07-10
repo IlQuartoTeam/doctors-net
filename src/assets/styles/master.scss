@@ -218,3 +218,29 @@ a{
   max-width: 1500px;
   margin: 0 auto;
 }
+
+
+@keyframes fade-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-25%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes fade-out-to-bottom {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(25%);
+  }
+}

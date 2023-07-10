@@ -3,15 +3,15 @@
         <div class="col text-doc-blue flex-grow-1 p-4 p-md-0">
             <h3 class="py-2">Informazioni</h3>
             <p class="d-flex align-items-center gap-2">
-                <IconMapPin :color="$doc - primary" />
+                <IconMapPin  />
                 <span>{{ doctor.address }} - {{ doctor.city }}</span>
             </p>
             <p class="d-flex align-items-center gap-2">
-                <IconPhone :color="$doc - primary" />
+                <IconPhone  />
                 <span>{{ doctor.phone }}</span>
             </p>
             <p class="d-flex align-items-center gap-2">
-                <IconMail :color="$doc - primary" />
+                <IconMail />
                 <span>{{ doctor.email }}</span>
             </p>
             <div class="text-doc-blue">

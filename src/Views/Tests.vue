@@ -19,8 +19,6 @@ export default {
     methods: {
         selectionz(selectedOptions) {
             this.selection = selectedOptions
-            console.log(selectedOptions);
-            console.log('kitestramuort')
         }
     }
 }

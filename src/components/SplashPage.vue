@@ -36,7 +36,6 @@
       animateCircle() {
         const circle = this.$refs.circle;
         const circleAnimation = setInterval(() => {
-          console.log(this.count)
           this.count++;
           if(this.count < 2) {
             this.isScaleAnimation = true;

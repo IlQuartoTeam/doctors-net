@@ -151,7 +151,6 @@ export default {
         handleFileUpload(event) {
             axios.get('/sanctum/csrf-cookie').then(() => {
                 const file = event.target.files[0];
-                console.log(file);
                 if (!file) return
                 const formData = new FormData();
                 formData.append('image', file);
