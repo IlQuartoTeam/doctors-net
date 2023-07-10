@@ -35,6 +35,7 @@
                         <template #no-options="{ search, searching, loading }">Sembra non ci sia nulla con quella
                             parola.</template>
                     </v-select>
+                    
                 </div>
                 <div class="button-conatiner">
                     <ButtonComponent @click="handleClick()" className="primary heroButton">cerca</ButtonComponent>
