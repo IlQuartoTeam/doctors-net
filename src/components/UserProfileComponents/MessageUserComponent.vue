@@ -108,12 +108,13 @@
             <div>
                 <h6 class="mb-0 text-doc-blue senderName">{{ messageToView.fullname }}</h6>
                 <h6 class="mb-0 text-doc-blue senderMail">({{ messageToView.email }})</h6>
+                <p class="text-doc-blue small mt-2">{{ messageToView.prefered_date  ? `Gradirei la visita il ${formatDate(messageToView.prefered_date)}` : 'Non specificata' }}</p>
             </div>
             <div class="showDate">
                 <p class="mb-0 text-doc-blue">{{ formatDate(messageToView.created_at) }}</p>
             </div>
         </div>
-        <div class="messageContent mt-3 p-2">
+        <div class="messageContent mt-1 p-2">
             <p class="senderText">{{ messageToView.text }}</p>
 
         </div>
@@ -173,6 +174,8 @@ export default {
         openMessage(message, setRead = false) {
             this.isOpenMessage = !this.isOpenMessage;
             this.messageToView = message;
+            console.log(this.messageToView);
+
             if (setRead) {
                 this.readMessage(message, true)
             }
