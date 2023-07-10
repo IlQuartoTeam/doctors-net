@@ -144,7 +144,7 @@
 
 
     <!-- NO MESSAGES SECTION -->
-    <div v-if="store.userDoctor.messages.length < 1" class="noMessage text-center d-flex h-100 align-items-center justify-content-center">
+    <div v-if="store.personalMessages.length < 1" class="noMessage text-center d-flex h-100 align-items-center justify-content-center">
         <div class="row justify-content-center align-items-center pb-3">
             <div class="medikit col-6">
                 <img class="img-fluid" src="/img/other/medikit.png" alt="">
