@@ -15,12 +15,12 @@
                     <p v-if="noVote" class="text-doc-red text-center mt-2">Seleziona almeno una stella</p>
 
                     <div class="row mt-3">
-                        <div class="col-12">
+                        <div class="col-12 text-start">
                             <InputComponent id="user_name" type="text" v-model="name"
-                                placeholder="Giovanna" />
+                                placeholder="Giovanna" label="Il tuo nome" />
                             <InputComponent id="user_email" type="email" v-model="email"
-                                placeholder="giovanna@mail.com" />
-                            <textarea id="user_messagge" label="Messaggio*" type="textarea" v-model="text"
+                                placeholder="giovanna@mail.com" label="La tua e-mail" />
+                            <textarea id="user_messagge" type="textarea" v-model="text"
                                 placeholder="Messaggio" class="mt-5"></textarea>
                         </div>
                     </div>
