@@ -90,7 +90,6 @@ export default {
             .then((res) => {
                 store.personalMessages = res.data
 
-
             }).catch((err) => {
 
 
