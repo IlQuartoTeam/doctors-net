@@ -8,12 +8,11 @@
                     <div class="row mt-3">
                         <div class="col-12">
                             <InputComponent id="user_name" type="text" :required="true" v-model="name"
-                                placeholder="Giovanna" />
-                                <label for="prefered_date" class="text-doc-primary m-0">Data preferita per un possibile appuntamento</label>
-                                <InputComponent id="prefered_date" :min="today" type="date" :required="true" v-model="date"
+                                placeholder="Giovanna" label="Il tuo nome"/>
+                                <InputComponent id="prefered_date" :min="today" type="date" :required="true" v-model="date" label="Data preferita"
                                />
                             <InputComponent id="user_email" type="email" :required="true" v-model="email"
-                                placeholder="giovanna@mail.com" />
+                                placeholder="giovanna@mail.com" label="La tua e-mail" />
                             <textarea id="user_messagge" label="Messaggio*" type="textarea" v-model="message"
                                 :required="true" placeholder="Messaggio" class="mt-5"></textarea>
                         </div>

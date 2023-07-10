@@ -189,6 +189,7 @@ export default {
     width: 10%;
     top: 50%;
     right: 0;
+    z-index: 999999;
 }
 
 .text-light {

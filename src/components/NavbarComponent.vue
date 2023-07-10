@@ -38,7 +38,7 @@
                         <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help" @click="openMenu">Assistenza</router-link>
                     </div>
                     <div class="menu-button p-3 m-auto">
-                        <button v-if="!store.isAuthenticated" class="button-doctor" @click="goLogin()">
+                        <button v-if="!store.isAuthenticated" class="button-doctor button-mobile" @click="goLogin()">
                             <IconUser class="mb-1" :size="24" /> Sei un medico?
                         </button>
                         <router-link to="/users/profile">
@@ -143,7 +143,10 @@ nav{
 }
 
 .menu-open {
-    box-shadow: 0px 14px 12px 0px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 9999;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
+    background-color: $doc-white;
 }
 
 .fade-in {
@@ -163,14 +166,18 @@ button {
     display: none;
     padding: 16px 65px;
 }
-
 .button-doctor {
+    display: none;
     padding: 15px 32px;
     border-radius: 5px;
     background-color: white;
     border: 1px solid #2FB0BD;
     color: #0071A2;
     transition: background-color 0.5s, color 0.5s;
+}
+
+.button-mobile{
+    display: inline-block;
 }
 
 .button-doctor:hover {
@@ -191,13 +198,18 @@ button {
         display: none;
     }
 
-    .button-doctor,
+    .button-doctor{
+        display: inline-block;
+    }
         #btn-logged {
             display: inline-block;
         }
     }
 
 @media screen and (min-width:1200px) {
+    .menu-open{
+        display: none !important;
+    }
     .hamb-icon {
         display: none;
     }

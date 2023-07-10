@@ -1,5 +1,5 @@
 <template>
-    <div v-if="store.userDoctor.messages.length > 0 && !isOpenMessage" class="w-100 px-lg-2 pb-5 py-2" id="index">
+    <div v-if="store.personalMessages.length > 0 && !isOpenMessage" class="w-100 px-lg-2 pb-5 py-2" id="index">
         <h1 class="text-h2 p-3 text-doc-blue fw-semibold">I tuoi messaggi</h1>
         <table class="table">
             <thead>
@@ -12,7 +12,7 @@
             </thead>
             <tbody>
                 <!-- MOBILE & TABLET -->
-                <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(message)"
+                <tr v-for="(message, index) in store.personalMessages" @click="openMessage(message)"
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }" class="prev-message d-lg-none">
                     <td class="position-relative text-doc-blue" @click="readMessage(message, true)">
                         <div class="d-flex flex-column pt-2">
@@ -50,7 +50,7 @@
                     </td>
                 </tr>
                 <!-- PC -->
-                <tr v-for="(message, index) in store.userDoctor.messages" @click="openMessage(message)"
+                <tr v-for="(message, index) in store.personalMessages" @click="openMessage(message)"
                     class="prev-message pcTable d-none d-lg-table-row text-doc-blue position-relative"
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }">
                     <td class="lgName text-doc-blue fw-bold">{{ message.fullname }}</td>
@@ -235,7 +235,7 @@ export default {
             }
             axios.post(`${store.API_URL}messages/${message.id}/delete`, { message }, this.config).then(res => {
                 console.log('Miiii messaggio eliminato', res);
-                store.userDoctor.messages.splice(index, 1)
+                store.personalMessages.splice(index, 1)
             }).catch(err => {
                 console.log('stocazzo: ', err);
             })
@@ -248,7 +248,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.formatDate(store.userDoctor.messages[0].created_at));
         window.addEventListener('resize', this.getResize);
     },
     beforeUnmount() {

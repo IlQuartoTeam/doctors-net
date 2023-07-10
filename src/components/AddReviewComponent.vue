@@ -8,15 +8,19 @@
                         <span v-for="(star, index) in totals" @click="starSelected(index)" @mouseover="starHovered(index)">
                             <IconStar v-if="index > starVote" />
                             <IconStarFilled v-else class="text-doc-accent" />
+
                         </span>
+
                     </div>
+                    <p v-if="noVote" class="text-doc-red text-center mt-2">Seleziona almeno una stella</p>
+
                     <div class="row mt-3">
-                        <div class="col-12">
+                        <div class="col-12 text-start">
                             <InputComponent id="user_name" type="text" v-model="name"
-                                placeholder="Giovanna" />
+                                placeholder="Giovanna" label="Il tuo nome" />
                             <InputComponent id="user_email" type="email" v-model="email"
-                                placeholder="giovanna@mail.com" />
-                            <textarea id="user_messagge" label="Messaggio*" type="textarea" v-model="text"
+                                placeholder="giovanna@mail.com" label="La tua e-mail" />
+                            <textarea id="user_messagge" type="textarea" v-model="text"
                                 placeholder="Messaggio" class="mt-5"></textarea>
                         </div>
                     </div>
@@ -57,8 +61,9 @@ export default {
             text: null,
             rating: null,
             totals: [1, 2, 3, 4, 5],
-            starVote: null,
-            message: ''
+            starVote: -1,
+            message: '',
+            noVote:false,
         }
     },
     methods: {
@@ -66,6 +71,7 @@ export default {
             store.addReview = false;
         },
         starSelected(value) {
+            this.noVote = false
             this.starVote = value;
             this.rating = value + 1;
             console.log('Rating:', this.rating);
@@ -77,12 +83,16 @@ export default {
         },
         resetStars() {
             if(this.rating === null) {
-                this.starVote = null;
+                this.starVote = -1;
             }
         },
         sendReview() {
-            if(this.rating === null) {
-                this.rating = 1;
+            if (this.starVote === -1) {
+                this.noVote = true
+                return
+            }
+            else {
+                this.noVote = false
             }
             axios.post(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews', {
                 email: this.email,
@@ -94,10 +104,9 @@ export default {
                 store.toast.success(this.message, {timeout: 1500});
                 setTimeout(() => {
                     store.addReview = !store.addReview
-                    axios.get(store.API_URL + 'doctors/' + this.$route.params.user).then(res => {
-                        store.singleDoctor = res.data.results;
-                        console.log (this.singleDoctor);
-                    })
+                    axios.get(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews').then(res => {
+                        store.reviewOrdered = res.data;
+                    });
                 }, 2000);
             }).catch(err => {
                 if (err.response.data.errors.rating) {
@@ -107,6 +116,9 @@ export default {
             })
         },
     },
+    mounted() {
+        console.log(this.rating);
+    }
         
     }
 </script>
