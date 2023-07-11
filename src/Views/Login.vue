@@ -57,7 +57,10 @@ export default {
         }
     },
     methods: {
-
+        /**
+         * Logging in a single user
+         * is successfull set the cookie 'sessione-token'
+         */
         login() {
             this.message.text = '';
             this.error = false
@@ -118,6 +121,9 @@ export default {
         }
     },
     mounted() {
+        /**
+         * If already logged in call getUser() e push him to his dashbaord
+         */
         if (this.$cookies.get("session-token")) {
             this.getUser()
         }

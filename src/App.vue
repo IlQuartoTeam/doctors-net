@@ -4,9 +4,7 @@
   </template>
   <template v-if="!isLoading">
     <div class="introWrap" v-if="!loaded">
-      <div class="intro">
-
-      </div>
+      <div class="intro"></div>
     </div>
     <template v-if="this.$route.path != '/login' && this.$route.path != '/users/profile'">
       <NavbarComponent />
@@ -46,6 +44,10 @@ export default {
 },
   methods: {
     getReady() {
+      /**
+       * SPLASH SCREEN PAGE
+       * Settings
+       */
       store.newUser = false
       this.isLoading = !this.isLoading;
       this.loaded = !this.loaded
@@ -58,6 +60,11 @@ export default {
     }
   },
   mounted(){
+    /**
+     * Getting cookies from user, if setted up.
+     * Login information with 'session-token'
+     * Cookie Policy accepted with 'privacy'
+     */
     if(this.$cookies.get('session-token'))
     {
       store.isAuthenticated = true
@@ -67,6 +74,9 @@ export default {
       store.showCookie = true
     }
     
+    /**
+     * Delay for splash screen, preventing animation on every refresh
+     */
     if (store.newUser && (this.currentTime - this.lastVisitTime) > 3600000 || !this.lastVisitTime) this.getReady();
     localStorage.setItem('lastVisitTime', this.currentTime)
   }

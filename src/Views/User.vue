@@ -54,6 +54,15 @@ export default {
         }
     },
     methods: {
+        /**
+         * Function to get actual logged user from DB
+         * After login we push user to his dashboard @ /users/profile
+         * Next we call 
+         *  this.getReviews()
+            this.getMessages()
+            this.getSubscriptions()
+         * for getting his information
+         */
         getUser() {
             if (this.$cookies.get("session-token")) {
                 const token = this.$cookies.get("session-token")
@@ -108,6 +117,10 @@ export default {
         }
     },
     mounted() {
+        /**
+         * Check if the user is already logged in, otherwise push it 
+         * back to the login page where he could login or register as a new user
+         */
         if (!this.$cookies.get("session-token") && !store.user) {
             router.push('/login')
         } else {
