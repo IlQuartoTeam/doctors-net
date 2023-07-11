@@ -231,7 +231,7 @@ export default {
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
                 <div class="searchDoctors w-100">
                     <v-select v-model="specialization" placeholder="Scegli una specializzazione"
-                        :options="store.specializationsSet" class="w-100">
+                        :options="store.specializationsSet" class="w-100" :filterable="false" :searchbale="false">
                         <template #no-options="{ search, searching, loading }">Sembra non ci sia nulla con quella
                             parola.</template>
                     </v-select>

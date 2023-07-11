@@ -7,7 +7,9 @@
             <p class="cons fw-bold pb-2">Consigliato</p>
           </div>
         <div class="card-img mx-auto m-md-0">
-          <img :src="doctor.profile_image_url" :alt="'immagine profilo di ' + doctor.name">
+      
+            <img  loading="lazy" :src="doctor.profile_image_url" :alt="'immagine profilo di ' + doctor.name">
+         
         </div>
 
         <div class="card-title d-md-flex flex-column align-items-center justify-content-between">
@@ -86,6 +88,13 @@ export default {
         }
       });
       return stars
+    }
+  },
+  methods:
+  {
+    imgLoaded(e)
+    {
+      console.log(e);
     }
   }
 
