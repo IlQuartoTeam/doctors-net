@@ -1,7 +1,7 @@
 <template>
     <div class="modal-wrap">
-        <div class="doc-modal p-4">
-            <div class="content mt-5 container-fluid">
+        <div class="doc-modal py-2 px-4 md-py-0 px-md-0 px-md-4 py-md-4">
+            <div class="content container-fluid">
                 
                 <h2 class="text-doc-primary fw-bold fs-3 text-center"><span class="fs-3 text-doc-blue">Contatta </span>{{ store.singleDoctor.name + ' ' + store.singleDoctor.surname }}</h2>
                 <form @submit.prevent="sendMessage()">
