@@ -30,7 +30,6 @@
         </div>
         <div class="management d-flex flex-column mt-5 px-4 py-2 gap-3 align-items-center align-items-sm-start">
             <h6 class="fw-semibold text-doc-blue fs-5">Gestione</h6>
-            <!-- FUNZIONE togglemessageActive PROVVISORIA AL CLICK SU DASHBOARD -->
             <span class="text-doc-primary d-flex align-items-center gap-1"
                 :class="{ 'text-doc-accent': store.dashboard.heroOpen }" @click="toggleSectionActive('dashboard')">
                 <IconHome /> <span>Dashboard</span>
@@ -231,6 +230,10 @@ export default {
     top: 50%;
     right: 0;
     z-index: 999999;
+}
+.toggle-tablet{
+    width: fit-content;
+    height: fit-content;
 }
 
 .text-light {
