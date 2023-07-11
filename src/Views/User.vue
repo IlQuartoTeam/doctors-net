@@ -8,8 +8,10 @@
         </div>
         <div class="content position-relative flex-grow-1">
             <HeroUserComponent v-if="store.dashboard.heroOpen" />
-            <ChartMessageComponent v-if="store.dashboard.chartsOpen" />
-            <ChartReviewComponent v-if="store.dashboard.chartsOpen" />
+            <div class="charts d-flex">
+                <ChartMessageComponent v-if="store.dashboard.chartsOpen" />
+                <ChartReviewComponent v-if="store.dashboard.chartsOpen" />
+            </div>
             <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
             <SettingUserComponent v-if="store.dashboard.generalInfo" />
             <ExperiencesUserComponent v-if="store.dashboard.experiences" />
