@@ -90,12 +90,47 @@ export default {
       }
       this.data.labels = labels
       setTimeout(() => {
-        this.loaded = true;
+        this.data.labels.forEach((element) => {
+
+          for (const date in this.messageStats) {
+
+            const day = moment(date).format('DD/MM');
+            if (element === day) {
+
+
+              if (this.sum[`${[element]}`]) {
+                this.sum[`${[element]}`] += this.messageStats[date]
+              }
+              else {
+                this.sum[`${[element]}`] = 0 + this.messageStats[date]
+              }
+
+            }
+
+          }
+        }),
+        this.data.labels.forEach(element => {
+          if (this.sum[element]) {
+            this.data.datasets[0].data.push(this.sum[element])
+          }
+          else {
+           this.data.datasets[0].data.push(0)
+          }
+        })
+
+       
+
       }, 100);
+      setTimeout(() => {
+        this.loaded = true
+      }, 600);
       this.isSelected = 'day';
       this.getStats();
+      console.log(this.data.datasets[0].data)
     },
     oneWeek() {
+      this.data.datasets[0].data = [];
+      this.sum = {};
       this.loaded = false;
       this.data.labels = [];
       let today = moment();
@@ -106,11 +141,47 @@ export default {
       }
       this.data.labels = labels;
       setTimeout(() => {
-        this.loaded = true;
+        this.data.labels.forEach((element) => {
+
+          for (const date in this.messageStats) {
+
+            const week = moment(date).format('DD MMM');
+            if (element === week) {
+
+
+              if (this.sum[`${[element]}`]) {
+                this.sum[`${[element]}`] += this.messageStats[date]
+              }
+              else {
+                this.sum[`${[element]}`] = 0 + this.messageStats[date]
+              }
+
+            }
+
+          }
+        }),
+        this.data.labels.forEach(element => {
+          if (this.sum[element]) {
+            this.data.datasets[0].data.push(this.sum[element])
+          }
+          else {
+           this.data.datasets[0].data.push(0)
+          }
+        })
+
+       
+
       }, 100);
+      setTimeout(() => {
+        this.loaded = true
+      }, 600);
       this.isSelected = 'week';
+      this.getStats();
+      console.log(this.data.datasets[0].data)
     },
     oneMonth() {
+      this.data.datasets[0].data = [];
+      this.sum = {}
       this.loaded = false;
       this.data.labels = [];
       //console.log(this.data.labels);
@@ -122,14 +193,50 @@ export default {
       }
       this.data.labels = labels;
       setTimeout(() => {
-        this.loaded = true;
+        this.data.labels.forEach((element) => {
+
+          for (const date in this.messageStats) {
+
+            const month = moment(date).format('MMMM');
+            if (element === month) {
+
+
+              if (this.sum[`${[element]}`]) {
+                this.sum[`${[element]}`] += this.messageStats[date]
+              }
+              else {
+                this.sum[`${[element]}`] = 0 + this.messageStats[date]
+              }
+
+            }
+
+          }
+        }),
+        this.data.labels.forEach(element => {
+          if (this.sum[element]) {
+            this.data.datasets[0].data.push(this.sum[element])
+          }
+          else {
+           this.data.datasets[0].data.push(0)
+          }
+        })
+
+       
+
       }, 100);
+      setTimeout(() => {
+        this.loaded = true
+      }, 600);
       this.isSelected = 'month';
+      this.getStats();
+      console.log(this.data.datasets[0].data)
     },
 
 
 
     oneYear() {
+      this.data.datasets[0].data = [];
+      this.sum = {}
       this.loaded = false;
       this.data.labels = [];
       let today = moment();
@@ -177,6 +284,7 @@ export default {
       }, 600)
       this.isSelected = 'year';
       this.getStats();
+      console.log(this.data.datasets[0].data)
       
 
     }
