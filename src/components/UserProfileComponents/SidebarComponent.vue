@@ -248,7 +248,7 @@ export default {
 .box-image {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
+    border-radius: 10px;
     overflow: hidden;
 
     .uploadImage {
@@ -278,7 +278,7 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        border-radius: 50%;
+        border-radius: 10px;
         transition: all .3s;
         opacity: 0;
     }
