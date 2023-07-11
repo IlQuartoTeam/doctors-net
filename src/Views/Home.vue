@@ -30,8 +30,8 @@
         <div class="searchBar ">
             <div class="d-flex flex-column flex-md-row gap-3 align-items-center justify-content-center px-5">
                 <div class="flex-grow-1 w-100 d-flex align-items-start searchHome">
-                    <v-select v-model="specialization" placeholder="Scegli una specializzazione"
-                        :options="store.specializationsSet" class="w-100" :filterable="false" :searchbale="false">
+                    <v-select v-if="store.specializationsSet" v-model="specialization" placeholder="Scegli una specializzazione"
+                        :options="store.specializationsSet" class="w-100">
                         <template #no-options="{ search, searching, loading }">Sembra non ci sia nulla con quella
                             parola.</template>
                     </v-select>
