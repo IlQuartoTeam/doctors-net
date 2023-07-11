@@ -29,7 +29,7 @@
         <div class="d-flex justify-content-end me-2">
             <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li v-for="page in store.reviewsPagination.links" :class="{active: page.active, disabled: page.url === null}" class="page-item"><a v-html="page.label" class="page-link" href="#"></a></li>
+    <li v-for="page in store.reviewsPagination.links" :class="{active: page.active, disabled: page.url === null}" class="page-item"><a v-html="page.label.includes('Previous') ? '&laquo; Precedente' : page.label.includes('Next') ? 'Successiva &raquo;' : page.label" class="page-link" href="#"></a></li>
   </ul>
 </nav>
         </div>
