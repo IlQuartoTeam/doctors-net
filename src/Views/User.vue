@@ -8,7 +8,8 @@
         </div>
         <div class="content position-relative flex-grow-1">
             <HeroUserComponent v-if="store.dashboard.heroOpen" />
-            <ChartComponent v-if="store.dashboard.chartsOpen" />
+            <ChartMessageComponent v-if="store.dashboard.chartsOpen" />
+            <ChartReviewComponent v-if="store.dashboard.chartsOpen" />
             <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
             <SettingUserComponent v-if="store.dashboard.generalInfo" />
             <ExperiencesUserComponent v-if="store.dashboard.experiences" />
@@ -38,7 +39,8 @@ import { store } from '../store/store';
 import { IconHome } from '@tabler/icons-vue';
 import { IconChevronRight } from '@tabler/icons-vue';
 import HeroUserComponent from '../components/UserProfileComponents/HeroUserComponent.vue';
-import ChartComponent from '../components/UserProfileComponents/ChartComponent.vue';
+import ChartMessageComponent from '../components/UserProfileComponents/ChartMessageComponent.vue';
+import ChartReviewComponent from '../components/UserProfileComponents/ChartReviewComponent.vue';
 import SidebarComponent from '../components/UserProfileComponents/SidebarComponent.vue';
 import MessageUserComponent from '../components/UserProfileComponents/MessageUserComponent.vue';
 import SettingUserComponent from '../components/UserProfileComponents/SettingUserComponent.vue';
@@ -47,7 +49,7 @@ import ChangeUserPassword from '../components/UserProfileComponents/ChangeUserPa
 import ExperiencesUserComponent from '../components/UserProfileComponents/ExperiencesUserComponent.vue';
 
 export default {
-    components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartComponent, ChangeUserPassword, IconChevronRight, ExperiencesUserComponent, ProfileReviews, SponsorizationComponent },
+    components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartMessageComponent, ChartReviewComponent, ChangeUserPassword, IconChevronRight, ExperiencesUserComponent, ProfileReviews, SponsorizationComponent },
     data() {
         return {
             store,
