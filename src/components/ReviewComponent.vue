@@ -25,10 +25,9 @@
           <p class="mt-2">{{ review.text }}</p>
         </div>
       </div>
-      <div class="py-4 text-center d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+      <div v-if="reviewsPagination.total >= 5" class="py-4 text-center d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
         <ButtonComponent @click="nextPage(reviewsPagination.prev_page_url)" :disabled="(reviewsPagination.prev_page_url === null) ? true : false" :button="true" className="primary" >pagina precedente</ButtonComponent>
         <ButtonComponent @click="nextPage(reviewsPagination.next_page_url)" :disabled="(reviewsPagination.next_page_url === null) ? true : false" :button="true" className="primary" >pagina successiva</ButtonComponent>
-        
       </div>
      
     </div>
