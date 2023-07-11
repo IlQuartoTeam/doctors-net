@@ -26,6 +26,13 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-end me-2">
+            <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li v-for="page in store.reviewsPagination.links" :class="{active: page.active, disabled: page.url === null}" class="page-item"><a v-html="page.label" class="page-link" href="#"></a></li>
+  </ul>
+</nav>
+        </div>
     </div>
     <div v-if="store.userDoctor?.reviews.length < 1" class="noReviews text-center pt-3 row justify-content-center">
         <div class="medikit col-6">
@@ -34,13 +41,7 @@
         <h2 class="col-10">Non hai nessuna recensione</h2>
         <!-- <h2>Non hai ancora nessun messaggio</h2> -->
     </div>
-    <div class="d-flex justify-content-end">
-            <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li v-for="page in store.reviewsPagination.links" :class="{active: page.active, disabled: page.url === null}" class="page-item"><a v-html="page.label" class="page-link" href="#"></a></li>
-  </ul>
-</nav>
-        </div>
+  
 </template>
 
 <script>
