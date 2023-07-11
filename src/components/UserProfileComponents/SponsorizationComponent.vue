@@ -1,4 +1,23 @@
 <template>
+   <!-- Modal -->
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
     <div class="container">
         <div>
             <h1 class="text-doc-blue pt-2 fw-bolder">Acquista un pacchetto</h1>
@@ -12,7 +31,7 @@
                 <hr class=" w-100 my-0 text-doc-blue border-2">
                 <h4 class="text-doc-blue fw-bold">2,99€</h4>
                 <div class="w-100">
-                    <ButtonComponent :button="true" type="submit" className="outline py-2 fw-bold">Acquista</ButtonComponent>          
+                    <ButtonComponent @click="callPay(1, 2.99, 'Base', '24 ore')" :button="true" type="submit" className="outline py-2 fw-bold">Acquista</ButtonComponent>          
                 </div>
             </div>
             <div class="premium sub position-relative d-flex flex-column align-items-center bg-doc-accent" :class="{'activeOne' : activeOne == 'premium'}" @mouseenter="setActiveOne('premium')">
@@ -21,7 +40,7 @@
                 <hr class=" w-100 my-0 text-doc-white border-2">
                 <h4 class="text-doc-white fw-bold">5,99€</h4>
                 <div class="w-100">
-                    <ButtonComponent :button="true" type="submit" className="outline-accent border-0 py-2 fw-bold">Acquista</ButtonComponent>       
+                    <ButtonComponent @click="callPay(2, 5.99, 'Premium', '72 ore')" :button="true" type="submit" className="outline-accent border-0 py-2 fw-bold">Acquista</ButtonComponent>       
                 </div>
                 <div class="mostSelled position-absolute d-flex justify-content-center px-5 bg-white">
                     <span>Il più venduto</span>
@@ -33,7 +52,7 @@
                 <hr class=" w-100 my-0 text-doc-white border-2">
                 <h4 class="text-doc-white fw-bold">9,99€</h4>
                 <div class="w-100">
-                    <ButtonComponent :button="true" type="submit" className="outline-primary border-0 py-2 fw-bold">Acquista</ButtonComponent>       
+                    <ButtonComponent @click="callPay(3, 9.99, 'Top', '144 ore')" :button="true" type="submit" className="outline-primary border-0 py-2 fw-bold">Acquista</ButtonComponent>       
                 </div>
             </div>
         </div>
@@ -48,7 +67,7 @@
                     <h4 class="text-doc-blue fw-bold m-0">2,99€</h4>
                 </div>
                 <div class="w-100">
-                    <ButtonComponent :button="true" type="submit" className="outline w-100 py-2 fw-bold">Acquista</ButtonComponent>          
+                    <ButtonComponent @click="callPay(1, 2.99, 'Base', '24 ore')" :button="true" type="submit" className="outline w-100 py-2 fw-bold">Acquista</ButtonComponent>          
                 </div>
             </div>
             <div class="premium sub w-100 position-relative d-flex flex-column gap-4 align-items-center bg-doc-accent">
@@ -58,7 +77,7 @@
                     <h4 class="text-doc-white fw-bold m-0">5,99€</h4>
                 </div>
                 <div class="w-100">
-                    <ButtonComponent :button="true" type="submit" className="outline-accent w-100 border-0 py-2 fw-bold">Acquista</ButtonComponent>       
+                    <ButtonComponent @click="callPay(2, 5.99, 'Premium', '72 ore')" :button="true" type="submit" className="outline-accent w-100 border-0 py-2 fw-bold">Acquista</ButtonComponent>       
                 </div>
                 <div class="mostSelled position-absolute d-flex justify-content-center px-5 bg-white">
                     <span>Il più venduto</span>
@@ -71,28 +90,44 @@
                     <h4 class="text-doc-white fw-bold m-0">9,99€</h4>
                 </div>
                 <div class="w-100">
-                    <ButtonComponent :button="true" type="submit" className="outline-primary w-100 py-2 fw-bold">Acquista</ButtonComponent>          
+                    <ButtonComponent @click="callPay(3, 9.99, 'Top', '144 ore')" :button="true" type="submit" className="outline-primary w-100 py-2 fw-bold">Acquista</ButtonComponent>          
                 </div>
             </div>
         </div>
     </div>
+<div v-if="store.payMode" class="layover"></div>
+<Payments v-if="store.payMode"/>    
 </template>
 
 <script>
+import Payments from './Payments.vue'
 import ButtonComponent from '../ButtonComponent.vue'
+import { store } from '../../store/store'
+
 export default {
     data() {
         return {
-            activeOne: 'premium'
+            activeOne: 'premium',
+            store,
+
         }
     },
     components: {
         ButtonComponent,
+        Payments
     },
     methods: {
         setActiveOne(name){
             this.activeOne = name
+        },
+        callPay(subID, price, subscription, hours) {
+            this.store.payment.price = price
+            this.store.payment.subscription = subscription
+            this.store.payment.hours = hours
+            this.store.payment.subID = subID
+            store.payMode = true
         }
+
     }
 }
 </script>
@@ -149,4 +184,15 @@ export default {
     }
 
 }
+
+.layover {
+    position: fixed;
+    width: 100%;
+    height: 100dvh;
+    top: 0;
+    right: 0;
+    z-index: 888888;
+    background-color: rgba(0, 0, 0, 0.267);
+}
+
 </style>

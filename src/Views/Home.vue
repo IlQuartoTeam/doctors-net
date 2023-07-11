@@ -3,7 +3,13 @@
 
         <div
             class="top d-flex ps-md-5 flex-column overflow-hidden align-items-center flex-md-row-reverse w-100 justify-content-center justify-content-lg-between">
-            <FirstAid />
+            <template v-if="isMobile">
+                <FirstAidMobile />
+            </template>
+            <template v-else>
+                <FirstAid />
+            </template>
+            
             <div class="title text-center text-md-start position-relative">
                 <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img
                             src="/img/logo/hearts-no-track.svg" alt=""></span><span class="text-doc-primary">rs Net</span>
@@ -25,10 +31,11 @@
             <div class="d-flex flex-column flex-md-row gap-3 align-items-center justify-content-center px-5">
                 <div class="flex-grow-1 w-100 d-flex align-items-start searchHome">
                     <v-select v-model="specialization" placeholder="Scegli una specializzazione"
-                        :options="store.specializationsSet" class="w-100">
+                        :options="store.specializationsSet" class="w-100" :filterable="false" :searchbale="false">
                         <template #no-options="{ search, searching, loading }">Sembra non ci sia nulla con quella
                             parola.</template>
                     </v-select>
+                    
                 </div>
                 <div class="button-conatiner">
                     <ButtonComponent @click="handleClick()" className="primary heroButton">cerca</ButtonComponent>
@@ -68,6 +75,7 @@ import InputComponent from '../components/InputComponent.vue'
 import ThreeObject from '../components/ThreeObject.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 import FirstAid from '../components/FirstAid.vue';
+import FirstAidMobile from '../components/FirstAidMobile.vue';
 import GalleryComponent from '../components/GalleryComponent.vue';
 import { store } from '../store/store';
 
@@ -90,7 +98,8 @@ export default {
                 imgLg: 'contactLg',
             },
             specialization: null,
-            store
+            store,
+            isMobile: true
         }
     },
     components: {
@@ -98,6 +107,7 @@ export default {
     ButtonComponent,
     InputComponent,
     FirstAid,
+    FirstAidMobile,
     HomeSection,
     CtaComponent,
     GalleryComponent
@@ -119,6 +129,15 @@ export default {
             .catch(err => {
                 
             })
+            if(navigator.userAgent.includes('Mobile'))
+            {
+                this.isMobile = true
+            }
+            else
+            {
+                this.isMobile = false
+            }
+           
     }
 }
 </script>

@@ -14,7 +14,7 @@
                 <IconMail />
                 <span>{{ doctor.email }}</span>
             </p>
-            <div class="text-doc-blue">
+            <div class="text-doc-blue pe-md-5">
                 <h3 class="py-2">Prestazioni</h3>
                 <ExaminationsComponent :examinations="doctor.examinations" />
             </div>
@@ -57,8 +57,8 @@ export default {
                 shadowUrl: '/img/other/pin-leaflet-shadow.png',
                 iconSize: [30, 50],
                 shadowSize: [30, 50],
-                iconAnchor: [15, 0],
-                shadowAnchor: [15, 0],
+                iconAnchor: [15, 50],
+                shadowAnchor: [15, 50],
                 popupAnchor: [0, 2]
             })
 
