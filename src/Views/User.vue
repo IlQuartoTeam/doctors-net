@@ -86,7 +86,9 @@ export default {
         getReviews() {
             axios.get('api/doctors/' + store.userDoctor.id + '/reviews')
             .then((res) => {
-                store.personalReviews = res.data
+                store.personalReviews = res.data.data
+                store.reviewsPagination = res.data
+
 
 
             }).catch((err) => {
@@ -97,7 +99,8 @@ export default {
         getMessages() {
             axios.get('api/doctors/' + store.userDoctor.id + '/messages')
             .then((res) => {
-                store.personalMessages = res.data
+                store.personalMessages = res.data.data
+                store.messagesPagination = res.data
 
             }).catch((err) => {
 

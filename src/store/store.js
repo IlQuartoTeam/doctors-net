@@ -14,6 +14,7 @@ export const store = reactive({
   addReview: false,
   citySearched: 'Roma',
   doctorsQueried: null,
+  messagesPagination: null,
   dashboard:{
     sidebarOpen: false,
     heroOpen: true,
