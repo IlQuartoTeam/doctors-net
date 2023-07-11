@@ -2,7 +2,7 @@
   <div class="row px-5 bg-doc-primary bg-opacity-25 py-5 gx-0">
     <div class="col">
       <h2>Esperienze Lavorative</h2>
-      <timeline v-for="start in filteredExperiences('work')" :key="start.id">
+      <timeline v-for="start in works" :key="start.id">
         <timeline-title>
           <p class="title text-doc-red">{{ getStartYear(start.start_date) }}</p>
         </timeline-title>
@@ -22,7 +22,7 @@
     <div class="col">
       <h2>Esperienze Formative</h2>
       <div>
-        <timeline v-for="start in filteredExperiences('education')" :key="start.id">
+        <timeline v-for="start in educations" :key="start.id">
           <timeline-title>
             <p class="title text-doc-red">{{ getStartYear(start.start_date) }}</p>
           </timeline-title>
@@ -48,6 +48,7 @@
 
 
 <script>
+import axios from 'axios';
 import timeline from '../components/timeline.vue'
 import timelineItem from '../components/timelineItem.vue'
 import timelineTitle from '../components/timelineTitle.vue'
@@ -62,19 +63,24 @@ export default {
 
 
     return {
-      store
+      store,
+      works: null,
+      educations: null
     }
   },
   methods: {
-    filteredExperiences(type) {
-      return this.store.singleDoctor.experiences.filter(experience => experience.type === type);
-    },
     getStartYear(dateString) {
       const startDate = new Date(dateString);
       return startDate.getFullYear();
     },
     filteredYear(type, year) {
-      return this.store.singleDoctor.experiences.filter(experience => {
+      let data = this.works;
+      if(type === 'education')
+      {
+        data = this.educations
+      }
+
+      return data.filter(experience => {
         return experience.type === type && this.getStartYear(experience.start_date) === year;
       });
     },
@@ -87,6 +93,17 @@ export default {
     }
 
   },
+  mounted()
+  {
+    axios.get(store.API_URL + `doctors/${store.singleDoctor.id}/experiences`)
+    .then(res =>
+    {
+      
+      this.works = res.data.work
+      this.educations = res.data.education
+      console.log(this.educations);
+    })
+  }
 
 
 
