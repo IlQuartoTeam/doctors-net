@@ -6,7 +6,7 @@
                         src="/img/logo/hearts-no-track.svg" alt=""></span><span class="text-doc-primary">rs Net</span>
             </h1>
         </div>
-        <div class="px-5">
+        <div class="px-2 px-md-5">
             <div class="map py-4">
                 <div id="team-map"></div>
             </div>
@@ -18,13 +18,21 @@
 <script>
 export default {
     mounted() {
-        const map = L.map('team-map', { zoomControl: false, dragging: false, doubleClickZoom: false  }).setView([45.90675, 13.30963], 15)
+        
+        let zoom = 15
+        const windowWidth = window.innerWidth
+        if(this.windowWidth < 1000)
+        {
+            zoom = 14
+        }
+        
+        const map = L.map('team-map', { zoomControl: false, doubleClickZoom: false  }).setView([45.90675, 13.30963], zoom)
 
         L.tileLayer(
             'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             {
-                maxZoom: 15,
-                minZoom: 15,
+                maxZoom: zoom,
+                minZoom: zoom,
                 attribution:
                     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             }
@@ -85,6 +93,14 @@ export default {
     }
 }
 #team-map{
-    height: 650px;
+    height: 30rem;
+    border-radius: 20px;
+    margin: 0 auto;
+    @media screen and (min-width: 700px) {
+        height: 40rem;
+    }
+    @media screen and (min-width: 1000px) {
+        height: 46rem;
+    }
 }
 </style>

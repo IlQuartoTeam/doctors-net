@@ -23,13 +23,12 @@
                 class="linksAndPayment mt-4 gap-4 d-flex justify-content-center align-items-center flex-md-row flex-column w-100 flex-wrap justify-content-md-between">
                 <div class="links d-flex gap-4">
                     <div class="linksrow flex-column d-flex gap-2 my-1">
-                        <RouterLink class="routeLink" :to="{ path: '/doctors' }">I nostri specialisti</RouterLink>
-                        <RouterLink class="routeLink" :to="{ path: '/help' }">Termini e Condizioni</RouterLink>
-                        <RouterLink class="routeLink" :to="{ path: '/help'}">Privacy Policy</RouterLink>
+                        <router-link class="routeLink" :to="{ path: '/doctors' }">I nostri specialisti</router-link>
+                        <router-link class="routeLink" :to="{ path: '/help' }">Termini e Condizioni</router-link>
+                        <router-link class="routeLink" :to="{ path: '/help'}">Privacy Policy</router-link>
                     </div>
                     <div class="linksrow flex-column d-flex gap-2 my-1">
-                        <RouterLink class="routeLink" :to="{ path: '/help'}">Assistenza</RouterLink>
-                        <RouterLink class="routeLink" :to="{ path: '/team' }">Chi siamo</RouterLink>
+                        <router-link class="routeLink" :to="{ path: '/team' }">Chi siamo</router-link>
                     </div>
                 </div>
                 <div class="paymentButton">
