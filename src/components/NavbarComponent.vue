@@ -126,14 +126,6 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/styles/variables' as *;
 
-nav {
-    height: 100px;
-}
-
-.router-link-exact-active {
-    color: $doc-accent;
-}
-
 
 .box-logo {
     width: 60px;
@@ -145,9 +137,6 @@ nav {
     }
 }
 
-.box-voices {
-    display: none !important;
-}
 
 .hamb-icon {
     cursor: pointer;
@@ -169,42 +158,12 @@ nav {
     opacity: 0;
 }
 
-button {
-    border: 1px solid transparent;
-}
-
-#btn-logged {
-    display: none;
-    padding: 16px 65px;
-}
-
-.logout-desk {
-    display: none;
-}
 
 
 @media screen and (min-width:1200px) {
 
     .hamb-icon {
         display: none;
-    }
-
-    .button-doctor {
-        margin-right: 0;
-    }
-
-    .box-voices {
-        color: #0071A2;
-        display: inline-block !important;
-
-        span {
-            transition: color 0.5s;
-
-            &:hover {
-                color: #29A7B5;
-                cursor: pointer;
-            }
-        }
     }
 
     .box-logo {
@@ -215,9 +174,5 @@ button {
             width: 60px;
             height: 100%;
         }
-    }
-
-    .logout-desk {
-        display: inline-block;
     }
 }</style>
