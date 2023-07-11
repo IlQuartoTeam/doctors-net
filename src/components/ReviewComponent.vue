@@ -25,9 +25,10 @@
           <p class="mt-2">{{ review.text }}</p>
         </div>
       </div>
-      <div class="py-3 text-center">
-        <ButtonComponent @click="nextPage()" :disabled="reviewsPagination.prev_page_url === null" type="button" className="primary my-4" >pagina precedente</ButtonComponent>
-        <ButtonComponent @click="nextPage()" :disabled="reviewsPagination.next_page_url === null" type="button" className="primary my-4" >pagina successiva</ButtonComponent>
+      <div class="py-4 text-center d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+        <ButtonComponent @click="nextPage(reviewsPagination.prev_page_url)" :disabled="(reviewsPagination.prev_page_url === null) ? true : false" :button="true" className="primary" >pagina precedente</ButtonComponent>
+        <ButtonComponent @click="nextPage(reviewsPagination.next_page_url)" :disabled="(reviewsPagination.next_page_url === null) ? true : false" :button="true" className="primary" >pagina successiva</ButtonComponent>
+        
       </div>
      
     </div>
@@ -98,7 +99,7 @@ export default {
       }
     },
     mounted() {
-      this.getReview();
+      this.nextPage()
       setTimeout(() => {
         this.createStars()
       }, 1000);
