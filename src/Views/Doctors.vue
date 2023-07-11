@@ -230,8 +230,10 @@ export default {
         <div class="py-3 mt-3 d-md-flex flex-md-column gap-3 flex-lg-row">
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
                 <div class="searchDoctors w-100">
-                    <v-select v-model="specialization" placeholder="Scegli una specializzazione"
-                        :options="store.specializationsSet" class="w-100" :filterable="false" :searchbale="false">
+                    <!-- :filterable="false" :searchbale="false" -->
+                    <v-select v-if="store.specializationsSet" v-model="specialization" placeholder="Specializzazione"
+                    
+                        :options="store.specializationsSet" class="w-100" >
                         <template #no-options="{ search, searching, loading }">Sembra non ci sia nulla con quella
                             parola.</template>
                     </v-select>
