@@ -74,9 +74,8 @@ export default {
 
 img {
     width: 100%;
-
     @media screen and (min-width: 768px) {
-        object-fit: cover;
+        object-fit: contain;
         max-height: 400px;
         object-position: top;
     }

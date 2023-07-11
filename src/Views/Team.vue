@@ -7,7 +7,10 @@
             </h1>
         </div>
         <div class="px-5">
-            <div id="team-map"></div>
+            <div class="map py-4">
+                <div id="team-map"></div>
+            </div>
+            
         </div>
     </div>
 </template>
@@ -15,7 +18,7 @@
 <script>
 export default {
     mounted() {
-        const map = L.map('team-map').setView([45.90480, 13.30963], 14)
+        const map = L.map('team-map').setView([45.90675, 13.30963], 15)
 
         L.tileLayer(
             'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -39,6 +42,7 @@ export default {
             {coordinates: [45.90169,13.29926]},
             {coordinates: [45.90719,13.29827]},
             {coordinates: [45.91196, 13.30279]},
+            {coordinates: [45.90535,13.30994]}
         ]
 
         const icon = L.icon(
@@ -66,10 +70,10 @@ export default {
     max-height: 80px;
 
     img {
-        max-width: 40px;
+        max-height: 50px;
     }
 }
 #team-map{
-    height: 450px;
+    height: 650px;
 }
 </style>
