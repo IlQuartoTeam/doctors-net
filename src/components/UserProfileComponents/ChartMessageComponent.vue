@@ -1,9 +1,10 @@
 <template>
   <div class="wrapper w-100 p-5">
-    <h1 class="text-h2 text-doc-blue fw-semibold text-center mt-4">La tua dashboard</h1>
+    <h1 class="text-h2 text-doc-blue fw-semibold text-center mt-2">La tua dashboard</h1>
     <div class="">
       <div class="row g-0">
         <div class="col-12 col-lg-6 px-5 pt-4">
+          <h3 class="text-h3 text-doc-blue fw-semibold mt-4">Messaggi: le tue statistiche</h3>
           <div class="timeframe d-flex justify-content-end me-4 gap-1">
             <span @click="oneYear" class="badge bg-primary fw-light"
               :class="[this.isSelected === 'year' ? 'selected' : '']">1 Y</span>
@@ -39,7 +40,7 @@ ChartJS.register(
 )
 
 export default {
-  name: 'BarChart',
+  name: 'BarChartMessage',
   components: { Bar },
   data() {
     return {
@@ -77,7 +78,7 @@ export default {
         }
       }).then(res => {
         this.messageStats = res.data.statsMessages
-        //console.log(res.data.statsMessages)
+        console.log(res.data.statsMessages)
       });
     },
     oneDay() {
@@ -85,17 +86,52 @@ export default {
       let today = moment();
       let labels = [];
       for (let i = 6; i >= 0; i--) {
-        let day = today.clone().subtract(i, 'days').format('DD/MM');
+        let day = today.clone().subtract(i, 'days').format('MM/DD');
         labels.push(day);
       }
       this.data.labels = labels
       setTimeout(() => {
-        this.loaded = true;
+        this.data.labels.forEach((element) => {
+
+          for (const date in this.messageStats) {
+
+            const day = moment(date).format('MM/DD');
+            if (element === day) {
+
+
+              if (this.sum[`${[element]}`]) {
+                this.sum[`${[element]}`] += this.messageStats[date]
+              }
+              else {
+                this.sum[`${[element]}`] = 0 + this.messageStats[date]
+              }
+
+            }
+
+          }
+        }),
+        this.data.labels.forEach(element => {
+          if (this.sum[element]) {
+            this.data.datasets[0].data.push(this.sum[element])
+          }
+          else {
+           this.data.datasets[0].data.push(0)
+          }
+        })
+
+       
+
       }, 100);
+      setTimeout(() => {
+        this.loaded = true
+      }, 600);
       this.isSelected = 'day';
       this.getStats();
+      console.log(this.data.datasets[0].data)
     },
     oneWeek() {
+      this.data.datasets[0].data = [];
+      this.sum = {};
       this.loaded = false;
       this.data.labels = [];
       let today = moment();
@@ -106,11 +142,47 @@ export default {
       }
       this.data.labels = labels;
       setTimeout(() => {
-        this.loaded = true;
+        this.data.labels.forEach((element) => {
+
+          for (const date in this.messageStats) {
+
+            const week = moment(date).format('DD MMM');
+            if (element === week) {
+
+
+              if (this.sum[`${[element]}`]) {
+                this.sum[`${[element]}`] += this.messageStats[date]
+              }
+              else {
+                this.sum[`${[element]}`] = 0 + this.messageStats[date]
+              }
+
+            }
+
+          }
+        }),
+        this.data.labels.forEach(element => {
+          if (this.sum[element]) {
+            this.data.datasets[0].data.push(this.sum[element])
+          }
+          else {
+           this.data.datasets[0].data.push(0)
+          }
+        })
+
+       
+
       }, 100);
+      setTimeout(() => {
+        this.loaded = true
+      }, 600);
       this.isSelected = 'week';
+      this.getStats();
+      console.log(this.data.datasets[0].data)
     },
     oneMonth() {
+      this.data.datasets[0].data = [];
+      this.sum = {}
       this.loaded = false;
       this.data.labels = [];
       //console.log(this.data.labels);
@@ -122,14 +194,50 @@ export default {
       }
       this.data.labels = labels;
       setTimeout(() => {
-        this.loaded = true;
+        this.data.labels.forEach((element) => {
+
+          for (const date in this.messageStats) {
+
+            const month = moment(date).format('MMMM');
+            if (element === month) {
+
+
+              if (this.sum[`${[element]}`]) {
+                this.sum[`${[element]}`] += this.messageStats[date]
+              }
+              else {
+                this.sum[`${[element]}`] = 0 + this.messageStats[date]
+              }
+
+            }
+
+          }
+        }),
+        this.data.labels.forEach(element => {
+          if (this.sum[element]) {
+            this.data.datasets[0].data.push(this.sum[element])
+          }
+          else {
+           this.data.datasets[0].data.push(0)
+          }
+        })
+
+       
+
       }, 100);
+      setTimeout(() => {
+        this.loaded = true
+      }, 600);
       this.isSelected = 'month';
+      this.getStats();
+      console.log(this.data.datasets[0].data)
     },
 
 
 
     oneYear() {
+      this.data.datasets[0].data = [];
+      this.sum = {}
       this.loaded = false;
       this.data.labels = [];
       let today = moment();
@@ -177,6 +285,7 @@ export default {
       }, 600)
       this.isSelected = 'year';
       this.getStats();
+      console.log(this.data.datasets[0].data)
       
 
     }

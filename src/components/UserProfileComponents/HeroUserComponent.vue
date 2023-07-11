@@ -3,9 +3,6 @@
         <h1 class="text-h1 fw-bold text-white mt-5">Ciao, {{ store.userDoctor.name }} {{ store.userDoctor.surname }}</h1>
        
     </div>
-    <div class="wrap p-5">
-       
-    </div>
 </template>
 
 <script>
