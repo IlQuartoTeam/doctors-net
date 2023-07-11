@@ -25,6 +25,11 @@
           <p class="mt-2">{{ review.text }}</p>
         </div>
       </div>
+      <div class="py-3 text-center">
+        <ButtonComponent @click="nextPage()" :disabled="reviewsPagination.prev_page_url === null" type="button" className="primary my-4" >pagina precedente</ButtonComponent>
+        <ButtonComponent @click="nextPage()" :disabled="reviewsPagination.next_page_url === null" type="button" className="primary my-4" >pagina successiva</ButtonComponent>
+      </div>
+     
     </div>
     </div>
   
@@ -47,14 +52,22 @@ export default {
         return {
           store,
           visible: false,
-          stars: []
+          stars: [],
+          reviewsPagination: null
         }
     },
     methods: {
-      getReview() {
-        axios.get(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews').then(res => {
-          store.reviewOrdered = res.data;
+      getReview(page) {
+        const apiURL = page ?? (store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews')
+        axios.get(apiURL).then(res => {
+          store.reviewOrdered = res.data.data;
+          this.reviewsPagination = res.data
+          console.log(this.reviewsPagination);
         });
+      },
+      nextPage(page)
+      {
+        this.getReview(page)
       },
       createStars(index) {
         if(store.singleDoctor) {
