@@ -57,8 +57,8 @@ export default {
                 shadowUrl: '/img/other/pin-leaflet-shadow.png',
                 iconSize: [30, 50],
                 shadowSize: [30, 50],
-                iconAnchor: [15, 0],
-                shadowAnchor: [15, 0],
+                iconAnchor: [15, 50],
+                shadowAnchor: [15, 50],
                 popupAnchor: [0, 2]
             })
 
