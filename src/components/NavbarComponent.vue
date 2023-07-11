@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <div class="menu d-flex justify-content-between align-items-center">
+        <div class="menu max-website d-flex justify-content-between align-items-center">
             <div class="box-logo">
                 <router-link to="/"><img src="/img/logo/hearts-no-track.svg" class="logo" alt="logo"></router-link>
             </div>

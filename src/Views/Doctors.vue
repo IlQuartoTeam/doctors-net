@@ -225,7 +225,7 @@ export default {
 </script>
 
 <template>
-    <div class="px-3 px-md-5">
+    <div class="px-3 px-md-5 max-website">
         <MapComponent />
         <div class="py-3 mt-3 d-md-flex flex-md-column gap-3 flex-lg-row">
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
@@ -276,11 +276,11 @@ export default {
         </div>
     </div>
   
-    <section class="doctors-list">
+    <section class="doctors-list max-website">
         <h6 class="text-doc-blue fw-bold text-center py-4">
             <!-- <span v-if="message">Nessun risultato trovato.</span> -->
         </h6>
-        <div v-if="store.doctorsQueried" class="row row-cols-1 row-cols-lg-2 gx-0 px-1 px-md-5">
+        <div v-if="store.doctorsQueried" class="row row-cols-1 row-cols-lg-2 gx-0 px-1 px-md-2">
             <DoctorCard :key="doctor.email" v-for="doctor in store.doctorsQueried" :doctor="doctor" />
         </div>
         <div class="load-more d-flex justify-content-center">

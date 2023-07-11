@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class=" max-website">
         <h2 class="text-doc-blue fw-bold text-center">Il team dietro</h2>
         <div class="logo-container text-center">
             <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img

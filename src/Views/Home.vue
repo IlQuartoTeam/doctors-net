@@ -1,5 +1,5 @@
 <template>
-    <div class="hero">
+    <div class="hero max-website">
 
         <div
             class="top d-flex ps-md-5 flex-column overflow-hidden align-items-center flex-md-row-reverse w-100 justify-content-center justify-content-lg-between">
@@ -53,16 +53,18 @@
         </svg>
     </div>
     <div class="sections bg-doc-primary">
-        <HomeSection :imgs="indexImgs" title="Cerca tra centinaia di medici nella città che preferisci"
-            subTitle="Scegli la citt&agrave; e usa tutte le potenzialità di Doctors NET. Filtra tutti i risultati visualizzati in base alle tue preferenze." />
-
-        <HomeSection :imgs="showImgs" title="Visualizza i dettagli del medico scelto o della specialista"
-            sub-title="Sono disponibili anche tutte le recensioni di pazienti proprio come te, leggile prima di inviare la tua richiesta."
-            reverse="true" />
-        <HomeSection :imgs="contactImgs" title="Il tuo prossimo appuntamento &egrave; a portata di click"
-            sub-title="Invia una richiesta allo specialista, sar&agrave; sua cura ricontattarti il prima possibile per fissare un incontro." />
+        <div class=" max-website">
+            <HomeSection :imgs="indexImgs" title="Cerca tra centinaia di medici nella città che preferisci"
+                subTitle="Scegli la citt&agrave; e usa tutte le potenzialità di Doctors NET. Filtra tutti i risultati visualizzati in base alle tue preferenze." />
+    
+            <HomeSection :imgs="showImgs" title="Visualizza i dettagli del medico scelto o della specialista"
+                sub-title="Sono disponibili anche tutte le recensioni di pazienti proprio come te, leggile prima di inviare la tua richiesta."
+                reverse="true" />
+            <HomeSection :imgs="contactImgs" title="Il tuo prossimo appuntamento &egrave; a portata di click"
+                sub-title="Invia una richiesta allo specialista, sar&agrave; sua cura ricontattarti il prima possibile per fissare un incontro." />
+        </div>
     </div>
-    <div>
+    <div class=" max-website">
         <GalleryComponent />
     </div>
 </template>

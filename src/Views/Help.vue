@@ -1,5 +1,5 @@
 <template>
-    <div ref="privacySection">
+    <div ref="privacySection" class=" max-website">
        <PrivacyComponent />
     </div>
 </template>
