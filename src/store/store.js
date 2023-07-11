@@ -26,8 +26,18 @@ export const store = reactive({
     changePassword: false,
     chartsOpen: true,
     sponsor: false,
+    unreadMessages: 0
   },
+  personalMessages: null,
   specialization: '',
   specializationsSet: [],
   toast: useToast(),
+  payment: {
+    subscription: null,
+    price: null,
+    hours: null,
+    subID: null
+
+  },
+  payMode:false
 });

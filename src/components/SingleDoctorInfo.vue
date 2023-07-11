@@ -1,7 +1,7 @@
 <template>
     <div class="row row-cols-1 row-cols-md-2 w-100 p-md-5 gx-0">
-        <div class="col p-4 p-md-0">
-            <img class="img-fluid rounded" :src=doctor.profile_image_url alt="">
+        <div class="col p-4 p-md-0 d-flex justify-content-center align-items-center">
+            <img class="img-fluid" :src=doctor.profile_image_url alt="">
         </div>
         <div class="col d-flex flex-column justify-content-center gap-3 p-4 p-md-4 ps-md-4">
             <div class="text-doc-blue ps-md-4">
@@ -71,16 +71,10 @@ export default {
 
 <style lang="scss" scoped>
 
-
 img {
-    width: 100%;
-
-    @media screen and (min-width: 768px) {
-        object-fit: cover;
-        max-height: 400px;
-        object-position: top;
-    }
-  
+    margin: 0 auto;
+    border-radius: 10px;
+    max-height: 350px;
 }
 
 .button-container{

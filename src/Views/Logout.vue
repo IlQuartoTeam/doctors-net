@@ -7,6 +7,9 @@ import router from '../router/router';
 
     export default {
         mounted(){
+            /**
+             * JUST a root for logging out users
+             */
             if(store.isAuthenticated){
                 const config = { headers: { Authorization: `Bearer ${this.$cookies.get('session-token')}` }}
                 axios.post(store.API_URL + 'logout', {}, config).then(res => {
@@ -23,7 +26,3 @@ import router from '../router/router';
         }
     }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

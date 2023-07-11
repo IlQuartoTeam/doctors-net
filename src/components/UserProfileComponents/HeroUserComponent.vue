@@ -1,7 +1,7 @@
 <template>
     <div v-if="store.isAuthenticated && store.userDoctor" class="hero d-flex flex-column align-items-center justify-content-center">
         <h1 class="text-h1 fw-bold text-white mt-5">Ciao, {{ store.userDoctor.name }} {{ store.userDoctor.surname }}</h1>
-        <span class="text-white text-decoration-underline mb-5">Hai {{ store.userDoctor.messages.length }} messaggi non letti.</span>
+       
     </div>
     <div class="wrap p-5">
        
@@ -21,6 +21,7 @@ import { store } from '../../store/store';
         };
     },
     mounted() {
+        
     },
    
 }

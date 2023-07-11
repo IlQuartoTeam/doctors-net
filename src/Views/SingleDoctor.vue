@@ -1,5 +1,4 @@
 <template>
-   
         <div v-if="!loading && store.singleDoctor" class="d-flex flex-column gap-4">
             <SingleDoctorInfo :doctor="store.singleDoctor" />
             <InfoDoctorMapComponent :doctor="store.singleDoctor" />
@@ -33,15 +32,23 @@ export default {
         }
     },
     methods: {
+        /**
+         * get information about single doctor show
+         * requested by this.$route.params.user
+         */
         getDoctor() {
             axios.get(store.API_URL + 'doctors/' + this.$route.params.user).then(res => {
                 store.singleDoctor = res.data.results;
+                console.log(res.data.results);
                 this.loading = false
             }).catch(err => {
                 this.message.text = 'Ooops! Si è verificato un errore.'
                 this.loading = false
             });
         },
+        /**
+         * this method convert the average rating in stars (fill and unfilled)
+         */
         createStars() {
             if (store.singleDoctor) {
                 const totals = [1, 2, 3, 4, 5]
@@ -62,6 +69,9 @@ export default {
             this.isOpen = section;
             this.isSelected = section;
         },
+        /**
+         * Start the modal form for sending a message
+         */
         contactNow() {
             store.contactForm = !store.contactForm;
         }

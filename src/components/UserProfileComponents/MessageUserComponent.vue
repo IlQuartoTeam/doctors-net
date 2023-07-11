@@ -16,12 +16,12 @@
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }" class="prev-message d-lg-none">
                     <td class="position-relative text-doc-blue" @click="readMessage(message, true)">
                         <div class="d-flex flex-column pt-2">
-                            <div class="smName">
-                                <h6 class="mb-0 fw-bold">{{ message.fullname }}</h6>
+                            <div class="">
+                                <h6 class="mb-0 smName">{{ message.fullname }}</h6>
                             </div>
-                            <h6 class="small text-doc-blue mb-0">{{ message.email }}</h6>
+                            <h6 class="small smMail mb-0">{{ message.email }}</h6>
                             <div class="smMessageWrap">
-                                <p class="smMessage text-doc-blue mb-0"
+                                <p class="smMessage mb-0"
                                     :style="{ 'max-width': screenSize < 576 ? '80vw' : (store.dashboard.sidebarOpen ? '40vw' : '80vw') }">
                                     {{ message.text }}
                                 </p>
@@ -53,13 +53,13 @@
                 <tr v-for="(message, index) in store.personalMessages" @click="openMessage(message, true)"
                     class="prev-message pcTable d-none d-lg-table-row text-doc-blue position-relative"
                     :class="{ 'beenRead': message.been_read, 'unread': !message.been_read }">
-                    <td class="lgName text-doc-blue fw-bold">{{ message.fullname }}</td>
+                    <td class="lgName">{{ message.fullname }}</td>
 
-                    <td class="message text-doc-blue">
+                    <td class="message">
                         {{ message.text }}
                     </td>
                     <!-- <td class="d-none">{{ truncateMessage(message.text, 30) }}</td> -->
-                    <td class="lgDate text-doc-blue text-end">
+                    <td class="lgDate text-end">
                         <p class="mb-0">{{ formatDate(message.created_at) }}</p>
                     </td>
                     <td class="large actions">
@@ -80,22 +80,6 @@
                             </a>
                         </div>
                     </td>
-                    <!-- <div class="large actions position-absolute d-flex align-items-center gap-1">
-                        <div class="delete" @click.stop.once="deleteMessage(message, index)">
-                            <IconTrash />
-                        </div>
-                        <div @click.stop.once="readMessage(message, true)" v-if="!message.been_read"
-                            class="readMail mailIcons d-none d-md-block">
-                            <IconMailOpened />
-                        </div>
-                        <div @click.stop.once="readMessage(message, false)" v-if="message.been_read"
-                            class="unreadMail mailIcons d-none d-md-block">
-                            <IconMail />
-                        </div>
-                        <a @click.stop="" :href="'mailto:' + message.email" class="sendMail d-none d-sm-block">
-                            <IconAt />
-                        </a>
-                    </div> -->
                 </tr>
             </tbody>
         </table>
@@ -124,12 +108,13 @@
             <div>
                 <h6 class="mb-0 text-doc-blue senderName">{{ messageToView.fullname }}</h6>
                 <h6 class="mb-0 text-doc-blue senderMail">({{ messageToView.email }})</h6>
+                <p class="text-doc-blue small mt-2">{{ messageToView.prefered_date  ? `Gradirei la visita il ${formatDate(messageToView.prefered_date)}` : 'Non specificata' }}</p>
             </div>
             <div class="showDate">
                 <p class="mb-0 text-doc-blue">{{ formatDate(messageToView.created_at) }}</p>
             </div>
         </div>
-        <div class="messageContent mt-3 p-2">
+        <div class="messageContent mt-1 p-2">
             <p class="senderText">{{ messageToView.text }}</p>
 
         </div>
@@ -144,7 +129,8 @@
 
 
     <!-- NO MESSAGES SECTION -->
-    <div v-if="store.personalMessages.length < 1" class="noMessage text-center d-flex h-100 align-items-center justify-content-center">
+    <div v-if="store.personalMessages.length < 1"
+        class="noMessage text-center d-flex h-100 align-items-center justify-content-center">
         <div class="row justify-content-center align-items-center pb-5">
             <div class="medikit col-6">
                 <img class="img-fluid" src="/img/other/medikit.png" alt="">
@@ -188,6 +174,8 @@ export default {
         openMessage(message, setRead = false) {
             this.isOpenMessage = !this.isOpenMessage;
             this.messageToView = message;
+            console.log(this.messageToView);
+
             if (setRead) {
                 this.readMessage(message, true)
             }
@@ -217,7 +205,7 @@ export default {
         },
         readMessage(message, action) {
             if ((message.been_read && action) || (!message.been_read && !action)) {
-                return 
+                return
             }
             const params = {
                 readAction: action,
@@ -225,23 +213,28 @@ export default {
             }
             axios.post(store.API_URL + 'doctors/messages/read', params, this.config).then(res => {
                 message.been_read = action ? 1 : 0;
+                action ? store.dashboard.unreadMessages-- : store.dashboard.unreadMessages++
             }).catch(error => {
-                
+
             })
         },
         deleteMessage(message, index, goBack = false) {
             if (!message) {
-                return 
+                return
             }
             axios.post(`${store.API_URL}messages/${message.id}/delete`, { message }, this.config).then(res => {
-                
+
                 store.personalMessages.splice(index, 1)
+                1 ?  store.dashboard.unreadMessages-- : store.dashboard.unreadMessages++
+                store.toast.success('Messaggio cancellato', {timeout: 1500})
+                               
             }).catch(err => {
-                
+
             })
             if (goBack) {
                 this.openMessage(message)
             }
+            
         },
         getResize() {
             this.screenSize = window.innerWidth
@@ -295,7 +288,8 @@ export default {
             color: $doc-red;
         }
     }
-    .return{
+
+    .return {
         cursor: pointer;
     }
 }
@@ -311,7 +305,7 @@ export default {
     background-color: #e0e0e070;
 
     &:hover {
-        background-color: #aeaeae70;
+        background-color: #aeaeae40;
 
         .delete {
             animation: fadeIn .3s forwards;
@@ -480,6 +474,45 @@ export default {
     min-width: 200px;
 }
 
+.beenRead {
+
+    .smName,
+    .lgName {
+        color: $doc-dark;
+        font-weight: 400;
+        opacity: .8;
+    }
+
+    .smMail {
+        color: $doc-dark;
+        opacity: .8;
+    }
+    .smMessage , .message{
+        color: $doc-dark;
+        opacity: .8;
+    }
+
+    .date , .lgDate {
+        color: $doc-dark;
+        opacity: .8;
+    }
+}
+
+.unread {
+
+    .smName,
+    .lgName {
+        color: $doc-blue;
+        font-weight: 600;
+    }
+    .smMessage , .message{
+        color: $doc-blue;
+    }
+    .date , .lgDate {
+        font-weight: 500;
+    }
+}
+
 td {
     /* white-space: nowrap; */
 }
@@ -502,5 +535,4 @@ td {
         opacity: 1;
         scale: 1;
     }
-}
-</style>
+}</style>
