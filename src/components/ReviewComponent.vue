@@ -1,6 +1,6 @@
 <template>
   <div v-if="store.reviewOrdered">
-    <h3 class="px-5 pt-5 text-doc-blue fw-bold text-center text-md-start">Le recensioni più recenti ({{ store.reviewOrdered.length }})</h3>
+    <h3 class="px-5 pt-5 text-doc-blue fw-bold text-center text-md-start">Le recensioni più recenti ({{ reviewsPagination.total }})</h3>
     <div class="box-button text-center text-md-end me-md-5 mt-5">
     <ButtonComponent  @click="addReview" class="outline">
       <IconPencil :width="20" class="mb-1" />
