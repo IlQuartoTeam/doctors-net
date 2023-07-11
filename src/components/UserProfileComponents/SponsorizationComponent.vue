@@ -106,14 +106,19 @@
             </div>
         </div>
     </div>
-    <div class="container premiumView text-doc-blue" v-if="userIsPremium">
-        <div class="wrap p-5 m-5 d-flex flex-column align-items-center">
+    <div class="container p-5 premiumView text-doc-blue" v-if="userIsPremium">
+        <div class="wrap p-5 d-flex flex-column align-items-center">
             <div>
-                <h1 class="text-center">Compliementi, sei ufficialmente nostro Partner</h1>
-                <p class="pt-3">l'abbonamento scadrà tra:</p>
+                <h1 class="text-center">Sei un membro Partner</h1>
+                <p class="pt-3">Comparirai in homepage e sarai il primo a comparire nelle ricerche ancora per...</p>
             </div>
-            <div class="countdown">
-                
+            <div ref="countdown" class="w-100 py-4">
+                <ul class="d-flex justify-content-evenly w-100 flex-wrap gap-4 flex-lg-row">
+                    <li class="d-flex flex-column align-items-center"><span class="fs-1">{{ days }}</span><span>Giorni</span></li>
+                    <li class="d-flex flex-column align-items-center"><span class="fs-1">{{ hours }}</span>Ore</li>
+                    <li class="d-flex flex-column align-items-center"><span class="fs-1">{{ minutes }}</span>Minuti</li>
+                    <li class="d-flex flex-column align-items-center"><span class="fs-1">{{ seconds }}</span>Secondi</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -132,7 +137,10 @@ export default {
             activeOne: 'premium',
             store,
             userIsPremium: true,
-
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0
         }
     },
     components: {
@@ -149,10 +157,40 @@ export default {
             this.store.payment.hours = hours
             this.store.payment.subID = subID
             store.payMode = true
+        },
+        timer() {
+            const second = 1000,
+                minute = second * 60,
+                hour = minute * 60,
+                day = hour * 24;
+            this.countDown = setInterval(() => {
+                const toDay = new Date().getTime()
+                const distance = this.endTime - toDay;
+
+                this.days = Math.floor(distance / (day)),
+                    this.hours = Math.floor((distance % (day)) / (hour)),
+                    this.minutes = Math.floor((distance % (hour)) / (minute)),
+                    this.seconds = Math.floor((distance % (minute)) / second);
+
+                console.log(this.endTime - toDay);
+
+            }, 1000)
         }
     },
     mounted() {
+        if (store.userDoctor.end_date) {
+            this.endTime = new Date(store.userDoctor.end_date).getTime();
+            this.timer();
+        } else {
+            this.userIsPremium = false
+        }
         console.log(store.userDoctor);
+        console.log(new Date().getTime());
+        console.log(new Date("2023-07-12 15:50:16").getTime());
+
+    },
+    beforeUnmount() {
+        clearInterval(this.countDown)
     }
 }
 </script>
@@ -161,12 +199,13 @@ export default {
 @use '../../assets/styles/variables' as *;
 
 .premiumView {
-    .wrap {
-        border: 1px solid $doc-blue;
-        border-radius: 10px;
-    }
+  
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+}
 
 
 .container {
