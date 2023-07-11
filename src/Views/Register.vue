@@ -95,6 +95,9 @@ export default {
         }
     },
     methods: {
+        /**
+         * REGISTER A NEW USER
+         */
         register() {
             this.message = {};
             this.errPsw = false;
@@ -109,6 +112,10 @@ export default {
             } else {
                 store.specError = false
             }
+            /**
+             * Pass single property to the DB
+             * cannot pass a single object
+             */
             axios.post(store.API_URL + 'register', {
                 name: this.name,
                 surname: this.surname,
@@ -123,6 +130,9 @@ export default {
             }).then((res) => {
                 if(res.data.access_token)
                 {
+                    /**
+                     * If successfull push the user to his new brand personal page
+                     */
                     this.store.isAuthenticated = true
                     this.$cookies.set("session-token", res.data.access_token)
                     router.push('/users/profile')
@@ -131,6 +141,9 @@ export default {
                 }
                 
             }).catch(error => {
+                /**
+                 * CLIENT SIDE validation
+                 */
                     const messages = error.response.data.errors
     
                     if (messages.name){
@@ -168,13 +181,16 @@ export default {
                 })
 
         },
+        /**
+         * 
+         * Used for pass index of the specialization instead of the name 
+         */
         setSpecializationsSelected(result)
         {
            this.specializationsSelected.length = 0
   
            result.forEach(element => 
            {
-    
             this.specializationsSelected.push(this.specializations.indexOf(element) + 1)
            })
            
@@ -182,6 +198,9 @@ export default {
     },
     mounted()
     {
+        /**
+         * GET the availables specializations from DB
+         */
         axios.get(store.API_URL + 'specializations')
         .then(res => 
         {
