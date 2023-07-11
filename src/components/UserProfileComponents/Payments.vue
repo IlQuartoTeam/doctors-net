@@ -13,9 +13,13 @@
       'braintree.dropin.create' inside a form will make layout and flow
       easier to manage -->
       <div class="d-flex justify-content-center align-items-center gap-2">
-        <ButtonComponent :disabled="loading" id="payment-button" :button="true" type="submit" className="primary flex-grow-1">
-         aggiungi carta
+        <ButtonComponent :disabled="loadingBrain || paying" id="payment-button" :button="true" type="submit" className="primary flex-grow-1">
+      <span v-if="!paying">   {{ !addedCard ? 'Aggiungi una carta' : 'Paga ora' }} </span>
+      <span v-else class="d-flex justify-content-center align-items-center gap-2">
+                                <span class="spinner-border"></span> Pagando...
+                            </span>
           </ButtonComponent>
+          
           <ButtonComponent @click="store.payMode = false" :button="false" className="outline-accent flex-grow-1">Annulla
           </ButtonComponent>
       </div>
@@ -44,7 +48,9 @@ export default {
       nonce: '',
       store,
       paymentAdded: false,
-      loading: false
+      addedCard: false,
+      loadingBrain: true,
+      paying: false
 
     }
   },
@@ -61,8 +67,10 @@ export default {
       }, (error, dropinInstance) => {
         if (error) console.error(error);
 
+        this.loadingBrain = false
         form.addEventListener('submit', event => {
           event.preventDefault();
+          
 
           dropinInstance.requestPaymentMethod((error, payload) => {
             if (error) console.error(error);
@@ -80,7 +88,7 @@ export default {
               //   a server-side integration
               this.nonce = payload.nonce;
               this.paymentAdded = true;
-              document.querySelector('#payment-button').textContent = "Paga ora"
+              this.addedCard = true;
 
             }
 
@@ -101,7 +109,7 @@ export default {
         })
     },
     pay() {
-    
+      this.paying = true
       const paymentData = {
         amount: this.store.payment.price,
         payment_method_nonce: this.nonce,
@@ -118,6 +126,7 @@ export default {
           if (success) {
             store.toast.success('Sottoscrizione acquistata!', { timeout: 1500 });
             this.store.payMode = false;
+            this.paying = false
             
 
           } else {
@@ -129,8 +138,9 @@ export default {
         })
         .catch(error => {
           // Gestione degli errori di comunicazione con il backend
-          console.error(error);
-        });
+          console.error(error)
+          this.paying = false;
+        })
     }
   },
   components: {
