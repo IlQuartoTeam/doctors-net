@@ -86,7 +86,7 @@
         <div class="d-flex justify-content-end">
             <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li v-for="page in store.messagesPagination.links" :class="{active: page.active, disabled: page.url === null}" class="page-item"><a v-html="page.label.includes('Previous') ? '&laquo; Precedente' : page.label.includes('Next') ? 'Successiva &raquo;' : page.label" class="page-link" href="#"></a></li>
+    <li v-for="page in store.messagesPagination.links" @click="getMessages(page.url)" :class="{active: page.active, disabled: page.url === null}" class="page-item"><a v-html="page.label.includes('Previous') ? '&laquo; Precedente' : page.label.includes('Next') ? 'Successiva &raquo;' : page.label" class="page-link" href="#"></a></li>
   </ul>
 </nav>
         </div>
@@ -245,7 +245,17 @@ export default {
         },
         getResize() {
             this.screenSize = window.innerWidth
-        }
+        },
+        getMessages(pageurl) {
+            axios.get(pageurl)
+            .then((res) => {
+                store.personalMessages = res.data.data
+                store.messagesPagination = res.data
+
+            }).catch((err) => {
+
+
+            })}
     },
     mounted() {
         window.addEventListener('resize', this.getResize);

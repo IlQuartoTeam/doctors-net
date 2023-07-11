@@ -29,7 +29,7 @@
         <div class="d-flex justify-content-end me-2">
             <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li v-for="page in store.reviewsPagination.links" :class="{active: page.active, disabled: page.url === null}" class="page-item"><a v-html="page.label.includes('Previous') ? '&laquo; Precedente' : page.label.includes('Next') ? 'Successiva &raquo;' : page.label" class="page-link" href="#"></a></li>
+    <li v-for="page in store.reviewsPagination.links" @click="getReviews(page.url)" :class="{active: page.active, disabled: page.url === null}" class="page-item"><a v-html="page.label.includes('Previous') ? '&laquo; Precedente' : page.label.includes('Next') ? 'Successiva &raquo;' : page.label" class="page-link" href="#"></a></li>
   </ul>
 </nav>
         </div>
@@ -66,7 +66,21 @@ export default {
         const month = date.getMonth() + 1;
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
-    }},
+    },
+    getReviews(pageurl) {
+            axios.get(pageurl)
+            .then((res) => {
+                store.personalReviews = res.data.data
+                store.reviewsPagination = res.data
+
+
+
+            }).catch((err) => {
+
+
+            })}
+},
+    
     components: { IconStarFilled, IconStar }
 }
 </script>

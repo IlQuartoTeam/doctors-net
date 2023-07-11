@@ -1,6 +1,6 @@
 <template>
   <div v-if="store.reviewOrdered">
-    <h3 class="px-5 pt-5 text-doc-blue fw-bold text-center text-md-start">Le recensioni più recenti ({{ store.reviewOrdered.length }})</h3>
+    <h3 class="px-5 pt-5 text-doc-blue fw-bold text-center text-md-start">Le recensioni più recenti ({{ reviewsPagination.total }})</h3>
     <div class="box-button text-center text-md-end me-md-5 mt-5">
     <ButtonComponent  @click="addReview" class="outline">
       <IconPencil :width="20" class="mb-1" />
@@ -25,6 +25,11 @@
           <p class="mt-2">{{ review.text }}</p>
         </div>
       </div>
+      <div v-if="reviewsPagination.total >= 5" class="py-4 text-center d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+        <ButtonComponent @click="nextPage(reviewsPagination.prev_page_url)" :disabled="(reviewsPagination.prev_page_url === null) ? true : false" :button="true" className="primary" >pagina precedente</ButtonComponent>
+        <ButtonComponent @click="nextPage(reviewsPagination.next_page_url)" :disabled="(reviewsPagination.next_page_url === null) ? true : false" :button="true" className="primary" >pagina successiva</ButtonComponent>
+      </div>
+     
     </div>
     </div>
   
@@ -47,14 +52,22 @@ export default {
         return {
           store,
           visible: false,
-          stars: []
+          stars: [],
+          reviewsPagination: null
         }
     },
     methods: {
-      getReview() {
-        axios.get(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews').then(res => {
-          store.reviewOrdered = res.data;
+      getReview(page) {
+        const apiURL = page ?? (store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews')
+        axios.get(apiURL).then(res => {
+          store.reviewOrdered = res.data.data;
+          this.reviewsPagination = res.data
+          console.log(this.reviewsPagination);
         });
+      },
+      nextPage(page)
+      {
+        this.getReview(page)
       },
       createStars(index) {
         if(store.singleDoctor) {
@@ -85,7 +98,7 @@ export default {
       }
     },
     mounted() {
-      this.getReview();
+      this.nextPage()
       setTimeout(() => {
         this.createStars()
       }, 1000);

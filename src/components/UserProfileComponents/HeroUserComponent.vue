@@ -1,11 +1,8 @@
 <template>
     <div v-if="store.isAuthenticated && store.userDoctor" class="hero d-flex flex-column align-items-center justify-content-center">
         <h1 class="text-h1 fw-bold text-white mt-5">Ciao, {{ store.userDoctor.name }} {{ store.userDoctor.surname }}</h1>
-       
     </div>
-    <div class="wrap p-5">
-       
-    </div>
+    <h1 class="text-h2 text-doc-blue fw-semibold text-center mt-5">La tua dashboard</h1>
 </template>
 
 <script>

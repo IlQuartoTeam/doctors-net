@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+// prova
 img {
     margin: 0 auto;
     border-radius: 10px;

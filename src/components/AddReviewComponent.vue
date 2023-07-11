@@ -1,7 +1,7 @@
 <template>
     <div class="modal-wrap">
-        <div class="doc-modal p-4">
-            <div class="content mt-5 container-fluid text-center">
+        <div class="doc-modal py-2 px-4 md-py-0 px-md-0 px-md-4 py-md-4">
+            <div class="content container-fluid text-center">
                 <h1 class="fs-3">Aggiungi una recensione</h1>
                 <form @submit.prevent="sendReview()">
                     <div class="stars d-flex align-items-center justify-content-center mt-4 pb-2"
