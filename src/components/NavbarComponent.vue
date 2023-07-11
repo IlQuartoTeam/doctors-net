@@ -1,56 +1,68 @@
 <template>
-    <nav>
-        <div class="menu max-website d-flex justify-content-between align-items-center">
+    <nav class="">
+        <div class="px-2 px-md-5 py-3 max-website d-flex justify-content-between align-items-center">
             <div class="box-logo">
                 <router-link to="/"><img src="/img/logo/hearts-no-track.svg" class="logo" alt="logo"></router-link>
             </div>
-            <div class="box-voices d-flex align-items-center m-auto gap-3">
-                <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/">Home</router-link>
-                <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/doctors">I nostri specialisti</router-link>
-                <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/team">Chi siamo</router-link>
-                <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help">Assistenza</router-link>
+            <div class="d-none d-lg-flex justify-content-center align-items-center gap-3 fw-bold ">
+                <router-link to="/">Home</router-link>
+                <router-link to="/doctors">I nostri specialisti</router-link>
+                <router-link to="/team">Chi siamo</router-link>
+                <router-link to="/help">Assistenza</router-link>
             </div>
-            <div class="box-button d-flex align-items-center gap-3">
-                <button v-if="!store.isAuthenticated" class="button-doctor button-none"
-                    @click="goLogin()">
-                    <IconUser class="mb-1" :size="24" /> Sei un medico?
-                </button>
-                <router-link to="/users/profile">
-                    <ButtonComponent v-if="store.isAuthenticated && store.userDoctor" className="button-doctor outline m-0"
-                        id="btn-logged">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="d-none d-md-block">
+                    <ButtonComponent href="/login" v-if="!store.isAuthenticated" class="outline-primary">
+                        <IconUser :size="24" /> Sei un medico?
+                    </ButtonComponent>
+                </div>
+
+                <div class="d-none d-md-block">
+                    <ButtonComponent href="/users/profile" v-if="store.isAuthenticated && store.userDoctor"
+                        className="outline w-100">
                         <IconUser /><span v-if="store.userDoctor">{{ store.userDoctor.name }} {{ store.userDoctor.surname
                         }}</span>
                     </ButtonComponent>
-                </router-link>
+                </div>
+
                 <div>
-                    <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon p-2" alt="icon-menu" @click="openMenu" />
-                    <IconX :size="60" v-if="menuOpen" class="hamb-icon p-2" alt="icon-menu" @click="openMenu" />
+                    <IconMenu2 :size="60" v-if="!menuOpen" class="hamb-icon p-2 d-lg-none" alt="icon-menu" @click="openMenu" />
+                    <IconX :size="60" v-if="menuOpen" class="hamb-icon p-2 d-lg-none" alt="icon-menu" @click="openMenu" />
                 </div>
             </div>
         </div>
+
         <Transition name="fade-in">
-            <div v-if="menuOpen" class="fade-in">
-                <div class="menu-open d-flex flex-column">
+            <div v-if="menuOpen" class="fade-in d-lg-none">
+                <div class="menu-open d-flex flex-column gap-3 pb-4">
                     <div class="menu-link d-flex flex-column">
                         <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/" @click="openMenu">Home</router-link>
-                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/doctors" @click="openMenu">I nostri specialisti</router-link>
-                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/team" @click="openMenu">Chi siamo</router-link>
-                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help" @click="openMenu">Assistenza</router-link>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/doctors" @click="openMenu">I nostri
+                            specialisti</router-link>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/team" @click="openMenu">Chi
+                            siamo</router-link>
+                        <router-link class="py-3 px-3 paragraph-hero-p fw-bold" to="/help"
+                            @click="openMenu">Assistenza</router-link>
                     </div>
-                    <div class="menu-button p-3 m-auto">
-                        <button v-if="!store.isAuthenticated" class="button-doctor button-mobile" @click="goLogin()">
-                            <IconUser class="mb-1" :size="24" /> Sei un medico?
-                        </button>
-                        <router-link to="/users/profile">
-                            <ButtonComponent v-if="store.isAuthenticated"
-                                className="outline d-flex align-items-center gap-2">
-                                <IconUser /><span v-if="store.userDoctor">{{ store.userDoctor.name }} {{
-                                    store.userDoctor.surname }}</span>
+                    <div class="px-2">
+                        <div class="d-md-none">
+                            <ButtonComponent href="/login" v-if="!store.isAuthenticated" class="outline-primary w-100">
+                                <IconUser :size="24" /> Sei un medico?
                             </ButtonComponent>
-                        </router-link>
+                        </div>
+
+                        <ButtonComponent href="/users/profile" v-if="store.isAuthenticated" className="outline w-100">
+                            <IconUser /><span v-if="store.userDoctor">{{ store.userDoctor.name }} {{
+                                store.userDoctor.surname }}</span>
+                        </ButtonComponent>
+
                     </div>
-                    <div v-if="store.isAuthenticated" class="logout d-flex justify-content-center mb-3">
-                        <router-link to="/logout"><ButtonComponent className="accent d-flex align-items-center justify-content-center" id="btn-logged"><span>Logout</span></ButtonComponent></router-link>
+                    <div v-if="store.isAuthenticated" class="logout d-flex justify-content-center px-2">
+
+                        <ButtonComponent href="/logout" className="accent w-100">
+                            logout
+                        </ButtonComponent>
+
                     </div>
                 </div>
             </div>
@@ -62,7 +74,6 @@
 import { store } from '../store/store';
 import axios from 'axios';
 import { IconUser } from '@tabler/icons-vue';
-import { IconBrandGoogleHome } from '@tabler/icons-vue';
 import { IconMenu2 } from '@tabler/icons-vue';
 import { IconX } from '@tabler/icons-vue';
 import ButtonComponent from './ButtonComponent.vue';
@@ -88,25 +99,25 @@ export default {
         goLogin() {
             this.$router.push({ name: 'login' })
         },
-        getUser(){
-            if ( this.$cookies.get("session-token")){
+        getUser() {
+            if (this.$cookies.get("session-token")) {
                 const token = this.$cookies.get("session-token")
-               
-                const config = { headers: { Authorization: `Bearer ${token}` }}
-                    axios.post(store.API_URL + 'user', {key: 'value'}, config).then(res => {
+
+                const config = { headers: { Authorization: `Bearer ${token}` } }
+                axios.post(store.API_URL + 'user', { key: 'value' }, config).then(res => {
                     store.doctor = res.data.doctor
                     store.doctor.specialization = res.data.doctor.specializations[0].name
                     store.user = res.data.user
-                    store.userDoctor = {...res.data.doctor, ...res.data.user}
+                    store.userDoctor = { ...res.data.doctor, ...res.data.user }
                     router.push('/users/profile')
                 }).catch(err => {
-                   
+
                     this.loading = false
                 })
             }
         },
     },
-    mounted(){
+    mounted() {
         this.getUser()
     }
 }
@@ -114,15 +125,15 @@ export default {
 
 <style lang="scss" scoped>
 @use '../assets/styles/variables' as *;
-nav{
+
+nav {
     height: 100px;
 }
+
 .router-link-exact-active {
     color: $doc-accent;
 }
-.menu {
-    padding: 10px 15px;
-}
+
 
 .box-logo {
     width: 60px;
@@ -166,50 +177,14 @@ button {
     display: none;
     padding: 16px 65px;
 }
-.button-doctor {
-    display: none;
-    padding: 15px 32px;
-    border-radius: 5px;
-    background-color: white;
-    border: 1px solid #2FB0BD;
-    color: #0071A2;
-    transition: background-color 0.5s, color 0.5s;
-}
-
-.button-mobile{
-    display: inline-block;
-}
-
-.button-doctor:hover {
-    background-color: #0071A2;
-    color: white;
-}
 
 .logout-desk {
     display: none;
 }
 
-@media screen and (min-width:576px) {
-    .menu {
-        padding: 20px 50px;
-    }
-
-    .menu-button {
-        display: none;
-    }
-
-    .button-doctor{
-        display: inline-block;
-    }
-        #btn-logged {
-            display: inline-block;
-        }
-    }
 
 @media screen and (min-width:1200px) {
-    .menu-open{
-        display: none !important;
-    }
+
     .hamb-icon {
         display: none;
     }
@@ -231,15 +206,16 @@ button {
             }
         }
     }
+
     .box-logo {
         width: 250px;
         height: 50px;
 
-    img {
-        width: 60px;
-        height: 100%;
+        img {
+            width: 60px;
+            height: 100%;
+        }
     }
-}
 
     .logout-desk {
         display: inline-block;

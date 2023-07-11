@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  props: ['type', 'button', 'className', 'link'],
+  props: ['type', 'button', 'className', 'link', 'router'],
 
 };
 </script>
