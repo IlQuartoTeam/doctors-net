@@ -11,6 +11,7 @@
         <ButtonComponent @click="sendToDoctors" class="cerca fw-bold" className="accent px-6">INIZIA ORA</ButtonComponent>
       </div>
     </div>
+    <div class="d-none" id="giampapa">Bulldog > Gatto</div>
   </div>
 </template>
       
