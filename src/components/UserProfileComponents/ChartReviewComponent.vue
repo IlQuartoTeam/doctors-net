@@ -1,26 +1,21 @@
 <template>
     <div class="wrapper w-100 p-5">
       <div class="">
-        <div class="row g-0">
-          <div class="col-12 col-lg-6 px-5 pt-4">
-            <h3 class="text-h3 text-doc-blue fw-semibold mt-4">Recensioni: le tue statistiche</h3>
-            <div class="timeframe d-flex justify-content-end me-4 gap-1">
-              <span @click="oneYear" class="badge bg-primary fw-light"
-                :class="[this.isSelected === 'year' ? 'selected' : '']">1 Y</span>
-              <span @click="oneMonth" class="badge bg-primary fw-light"
-                :class="[this.isSelected === 'month' ? 'selected' : '']">1 M</span>
-              <span @click="oneWeek" class="badge bg-primary fw-light"
-                :class="[this.isSelected === 'week' ? 'selected' : '']">1 W</span>
-              <span @click="oneDay" class="badge bg-primary fw-light"
-                :class="[this.isSelected === 'day' ? 'selected' : '']">1
-                D</span>
-            </div>
-            <Bar v-if="loaded" :data="data" :options="options" />
-          </div>
+        <h3 class="text-h3 text-doc-blue fw-semibold mt-4"><span class="text-doc-accent">Recensioni</span> ricevute per <span class="text-uppercase">{{ this.timeframe }}</span> </h3>
+        <div class="timeframe d-flex justify-content-end me-4 gap-1">
+            <span @click="oneYear" class="badge bg-primary fw-light"
+            :class="[this.isSelected === 'year' ? 'selected' : '']">1 Y</span>
+            <span @click="oneMonth" class="badge bg-primary fw-light"
+            :class="[this.isSelected === 'month' ? 'selected' : '']">1 M</span>
+            <span @click="oneWeek" class="badge bg-primary fw-light"
+            :class="[this.isSelected === 'week' ? 'selected' : '']">1 W</span>
+            <span @click="oneDay" class="badge bg-primary fw-light"
+            :class="[this.isSelected === 'day' ? 'selected' : '']">1 D</span>
         </div>
+        <Bar v-if="loaded" :data="data" :options="options" class="p-2"/>
       </div>
     </div>
-  </template>
+</template>
     
   <script lang="ts">
   import { Bar } from 'vue-chartjs'
@@ -46,6 +41,7 @@
         store,
         loaded: false,
         isSelected: '',
+        timeframe: '',
         reviewStats: null,
         sum: {},
         data: {
@@ -125,6 +121,7 @@
           this.loaded = true
         }, 600);
         this.isSelected = 'day';
+        this.timeframe = 'giorno'
         this.getStats();
     
       },
@@ -176,6 +173,7 @@
           this.loaded = true
         }, 600);
         this.isSelected = 'week';
+        this.timeframe = 'settimana'
         this.getStats();
      
       },
@@ -228,6 +226,7 @@
           this.loaded = true
         }, 600);
         this.isSelected = 'month';
+        this.timeframe = 'mese'
         this.getStats();
    
       },
@@ -280,6 +279,7 @@
           this.loaded = true
         }, 600)
         this.isSelected = 'year';
+        this.timeframe = 'anno'
         this.getStats();
       
         

@@ -127,6 +127,7 @@ export default {
             store.toast.success('Sottoscrizione acquistata!', { timeout: 1500 });
             this.store.payMode = false;
             this.paying = false
+            this.getendDate()
             
 
           } else {
@@ -141,7 +142,20 @@ export default {
           console.error(error)
           this.paying = false;
         })
-    }
+    },
+    getendDate() {
+            if (this.$cookies.get("session-token")) {
+                const token = this.$cookies.get("session-token")
+
+                const config = { headers: { Authorization: `Bearer ${token}` } }
+                axios.post(store.API_URL + 'user', { key: 'value' }, config).then(res => {
+                    store.userDoctor.end_date = res.data.doctor.end_date 
+                }).catch(err => {
+                 
+                }
+                )
+            }
+        },
   },
   components: {
     ButtonComponent,
