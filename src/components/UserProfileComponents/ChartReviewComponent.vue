@@ -64,7 +64,7 @@
         const startDate = moment().subtract(7, 'year').format('Y-MM-DD');
         const endDate = moment().format('Y-MM-DD');
   
-        axios.post(store.API_URL + 'user/reviews/stats', {
+        axios.post(store.API_URL + 'user/reviews/simplestats', {
           start_date: startDate,
           end_date: endDate
         }, {
