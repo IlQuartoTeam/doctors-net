@@ -41,6 +41,10 @@ export default {
     background-color: $doc-blue !important;
     color: $doc-white !important;
   }
+  &:focus-visible {
+    background-color: $doc-blue;
+    color: $doc-white;
+  }
 }
 
 .primary:hover {
@@ -52,6 +56,10 @@ export default {
   background-color: $doc-white;
   border: 1px solid $doc-blue;
   color: $doc-blue;
+  &:focus-visible {
+    background-color: $doc-blue;
+  color: $doc-white;
+  }
 }
 .outline-accent {
   background-color: $doc-white;

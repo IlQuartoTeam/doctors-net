@@ -54,7 +54,9 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 *{
     font-family: 'NT Somic';
-
+    &:focus-visible{
+      outline-color: $doc-primary;
+    }
 }
 
 a{
