@@ -15,6 +15,7 @@
     "chart.js": "^4.3.0",
     "chartjs-adapter-moment": "^1.0.1",
     "moment": "^2.29.4",
+    "pdfmake": "^0.2.7",
     "sass": "^1.63.6",
     "swiper": "^10.0.4",
     "three": "^0.154.0",

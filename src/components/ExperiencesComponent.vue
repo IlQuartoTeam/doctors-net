@@ -42,12 +42,15 @@
       </div>
 
     </div>
-
+    <div class="pdf">
+      <PDFGenComponent :doctor="store.singleDoctor"/>
+    </div>
   </div>
 </template>
 
 
 <script>
+import PDFGenComponent from './PDFGenComponent.vue';
 import axios from 'axios';
 import timeline from '../components/timeline.vue'
 import timelineItem from '../components/timelineItem.vue'
@@ -57,8 +60,9 @@ export default {
   components: {
     timeline,
     timelineItem,
-    timelineTitle
-  },
+    timelineTitle,
+    PDFGenComponent,
+},
   data() {
 
 
@@ -95,6 +99,7 @@ export default {
   },
   mounted()
   {
+    console.log('singledoc:', store.singleDoctor);
     axios.get(store.API_URL + `doctors/${store.singleDoctor.id}/experiences`)
     .then(res =>
     {
