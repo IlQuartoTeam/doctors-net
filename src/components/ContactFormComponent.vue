@@ -4,17 +4,18 @@
             <div class="content container-fluid">
                 
                 <h2 class="text-doc-primary fw-bold fs-3 text-center"><span class="fs-3 text-doc-blue">Contatta </span>{{ store.singleDoctor.name + ' ' + store.singleDoctor.surname }}</h2>
+                <small>I campi contrassegnati da * sono obbligatori</small>
                 <form @submit.prevent="sendMessage()">
                     <div class="row mt-3">
                         <div class="col-12">
                             <InputComponent id="user_name" type="text" :required="true" v-model="name"
-                                placeholder="Giovanna" label="Il tuo nome"/>
+                                placeholder="Giovanna" label="Il tuo nome*"/>
                                 <InputComponent id="prefered_date" :min="today" type="date" :required="true" v-model="date" label="Data preferita"
                                />
                             <InputComponent id="user_email" type="email" :required="true" v-model="email"
-                                placeholder="giovanna@mail.com" label="La tua e-mail" />
+                                placeholder="giovanna@mail.com" label="La tua e-mail*" />
                             <textarea id="user_messagge" label="Messaggio*" type="textarea" v-model="message"
-                                :required="true" placeholder="Messaggio" class="mt-5"></textarea>
+                                :required="true" placeholder="Messaggio*" class="mt-5"></textarea>
                         </div>
                     </div>
                     <div class="d-flex flex-column gap-3">
