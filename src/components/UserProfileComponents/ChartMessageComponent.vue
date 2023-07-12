@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper w-100 p-5">
     <div class="">
-      <h3 class="text-h3 text-doc-blue fw-semibold mt-4"><span class="text-doc-accent">Messaggi</span> ricevuti per <span class="text-uppercase">{{ this.timeframe }}</span></h3>
+      <h3 class="text-h3 text-doc-blue fw-semibold mt-4"><span class="text-doc-accent">Messaggi</span> ricevuti per <span>{{ this.timeframe }}</span></h3>
       <div class="timeframe d-flex justify-content-end me-4 gap-1">
         <span @click="oneYear" class="badge bg-primary fw-light"
           :class="[this.isSelected === 'year' ? 'selected' : '']">1 Y</span>
@@ -50,9 +50,13 @@ export default {
           {
             data: [],
             label: 'Messaggi Ricevuti',
-            backgroundColor: '#F38F23',
+            borderWidth: 3,
+            borderColor: '#0071A2',
+            backgroundColor: '#2FB0BD',
+
           }
-        ]
+        ],
+       
       },
       options: {
         responsive: true,
@@ -290,7 +294,7 @@ export default {
     }
   },
   mounted() {
-    this.oneDay()
+    this.oneYear()
   }
 }
 </script>

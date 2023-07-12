@@ -8,7 +8,7 @@
     </ButtonComponent>
     </div>
     <div class="container-fluid mt-5 px-5" >
-      <div class="box-reviews container-fluid">
+      <div class="box-reviews container-fluid pb-5">
         <div class="row mb-5 pt-3" v-for="review in reviews">
           <div class="col-12">
             <h2 class="fw-semibold name" v-if="review.name">{{ review.name }}</h2>
@@ -25,7 +25,7 @@
           <p class="mt-2">{{ review.text }}</p>
         </div>
       </div>
-      <div v-if="reviewsPagination.total >= 5" class="py-4 text-center d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+      <div v-if="reviewsPagination.total >= 5" class="pb-5 text-center d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
         <ButtonComponent @click="nextPage(reviewsPagination.prev_page_url)" :disabled="(reviewsPagination.prev_page_url === null) ? true : false" :button="true" className="primary" >pagina precedente</ButtonComponent>
         <ButtonComponent @click="nextPage(reviewsPagination.next_page_url)" :disabled="(reviewsPagination.next_page_url === null) ? true : false" :button="true" className="primary" >pagina successiva</ButtonComponent>
       </div>

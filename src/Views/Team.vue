@@ -1,16 +1,37 @@
 <template>
     <div class=" max-website">
-        <h2 class="text-doc-blue fw-bold text-center">Il team dietro</h2>
-        <div class="logo-container text-center">
-            <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img
-                        src="/img/logo/hearts-no-track.svg" alt=""></span><span class="text-doc-primary">rs Net</span>
-            </h1>
-        </div>
+        <h1 class="text-doc-blue fw-bold text-center">Il team dietro <br> <span class="text-doc-primary">DOCTORS NET</span></h1>
+        <small class="d-block text-center py-3 text-doc-blue">Siamo la carica dei <code class="fw-bold text-doc-blue">101</code> <em>full stack developers</em>.</small>
         <div class="px-2 px-md-5">
             <div class="map py-4">
                 <div id="team-map"></div>
             </div>
-            
+            <div class="greetings p-2">
+                <h2 class="text-doc-blue"><strong>I ringraziamenti essenziali</strong></h2>
+                <p class="text-doc-blue">Innazitutto un grazie a noi stessi: 
+                    <a href="https://github.com/raffaelecapaldo">Raffaele</a>, 
+                    <a href="https://github.com/Gaetano26">Gaetano</a>, 
+                    <a href="https://github.com/Lip-7">Filippo</a>, 
+                    <a href="https://github.com/nicolozibra1">Nicol&ograve;</a>, 
+                    <a href="https://github.com/filecc">Filippo</a>, senza le ore passate davanti allo schermo, senza essere paperelle 
+                    l&apos;uno dell'altro non saremmo arrivati a scrivere queste righe. Quindi, ✨ bravi tutti✨.
+                </p>
+                <h2 class="text-doc-blue"><strong>I ringraziamenti importanti</strong></h2>
+                <p class="text-doc-blue">
+                    Un grazie speciale a tutte le ragazze e a tutti i ragazzi di Classe 92, senza i quali questi 6 mesi sarebbero stati decisamente meno entusiasmanti, grazie per tutte le risate, i messaggi su telegram e discord, i giochi, le ore passate a condividere schermi, a fare altre lezioni a confrontarsi. Grazie.
+                    
+                </p>
+                <h2 class="text-doc-blue"><strong>I ringraziamenti necessari</strong></h2>
+                <p class="text-doc-blue">
+                    Necessari, ma non fatti controvoglia. Un grazie speciale a Clelia Fradella, la nostra insegnante, che con instancabile dedizione ha spiegato per 6 mesi, moltissime ore, da come si centra un <code>div</code> a come si imposta l'API da Laravel. <span class="text-uppercase">&egrave;</span> stato un viaggio intenso, l'abbiamo affrontato a testa alta ed eccoci qui, su questo sito web che sta davvero in piedi da solo. <br><br> Grazie ai nostri tutor, Marco e Samuel, senza i quali nei pomeriggi dei studio avremmo dovuto avere 12 ore in pi&ugrave;. E senza i quali sicuramente non avremmo scoperto molte cose nuove.
+                </p>
+                <h2 class="text-doc-blue"><strong>I ringraziamenti finali</strong></h2>
+                <p class="text-doc-blue">
+                    Arrivano alla fine, ma non per importanza. Grazie ai nostri Project Manager, Giuseppe e Giuliano, e grazie al nostro coordinatore di classe, Adriano. Soprattutto in questa ultima fase, siete stati un buon appoggio e un ottimo stimolo. 
+                    <br><br>E grazie a Boolean, senza la quale alla fine di tutto, niente sarebbe stato possibile. 
+                    Ne &egrave; valsa la pena.
+                </p>
+            </div>
         </div>
     </div>
 </template>
@@ -21,7 +42,7 @@ export default {
         
         let zoom = 15
         const windowWidth = window.innerWidth
-        if(this.windowWidth < 1000)
+        if(windowWidth < 1000)
         {
             zoom = 14
         }
@@ -86,10 +107,10 @@ export default {
 
 <style lang="scss" scoped>
 .logo-container {
-    max-height: 80px;
+    
 
     img {
-        max-height: 50px;
+        max-height: 40px;
     }
 }
 #team-map{
@@ -102,5 +123,15 @@ export default {
     @media screen and (min-width: 1000px) {
         height: 46rem;
     }
+}
+.greetings{
+    columns: 1;
+    @media screen and (min-width: 768px) {
+        columns: 2;
+    }
+    @media screen and (min-width: 992px) {
+        columns: 3;
+    }
+    
 }
 </style>

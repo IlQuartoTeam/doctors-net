@@ -4,7 +4,7 @@
         <p class="text-center text-doc-blue px-5">Dai un&apos;occhiata alle nostre migliori dottoresse ai nostri migliori dottori
         </p>
     </div>
-    <div v-if="premiumUsers" class="gallery-container">
+    <div v-if="premiumUsers" class="gallery-container h-100">
         <swiper 
         :navigation="true"
         :modules="modules" 
@@ -24,18 +24,17 @@
         }
         }"
         >
-            <swiper-slide v-for="user in premiumUsers">
-                <div class="card-container d-flex flex-column gap-3 text-center shadow-sm text-doc-blue">
+            <swiper-slide v-for="user in premiumUsers" class="h-100">
+                <div class="card-container d-flex flex-column gap-3 text-center shadow-sm text-doc-blue h-100">
                    <h6 class="fw-bold text-center">{{ user.name }} {{ user.surname }}</h6>
                    <div class="img-container">
                     <img class="img-fluid" :src="user.profile_image_url" />
                    </div>
-                   <p class="p-0 m-0 fw-bold" v-for="spec in user.specializations">{{ spec.name }}</p>
+                   <p class="p-0 m-0 fw-bold">{{ user.specializations[0].name }}</p>
                    <p class="p-0 m-0">{{ user.address }}</p>
                    <p class="p-0 m-0 d-flex align-items-center gap-1 justify-content-center"><IconMapPin />{{ user.city }}</p>
                    <ButtonComponent :href="'/doctors/' + user.slug" className="primary">dettagli</ButtonComponent>
                 </div>
-                
             </swiper-slide>
         </swiper>
     </div>
