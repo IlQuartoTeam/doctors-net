@@ -78,7 +78,7 @@ export default {
         }
       }).then(res => {
         this.messageStats = res.data.statsMessages
-        console.log(res.data.statsMessages)
+       
       });
     },
     oneDay() {
@@ -127,7 +127,7 @@ export default {
       }, 600);
       this.isSelected = 'day';
       this.getStats();
-      console.log(this.data.datasets[0].data)
+      
     },
     oneWeek() {
       this.data.datasets[0].data = [];
@@ -178,14 +178,14 @@ export default {
       }, 600);
       this.isSelected = 'week';
       this.getStats();
-      console.log(this.data.datasets[0].data)
+     
     },
     oneMonth() {
       this.data.datasets[0].data = [];
       this.sum = {}
       this.loaded = false;
       this.data.labels = [];
-      //console.log(this.data.labels);
+
       let today = moment();
       let labels = [];
       for (let i = 6; i >= 0; i--) {
@@ -230,7 +230,7 @@ export default {
       }, 600);
       this.isSelected = 'month';
       this.getStats();
-      console.log(this.data.datasets[0].data)
+   
     },
 
 
@@ -285,7 +285,7 @@ export default {
       }, 600)
       this.isSelected = 'year';
       this.getStats();
-      console.log(this.data.datasets[0].data)
+   
       
 
     }

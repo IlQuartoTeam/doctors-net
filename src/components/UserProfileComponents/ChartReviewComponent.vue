@@ -77,7 +77,7 @@
           }
         }).then(res => {
           this.reviewStats = res.data.statsReviews
-          console.log(res.data.statsReviews)
+   
         });
       },
       oneDay() {
@@ -126,7 +126,7 @@
         }, 600);
         this.isSelected = 'day';
         this.getStats();
-        console.log(this.data.datasets[0].data)
+    
       },
       oneWeek() {
         this.data.datasets[0].data = [];
@@ -177,14 +177,14 @@
         }, 600);
         this.isSelected = 'week';
         this.getStats();
-        console.log(this.data.datasets[0].data)
+     
       },
       oneMonth() {
         this.data.datasets[0].data = [];
         this.sum = {}
         this.loaded = false;
         this.data.labels = [];
-        //console.log(this.data.labels);
+
         let today = moment();
         let labels = [];
         for (let i = 6; i >= 0; i--) {
@@ -229,7 +229,7 @@
         }, 600);
         this.isSelected = 'month';
         this.getStats();
-        console.log(this.data.datasets[0].data)
+   
       },
       oneYear() {
         this.data.datasets[0].data = [];
@@ -281,7 +281,7 @@
         }, 600)
         this.isSelected = 'year';
         this.getStats();
-        console.log(this.data.datasets[0].data)
+      
         
   
       }
