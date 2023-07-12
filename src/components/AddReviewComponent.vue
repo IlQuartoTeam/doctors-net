@@ -3,6 +3,7 @@
         <div class="doc-modal py-2 px-4 md-py-0 px-md-0 px-md-4 py-md-4">
             <div class="content container-fluid text-center">
                 <h1 class="fs-3">Aggiungi una recensione</h1>
+                <small>Seleziona obbligatoriamente almeno una stella</small>
                 <form @submit.prevent="sendReview()">
                     <div class="stars d-flex align-items-center justify-content-center mt-4 pb-2"
                         @mouseleave="resetStars()">
