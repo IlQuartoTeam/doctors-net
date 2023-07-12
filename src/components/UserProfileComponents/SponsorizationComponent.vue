@@ -107,10 +107,10 @@
         </div>
     </div>
     <div class="container p-5 premiumView text-doc-blue" v-if="userIsPremium">
-        <div class="wrap p-5 d-flex flex-column align-items-center">
+        <div class="wrap p-3 p-md-5 d-flex flex-column align-items-center rounded-4">
             <div>
-                <h1 class="text-center">Sei un membro Partner</h1>
-                <p class="pt-3">Apparirai in homepage e sarai il primo a comparire nelle ricerche ancora per...</p>
+                <h1 class="text-center fw-bold">Sei un membro Partner</h1>
+                <p class="pt-3 text-center">Apparirai in homepage e sarai il primo a comparire nelle ricerche ancora per...</p>
             </div>
             <div ref="countdown" class="w-100 py-4">
                 <ul class="d-flex justify-content-evenly w-100 flex-wrap gap-4 flex-lg-row">
@@ -204,6 +204,11 @@ export default {
 <style lang="scss" scoped>
 @use '../../assets/styles/variables' as *;
 
+.wrap
+{
+    border: 1px solid $doc-blue;
+    background-color: white;
+}
 .premiumView {}
 
 ul {
