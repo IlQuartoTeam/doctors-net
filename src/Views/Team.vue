@@ -1,11 +1,13 @@
 <template>
     <div class=" max-website">
         <h2 class="text-doc-blue fw-bold text-center">Il team dietro</h2>
+        
         <div class="logo-container text-center">
             <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img
                         src="/img/logo/hearts-no-track.svg" alt=""></span><span class="text-doc-primary">rs Net</span>
             </h1>
         </div>
+        <small class="d-block text-center py-3 text-doc-blue">Siamo la carica dei <code class="fw-bold text-doc-blue">101</code> <em>full stack developers</em>.</small>
         <div class="px-2 px-md-5">
             <div class="map py-4">
                 <div id="team-map"></div>
