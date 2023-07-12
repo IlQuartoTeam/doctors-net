@@ -50,7 +50,9 @@
             {
               data: [],
               label: 'Recensioni Ricevute',
-              backgroundColor: '#0071A2',
+              borderWidth: 3,
+              borderColor: '#0071A2',
+              backgroundColor: '#2FB0BD',
             }
           ]
         },

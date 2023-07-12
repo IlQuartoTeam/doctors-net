@@ -50,9 +50,13 @@ export default {
           {
             data: [],
             label: 'Messaggi Ricevuti',
-            backgroundColor: '#F38F23',
+            borderWidth: 3,
+            borderColor: '#0071A2',
+            backgroundColor: '#2FB0BD',
+
           }
-        ]
+        ],
+       
       },
       options: {
         responsive: true,
