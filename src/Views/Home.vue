@@ -5,6 +5,7 @@
             class="top d-flex ps-md-5 flex-column overflow-hidden align-items-center flex-md-row-reverse w-100 justify-content-center justify-content-lg-between">
             <template v-if="isMobile">
                 <FirstAidMobile />
+                
             </template>
             <template v-else>
                 <FirstAid />
@@ -14,7 +15,7 @@
                 <h1 class="text-uppercase fw-bold position-relative z-2"><span class="text-doc-accent">Doct</span><span><img
                             src="/img/logo/hearts-no-track.svg" alt=""></span><span class="text-doc-primary">rs Net</span>
                 </h1>
-                <p class="text-doc-light-dark fw-normal">Migliaia di dottori a portata di click. Cerca lo specialista adatto
+                <p class="text-doc-light-dark fw-normal p-4 p-md-0">Migliaia di dottori a portata di click. Cerca lo specialista adatto
                     a te e richiedi subito la tua visita!
                 </p>
                 <div class="pills position-absolute d-none d-xxl-block">
