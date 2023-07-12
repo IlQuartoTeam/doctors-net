@@ -1,9 +1,13 @@
 <template>
         <div v-if="!loading && store.singleDoctor" class="d-flex flex-column gap-4">
-            <SingleDoctorInfo :doctor="store.singleDoctor" />
-            <InfoDoctorMapComponent :doctor="store.singleDoctor" />
+            <div class="d-flex flex-column gap-4 w-100 max-website">
+                <SingleDoctorInfo :doctor="store.singleDoctor" />
+                <InfoDoctorMapComponent :doctor="store.singleDoctor" />
+            </div>
             <ExperiencesComponent />
-            <ReviewComponent :reviews="store.reviewOrdered" />
+            <div class="max-website w-100">
+                <ReviewComponent :reviews="store.reviewOrdered" />
+            </div>
         </div>
         <div :class="(store.contactForm || store.addReview) && 'layover'"></div>
 </template>

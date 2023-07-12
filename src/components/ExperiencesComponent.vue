@@ -1,48 +1,50 @@
 <template>
-  <div class="row px-5 bg-doc-primary bg-opacity-25 py-5 gx-0">
-    <div class="col">
-      <h2>Esperienze Lavorative</h2>
-      <timeline v-for="start in works" :key="start.id">
-        <timeline-title>
-          <p class="title text-doc-red">{{ getStartYear(start.start_date) }}</p>
-        </timeline-title>
-        <timeline-item v-for="experience in filteredYear('work', getStartYear(start.start_date))" :key="experience.id">
-          <div class="info">
-            <p class="name text-doc-blue">{{ experience.name }}</p>
-            <div class="d-flex gap-2">
-              <p class="data">inizio: {{ getFormattedDate(experience.start_date) }}</p>
-              <p class="fw-bold data"> - </p>
-              <p v-if="experience.end_date" class="data">fine: {{ getFormattedDate(experience.end_date) }}</p>
-              <p v-else class="data">In corso </p>
-            </div>
-          </div>
-        </timeline-item>
-      </timeline>
-    </div>
-    <div class="col">
-      <h2>Esperienze Formative</h2>
-      <div>
-        <timeline v-for="start in educations" :key="start.id">
+  <div class="bg-doc-primary bg-opacity-25">
+    <div class="row px-5 max-website py-5 gx-0">
+      <div class="col">
+        <h2>Esperienze Lavorative</h2>
+        <timeline v-for="start in works" :key="start.id">
           <timeline-title>
             <p class="title text-doc-red">{{ getStartYear(start.start_date) }}</p>
           </timeline-title>
-          <timeline-item v-for="experience in filteredYear('education', getStartYear(start.start_date))"
-            :key="experience.id">
+          <timeline-item v-for="experience in filteredYear('work', getStartYear(start.start_date))" :key="experience.id">
             <div class="info">
               <p class="name text-doc-blue">{{ experience.name }}</p>
               <div class="d-flex gap-2">
                 <p class="data">inizio: {{ getFormattedDate(experience.start_date) }}</p>
                 <p class="fw-bold data"> - </p>
                 <p v-if="experience.end_date" class="data">fine: {{ getFormattedDate(experience.end_date) }}</p>
-                <p v-else class="data">In corso</p>
+                <p v-else class="data">In corso </p>
               </div>
             </div>
           </timeline-item>
         </timeline>
       </div>
-
+      <div class="col">
+        <h2>Esperienze Formative</h2>
+        <div>
+          <timeline v-for="start in educations" :key="start.id">
+            <timeline-title>
+              <p class="title text-doc-red">{{ getStartYear(start.start_date) }}</p>
+            </timeline-title>
+            <timeline-item v-for="experience in filteredYear('education', getStartYear(start.start_date))"
+              :key="experience.id">
+              <div class="info">
+                <p class="name text-doc-blue">{{ experience.name }}</p>
+                <div class="d-flex gap-2">
+                  <p class="data">inizio: {{ getFormattedDate(experience.start_date) }}</p>
+                  <p class="fw-bold data"> - </p>
+                  <p v-if="experience.end_date" class="data">fine: {{ getFormattedDate(experience.end_date) }}</p>
+                  <p v-else class="data">In corso</p>
+                </div>
+              </div>
+            </timeline-item>
+          </timeline>
+        </div>
+  
+      </div>
+  
     </div>
-
   </div>
 </template>
 
