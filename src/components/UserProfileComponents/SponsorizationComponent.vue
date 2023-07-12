@@ -110,11 +110,12 @@
         <div class="wrap p-5 d-flex flex-column align-items-center">
             <div>
                 <h1 class="text-center">Sei un membro Partner</h1>
-                <p class="pt-3">Comparirai in homepage e sarai il primo a comparire nelle ricerche ancora per...</p>
+                <p class="pt-3">Apparirai in homepage e sarai il primo a comparire nelle ricerche ancora per...</p>
             </div>
             <div ref="countdown" class="w-100 py-4">
                 <ul class="d-flex justify-content-evenly w-100 flex-wrap gap-4 flex-lg-row">
-                    <li class="d-flex flex-column align-items-center"><span class="fs-1">{{ days }}</span><span>Giorni</span></li>
+                    <li class="d-flex flex-column align-items-center"><span class="fs-1">{{ days
+                    }}</span><span>Giorni</span></li>
                     <li class="d-flex flex-column align-items-center"><span class="fs-1">{{ hours }}</span>Ore</li>
                     <li class="d-flex flex-column align-items-center"><span class="fs-1">{{ minutes }}</span>Minuti</li>
                     <li class="d-flex flex-column align-items-center"><span class="fs-1">{{ seconds }}</span>Secondi</li>
@@ -141,6 +142,15 @@ export default {
             hours: 0,
             minutes: 0,
             seconds: 0
+        }
+    },
+    watch: {
+        'store.userDoctor.end_date'(newValue) {
+            if (newValue) {
+                this.userIsPremium = newValue ? true : false;
+                this.endTime = new Date(newValue).getTime();
+                this.timer();
+            }
         }
     },
     components: {
@@ -184,10 +194,6 @@ export default {
         } else {
             this.userIsPremium = false
         }
-        console.log(store.userDoctor);
-        console.log(new Date().getTime());
-        console.log(new Date("2023-07-12 15:50:16").getTime());
-
     },
     beforeUnmount() {
         clearInterval(this.countDown)
@@ -198,9 +204,7 @@ export default {
 <style lang="scss" scoped>
 @use '../../assets/styles/variables' as *;
 
-.premiumView {
-  
-}
+.premiumView {}
 
 ul {
     margin: 0;
