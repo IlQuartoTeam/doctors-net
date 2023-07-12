@@ -73,7 +73,7 @@ export default {
         }
       }).then(res => {
         this.messageStats = res.data.statsMessages
-        console.log(res.data.statsMessages)
+       
       });
     },
     oneDay() {
@@ -123,7 +123,7 @@ export default {
       this.isSelected = 'day';
       this.timeframe = 'giorno';
       this.getStats();
-      console.log(this.data.datasets[0].data)
+      
     },
     oneWeek() {
       this.data.datasets[0].data = [];
@@ -175,14 +175,14 @@ export default {
       this.isSelected = 'week';
       this.timeframe = 'settimana';
       this.getStats();
-      console.log(this.data.datasets[0].data)
+     
     },
     oneMonth() {
       this.data.datasets[0].data = [];
       this.sum = {}
       this.loaded = false;
       this.data.labels = [];
-      //console.log(this.data.labels);
+
       let today = moment();
       let labels = [];
       for (let i = 6; i >= 0; i--) {
@@ -228,7 +228,7 @@ export default {
       this.isSelected = 'month';
       this.timeframe = 'mese';
       this.getStats();
-      console.log(this.data.datasets[0].data)
+   
     },
 
 
@@ -284,7 +284,7 @@ export default {
       this.isSelected = 'year';
       this.timeframe = 'anno';
       this.getStats();
-      console.log(this.data.datasets[0].data)
+   
       
 
     }

@@ -1,5 +1,4 @@
 <template>
-    ciao
     <div class="position-relative">
         <select @change="setRange()" v-model="yearSelected">
             <option disabled value="">Anno</option>
@@ -21,7 +20,10 @@
             <option value="11">Novembre</option> 
             <option value="12">Dicembre</option> 
         </select>
-        <canvas class="my-4 w-100" id="myChart" width="900" height="380" ref="ratings"></canvas>
+        <div class="p-4">
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380" ref="ratings"></canvas>
+        </div>
+       
         <h3 v-if="noReviews()">Nessuna recensione ricevuta <br>nel periodo specificato</h3>
     </div>
 </template>

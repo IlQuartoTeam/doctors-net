@@ -6,18 +6,18 @@
         <div class="sidebar">
             <SidebarComponent />
         </div>
-        <div class="content position-relative flex-grow-1">
+        <div class="content position-relative w-100">
             <HeroUserComponent v-if="store.dashboard.heroOpen" />
-            <div class="charts d-flex">
-                <ChartMessageComponent v-if="store.dashboard.chartsOpen" />
-                <ChartReviewComponent v-if="store.dashboard.chartsOpen" />
-            </div>
+            <ChartRatingsComponent v-if="store.dashboard.chartsOpen" />
+            <ChartMessageComponent v-if="store.dashboard.chartsOpen" />
+            <ChartReviewComponent v-if="store.dashboard.chartsOpen" />
             <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
             <SettingUserComponent v-if="store.dashboard.generalInfo" />
             <ExperiencesUserComponent v-if="store.dashboard.experiences" />
             <ProfileReviews v-if="store.dashboard.reviewsOpen"/>
             <PerformancesUserComponent v-if="store.dashboard.performances" />
             <SponsorizationComponent v-if="store.dashboard.sponsor"/>
+
             <ChangeUserPassword v-if="store.dashboard.changePassword" />
             <div class="sideButton d-inline-block d-lg-none">
                 <div v-if="!store.dashboard.sidebarOpen"
@@ -32,6 +32,7 @@
 </template>
  
 <script>
+import ChartRatingsComponent from '../components/UserProfileComponents/ChartRatingsComponent.vue';
 import SponsorizationComponent from '../components/UserProfileComponents/SponsorizationComponent.vue';
 import ProfileReviews from '../components/UserProfileComponents/ProfileReviews.vue';
 import DoctorCard from '../components/DoctorCard.vue';
@@ -51,7 +52,7 @@ import ChangeUserPassword from '../components/UserProfileComponents/ChangeUserPa
 import ExperiencesUserComponent from '../components/UserProfileComponents/ExperiencesUserComponent.vue';
 
 export default {
-    components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartMessageComponent, ChartReviewComponent, ChangeUserPassword, IconChevronRight, ExperiencesUserComponent, ProfileReviews, SponsorizationComponent },
+    components: { DoctorCard, HeroUserComponent, SidebarComponent, MessageUserComponent, SettingUserComponent, PerformancesUserComponent, ChartMessageComponent, ChartReviewComponent, ChangeUserPassword, IconChevronRight, ExperiencesUserComponent, ProfileReviews, SponsorizationComponent, ChartRatingsComponent },
     data() {
         return {
             store,
