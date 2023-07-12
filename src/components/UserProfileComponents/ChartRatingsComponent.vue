@@ -24,11 +24,12 @@
             </select>
         </div>
 
-        <div class="p-4">
+        <div class="p-4 position-relative">
             <canvas class="my-4 w-100" id="myChart" width="900" height="380" ref="ratings"></canvas>
+            <h3 v-if="noReviews()">Nessuna recensione ricevuta</h3>
         </div>
 
-        <h3 v-if="noReviews()">Nessuna recensione ricevuta <br>nel periodo specificato</h3>
+        
     </div>
 </template>
 
@@ -171,6 +172,9 @@ h3 {
     opacity: .6;
     display: grid;
     place-items: center;
+    @media screen and (max-width: 550px) {
+        font-size: 20px;
+    }
 }
 
 
@@ -210,7 +214,7 @@ select {
         bottom: 0;
         width: 10px;
         height: 10px;
-        margin-right: 20px;
+        margin-right: 15px;
     }
 
 
