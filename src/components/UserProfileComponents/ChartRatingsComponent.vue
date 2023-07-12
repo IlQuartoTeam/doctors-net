@@ -82,7 +82,7 @@ export default
                     const token = this.$cookies.get("session-token")
 
                     const config = { headers: { Authorization: `Bearer ${token}` } }
-                    axios.post('/api/user/reviews/stats?start_date=' + this.start + '&end_date=' + this.end + '&type=' + type, { key: 'value' }, config)
+                    axios.post('/api/user/reviews/stats', {start_date: this.start, end_date: this.end, type: type }, config)
                         .then(res => {
 
                             if (res.data.statsReviews.length === 0) {
