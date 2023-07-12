@@ -20,8 +20,10 @@
             <option value="11">Novembre</option> 
             <option value="12">Dicembre</option> 
         </select>
-
-        <canvas ref="ratings"></canvas>
+        <div class="p-4">
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380" ref="ratings"></canvas>
+        </div>
+       
         <h3 v-if="noReviews()">Nessuna recensione ricevuta <br>nel periodo specificato</h3>
     </div>
 </template>
@@ -130,15 +132,15 @@ export default
                         }]
                     },
                     options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            },
-                            
-                         
-                        },
-                        
-                    }
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          boxPadding: 3
+        }
+      }
+    }
                 });
 
             }
@@ -157,8 +159,9 @@ div {
 }
 
 canvas {
-    width: 100%;
+    width: 100% !important;
 }
+
 h3{
     position: absolute;
     top: 50%;

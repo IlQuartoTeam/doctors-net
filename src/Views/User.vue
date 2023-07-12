@@ -6,7 +6,7 @@
         <div class="sidebar">
             <SidebarComponent />
         </div>
-        <div class="content position-relative flex-grow-1">
+        <div class="content position-relative w-100">
             <HeroUserComponent v-if="store.dashboard.heroOpen" />
             <ChartRatingsComponent v-if="store.dashboard.chartsOpen" />
             <ChartMessageComponent v-if="store.dashboard.chartsOpen" />
