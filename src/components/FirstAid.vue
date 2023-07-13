@@ -184,7 +184,7 @@ export default {
              } */
           
 
-            if (modelLoaded != null) {
+            if (modelLoaded != null && this.$route.path === '/') {
                   // Update sizes
                 sizes.width = this.$refs.webgl.offsetWidth
                 sizes.height = this.$refs.webgl.offsetHeight
@@ -201,7 +201,11 @@ export default {
             renderer.render(scene, camera)
 
             // Call tick again on the next frame
-            window.requestAnimationFrame(tick)
+            if(this.$route.path === '/')
+            {
+                window.requestAnimationFrame(tick)
+            }
+           
         }
 
         tick()
