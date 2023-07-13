@@ -101,12 +101,11 @@ export default {
   mounted() {
     console.log('singledoc:', store.singleDoctor);
     axios.get(store.API_URL + `doctors/${store.singleDoctor.id}/experiences`)
-      .then(res => {
-
-        this.works = res.data.work
-        this.educations = res.data.education
-        console.log(this.educations);
-      })
+    .then(res =>
+    {
+      this.works = res.data.work
+      this.educations = res.data.education
+    })
   }
 
 

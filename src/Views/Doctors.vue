@@ -249,7 +249,7 @@ export default {
                     
                     <select v-model="ratingSelected" class="mb-3 mb-md-0 text-doc-blue" name="rating_select"
                         id="rating_select">
-                        <option value="all">Media Recensioni</option>
+                        <option value="all">Qualsiasi valutazione</option>
                         <option value="1">1+ stelle</option>
                         <option value="2">2+ stelle</option>
                         <option value="3">3+ stelle</option>
@@ -261,10 +261,10 @@ export default {
                 <div class="w-100 select-container">
                     <select v-model="reviewCountSelected" class="mb-3  mb-md-0 text-doc-blue" name="reviews_select"
                         id="reviews_select">
-                        <option value="all">Numero Recensioni</option>
-                        <option value="1">Qualcuna</option>
-                        <option value="5">Tante</option>
-                        <option value="10">Tantissime</option>
+                        <option value="all">Qualsiasi recensione</option>
+                        <option value="1">Qualcuna (1+)</option>
+                        <option value="5">Tante (5+)</option>
+                        <option value="10">Tantissime (10+)</option>
                     </select>
                 </div>
 
