@@ -19,7 +19,7 @@ export default {
 
 .btn {
 
-  padding: 1rem 2rem;
+  padding: 1.2rem 2rem;
   border-radius: 5px;
   font-size: 13px;
   font-weight: medium;
