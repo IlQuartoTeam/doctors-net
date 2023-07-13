@@ -62,7 +62,6 @@ export default {
         axios.get(apiURL).then(res => {
           store.reviewOrdered = res.data.data;
           this.reviewsPagination = res.data
-          console.log(this.reviewsPagination);
         });
       },
       nextPage(page)

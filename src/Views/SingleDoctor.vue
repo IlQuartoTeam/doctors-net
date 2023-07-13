@@ -43,7 +43,6 @@ export default {
         getDoctor() {
             axios.get(store.API_URL + 'doctors/' + this.$route.params.user).then(res => {
                 store.singleDoctor = res.data.results;
-                console.log(res.data.results);
                 this.loading = false
             }).catch(err => {
                 this.message.text = 'Ooops! Si è verificato un errore.'
