@@ -4,11 +4,10 @@
             <div class="box-logo">
                 <router-link to="/"><img src="/img/logo/hearts-no-track.svg" class="logo" alt="logo"></router-link>
             </div>
-            <div class="d-none d-lg-flex justify-content-center align-items-center gap-3 fw-bold ">
-                <router-link to="/">Home</router-link>
-                <router-link to="/doctors">I nostri specialisti</router-link>
-                <router-link to="/team">Chi siamo</router-link>
-                <router-link to="/help">Assistenza</router-link>
+            <div class="d-none d-lg-flex justify-content-center align-items-center gap-3 fw-bold">
+                <template v-for="link in [{href: '/', text: 'Home'}, {href: '/doctors', text: 'I nostri specialisti'}, {href: '/team', text: 'Chi siamo'}, {href: '/help', text: 'Assistenza'}]">
+                    <router-link :class="(this.$route.path === link.href) && 'text-doc-accent'" :to="link.href">{{ link.text }}</router-link>
+                </template>
             </div>
             <div class="d-flex justify-content-center align-items-center">
                 <div class="d-none d-md-block">
