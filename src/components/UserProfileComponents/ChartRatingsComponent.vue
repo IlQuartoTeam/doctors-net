@@ -1,35 +1,46 @@
 <template>
     <div class="position-relative">
-        <h4 class="text-center py-4 text-doc-blue fw-bold">Le tue recensioni: {{ total }}</h4>
-        <div class="d-flex gap-3 p-4">
-            <select @change="setRange()" v-model="yearSelected">
-                <option disabled value="">Anno</option>
-                <option>2023</option>
-                <option>2022</option>
-            </select>
-            <select @change="setRange()" v-model="month">
-                <option value="">Tutti i mesi</option>
-                <option value="01">Gennaio</option>
-                <option value="02">Febbario</option>
-                <option value="03">Marzo</option>
-                <option value="04">Aprile</option>
-                <option value="05">Maggio</option>
-                <option value="06">Giugno</option>
-                <option value="07">Luglio</option>
-                <option value="08">Agosto</option>
-                <option value="09">Settembre</option>
-                <option value="10">Ottobre</option>
-                <option value="11">Novembre</option>
-                <option value="12">Dicembre</option>
-            </select>
+        <h4 class="py-4 px-4 text-doc-blue fw-bold">Le tue recensioni: {{ total }}</h4>
+        <div class="d-flex justify-content-start gap-3 p-4">
+            <div class="col-3">
+                <label class="py-1" for="year_select">Seleziona anno</label>
+                <select id="year_select" @change="setRange()" v-model="yearSelected">
+                    <option disabled value="">Anno</option>
+                    <option>2023</option>
+                    <option>2022</option>
+                </select>
+            </div>
+
+
+            <div class="col-3">
+                <label class="py-1" for="month_select">Seleziona mese</label>
+                <select id="month_select" @change="setRange()" v-model="month">
+                    <option value="">Tutti i mesi</option>
+                    <option value="01">Gennaio</option>
+                    <option value="02">Febbario</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Aprile</option>
+                    <option value="05">Maggio</option>
+                    <option value="06">Giugno</option>
+                    <option value="07">Luglio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Settembre</option>
+                    <option value="10">Ottobre</option>
+                    <option value="11">Novembre</option>
+                    <option value="12">Dicembre</option>
+                </select>
+            </div>
+
+
+
         </div>
 
-        <div class="p-4 position-relative">
+        <div class="p-4 position-relative chart-container">
             <canvas class="my-4 w-100" id="myChart" width="900" height="380" ref="ratings"></canvas>
             <h3 v-if="noReviews()">Nessuna recensione ricevuta</h3>
         </div>
 
-        
+
     </div>
 </template>
 
@@ -83,7 +94,7 @@ export default
                     const token = this.$cookies.get("session-token")
 
                     const config = { headers: { Authorization: `Bearer ${token}` } }
-                    axios.post('/api/user/reviews/stats', {start_date: this.start, end_date: this.end, type: type }, config)
+                    axios.post('/api/user/reviews/stats', { start_date: this.start, end_date: this.end, type: type }, config)
                         .then(res => {
 
                             if (res.data.statsReviews.length === 0) {
@@ -140,7 +151,7 @@ export default
                     }
                 });
 
-                
+
 
             }
         },
@@ -155,12 +166,14 @@ export default
 <style lang="scss" scoped>
 @use '../../assets/styles/variables' as *;
 
-div {
+.chart-container {
     width: 100%;
 }
 
 canvas {
     width: 100% !important;
+    max-height: 400px;
+    max-width: 800px;
 }
 
 h3 {
@@ -172,6 +185,7 @@ h3 {
     opacity: .6;
     display: grid;
     place-items: center;
+
     @media screen and (max-width: 550px) {
         font-size: 20px;
     }
@@ -205,16 +219,6 @@ select {
         &:focus-visible {
             outline: 2px solid $doc-red;
         }
-    }
-
-    &:after {
-        content: 'v';
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 10px;
-        height: 10px;
-        margin-right: 15px;
     }
 
 

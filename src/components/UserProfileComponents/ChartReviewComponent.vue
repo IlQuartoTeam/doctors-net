@@ -12,7 +12,7 @@
             <span @click="oneDay" class="badge bg-primary fw-light"
             :class="[this.isSelected === 'day' ? 'selected' : '']">1 D</span>
         </div>
-        <Bar v-if="loaded" :data="data" :options="options" class="p-2"/>
+        <Bar v-if="loaded" :data="data" :options="options" class="p-2 barChart"/>
       </div>
     </div>
 </template>
@@ -311,4 +311,9 @@
     font-weight: bold !important;
     box-shadow: rgba(50, 50, 93, 0.062) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.123) 0px 18px 36px -18px inset;
   }
-  </style>
+
+  .barChart{
+    max-height: 400px;
+  max-width: 800px;
+  }
+    </style>
