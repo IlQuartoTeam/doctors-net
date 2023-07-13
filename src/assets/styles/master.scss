@@ -254,3 +254,21 @@ ul{
     transform: translateY(25%);
   }
 }
+
+
+/* placeholders */
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  opacity: .7; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: red;
+  opacity: .7; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: red;
+  opacity: .7; /* Firefox */
+}

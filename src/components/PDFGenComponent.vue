@@ -8,7 +8,6 @@
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import ButtonComponent from './ButtonComponent.vue'
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export default {
     props: ['doctor'],
     components: {
@@ -16,6 +15,7 @@ export default {
     },
     methods: {
         generatePDF() {
+            pdfMake.vfs = pdfFonts.pdfMake.vfs;
             const documentDefinition = {
                 // Definisci la struttura del PDF personalizzato qui
                 content: [

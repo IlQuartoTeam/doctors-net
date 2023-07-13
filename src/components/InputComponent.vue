@@ -25,11 +25,11 @@ input {
     border-radius: 5px;
     padding: 1rem 20px;
     display: block;
-    color: $doc-primary;
+    color: $doc-blue;
 
     &::placeholder{
-        color: $doc-blue;
-        opacity: 60%;
+        color: $doc-primary;
+        opacity: .6
     }
     &:focus-visible{
         outline: 2px solid $doc-blue;
