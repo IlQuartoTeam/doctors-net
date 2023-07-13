@@ -250,6 +250,9 @@ export default {
     },
     mounted() {
         if (this.$route.query.city) {
+            this.city = this.$route.query.city
+            this.store.citySearched = this.$route.query.city
+
             this.searchDoctors(this.$route.query.city)
 
         }
