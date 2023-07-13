@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper w-100 p-5" v-if="messageStats">
-    <div class="">
+    <div class="barChart">
       <h3 class="text-h3 text-doc-blue fw-semibold mt-4"><span class="text-doc-accent">Messaggi</span> ricevuti per <span>{{ this.timeframe }}</span></h3>
       <div class="timeframe d-flex justify-content-end me-4 gap-1">
         <span @click="getStats('year')" class="badge bg-primary fw-light"
@@ -12,7 +12,7 @@
         <span @click="getStats('day')" class="badge bg-primary fw-light"
           :class="[this.isSelected === 'day' ? 'selected' : '']">1 D</span>
       </div>
-      <Bar v-if="loaded" :data="data" :options="options" class="p-2 barChart" />
+      <Bar v-if="loaded" :data="data" :options="options" class="p-2" />
     </div>
   </div>
 </template>
