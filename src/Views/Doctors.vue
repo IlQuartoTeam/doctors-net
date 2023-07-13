@@ -249,7 +249,13 @@ export default {
       
     },
     mounted() {
-        this.searchDoctors('Roma')
+        if (this.$route.query.city) {
+            this.searchDoctors(this.$route.query.city)
+
+        }
+        else {
+            this.searchDoctors('Roma')
+        }
         this.fetchDoctors()
         axios.get(store.API_URL + 'specializations')
             .then(res => {
