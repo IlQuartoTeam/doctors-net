@@ -30,13 +30,14 @@ export default {
             city: 'Roma',
             message: null,
             specializationInput: store.specialization,
-            ratingSelected: 'all',
-            reviewCountSelected: 'all',
+            ratingSelected: null,
+            reviewCountSelected: null,
             loading: true,
             paginationItems: [],
             loadingMore: false,
             total: null,
-            specializationLoaded: []
+            specializationLoaded: [],
+            firstAccess: true
         }
     },
     methods:
@@ -44,7 +45,14 @@ export default {
         handleClick() {
             this.paginationItems = [];
             store.citySearched = this.city
-            this.searchDoctors(this.city)
+            if (this.city.trim() !== '') {
+                this.searchDoctors(this.city);
+            } else {
+                const cityFromQuery = this.$route.query.city;
+                if (cityFromQuery) {
+                    this.searchDoctors(cityFromQuery);
+                }
+            }
         },
         filterDoctors(resultsFromDB) {
             store.doctorsQueried = resultsFromDB
@@ -87,63 +95,94 @@ export default {
 
         },
         filterBySpecialization(doctorsList) {
-            if (this.specialization)
-            {
+            if (this.specialization) {
                 const results = doctorsList.filter(doctor => {
-                const specializations = doctor.specializations
-                let itContains = false
-                specializations.forEach((spec) => {
-                    if (spec.name.toLowerCase().includes(this.specialization.toLowerCase().trim())) {
-                        itContains = true
+                    const specializations = doctor.specializations
+                    let itContains = false
+                    specializations.forEach((spec) => {
+                        if (spec.name.toLowerCase().includes(this.specialization.toLowerCase().trim())) {
+                            itContains = true
+                        }
+                    });
+                    if (itContains) {
+                        itContains = false
+                        return true
                     }
-                });
-                if (itContains) {
-                    itContains = false
-                    return true
-                }
-            })
+                })
                 return results
             }
-            else
-            {
+            else {
                 return doctorsList
             }
-            
-            
+
+
         },
         searchDoctors(city) {
-            this.message = null
-            // this.specialization = this.specializationInput ?? ''
-           
-            const rankSelected = (this.ratingSelected === 'all') ? '' : this.ratingSelected
-            const specializationSelected = this.specialization ?? ''
-            const numberOfReviews = this.reviewCountSelected === 'all' ? '' : this.reviewCountSelected
-            
-            const apiURL = store.API_URL + 'doctors?city=' 
-            + city.trim() 
-            + '&specialization=' + specializationSelected 
-            +'&vote=' + rankSelected
-            + '&nReviews=' + numberOfReviews
-            
+            this.message = null;
+            console.log('we')
+
+            const cityToSearch = city || this.$route.query.city || '';
+            let specialization = ''
+            if (this.specialization === null && this.firstAccess === false) {
+             specialization = ''
+            }
+            else {
+                 specialization = this.specialization || this.$route.query.specialization || '';
+            }
+            const rating = this.ratingSelected || this.$route.query.vote || 'all';
+            const reviewCount = this.reviewCountSelected || this.$route.query.nReviews || 'all';
+
+            this.city = cityToSearch;
+            this.specialization = specialization;
+            this.ratingSelected = rating;
+            this.reviewCountSelected = reviewCount;
+            this.firstAccess = false;
+
+            const query = {
+                city: this.city.trim(),
+                specialization: this.specialization,
+                vote: this.ratingSelected,
+                nReviews: this.reviewCountSelected
+            };
+
+            this.$router.push({ path: '/doctors', query })
+            .then(res => {
+                this.fetchDoctors()
+
+                })
+            .catch(err => {
+                this.fetchDoctors()
+                });
+        },
+        fetchDoctors() {
+            const city = this.$route.query.city || this.city;
+
+            const specializationSelected = this.$route.query.specialization || '';
+            const rankSelected = this.$route.query.vote || '';
+            const numberOfReviews = this.$route.query.nReviews || '';
+
+            const apiURL = store.API_URL + 'doctors?city='
+                + city.trim()
+                + '&specialization=' + specializationSelected
+                + '&vote=' + rankSelected
+                + '&nReviews=' + numberOfReviews;
+
             axios.get(apiURL)
-                .then((res) => {
-                    this.paginationItems = res.data.results
-                    this.total = res.data.results.total
-                    const results = res.data.results.data
-                    this.filterDoctors(results)
-                    this.message = null
-
-
-                }).catch((err) => {
-                    
+                .then(res => {
+                    this.paginationItems = res.data.results;
+                    this.total = res.data.results.total;
+                    const results = res.data.results.data;
+                    this.filterDoctors(results);
+                    this.message = null;
+                })
+                .catch(err => {
                     const success = err.response.data.success
                     if (!success) {
                         this.message = "Nessun risultato trovato"
-                        store.doctorsQueried = null
-
-                    }
-                })
+                        store.doctorsQueried = null}
+                });
         },
+
         sortByPremium(results) {
             results.sort((a, b) => {
                 if (a.premium && !b.premium) {
@@ -161,7 +200,7 @@ export default {
             this.loadingMore = true
             axios.get(this.paginationItems.next_page_url)
                 .then((res) => {
-                    
+
                     let results = null
                     if (this.specialization) {
                         results = this.filterBySpecialization(this.sortByPremium(res.data.results.data))
@@ -178,8 +217,7 @@ export default {
                         store.doctorsQueried = store.doctorsQueried.concat(results)
 
                     }
-                    if(!results)
-                    {
+                    if (!results) {
                         store.doctorsQueried = store.doctorsQueried.concat(res.data.results.data)
                     }
 
@@ -204,24 +242,36 @@ export default {
         'store.doctorsQueried'(newValue) {
             this.doctors = newValue
 
-        }
+
+
+        },
+
+      
     },
     mounted() {
-        this.searchDoctors(this.store.citySearched)
+        if (this.$route.query.city) {
+            this.searchDoctors(this.$route.query.city)
+
+        }
+        else {
+            this.searchDoctors('Roma')
+        }
+        this.fetchDoctors()
         axios.get(store.API_URL + 'specializations')
-        .then(res => 
-        {
-            const array = res.data.specializations
-            array.forEach(element => {
-                this.specializationLoaded.push(element.name)
-            });
-            
-            
-        })
-        .catch(err => {
-            
-        })
-       
+            .then(res => {
+                const array = res.data.specializations
+                array.forEach(element => {
+                    this.specializationLoaded.push(element.name)
+                });
+
+
+            })
+            .catch(err => {
+
+            })
+
+    },
+    created() {
     }
 }
 </script>
@@ -232,21 +282,20 @@ export default {
         <div class="py-3 mt-3 d-md-flex flex-md-column gap-3 flex-lg-row">
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
                 <div class="searchDoctors w-100 py-3">
-                    <v-select v-model="specialization" placeholder="Specializzazione"
-                    
-                        :options="specializationLoaded" class="w-100" >
+                    <v-select v-model="specialization" placeholder="Specializzazione" :options="specializationLoaded"
+                        class="w-100">
                         <template #no-options="{ search, searching, loading }">Sembra non ci sia nulla con quella
                             parola.</template>
                     </v-select>
                 </div>
-                    
+
                 <p class="d-none d-md-block m-0 p-0">a</p>
                 <input @keyup.enter="city != '' && handleClick()" id="city_search_doctors" type="text" placeholder="Roma"
                     v-model="city" class="text-doc-blue mb-3 mb-md-0" />
             </div>
             <div class="d-md-flex justify-content-between align-items-center gap-2 flex-lg-grow-1">
                 <div class="w-100 select-container">
-                    
+
                     <select v-model="ratingSelected" class="mb-3 mb-md-0 text-doc-blue" name="rating_select"
                         id="rating_select">
                         <option value="all">Qualsiasi valutazione</option>
@@ -278,7 +327,7 @@ export default {
             </div>
         </div>
     </div>
-  
+
     <section class="doctors-list max-website">
         <h6 class="text-doc-blue fw-bold text-center py-4">
             <span v-if="message">Nessun risultato trovato.</span>
@@ -335,9 +384,10 @@ select {
 
 }
 
-section.doctors-list{
+section.doctors-list {
     padding: 1rem 0px 5rem;
-    .load-more{
+
+    .load-more {
         margin-top: 5rem;
     }
 }
@@ -346,5 +396,4 @@ section.doctors-list{
     position: relative;
 
 }
-
 </style>
