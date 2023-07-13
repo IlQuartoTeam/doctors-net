@@ -42,8 +42,9 @@ export default {
               attribution:
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             }).addTo(this.map)
-
-            this.putPinsOnMap()
+            
+            this.putPinsOnMap();
+            
           }
           else {
             store.toast.error("La città cercata è errata", { timeout: 2000 });
@@ -126,9 +127,8 @@ export default {
     },
     'store.doctorsQueried'(newValue) {
       this.doctors = newValue
-      this.putPinsOnMap()
-     
-
+      setTimeout(this.putPinsOnMap, 500)
+      
     }
   },
 
