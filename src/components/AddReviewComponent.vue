@@ -1,6 +1,6 @@
 <template>
     <div class="modal-wrap">
-        <div class="doc-modal py-2 px-4 md-py-0 px-md-0 px-md-4 py-md-4">
+        <div class="doc-modal py-2 px-4 md-py-0 px-md-0 px-md-4 py-md-4 text-doc-blue">
             <div class="content container-fluid text-center">
                 <h1 class="fs-3">Aggiungi una recensione</h1>
                 <small>Seleziona obbligatoriamente almeno una stella</small>
@@ -15,8 +15,8 @@
 
                     </div>
                     <p v-if="noVote" class="text-doc-red text-center mt-2">Seleziona almeno una stella</p>
-
-                    <div class="row mt-3">
+                    
+                    <div v-if="!anonymous" class="row mt-3">
                         <div class="col-12 text-start">
                             <InputComponent id="user_name" type="text" v-model="name" placeholder="Giovanna"
                                 label="Il tuo nome" />
@@ -25,6 +25,10 @@
                             <textarea id="user_messagge" type="textarea" v-model="text" placeholder="Messaggio"
                                 class="mt-5"></textarea>
                         </div>
+                    </div>
+                    <div v-else-if="anonymous" class="d-flex justify-content-center gap-3 align-items-center py-3">
+                          <p class="text-doc-blue text-center p-0 m-0"> Utente anonimo?</p>
+                        <input class="p-0 m-0 checkbox" type="checkbox" v-model="anonymous" checked>
                     </div>
                     <div class="d-flex flex-column gap-3">
                         <ButtonComponent type="submit" :button="true" class="primary">
@@ -70,10 +74,16 @@ export default {
             starVote: -1,
             message: '',
             noVote: false,
-            loading: false
+            loading: false,
+            anonymous: true
         }
     },
     methods: {
+        handleAnon()
+        {
+            console.log(this.anonymous);
+            this.anonymous = false
+        },
         goBack() {
             store.addReview = false;
         },
