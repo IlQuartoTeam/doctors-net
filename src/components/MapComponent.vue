@@ -18,7 +18,8 @@ export default {
       map: null,
       lastCityExist: store.citySearched,
       lastRightCoordinates: null,
-      doctors: store.doctorsQueried
+      doctors: store.doctorsQueried,
+      markers: []
     };
   },
 
@@ -70,6 +71,12 @@ export default {
       }
     },
     putPinsOnMap() {
+      if(this.markers.length > 0)
+      {
+        this.markers.forEach(marker => {
+            this.map.removeLayer(marker)
+        });
+      }
       const icon = L.icon(
         {
           iconUrl: '/img/other/pin-leaflet-border.png',
@@ -94,7 +101,7 @@ export default {
       if (this.doctors) {
         this.doctors.forEach((element, index) => {
           const marker = L.marker([element.address_lat, element.address_long], { icon: element.premium ? premiumIcon : icon }).addTo(this.map);
-  
+          
           
           const specialization = element.specializations[0].name ?? 'Medicina Generale'
           const popup = `
@@ -102,12 +109,9 @@ export default {
             <p class="text-center m-0 p-0 mb-2">${specialization}</p>
             <a class="d-block text-center text-doc-primary text-underline popup-link" href="/doctors/${element.slug}">Dettagli</a>
             `
+          this.markers.push(marker)
           marker.bindPopup(popup)
         })
-       
-
-  
-        
       }
 
     }
@@ -115,17 +119,18 @@ export default {
   watch: {
     'store.citySearched'(newValue, oldValue) {
       this.lastCityExist = oldValue
+      this.reInitializateMap(store.citySearched)
     },
     'store.doctorsQueried'(newValue) {
       this.doctors = newValue
-      this.reInitializateMap(store.citySearched)
+     this.putPinsOnMap()
      
 
     }
   },
 
   mounted() {
-    this.initializeMap(store.citySearched ?? 'Roma');
+    this.initializeMap(this.$route.query.city ?? 'Roma');
   }
 }
 </script>
