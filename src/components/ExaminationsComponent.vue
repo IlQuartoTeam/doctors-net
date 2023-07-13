@@ -1,5 +1,5 @@
 <template>
-  <ul class="d-flex flex-column gap-2">
+  <ul v-if="examinations" class="d-flex flex-column gap-2">
     <template  v-for="(examination, index) in examinations.split(';')" :key="index">
       <li v-if="examination != ''">{{ examination }} </li>
     </template>
