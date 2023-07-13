@@ -60,7 +60,7 @@ export default {
             }).addTo(this.map)
           }
          
-         
+          
         })
         .catch((err) => {
 
