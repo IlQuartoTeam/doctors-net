@@ -99,7 +99,6 @@ export default {
 
   },
   mounted() {
-    console.log('singledoc:', store.singleDoctor);
     axios.get(store.API_URL + `doctors/${store.singleDoctor.id}/experiences`)
     .then(res =>
     {
