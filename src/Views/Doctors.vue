@@ -270,8 +270,8 @@ export default {
 
 
 
-                <div class="mb-3 mb-md-0 h-100 w-100 d-flex">
-                    <ButtonComponent @click="handleClick()" :button="true" type="submit" className="primary w-100 m-0"
+                <div class="mb-3 mb-md-0 w-100">
+                    <ButtonComponent @click="handleClick()" :button="true" type="submit" className="primary w-100"
                         :disabled="city.trim() === ''">Cerca
                     </ButtonComponent>
                 </div>
