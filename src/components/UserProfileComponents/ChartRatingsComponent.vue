@@ -171,12 +171,13 @@ export default
 
 .chart-container {
     width: 100%;
+    max-height: 400px;
+    max-width: 800px;
 }
 
 canvas {
     width: 100% !important;
-    max-height: 400px;
-    max-width: 800px;
+   
 }
 
 h3 {
