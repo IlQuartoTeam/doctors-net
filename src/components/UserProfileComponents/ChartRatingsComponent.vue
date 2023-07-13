@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-start gap-3 p-4">
             <div class="col-3">
                 <label class="py-1" for="year_select">Seleziona anno</label>
-                <select id="year_select" @change="setRange()" v-model="yearSelected">
+                <select :disabled="loading" id="year_select" @change="setRange()" v-model="yearSelected">
                     <option disabled value="">Anno</option>
                     <option>2023</option>
                     <option>2022</option>
@@ -14,7 +14,7 @@
 
             <div class="col-3">
                 <label class="py-1" for="month_select">Seleziona mese</label>
-                <select id="month_select" @change="setRange()" v-model="month">
+                <select :disabled="loading" id="month_select" @change="setRange()" v-model="month">
                     <option value="">Tutti i mesi</option>
                     <option value="01">Gennaio</option>
                     <option value="02">Febbario</option>
@@ -61,7 +61,8 @@ export default
                 year: 2022,
                 labels: ['1 Stella', '2 Stelle', '3 Stelle', '4 Stelle', '5 Stelle'],
                 month: '',
-                total: 0
+                total: 0,
+                loading: false
             }
         },
         methods:
@@ -76,6 +77,7 @@ export default
                 return reviews
             },
             setRange() {
+                this.loading = true
                 if (this.month === '') {
                     this.start = this.yearSelected + '-01-01'
                     this.end = this.yearSelected + '-12-31'
@@ -111,6 +113,7 @@ export default
 
 
                             this.drawCharts()
+                            this.loading = false
 
                         })
                         .catch((err) => {
