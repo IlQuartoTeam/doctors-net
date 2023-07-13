@@ -34,11 +34,13 @@
 </nav>
         </div>
     </div>
-    <div v-if="store.userDoctor?.reviews.length < 1" class="noReviews text-center pt-3 row justify-content-center">
-        <div class="medikit col-6">
-            <img class="img-fluid" src="/img/other/medikit.png" alt="">
+    <div v-if="store.userDoctor?.reviews.length < 1" class="noReviews text-center d-flex h-100 align-items-center justify-content-center">
+        <div class="row justify-content-center align-items-center pb-5">
+            <div class="medikit col-6">
+                <img class="img-fluid" src="/img/other/medikit.png" alt="">
+            </div>
+            <h2 class="col-10 pb-4">Non hai ancora nessuna recensione</h2>
         </div>
-        <h2 class="col-10">Non hai nessuna recensione</h2>
         <!-- <h2>Non hai ancora nessun messaggio</h2> -->
     </div>
   

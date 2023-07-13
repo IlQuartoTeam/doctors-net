@@ -8,13 +8,20 @@
             <form @submit.prevent="login()" action="#">
             <h2 class="text-center text-doc-blue fw-bold">Login</h2>
 
+
             <InputComponent :invalid="message.email || error" :required="true" v-model="email" id="email_login"
                 label="E-mail" type="email" placeholder="gastanifrinzi@gmail.com" />
             <p class="text-doc-red" v-if="message.email || error">{{ message.email }}</p>
 
-            <InputComponent :invalid="message.password || error" :required="true" v-model="password" id="password_login"
-                label="Password" type="password" placeholder="Password" />
-            <p class="text-doc-red" v-if="message.password || error">{{ message.password }}</p>
+            <div class="position-relative">
+                <IconEye v-if="revealPassword" @click="reveal()" class="position-absolute eye" />
+                <IconEyeClosed v-if="!revealPassword" @click="reveal()" class="position-absolute eye" />
+                <InputComponent :invalid="message.password || error" :required="true" v-model="password" id="password_login"
+                label="Password" :type="revealPassword ? 'text' : 'password'" placeholder="Password" />
+            </div>
+                <p class="text-doc-red" v-if="message.password || error">{{ message.password }}</p>
+            
+            
 
             <div class="text-center d-flex flex-column gap-2">
                 <ButtonComponent :button="true" type="submit" className="primary">Login</ButtonComponent>
@@ -43,9 +50,11 @@ import axios from 'axios'
 import { IconRefresh } from '@tabler/icons-vue';
 import router from '../router/router'
 import { store } from '../store/store'
+import { IconEye } from '@tabler/icons-vue';
+import { IconEyeClosed } from '@tabler/icons-vue';
 
 export default {
-    components: { InputComponent, ButtonComponent, IconRefresh, SmallLoaderComponent },
+    components: { InputComponent, ButtonComponent, IconRefresh, SmallLoaderComponent, IconEye, IconEyeClosed },
     data() {
         return {
             password: null,
@@ -54,6 +63,7 @@ export default {
             loading: false,
             store,
             error: false,
+            revealPassword: false
         }
     },
     methods: {
@@ -61,6 +71,10 @@ export default {
          * Logging in a single user
          * is successfull set the cookie 'sessione-token'
          */
+         reveal()
+         {
+            this.revealPassword = !this.revealPassword
+         },
         login() {
             this.message.text = '';
             this.error = false
@@ -192,5 +206,15 @@ h1 {
 
 img {
     max-width: 100px;
+}
+
+.eye{
+    top: 55%;
+    right: 5%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    color: $doc-blue;
+    
 }
 </style>
