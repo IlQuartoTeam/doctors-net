@@ -3,13 +3,13 @@
       <div class="">
         <h3 class="text-h3 text-doc-blue fw-semibold mt-4"><span class="text-doc-accent">Recensioni</span> ricevute per <span >{{ this.timeframe }}</span> </h3>
         <div class="timeframe d-flex justify-content-end me-4 gap-1">
-            <span @click="oneYear" class="badge bg-primary fw-light"
+            <span @click="getStats('year')" class="badge bg-primary fw-light"
             :class="[this.isSelected === 'year' ? 'selected' : '']">1 Y</span>
-            <span @click="oneMonth" class="badge bg-primary fw-light"
+            <span @click="getStats('month')" class="badge bg-primary fw-light"
             :class="[this.isSelected === 'month' ? 'selected' : '']">1 M</span>
-            <span @click="oneWeek" class="badge bg-primary fw-light"
+            <span @click="getStats('week')" class="badge bg-primary fw-light"
             :class="[this.isSelected === 'week' ? 'selected' : '']">1 W</span>
-            <span @click="oneDay" class="badge bg-primary fw-light"
+            <span @click="getStats('day')" class="badge bg-primary fw-light"
             :class="[this.isSelected === 'day' ? 'selected' : '']">1 D</span>
         </div>
         <Bar v-if="loaded" :data="data" :options="options" class="p-2"/>
@@ -62,7 +62,7 @@
       }
     },
     methods: {
-      getStats() {
+      getStats(time) {
         const startDate = moment().subtract(7, 'year').format('Y-MM-DD');
         const endDate = moment().format('Y-MM-DD');
   
@@ -75,6 +75,18 @@
           }
         }).then(res => {
           this.reviewStats = res.data.statsReviews
+          if(time === 'year') {
+          this.oneYear()
+        }
+        else if(time === 'month') {
+          this.oneMonth()
+        }
+        else if(time === 'week') {
+          this.oneWeek()
+        }
+        else if(time === 'day') {
+          this.oneDay()
+        }
    
         });
       },
@@ -118,13 +130,12 @@
   
          
   
-        }, 100);
+        }, 0);
         setTimeout(() => {
           this.loaded = true
-        }, 600);
+        }, 0);
         this.isSelected = 'day';
         this.timeframe = 'giorno'
-        this.getStats();
     
       },
       oneWeek() {
@@ -170,13 +181,12 @@
   
          
   
-        }, 100);
+        }, 0);
         setTimeout(() => {
           this.loaded = true
-        }, 600);
+        }, 0);
         this.isSelected = 'week';
         this.timeframe = 'settimana'
-        this.getStats();
      
       },
       oneMonth() {
@@ -223,13 +233,12 @@
   
          
   
-        }, 100);
+        }, 0);
         setTimeout(() => {
           this.loaded = true
-        }, 600);
+        }, 0);
         this.isSelected = 'month';
         this.timeframe = 'mese'
-        this.getStats();
    
       },
       oneYear() {
@@ -276,20 +285,19 @@
   
          
   
-        }, 100);
+        }, 0);
         setTimeout(() => {
           this.loaded = true
-        }, 600)
+        }, 0)
         this.isSelected = 'year';
         this.timeframe = 'anno'
-        this.getStats();
       
         
   
       }
     },
     mounted() {
-      this.oneYear()
+      this.getStats('year')
     }
   }
   </script>
