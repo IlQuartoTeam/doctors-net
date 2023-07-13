@@ -262,9 +262,9 @@ export default {
                     <select v-model="reviewCountSelected" class="mb-3  mb-md-0 text-doc-blue" name="reviews_select"
                         id="reviews_select">
                         <option value="all">Numero Recensioni</option>
-                        <option value="1">Qualcuna</option>
-                        <option value="5">Tante</option>
-                        <option value="10">Tantissime</option>
+                        <option value="1">Qualcuna (1+)</option>
+                        <option value="5">Tante (5+)</option>
+                        <option value="10">Tantissime (10+)</option>
                     </select>
                 </div>
 
