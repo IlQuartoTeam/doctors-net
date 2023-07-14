@@ -47,12 +47,12 @@ export default {
 }
 
 .container-fluid{
-    position: fixed;
+position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   background: white;
-  z-index: 999;
+  z-index: 9999;
   box-shadow: $doc-shadow;
 }
 .cockie {
