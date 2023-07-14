@@ -18,12 +18,12 @@
                 </p>
                 <h2 class="text-doc-blue"><strong>I ringraziamenti importanti</strong></h2>
                 <p class="text-doc-blue">
-                    Un grazie speciale a tutte le ragazze e a tutti i ragazzi di Classe 92, senza i quali questi 6 mesi sarebbero stati decisamente meno entusiasmanti, grazie per tutte le risate, i messaggi su telegram e discord, i giochi, le ore passate a condividere schermi, a fare altre lezioni a confrontarsi. Grazie.
+                    Un grazie speciale a tutte le ragazze e a tutti i ragazzi di Classe 92, senza i quali questi 6 mesi sarebbero stati decisamente meno entusiasmanti, grazie per tutte le risate, i messaggi su telegram e discord, i giochi, le ore passate a condividere schermi, a fare altre lezioni e a confrontarsi. Grazie.
                     
                 </p>
                 <h2 class="text-doc-blue"><strong>I ringraziamenti necessari</strong></h2>
                 <p class="text-doc-blue">
-                    Necessari, ma non fatti controvoglia. Un grazie speciale a Clelia Fradella, la nostra insegnante, che con instancabile dedizione ha spiegato per 6 mesi, moltissime ore, da come si centra un <code>div</code> a come si imposta l'API da Laravel. <span class="text-uppercase">&egrave;</span> stato un viaggio intenso, l'abbiamo affrontato a testa alta ed eccoci qui, su questo sito web che sta davvero in piedi da solo. <br><br> Grazie ai nostri tutor, Marco e Samuel, senza i quali nei pomeriggi dei studio avremmo dovuto avere 12 ore in pi&ugrave;. E senza i quali sicuramente non avremmo scoperto molte cose nuove.
+                    Necessari, ma non fatti controvoglia. Un grazie speciale a Clelia Fradella, la nostra insegnante, che con instancabile dedizione ha spiegato per 6 mesi, moltissime ore, da come si centra un <code>div</code> a come si imposta l'API da Laravel. <span class="text-uppercase">&egrave;</span> stato un viaggio intenso, l'abbiamo affrontato a testa alta ed eccoci qui, su questo sito web che sta davvero in piedi da solo. <br><br> Grazie ai nostri tutor, Marco e Samuel, senza i quali nei pomeriggi di studio avremmo dovuto avere 12 ore in pi&ugrave;. E senza i quali sicuramente non avremmo scoperto molte cose nuove.
                 </p>
                 <h2 class="text-doc-blue"><strong>I ringraziamenti finali</strong></h2>
                 <p class="text-doc-blue">

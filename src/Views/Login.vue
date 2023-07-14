@@ -26,6 +26,7 @@
             <div class="text-center d-flex flex-column gap-2">
                 <ButtonComponent :button="true" type="submit" className="primary">Login</ButtonComponent>
                 <ButtonComponent link="/register" className="outline">Registrati</ButtonComponent>
+                <router-link to="/">Torna alla home</router-link>
             </div>
             <p v-if="message.text" class="text-doc-red text-center mt-2">{{ message.text }}</p>
         </form>
