@@ -5,7 +5,7 @@
         <h2>Esperienze Lavorative</h2>
         <timeline v-for="start in works" :key="start.id">
           <timeline-title>
-            <p class="title text-doc-red">{{ '12/' + getStartYear(start.start_date)  }}</p>
+            <p class="title text-doc-red">{{ getStartYear(start.start_date)  }}</p>
           </timeline-title>
           <timeline-item v-for="experience in filteredYear('work', getStartYear(start.start_date))" :key="experience.id">
             <div class="info">
@@ -25,7 +25,7 @@
         <div>
           <timeline v-for="start in educations" :key="start.id">
             <timeline-title>
-              <p class="title text-doc-red">{{'12/' +  getStartYear(start.start_date) }}</p>
+              <p class="title text-doc-red">{{getStartYear(start.start_date) }}</p>
             </timeline-title>
             <timeline-item v-for="experience in filteredYear('education', getStartYear(start.start_date))"
               :key="experience.id">
