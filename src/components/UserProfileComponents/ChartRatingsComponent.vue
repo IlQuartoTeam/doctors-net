@@ -53,12 +53,12 @@ export default
         data() {
             return {
                 reviewsData: [0, 0, 0, 0, 0],
-                yearSelected: '2022',
+                yearSelected: '2023',
                 canvas: null,
                 chart: null,
                 start: '2000-01-01',
-                end: '2022-12-31',
-                year: 2022,
+                end: '2023-12-31',
+                year: 2023,
                 labels: ['1 Stella', '2 Stelle', '3 Stelle', '4 Stelle', '5 Stelle'],
                 month: '',
                 total: 0,
