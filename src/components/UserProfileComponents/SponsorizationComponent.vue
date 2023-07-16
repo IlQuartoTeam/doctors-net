@@ -176,15 +176,15 @@ export default {
             this.countDown = setInterval(() => {
                 const toDay = new Date().getTime()
                 const distance = this.endTime - toDay;
-
+                if (distance < 0) {
+                    this.userIsPremium = false;
+                    clearInterval(this.countDown);
+                }
                 this.days = Math.floor(distance / (day)),
                     this.hours = Math.floor((distance % (day)) / (hour)),
                     this.minutes = Math.floor((distance % (hour)) / (minute)),
                     this.seconds = Math.floor((distance % (minute)) / second);
-
-                console.log(this.endTime - toDay);
-
-            }, 1000)
+            }, 200)
         }
     },
     mounted() {
@@ -194,6 +194,7 @@ export default {
         } else {
             this.userIsPremium = false
         }
+        console.log(store.userDoctor);
     },
     beforeUnmount() {
         clearInterval(this.countDown)
