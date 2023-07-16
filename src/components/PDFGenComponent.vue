@@ -40,14 +40,14 @@ export default {
                             {
                                 width: '*',
                                 text: [
-                                    { text: 'Nome: ', bold: true },
-                                    { text: `${this.doctor.name} ${this.doctor.surname}` + '\n\n' },
-                                    { text: 'Indirizzo: ', bold: true },
-                                    { text: `${this.doctor.address}` + '\n\n' },
-                                    { text: 'Telefono: ', bold: true },
-                                    { text: `${this.doctor.phone}` + '\n\n' },
-                                    { text: 'Email: ', bold: true },
-                                    { text: `${this.doctor.email}` + '\n\n' }
+                                    { text: 'Nome: ', bold: true, style: 'header' },
+                                    { text: `${this.doctor.name} ${this.doctor.surname}` + '\n\n', style: 'content' },
+                                    { text: 'Indirizzo: ', bold: true, style: 'header' },
+                                    { text: `${this.doctor.address} -` + ` ${this.doctor.city}` + '\n\n', style: 'content' },
+                                    { text: 'Telefono: ', bold: true, style: 'header' },
+                                    { text: `${this.doctor.phone}` + '\n\n', style: 'content' },
+                                    { text: 'Email: ', bold: true, style: 'header' },
+                                    { text: `${this.doctor.email}` + '\n\n', style: 'content' }
                                 ]
                             }
                         ]
@@ -57,21 +57,23 @@ export default {
                     { text: '\n\n' },
                     { text: '\n\n' },
                     // Esperienze lavorative
-                    { text: 'Esperienze lavorative:', style: 'header' },
+                    { text: 'Esperienze lavorative:', style: 'expHeader' },
                     { text: '\n' },
 
                     {
                         ul: this.workExperiences,
-                        lineHeight: 2
+                        lineHeight: 2,
+                        style: 'content'
                     },
                     // Spazio vuoto per separare le esperienze lavorative dalle esperienze formative
                     { text: '\n\n' },
                     // Esperienze formative
-                    { text: 'Esperienze formative:', style: 'header' },
+                    { text: 'Esperienze formative:', style: 'expHeader' },
                     { text: '\n' },
                     {
                         ul: this.studyExperiences,
-                        lineHeight: 2
+                        lineHeight: 2,
+                        style: 'content'
                     }
                 ],
                 images: {
@@ -82,7 +84,16 @@ export default {
                 styles: {
                     header: {
                         bold: true,
-                        fontSize: 14
+                        fontSize: 12,
+                        color: '#0071A2'
+                    },
+                    content: {
+                        color: '#0071A2'
+                    },
+                    expHeader: {
+                        bold: true,
+                        fontSize: 14,
+                        color: '#F38F23'
                     }
                 }
             };
