@@ -125,6 +125,7 @@ export default {
                     store.toast.success(this.message, { timeout: 1500 });
                     axios.get(store.API_URL + 'doctors/' + store.singleDoctor.id + '/reviews').then(res => {
                         store.reviewOrdered = res.data.data;
+                        store.newItemsReviews = res.data.total
                     });
 
                 }, 2000);

@@ -7,10 +7,12 @@
             <SidebarComponent />
         </div>
         <div class="content position-relative w-100">
-            <HeroUserComponent v-if="store.dashboard.heroOpen" />
-            <ChartRatingsComponent v-if="store.dashboard.chartsOpen" />
-            <ChartMessageComponent v-if="store.dashboard.chartsOpen" />
-            <ChartReviewComponent v-if="store.dashboard.chartsOpen" />
+            <div class="p-5">
+                <ChartRatingsComponent v-if="store.dashboard.chartsOpen" />
+                <ChartMessageComponent v-if="store.dashboard.chartsOpen" />
+                <ChartReviewComponent v-if="store.dashboard.chartsOpen" />
+            </div>
+            
             <MessageUserComponent v-if="store.dashboard.messaggesOpen" />
             <SettingUserComponent v-if="store.dashboard.generalInfo" />
             <ExperiencesUserComponent v-if="store.dashboard.experiences" />
@@ -139,6 +141,10 @@ export default {
 </script>
  
 <style lang="scss" scoped>
+
+.sidebar{
+    background-color: white;
+}
 .sideButton {
     position: fixed;
     top: 80%;
