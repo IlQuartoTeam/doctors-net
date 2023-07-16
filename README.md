@@ -49,7 +49,8 @@ npm run dev
 https://github.com/IlQuartoTeam/backend-doctorsnet
 
 5. Modifica il file ```env``` valorizzando le variabili
-```php 
+```php
+DB_USERNAME=yourusername
 DB_PASSWORD=yourpassword
 
 FILESYSTEM_DISK=public
@@ -64,8 +65,11 @@ BRAINTREE_PRIVATE_KEY=yourprivatekey
 4. Run 
 ```bash 
 composer install
+cp .env.example .env
+php artisan key:generate
 php artisan migrate
 php artisan db:seed
+
 ```
 
 Enjoy.
