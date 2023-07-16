@@ -142,7 +142,7 @@
             <div class="medikit col-6">
                 <img class="img-fluid" src="/img/other/medikit.png" alt="">
             </div>
-            <h2 class="col-10 pb-4">Non hai ancora ricevuto nessun messaggio</h2>
+            <h2 class="col-10 pb-4 text-doc-blue">Non hai ancora ricevuto nessun messaggio</h2>
         </div>
         <!-- <h2>Non hai ancora nessun messaggio</h2> -->
     </div>
@@ -489,6 +489,7 @@ export default {
 .medikit {
     max-width: 350px;
     min-width: 200px;
+    opacity: .7;
 }
 
 .beenRead {
